@@ -858,3 +858,25 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
  display:grid;place-items:center;background:#55462e;color:#e9d6af;border:1px solid #b59a6b;
  font:700 11px var(--font-display);box-shadow:0 1px 5px #0008; }
 @media(max-width:720px) { .kingdom-token img { width:30px;height:31px; } }
+
+/* Hero window resembles an RPG paper-doll chamber, not a settings form. */
+@media(min-width:850px) {
+ .hero-game-character { display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,245px);column-gap:14px;align-items:start; }
+ .hero-game-character>.hero-game-profile { grid-column:1;grid-row:1;grid-template-columns:minmax(150px,210px) minmax(0,1fr); }
+ .hero-game-character>.hero-game-stats { grid-column:1;grid-row:2; }
+ .hero-game-character>.hero-game-equipment-panel { grid-column:2;grid-row:1/3; }
+}
+.hero-game-equipment-panel { background:linear-gradient(#45392a,#2a241d);border:1px solid #8c7553;padding:11px;min-width:0; }
+.hero-game-equipment-panel h3 { margin:0 0 11px!important;padding:0 0 9px!important;border-bottom:1px solid #967d5b!important; }
+.hero-game-equipment-panel .hero-game-equipment { display:grid;grid-template-columns:minmax(0,1fr);gap:7px; }
+.hero-game-equipment-panel .hero-game-slot { min-height:66px;background:radial-gradient(circle at 23% 45%,#73614c55,#221d17); }
+.hero-game-equipment-panel .hero-game-slot-icon { width:55px;height:55px; }
+.hero-game-equipment-panel .hero-game-slot:has(img) { background:linear-gradient(130deg,#665138,#2b241d); }
+@media(min-width:850px) and (max-width:1250px) {
+ .hero-game-character>.hero-game-profile { grid-template-columns:1fr; }
+ .hero-game-character .hero-game-portrait { max-height:185px; }
+}
+@media(max-width:849px) {
+ .hero-game-equipment-panel { margin-top:13px; }
+ .hero-game-equipment-panel .hero-game-equipment { grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); }
+}

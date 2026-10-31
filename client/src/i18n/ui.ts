@@ -210,7 +210,7 @@ const ru: Record<UIKey, string> = {
   chooseRace: "Выберите народ", players: "игроков", speed: "скорость", city: "Город", economy: "Экономика",
   research: "Исследования", army: "Армия", heroes: "Герои", map: "Карта", missions: "Походы", reports: "Отчёты",
   market: "Рынок", alliance: "Альянс", quests: "Задания", mail: "Почта", profile: "Профиль", settings: "Настройки",
-  more: "Ещё", level: "Уровень", upgrade: "Улучшить", build: "Построить", maxLevel: "Максимальный уровень",
+  more: "Ещё", all: "Все", level: "Уровень", upgrade: "Улучшить", build: "Построить", maxLevel: "Максимальный уровень",
   cost: "Стоимость", time: "Время", requires: "Требуется", cancel: "Отмена", confirm: "Подтвердить", close: "Закрыть",
   send: "Отправить", queue: "Очередь", queueEmpty: "Ничего не выполняется", inProgress: "Выполняется", done: "Готово",
   retry: "Повторить", empty: "Здесь пока пусто", perHour: "/ч", storage: "Склад", protected: "Скрыто от грабителей",

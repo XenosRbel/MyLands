@@ -40,3 +40,38 @@ Two additional faction emblems are available.
 The repository tree and Game Pack artwork paths were checked through GitHub.
 No missing target files were found in that check.
 A browser render test and a production build remain unverified.
+
+## Visual quality correction — 2026-11-01
+
+File existence is not an art-quality acceptance test.
+The first report claimed 22/22 units only because paths existed.
+Ten unit pictures are low-detail SVG placeholders.
+Four neutral location images are also SVG placeholders.
+This is a visual release blocker.
+
+### Replace with consistent illustrated assets
+
+- Units: griffin, ballista, wagon, settler, wolf, brigand, troll, wraith, golem, drake.
+- Neutral sites: wolf_den, brigand_camp, barrow, crater.
+- Hero inventory already has original painted WebP assets.
+- The map now renders the painted keep for city markers.
+- Research tier nodes now reuse existing painted building art.
+- Research still needs dedicated illustrated technology icons.
+
+### Art direction and acceptance
+
+- Match the existing hand-painted WebP pack, not flat iconography.
+- Keep subdued lighting, readable silhouettes, and natural materials.
+- Use consistent perspective and transparent backgrounds for units.
+- Distinguish faction troops from neutral monsters visually.
+- Provide one large illustration and one derived small icon per entity.
+- Validate 48px, 96px, and 256px rendering.
+- Do not stretch, recolor, or silently reuse a different entity image.
+- Check every final image in army, map, hero, and research screens.
+- Reject a release if any placeholder remains in the illustrated entity set.
+
+### Implementation status
+
+Map city markers, hero items, and research illustration wiring were improved.
+The 14 low-quality SVG illustrations have not yet been replaced.
+No claim of 1:1 visual parity or complete art coverage is justified.

@@ -31,6 +31,9 @@ jobs:
         with:
           go-version-file: server/go.mod
           cache-dependency-path: server/go.sum
+      - name: Validate game packs
+        run: go run ./cmd/packtool summary ../packs/*/
+        working-directory: server
       - run: go vet ./...
         working-directory: server
       - run: go test ./...

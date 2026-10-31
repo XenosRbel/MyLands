@@ -66,3 +66,48 @@
  .city-scene .plot.can:not(.built) .plot-mark { animation:none; }
 }
 [data-motion="reduce"] .city-scene .plot.can:not(.built) .plot-mark { animation:none; }
+
+/* Muted parchment and timber research chamber. */
+.kingdom-shortcuts { display:flex; gap:6px; margin-left:auto; align-items:center; }
+.kingdom-token { cursor:pointer; position:relative; display:flex; align-items:center; justify-content:center; width:54px; height:52px; border:1px solid #78674e; border-radius:6px; background:linear-gradient(#524739,#30291f); color:#dbcdab; box-shadow:inset 0 1px #c1ac7a30; }
+.kingdom-token:hover,.kingdom-token:focus-visible { border-color:#c3a76e; background:#60523d; }
+.kingdom-token img { width:38px; height:38px; object-fit:cover; border-radius:4px; }
+.kingdom-token .token-label { position:absolute; left:50%; transform:translateX(-50%); bottom:-24px; white-space:nowrap; font-size:11px; background:#302920; border:1px solid #6d5b40; padding:2px 5px; border-radius:4px; pointer-events:none; opacity:0; transition:opacity .15s; z-index:30; }
+.kingdom-token:hover .token-label,.kingdom-token:focus-visible .token-label { opacity:1; }
+.research-screen { color:#e8dec7; }
+.research-heading { display:flex; align-items:center; gap:12px; padding:15px 19px; margin-bottom:13px; border:1px solid #6b5941; border-radius:8px; background:linear-gradient(120deg,#40382b,#2d281f); }
+.research-heading h1 { margin:0 0 4px; font-size:1.8rem; }
+.research-heading>svg { color:#bcaa7b; }
+.research-heading p { margin:0; }
+.research-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,315px); gap:14px; align-items:start; }
+.research-tree { display:grid; gap:13px; min-width:0; }
+.research-branch { border:1px solid #806948; border-radius:7px; padding:12px; background:linear-gradient(125deg,#41382b,#29251e); box-shadow:inset 0 1px #c9ad7540,0 4px 12px #100d0924; }
+.research-branch-title { font:600 18px var(--font-display); color:#ddd0ad; display:flex; align-items:center; gap:10px; padding:2px 4px 10px; border-bottom:1px solid #88715055; }
+.research-branch-title .icon { color:#bdaa84; }
+.research-paths { display:grid; gap:7px; padding-top:10px; }
+.research-path { display:grid; grid-template-columns:minmax(150px,1fr) minmax(0,1.5fr); gap:10px; align-items:center; padding:6px; border-radius:6px; }
+.research-path.selected { background:#a38c5d16; outline:1px solid #bda77b40; }
+.research-name { display:flex; gap:9px; align-items:center; text-align:left; background:transparent; border:0; color:#e7dbc4; font:inherit; cursor:pointer; min-width:0; }
+.research-name small { display:block; color:#b3a690; font-size:12px; }
+.research-name-icon { min-width:36px; height:36px; display:grid; place-items:center; color:#d6b77d; border:1px solid #8b744f; border-radius:4px; background:#342d23; }
+.research-nodes { display:flex; align-items:center; gap:0; min-width:0; }
+.research-node { flex:1 1 0; max-width:73px; min-width:35px; height:62px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; position:relative; border:1px solid #786b57; border-radius:5px; background:linear-gradient(#524738,#302b25); color:#a99c87; font:12px var(--font-display); cursor:pointer; transition:background .2s,border-color .2s; }
+.research-node:not(:first-child) { margin-left:12px; }
+.research-node:not(:first-child)::before { content:""; position:absolute; width:12px; left:-13px; top:50%; border-top:2px solid #9e896a; }
+.research-node.completed { color:#e0cba0; border-color:#b9a06e; background:linear-gradient(#776247,#43382b); }
+.research-node.completed b { position:absolute; top:0; right:2px; color:#9fb48a; }
+.research-node.available { border-color:#b4a079; color:#dfc898; }
+.research-node.pending { border-color:#8ba39a; color:#c4dcd5; }
+.research-node:hover { background:#74624b; }
+.research-extra { padding-left:8px; font-size:12px; color:#b9a88d; }
+.research-aside { display:grid; gap:12px; }
+.research-detail { border-color:#88704b; padding:16px; background:linear-gradient(#4b3e2e,#332d25); }
+.research-detail-art { height:116px; border:1px solid #8c7750; display:grid; place-items:center; color:#dfc58c; background:radial-gradient(circle,#79674844,#241f1a); margin-bottom:12px; }
+.research-detail p { line-height:1.5; }
+.research-detail h2 { margin-bottom:4px; }
+.research-level-progress { height:9px; border:1px solid #77654b; background:#211d18; border-radius:6px; overflow:hidden; }
+.research-level-progress>span { display:block; height:100%; background:#9da77a; transition:width .3s ease; }
+@media(max-width:1020px) { .research-layout { grid-template-columns:1fr; } .research-aside { grid-row:1; } }
+@media(max-width:740px) { .kingdom-token { width:37px; height:39px; } .kingdom-token img { width:28px;height:28px; } .research-path { grid-template-columns:1fr; } .research-node { height:48px; } .research-branch { padding:8px; } }
+@media(prefers-reduced-motion:reduce) { .research-node,.research-level-progress>span { transition:none; } }
+[data-motion="reduce"] .research-node,[data-motion="reduce"] .research-level-progress>span { transition:none; }

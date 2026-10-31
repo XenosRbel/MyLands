@@ -191,6 +191,25 @@ func (c *pctx) techStep(ci *City, t *pack.Tech, jobs []Job) *NextStep {
 	return n
 }
 
+// clearOtherExclusive removes earlier completed paths from the same group.
+// This preserves one active specialisation per player.
+func (c *pctx) clearOtherExclusive(t *pack.Tech) bool {
+	if t == nil || t.ExclusiveGroup == "" {
+		return false
+	}
+	changed := false
+	for _, other := range c.p.Techs {
+		if other.ID != t.ID && other.ExclusiveGroup == t.ExclusiveGroup && c.pl.Techs[other.ID] > 0 {
+			delete(c.pl.Techs, other.ID)
+			changed = true
+		}
+	}
+	if changed {
+		c.recomputeMods()
+	}
+	return changed
+}
+
 // exclusiveTaken returns the tech of the same exclusive group already
 // researched or queued (specialisations are mutually exclusive), or "".
 func (c *pctx) exclusiveTaken(t *pack.Tech, jobs []Job) string {
@@ -379,18 +398,7 @@ func (c *pctx) Research(ci *City, techID string) (*Job, error) {
 	}
 	// Changing a specialisation cancels the previous one when research begins.
 	// This is atomic with the new research order and resource spend.
-	if t.ExclusiveGroup != "" {
-		changed := false
-		for _, other := range c.p.Techs {
-			if other.ID != t.ID && other.ExclusiveGroup == t.ExclusiveGroup && c.pl.Techs[other.ID] > 0 {
-				delete(c.pl.Techs, other.ID)
-				changed = true
-			}
-		}
-		if changed {
-			c.recomputeMods()
-		}
-	}
+	c.clearOtherExclusive(t)
 	return c.insertJob(ci, "research", t.ID, n.Level, 1, n.Cost, queueEnd(c.now, jobs), n.Seconds)
 }
 
@@ -497,13 +505,8 @@ func (c *pctx) completeJob(jobID int64) error {
 			ci.Buildings[j.Item] = j.Level
 		}
 	case "research":
-		if t := c.p.Tech(j.Item); t != nil && t.ExclusiveGroup != "" {
-			// Only one completed specialisation can affect the player.
-			for _, other := range c.p.Techs {
-				if other.ID != t.ID && other.ExclusiveGroup == t.ExclusiveGroup {
-					delete(c.pl.Techs, other.ID)
-				}
-			}
+		if t := c.p.Tech(j.Item); t != nil {
+			c.clearOtherExclusive(t)
 		}
 		if c.pl.Techs[j.Item] < j.Level {
 			c.pl.Techs[j.Item] = j.Level

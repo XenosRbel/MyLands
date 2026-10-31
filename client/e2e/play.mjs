@@ -173,32 +173,32 @@ await artPage.waitForFunction(() =>
 await artPage.screenshot({path: `${out}/20-art-consistency.png`, fullPage: true});
 await artPage.close();
 
-// Raster technology art QA: inspect all 18 research subjects at three visible levels.
+// Raster technology art QA: inspect all 18 research subjects at every supported level.
 const techIds = [
  "forestry","agriculture","masonry","metallurgy","exchequer","husbandry",
  "tactics","armour","logistics","espionage","beastlore","engineering",
  "arcana","plunder","heroics","path_architect","path_steward","path_warlord"
 ];
 const researchPage = await ctx.newPage();
-await researchPage.setViewportSize({width:1380,height:1100});
+await researchPage.setViewportSize({width:1380,height:1300});
 await researchPage.goto(base);
 await researchPage.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>
 body{margin:0;padding:20px;background:#29221d;color:#f0dbba;font:13px Georgia,serif;}
 h1{font-size:22px;}
-main{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
+main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
 article{display:flex;flex-direction:column;align-items:center;border:1px solid #927650;background:linear-gradient(#53422e,#221c17);padding:8px;}
 label{margin:4px;color:#ddc8a4;}
 .row{display:flex;gap:4px;}
-img{width:65px;height:65px;object-fit:contain;}
-</style></head><body><h1>Research WebP art — novice / adept / master</h1><main>
-${techIds.map(id=>`<article><label>${id}</label><div class="row">${[1,2,3].map(rank=>
+img{width:49px;height:49px;object-fit:contain;}
+</style></head><body><h1>Research WebP art — all unique technology levels</h1><main>
+${techIds.map(id=>`<article><label>${id}</label><div class="row">${Array.from({length: id.startsWith("path_") ? 3 : ["beastlore","engineering","arcana","plunder","heroics"].includes(id) ? 5 : 10}, (_,i) => i+1).map(rank=>
  `<img alt="${id} ${rank}" src="${base}/ui/research/${id}-${rank}.webp"/>`).join("")}</div></article>`).join("")}
 </main></body></html>`);
 await researchPage.waitForFunction(()=>
  [...document.querySelectorAll("article img")].every(img=>img.complete && img.naturalWidth>0),
  {timeout:20000}
 );
-await researchPage.screenshot({path:`${out}/26-raster-research-art.png`,fullPage:true});
+await researchPage.screenshot({path:`${out}/26-all-level-research-art.png`,fullPage:true});
 await researchPage.close();
 
 // mobile layout

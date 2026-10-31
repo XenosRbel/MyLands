@@ -377,6 +377,20 @@ func (c *pctx) Research(ci *City, techID string) (*Job, error) {
 	if err := c.spend(ci, n.Cost, "research", fmt.Sprintf("%s:%d", t.ID, n.Level)); err != nil {
 		return nil, err
 	}
+	// Changing a specialisation cancels the previous one when research begins.
+	// This is atomic with the new research order and resource spend.
+	if t.ExclusiveGroup != "" {
+		changed := false
+		for _, other := range c.p.Techs {
+			if other.ID != t.ID && other.ExclusiveGroup == t.ExclusiveGroup && c.pl.Techs[other.ID] > 0 {
+				delete(c.pl.Techs, other.ID)
+				changed = true
+			}
+		}
+		if changed {
+			c.recomputeMods()
+		}
+	}
 	return c.insertJob(ci, "research", t.ID, n.Level, 1, n.Cost, queueEnd(c.now, jobs), n.Seconds)
 }
 

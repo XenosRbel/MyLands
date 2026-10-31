@@ -93,6 +93,7 @@ export function CityScreen() {
   const { city, idx, t, go } = useGame();
   const [open, setOpen] = useState<BuildingView | null>(null);
   const [category, setCategory] = useState<string>("all");
+  const [showCatalogue, setShowCatalogue] = useState(false);
   if (!city) return null;
   const cats = Array.from(new Set(city.buildings.map((b) => idx.building(b.id)?.category).filter((x): x is string => !!x)));
   const filtered = category === "all" ? city.buildings : city.buildings.filter((b) => idx.building(b.id)?.category === category);
@@ -113,10 +114,10 @@ export function CityScreen() {
       </div>
       <div className="city-game-layout">
         <div className="city-game-stage">
-          <div className="city-game-stage-title"><Icon name="castle" size={18} /> {city.city.name}</div>
+          <div className="city-game-stage-title"><Icon name="castle" size={18} /> {city.city.name}<span className="city-game-stage-coordinates">{city.city.x}:{city.city.y}</span><button type="button" className="btn small city-build-toggle" aria-expanded={showCatalogue} onClick={() => setShowCatalogue(!showCatalogue)}><Icon name="bag" size={16}/>{t("build")}</button></div>
           <CityScene onOpen={setOpen} />
-          <section className="city-game-buildings">
-            <div className="city-game-section-title"><Icon name="bag" size={18} /> {t("build")} <span className="small muted">{filtered.length}</span></div>
+          <section className={"city-game-buildings" + (showCatalogue ? " expanded" : "")} aria-label={t("build")}>
+            <div className="city-game-section-title"><Icon name="bag" size={18} /> {t("build")} <span className="small muted">{filtered.length}</span><button type="button" className="city-catalogue-close" aria-label={t("close")} onClick={() => setShowCatalogue(false)}><Icon name="close" size={18}/></button></div>
             <div className="city-game-categories" role="group" aria-label={t("build")}>
               <button className={category === "all" ? "selected" : ""} aria-pressed={category === "all"} onClick={() => setCategory("all")}>{t("all")}</button>
               {cats.map((cat) => (

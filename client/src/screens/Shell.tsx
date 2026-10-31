@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { useGame, type Screen } from "../game/context";
-import { gameAudioEnabled, playGameCue, setGameAudioEnabled } from "../game/audio";
+import { playGameCue, setGameAudioEnabled } from "../game/audio";
 import { Icon, fmt, Loading, ErrorBox, Timer } from "../ui/kit";
 import { CityScreen } from "./City";
 import { EconomyScreen } from "./Economy";
@@ -103,7 +103,7 @@ export function Shell() {
       </main>
       <nav className="bottomnav" aria-label="Main">
         {primary.filter((s) => enabled.includes(s)).map((s) => (
-          <button key={s} className={screen === s ? "on" : ""} onClick={() => go(s)}>
+          <button key={s} className={screen === s ? "on" : ""} onClick={() => navigate(s)}>
             <Icon name={icons[s]} /> <span>{t(s)}</span>
           </button>
         ))}

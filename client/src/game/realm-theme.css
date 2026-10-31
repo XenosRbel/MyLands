@@ -339,3 +339,97 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 @media(prefers-reduced-motion:reduce) {
  .screen .ucard,.screen .panel { scroll-behavior:auto; }
 }
+
+/* Main city view: playable world first, building catalogue second. */
+.city-game-heading {
+  display:flex;align-items:center;gap:12px;
+  border:1px solid #9b825f;border-bottom:3px solid #b49a73;
+  padding:10px 15px;margin-bottom:12px;
+  background:linear-gradient(180deg,#584532,#30271c);
+  box-shadow:var(--game-frame);
+}
+.city-game-crest { flex:none;display:grid;place-items:center;width:52px;height:53px;
+  color:#dcc49a;border:1px solid #a58b64;background:linear-gradient(#6d593c,#403225);
+  clip-path:polygon(0 0,100% 0,100% 85%,50% 100%,0 85%);
+}
+.city-game-identity { min-width:0;flex:1; }
+.city-game-identity h1 { font-size:1.55rem;margin:0;color:#f0dfb8; }
+.city-game-identity>span { color:#bda98a; }
+.city-game-quick-actions { display:flex;gap:7px;flex-wrap:wrap;justify-content:end; }
+.city-game-layout { display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,285px);gap:14px;align-items:start; }
+.city-game-stage { min-width:0; }
+.city-game-stage-title,.city-game-rail-title,.city-game-section-title {
+  display:flex;align-items:center;gap:8px;min-height:39px;padding:7px 12px;
+  color:#e6d6b4;font:600 1.05rem var(--font-display);
+  border:1px solid #a48b67;border-bottom:0;background:linear-gradient(#615039,#403123);
+}
+.city-game-stage .city-scene { margin:0!important;border:3px ridge #b19b75;box-shadow:0 12px 33px #0007,inset 0 0 40px #0005; }
+.city-game-stage .city-scene::after { pointer-events:none; }
+.city-game-buildings {
+  margin-top:14px;border:1px solid #8c7658;background:linear-gradient(#433629,#2f281e);box-shadow:var(--game-frame);
+}
+.city-game-section-title { border:0;border-bottom:1px solid #806748; }
+.city-game-section-title .small { margin-left:auto; }
+.city-game-categories { display:flex;gap:5px;padding:9px;flex-wrap:wrap;border-bottom:1px solid #8d745a70; }
+.city-game-categories button {
+  display:inline-flex;align-items:center;gap:5px;border:1px solid #756044;border-radius:3px;
+  background:linear-gradient(#55422f,#35281f);color:#cfb995;
+  padding:6px 9px;font:13px var(--font-body);cursor:pointer;
+}
+.city-game-categories button.selected,.city-game-categories button:hover {
+  background:linear-gradient(#85704e,#5b4b34);border-color:#bea475;color:#fff0d0;
+}
+.city-game-building-list { display:grid;grid-template-columns:repeat(auto-fill,minmax(162px,1fr));gap:8px;padding:10px; }
+.city-game-building {
+  display:flex;align-items:center;text-align:left;gap:7px;min-height:74px;
+  position:relative;cursor:pointer;
+  background:linear-gradient(#67523830,#30281f 70%);
+  border:1px solid #8a7455;border-radius:3px;color:#e8d8b7;
+  padding:6px;
+  transition:border-color .18s,background .18s;
+}
+.city-game-building:hover,.city-game-building:focus-visible {
+  border-color:#dac197;background:#715b3e80;
+}
+.city-game-building-art { display:grid;place-items:center;flex:none;width:53px;height:58px;
+  background:radial-gradient(ellipse,#ad95723d,#27231c);border:1px solid #8d76545c;
+}
+.city-game-building-art img { width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 3px #0008); }
+.city-game-building-info { display:flex;flex-direction:column;gap:4px;min-width:0; }
+.city-game-building-info strong { font:600 13px/1.2 var(--font-display);overflow-wrap:anywhere; }
+.city-game-building-info small { color:#b6a586; }
+.city-game-building-action { position:absolute;right:4px;top:4px;color:#b9ab7f; }
+.city-game-building.empty-building { opacity:.77; }
+.city-game-rail {
+  border:1px solid #8e7958;background:linear-gradient(#3e3428,#25201a);
+  padding-bottom:9px;box-shadow:var(--game-frame);
+}
+.city-game-rail-title { border:0;border-bottom:2px solid #a79069; }
+.city-game-rail .panel { border:0;border-bottom:1px solid #796345;margin:0;
+  padding:12px;background:none!important;box-shadow:none!important; }
+.city-game-rail .panel h3 { font-size:.96rem!important; }
+.city-game-rail .queue li { display:flex;align-items:start;flex-direction:column; }
+.city-game-rail-links { display:flex;flex-wrap:wrap;gap:7px;padding:12px 10px 5px; }
+.city-game-rail-links .btn { flex:1; }
+@media(max-width:1050px) {
+  .city-game-layout { grid-template-columns:minmax(0,1fr); }
+  .city-game-rail { display:grid;grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .city-game-rail-title,.city-game-rail-links { grid-column:1/-1; }
+  .city-game-rail .panel { border-right:1px solid #786147; }
+}
+@media(max-width:720px) {
+  .city-game-heading { flex-wrap:wrap;padding:8px; }
+  .city-game-crest { width:40px;height:43px; }
+  .city-game-identity h1 { font-size:1.3rem; }
+  .city-game-quick-actions { width:100%;justify-content:start; }
+  .city-game-rail { display:block; }
+  .city-game-building-list { grid-template-columns:repeat(2,minmax(0,1fr));padding:7px;gap:6px; }
+  .city-game-building { min-height:65px;padding:4px; }
+  .city-game-building-art { width:43px;height:47px; }
+}
+@media(max-width:380px) {
+  .city-game-building-list { grid-template-columns:1fr; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .city-game-building { transition:none; }
+}

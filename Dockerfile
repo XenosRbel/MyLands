@@ -5,6 +5,8 @@ WORKDIR /src/client
 COPY client/package.json client/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY client/ ./
+# The client asset check reads Game Packs from /src/packs.
+COPY packs/ /src/packs/
 RUN npm run build
 
 FROM golang:1.27-alpine AS server

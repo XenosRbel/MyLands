@@ -846,3 +846,8 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 @media(prefers-reduced-motion:reduce) {
  .research-node .research-tier-art { transition:none;animation:none!important; }
 }
+
+/* Painted game pack art replaces flat HUD glyphs where illustrations exist. */
+.game-dock-navigation-art { width:37px;height:38px;object-fit:contain;filter:drop-shadow(0 2px 3px #0009); }
+.game-dock-actions button.active .game-dock-navigation-art { filter:drop-shadow(0 2px 5px #1f2b14a8); }
+@media(max-width:1190px) { .game-dock-navigation-art { width:34px;height:36px; } }

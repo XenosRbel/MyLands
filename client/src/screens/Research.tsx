@@ -3,7 +3,7 @@ import { command } from "../api/client";
 import { useGame } from "../game/context";
 import { Action, CostList, duration, Icon, Reqs } from "../ui/kit";
 import { QueuePanel, blockedLabel, effectText } from "./City";
-import { ResearchEmblem } from "../game/ResearchEmblem";
+import { ResearchSprite } from "../game/ResearchSprite";
 
 const branchNames = {
   economy: "branchEconomy",
@@ -78,7 +78,7 @@ export function ResearchScreen() {
                     <div className={"research-path" + (activeId === tv.id ? " selected" : "")} key={tv.id}>
                       <button type="button" className="research-name" onClick={() => setSelected(tv.id)}
                         aria-pressed={activeId === tv.id}>
-                        <span className="research-name-icon"><ResearchEmblem tech={tv.id} level={tv.level} size={42} /></span>
+                        <span className="research-name-icon"><ResearchSprite tech={tv.id} level={tv.level} size={42} /></span>
                         <span><strong>{idx.name(tv.id)}</strong><small>{tv.level}/{tv.maxLevel}</small></span>
                       </button>
                       <div className="research-nodes">
@@ -92,7 +92,7 @@ export function ResearchScreen() {
                               onClick={() => setSelected(tv.id)}
                               aria-pressed={activeId === tv.id}
                               title={idx.name(tv.id) + " " + roman(level)}>
-                              <ResearchEmblem tech={tv.id} level={level} size={36} className="research-tier-art" />
+                              <ResearchSprite tech={tv.id} level={level} size={36} className="research-tier-art" />
                               <span>{roman(level)}</span>
                               {complete && <b aria-hidden="true">✓</b>}
                             </button>
@@ -109,7 +109,7 @@ export function ResearchScreen() {
         <aside className="research-aside">
           {active && definition && (
             <section className="research-detail panel">
-              <div className="research-detail-art"><ResearchEmblem tech={active.id} level={Math.max(active.level,1)} size={96} /></div>
+              <div className="research-detail-art"><ResearchSprite tech={active.id} level={Math.max(active.level,1)} size={96} /></div>
               <h2>{idx.name(active.id)}</h2>
               <div className="muted small">{t("level")} {active.level} / {active.maxLevel}</div>
               <p>{idx.desc(active.id)}</p>

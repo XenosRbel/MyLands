@@ -8,91 +8,151 @@ import { Action, CostList, Empty, ErrorBox, Icon, Loading, Modal, Progress, Res,
 // ---------------- Heroes ----------------
 export function HeroesScreen() {
   const { world, t, idx, city, refresh, toast } = useGame();
-  const hv = useLoad((s) => get<HeroesView>(`/api/v1/worlds/${world.id}/heroes`, s), [world.id]);
+  const hv = useLoad((signal) => get<HeroesView>(`/api/v1/worlds/${world.id}/heroes`, signal), [world.id]);
   const [cls, setCls] = useState(idx.pack.heroes.classes[0]?.id ?? "");
   const [name, setName] = useState("");
+  const [selectedHeroId, setSelectedHeroId] = useState<number | null>(null);
   if (hv.error) return <ErrorBox error={hv.error} retry={hv.reload} />;
   if (!hv.data || !city) return <Loading />;
-  const d = hv.data;
-  const free = d.inventory.filter((i) => !i.heroId);
+  const data = hv.data;
+  const free = data.inventory.filter((item) => !item.heroId);
+  const hero = data.heroes.find((item) => item.id === selectedHeroId) ?? data.heroes[0];
   return (
-    <div className="screen">
-      <h1>{t("heroes")} <span className="muted small">{d.heroes.length}/{d.maxHeroes}</span></h1>
-      <section className="panel">
-        <h3>{t("hire")}</h3>
-        <div className="row wrap">
-          <select value={cls} onChange={(e) => setCls(e.target.value)} aria-label="Class">
-            {idx.pack.heroes.classes.map((c) => <option key={c.id} value={c.id}>{idx.name(c.id)}</option>)}
-          </select>
-          <input placeholder={t("name")} value={name} maxLength={24} onChange={(e) => setName(e.target.value)} />
-          <CostList cost={d.hireCost} have={city.resources} />
-          <Action className="primary" disabled={d.heroes.length >= d.maxHeroes || name.trim().length < 3} run={async () => {
-            await command(`/api/v1/cities/${city.city.id}/heroes`, { class: cls, name: name.trim() });
-            setName("");
-            toast(t("hire") + " ✓", "ok");
-            hv.reload();
-            await refresh();
-          }}>{t("hire")}</Action>
+    <div className="screen hero-game-screen">
+      <h1>{t("heroes")} <span className="muted small">{data.heroes.length}/{data.maxHeroes}</span></h1>
+      <section className="panel hero-recruit-panel">
+        <h3><Icon name="star" size={19} /> {t("hire")}</h3>
+        <div className="hero-recruit-options">
+          <div className="hero-recruit-portrait">
+            {idx.art(cls) ? <img src={idx.art(cls)} alt="" draggable={false} /> : <Icon name="user" size={34} />}
+          </div>
+          <div className="hero-recruit-controls">
+            <div className="row wrap">
+              <select value={cls} onChange={(e) => setCls(e.target.value)} aria-label={t("hero")}>
+                {idx.pack.heroes.classes.map((item) => <option key={item.id} value={item.id}>{idx.name(item.id)}</option>)}
+              </select>
+              <input placeholder={t("name")} aria-label={t("name")} value={name} maxLength={24} onChange={(e) => setName(e.target.value)} />
+            </div>
+            <p className="small muted">{idx.desc(cls)}</p>
+            <div className="row wrap">
+              <CostList cost={data.hireCost} have={city.resources} />
+              <Action className="primary" disabled={data.heroes.length >= data.maxHeroes || name.trim().length < 3} run={async () => {
+                await command(`/api/v1/cities/${city.city.id}/heroes`, { class: cls, name: name.trim() });
+                setName("");
+                toast(t("hire") + " ✓", "ok");
+                hv.reload();
+                await refresh();
+              }}>{t("hire")}</Action>
+            </div>
+          </div>
         </div>
-        <p className="small muted">{idx.desc(cls)}</p>
       </section>
-      {!d.heroes.length ? <Empty /> : d.heroes.map((h) => (
-        <section className="panel hero" key={h.id}>
-          <header className="row">
-            {idx.art(h.class) && <img className="portrait hero" src={idx.art(h.class)} alt="" loading="lazy" draggable={false} />}
-            <strong>{h.name}</strong> <span className="tag">{idx.name(h.class)}</span> <span>{t("level")} {h.level}</span>
-            <span className="muted small">{h.status === "mission" ? t("away") : t("home")}</span>
-            {h.woundedUntil && Date.parse(h.woundedUntil) > Date.now() && <span className="tag danger">{t("wounded")} <Timer until={h.woundedUntil} /></span>}
-          </header>
-          {h.nextLevelXp > 0 && <Progress value={h.xp} max={h.nextLevelXp} label="XP" />}
-          <div className="small muted">XP {fmt(h.xp)} / {fmt(h.nextLevelXp)} · {t("skillPoints")}: {h.skillPoints}</div>
-          <div className="small">{Object.entries(h.modifiers).map(([k, v]) => <span key={k} className="tag">{k} {v > 0 ? "+" : ""}{v}</span>)}</div>
-          <h4>{t("skills")}</h4>
-          <div className="row wrap">
-            {idx.pack.heroes.skills.filter((s) => !s.classes?.length || s.classes.includes(h.class)).map((s) => (
-              <Action key={s.id} className="small" disabled={h.skillPoints < 1 || (h.skills[s.id] ?? 0) >= s.maxLevel}
-                title={s.modifiers.map((m) => describeModifier(m, idx)).join(", ")}
-                run={async () => { await command(`/api/v1/worlds/${world.id}/heroes/${h.id}/skills`, { skill: s.id }); hv.reload(); }}>
-                {idx.name(s.id)} {h.skills[s.id] ?? 0}/{s.maxLevel}
-              </Action>
-            ))}
-          </div>
-          <h4>{t("inventory")}</h4>
-          <div className="row wrap">
-            {idx.pack.heroes.slots.map((slot) => {
-              const it = h.items.find((i) => i.slot === slot);
-              return (
-                <div key={slot} className="slot">
-                  <span className="muted small">{slot}</span>
-                  {it ? (
-                    <Action className="small ghost" disabled={h.status !== "idle"} run={async () => { await command(`/api/v1/worlds/${world.id}/heroes/${h.id}/unequip`, { slot }); hv.reload(); }}>
-                      <Icon name={idx.icon(it.def) || "star"} size={22} /> {idx.name(it.def)} ✕
-                    </Action>
-                  ) : (
-                    <select disabled={h.status !== "idle"} value="" aria-label={slot} onChange={async (e) => {
-                      if (!e.target.value) return;
-                      try {
-                        await command(`/api/v1/worlds/${world.id}/heroes/${h.id}/equip`, { itemId: Number(e.target.value) });
-                      } catch (x) {
-                        toast((x as Error).message, "error");
-                      }
-                      hv.reload();
-                    }}>
-                      <option value="">—</option>
-                      {free.filter((i) => idx.get<any>(i.def)?.slot === slot).map((i) => <option key={i.id} value={i.id}>{idx.name(i.def)}</option>)}
-                    </select>
-                  )}
+      {!hero ? <Empty /> : (
+        <div className="hero-game-layout">
+          <div className="hero-game-main">
+            <div className="hero-game-roster" role="group" aria-label={t("heroes")}>
+              {data.heroes.map((h) => (
+                <button key={h.id} className={"hero-game-roster-item" + (hero.id === h.id ? " selected" : "")}
+                  onClick={() => setSelectedHeroId(h.id)} aria-pressed={hero.id === h.id}>
+                  {idx.art(h.class) ? <img src={idx.art(h.class)} alt="" /> : <Icon name="user" size={28} />}
+                  <strong>{h.name}</strong>
+                  <small>{idx.name(h.class)} · {t("level")} {h.level}</small>
+                </button>
+              ))}
+            </div>
+            <section className="panel hero-game-character">
+              <div className="hero-game-profile">
+                <div className="hero-game-portrait">
+                  {idx.art(hero.class) ? <img src={idx.art(hero.class)} alt="" /> : <Icon name="user" size={60} />}
                 </div>
-              );
-            })}
+                <div className="hero-game-overview">
+                  <h2>{hero.name}</h2>
+                  <div className="hero-game-class">{idx.name(hero.class)} · {t("level")} {hero.level}</div>
+                  <p>{idx.desc(hero.class)}</p>
+                  <span className="tag">{hero.status === "mission" ? t("away") : t("home")}</span>
+                  {hero.woundedUntil && Date.parse(hero.woundedUntil) > Date.now() &&
+                    <span className="tag danger">{t("wounded")} <Timer until={hero.woundedUntil} /></span>}
+                  {hero.nextLevelXp > 0 && <Progress value={hero.xp} max={hero.nextLevelXp} label="XP" />}
+                  <div className="small muted">XP {fmt(hero.xp)} / {fmt(hero.nextLevelXp)} · {t("skillPoints")}: {hero.skillPoints}</div>
+                </div>
+              </div>
+              <div className="hero-game-stats">
+                {Object.entries(hero.modifiers).map(([key, value]) => (
+                  <span key={key} className="tag">{key} {value > 0 ? "+" : ""}{value}</span>
+                ))}
+              </div>
+              <h3>{t("inventory")}</h3>
+              <div className="hero-game-equipment">
+                {idx.pack.heroes.slots.map((slot) => {
+                  const item = hero.items.find((entry) => entry.slot === slot);
+                  return (
+                    <div key={slot} className="hero-game-slot">
+                      <div className="hero-game-slot-icon">
+                        {item ? <Icon name={idx.icon(item.def) || "star"} size={31} /> : <Icon name="shield" size={27} />}
+                      </div>
+                      <div className="hero-game-slot-input">
+                        <small>{slot}</small>
+                        {item ? (
+                          <Action className="small ghost" disabled={hero.status !== "idle"} run={async () => {
+                            await command(`/api/v1/worlds/${world.id}/heroes/${hero.id}/unequip`, { slot });
+                            hv.reload();
+                          }}>{idx.name(item.def)} ✕</Action>
+                        ) : (
+                          <select disabled={hero.status !== "idle"} value="" aria-label={slot} onChange={async (event) => {
+                            if (!event.target.value) return;
+                            try {
+                              await command(`/api/v1/worlds/${world.id}/heroes/${hero.id}/equip`, { itemId: Number(event.target.value) });
+                            } catch (error) {
+                              toast((error as Error).message, "error");
+                            }
+                            hv.reload();
+                          }}>
+                            <option value="">—</option>
+                            {free.filter((item) => idx.get<any>(item.def)?.slot === slot).map((item) => (
+                              <option key={item.id} value={item.id}>{idx.name(item.def)}</option>
+                            ))}
+                          </select>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
           </div>
-        </section>
-      ))}
-      {free.length > 0 && (
-        <section className="panel">
-          <h3>{t("inventory")}</h3>
-          <ul className="list">{free.map((i) => <li key={i.id}><Icon name={idx.icon(i.def) || "star"} size={36} /> <strong>{idx.name(i.def)}</strong> <span className="small muted">{idx.desc(i.def)}</span></li>)}</ul>
-        </section>
+          <aside className="hero-game-side">
+            <section className="panel">
+              <h3>{t("skills")}</h3>
+              <div className="hero-game-skills">
+                {idx.pack.heroes.skills.filter((skill) => !skill.classes?.length || skill.classes.includes(hero.class)).map((skill) => (
+                  <div className="hero-game-skill" key={skill.id}>
+                    <Icon name="star" size={26} />
+                    <span><strong>{idx.name(skill.id)}</strong><small>{hero.skills[skill.id] ?? 0}/{skill.maxLevel}</small></span>
+                    <Action className="small" disabled={hero.skillPoints < 1 || (hero.skills[skill.id] ?? 0) >= skill.maxLevel}
+                      title={skill.modifiers.map((modifier) => describeModifier(modifier, idx)).join(", ")}
+                      run={async () => { await command(`/api/v1/worlds/${world.id}/heroes/${hero.id}/skills`, { skill: skill.id }); hv.reload(); }}>
+                      +
+                    </Action>
+                  </div>
+                ))}
+              </div>
+            </section>
+            {free.length > 0 && (
+              <section className="panel">
+                <h3>{t("inventory")}</h3>
+                <ul className="list">
+                  {free.map((item) => (
+                    <li key={item.id}>
+                      <Icon name={idx.icon(item.def) || "star"} size={32} />
+                      <strong>{idx.name(item.def)}</strong>
+                      <span className="small muted">{idx.desc(item.def)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </aside>
+        </div>
       )}
     </div>
   );

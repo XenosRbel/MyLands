@@ -11,6 +11,11 @@ const log = (...a) => console.log("[e2e]", ...a);
 const fail = (m) => { console.error("[e2e] FAIL:", m); process.exit(1); };
 
 // Ensure original painted UI atlas assets survived the production Docker build.
+// The approved frame requires both a scenic city and an illustrated world-globe shortcut.
+const globeAsset = await fetch(`${base}/ui/world-globe.svg`);
+if (!globeAsset.ok || !(await globeAsset.text()).includes('id="sea"')) {
+  fail("The game's original globe command artwork is missing.");
+}
 // The city backdrop is an independently illustrated landscape, not repeated tile art.
 const scenery = await fetch(`${base}/ui/city-landscape.svg`);
 if (!scenery.ok || !(await scenery.text()).includes('id="water"')) {
@@ -44,6 +49,7 @@ log("joined world; city screen rendered");
 await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
 await page.locator(".game-clock").waitFor();
+await page.locator(".game-dock-globe").waitFor();
 const cityArtEnabled = await page.locator(".city-game-stage .city-scene").evaluate((element) =>
   getComputedStyle(element).backgroundImage.includes("city-landscape.svg"));
 if (!cityArtEnabled) fail("City stage is still displaying a repeated terrain background.");
@@ -99,6 +105,10 @@ if (await constructionTabs.count() > 1) {
 }
 await page.getByRole("dialog").getByRole("button", { name: /Upgrade/ }).click();
 await page.locator(".toast.ok").waitFor();
+const firstQueue = page.locator(".city-game-rail .game-queue-entry").first();
+await firstQueue.waitFor();
+if (!await firstQueue.locator(".game-queue-progress").count()) fail("Queued building is missing visual progress bar.");
+await page.screenshot({ path: `${out}/25-active-building-queue.png`, fullPage: true });
 log("upgrade queued");
 await page.keyboard.press("Escape");
 // world speed x50: level 2 takes ~2 s

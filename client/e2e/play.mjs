@@ -10,6 +10,13 @@ const out = process.argv[3] ?? ".";
 const log = (...a) => console.log("[e2e]", ...a);
 const fail = (m) => { console.error("[e2e] FAIL:", m); process.exit(1); };
 
+// Ensure original painted UI atlas assets survived the production Docker build.
+for (const asset of ["panel_main.png", "panel_wide.png", "portrait_frame.png", "dialog.png"]) {
+  const result = await fetch(`${base}/ui/painted/${asset}`);
+  if (!result.ok || !result.headers.get("content-type")?.includes("image/")) {
+    fail(`Missing painted game UI asset: ${asset} (${result.status})`);
+  }
+}
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1360, height: 860 } });
 const page = await ctx.newPage();

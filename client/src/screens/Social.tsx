@@ -81,8 +81,9 @@ export function HeroesScreen() {
                   <span key={key} className="tag">{key} {value > 0 ? "+" : ""}{value}</span>
                 ))}
               </div>
-              <h3>{t("inventory")}</h3>
-              <div className="hero-game-equipment">
+              <section className="hero-game-equipment-panel">
+                <h3>{t("inventory")}</h3>
+                <div className="hero-game-equipment">
                 {idx.pack.heroes.slots.map((slot) => {
                   const item = hero.items.find((entry) => entry.slot === slot);
                   return (
@@ -119,7 +120,8 @@ export function HeroesScreen() {
                     </div>
                   );
                 })}
-              </div>
+                </div>
+              </section>
             </section>
           </div>
           <aside className="hero-game-side">

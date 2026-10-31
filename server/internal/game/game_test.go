@@ -997,3 +997,29 @@ func TestTransportRejectsUnrelatedPlayer(t *testing.T) {
 	}
 }
 
+
+func TestRaidReleasesMarketEscrow(t *testing.T) {
+	e := newEnv(t)
+	attacker := e.player("escrow_attacker")
+	defender := e.player("escrow_defender")
+	e.setUnits(attacker, map[string]int64{"rider": 50})
+	e.give(defender, pack.Amounts{"wood": 500})
+	order := e.mustCity(defender, func(c game.PCtx, ci *game.City) (any, error) {
+		return c.PlaceOrder(ci, "wood", 100, "gold", 30)
+	}).(*game.Order)
+	x, y := e.location(defender)
+	m := e.mustCity(attacker, func(c game.PCtx, ci *game.City) (any, error) {
+		return c.SendMission(ci, game.MissionRequest{
+			Kind: "attack", X: x, Y: y, Units: map[string]int64{"rider": 50},
+		})
+	}).(*game.Mission)
+	e.clk.Set(m.ArriveAt)
+	_ = e.view(defender)
+	var status string
+	if err := e.s.DB.QueryRow(ctx, "SELECT status FROM market_orders WHERE id=$1", order.ID).Scan(&status); err != nil {
+		t.Fatal(err)
+	}
+	if status != "cancelled" {
+		t.Fatalf("market escrow must be released on a successful raid: %s", status)
+	}
+}

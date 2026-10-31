@@ -84,10 +84,7 @@ await mp.waitForLoadState("networkidle");
 await mp.screenshot({ path: `${out}/15-mobile-city.png` });
 await mp.locator("nav.bottomnav").getByRole("button", { name: "More" }).click();
 await mp.screenshot({ path: `${out}/16-mobile-more.png` });
-await mp.locator(".sheet-body").getByRole("button", { name: "Army" }).click().catch(async () => {
-  await mp.locator("nav.bottomnav").getByRole("button", { name: "More" }).click();
-  await mp.locator(".sheet-body").getByRole("button", { name: "Research" }).click();
-});
+await mp.locator(".sheet-body").getByRole("button", { name: "Research" }).click();
 await mp.locator("main.content h1").first().waitFor();
 await mp.screenshot({ path: `${out}/19-mobile-secondary-screen.png`, fullPage: true });
 const overflow = await mp.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

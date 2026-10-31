@@ -201,9 +201,8 @@ func (c *pctx) exclusiveTaken(t *pack.Tech, jobs []Job) string {
 		if o.ID == t.ID || o.ExclusiveGroup != t.ExclusiveGroup {
 			continue
 		}
-		if c.pl.Techs[o.ID] > 0 {
-			return o.ID
-		}
+		// A completed calling can be replaced by studying a new calling.
+		// Prevent concurrent paths in the research queue.
 		for _, j := range jobs {
 			if j.Item == o.ID {
 				return o.ID
@@ -484,6 +483,14 @@ func (c *pctx) completeJob(jobID int64) error {
 			ci.Buildings[j.Item] = j.Level
 		}
 	case "research":
+		if t := c.p.Tech(j.Item); t != nil && t.ExclusiveGroup != "" {
+			// Only one completed specialisation can affect the player.
+			for _, other := range c.p.Techs {
+				if other.ID != t.ID && other.ExclusiveGroup == t.ExclusiveGroup {
+					delete(c.pl.Techs, other.ID)
+				}
+			}
+		}
 		if c.pl.Techs[j.Item] < j.Level {
 			c.pl.Techs[j.Item] = j.Level
 		}

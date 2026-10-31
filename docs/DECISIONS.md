@@ -28,7 +28,7 @@ Format: ID — decision — context/alternatives — consequences. Newest last.
 
 **D-013 — Territories give yield accrued on the tile (collect action), not production modifiers.** Keeps D-009 when territories change owner in another player's transaction, and creates a "capture the uncollected yield" mechanic. PROPOSED design (the original's outer domains are full mini-cities, ECO-011).
 
-**D-014 — Pack snapshot pinned per world + explicit audited migration with dry run.** Changing pack files never mutates live worlds.
+**D-014 — Pack snapshot pinned per world + explicit audited migration with dry run.** Changing pack files never mutates live worlds. *Amendment (2026-10-31)*: for development convenience, `RF_AUTO_MIGRATE_PACKS` (default on outside production, off in production) migrates `RF_WORLDS` worlds to the pack on disk at startup when the compatibility check passes; it is recorded in `world_pack_history` with no admin.
 
 **D-015 — World speed multiplier stored on the world** (multiplies pack `worldSpeed`): speed/test worlds without forking packs. Flows (production, consumption, upkeep), durations, travel (incl. minimum travel), respawns and territory yield scale; stocks and capacities do not.
 

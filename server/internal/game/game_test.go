@@ -847,6 +847,21 @@ func TestPackMigrationRenames(t *testing.T) {
 	if v := e.view(a); v.City.Units["lancer"] != 3 || v.City.Units["spear"] != 0 {
 		t.Fatalf("units not renamed: %v", v.City.Units)
 	}
+	// system (startup) migration: adminID 0, no audit row, history without admin
+	np3 := *next.Pack
+	np3.Version = "1.1.1"
+	np3.Migrations = nil
+	sys, err := pack.Build(&np3)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if rep, err := e.s.MigrateWorldPack(ctx, 0, e.world, sys, false); err != nil || !rep.Applied {
+		t.Fatalf("system migration: %+v %v", rep, err)
+	}
+	if _, err := e.s.MigrateWorldPack(ctx, 0, e.world, sys, false); code(err) != "same_pack" {
+		t.Fatalf("re-running must be a no-op: %v", err)
+	}
+	next = sys
 	// a pack missing an in-use id without a mapping is refused
 	np2 := *next.Pack
 	np2.Version = "1.2.0"

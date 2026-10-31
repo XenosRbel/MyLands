@@ -34,6 +34,9 @@ type Config struct {
 	DevPlatformAuth bool   // accept unsigned "dev" platform identities (never in production)
 	MetricsToken    string // if set, /metrics requires "Authorization: Bearer <token>"; in production /metrics is disabled without it
 	TrustProxy      bool   // use the left-most X-Forwarded-For address for per-IP limits (only behind a trusted proxy)
+	// AutoMigratePacks moves existing RF_WORLDS worlds to the pack on disk at
+	// startup when it is compatible (default on outside production).
+	AutoMigratePacks bool
 }
 
 func env(key, def string) string {
@@ -73,6 +76,7 @@ func LoadConfig() (Config, error) {
 			c.AllowedOrigins = append(c.AllowedOrigins, o)
 		}
 	}
+	c.AutoMigratePacks = env("RF_AUTO_MIGRATE_PACKS", map[bool]string{true: "true", false: "false"}[c.Env != "production"]) == "true"
 	c.DevPlatformAuth = env("RF_DEV_PLATFORM_AUTH", map[bool]string{true: "true", false: "false"}[c.Env != "production"]) == "true"
 	if c.Env == "production" {
 		if c.DevPlatformAuth {

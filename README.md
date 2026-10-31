@@ -74,7 +74,7 @@ All configuration is through environment variables; see `.env.example`. Secrets 
 | Health | `GET /healthz`, `GET /readyz` |
 | Metrics | `GET /metrics` (Prometheus text) |
 | Admin | promote a login with `RF_ADMIN_LOGIN`; endpoints under `/api/v1/admin` (audited) |
-| Move a world to a new pack version | `POST /api/v1/admin/worlds/{id}/migrate-pack {"packDir":"…","dryRun":true}` |
+| Move a world to a new pack version | automatic at startup outside production (`RF_AUTO_MIGRATE_PACKS`); in production `POST /api/v1/admin/worlds/{id}/migrate-pack {"packDir":"…","dryRun":true}` |
 | Yandex build | `cd client && VITE_API_BASE=https://api.example npm run build:yandex && npm run yandex:zip` |
 | Android | `cd client && npm run android:add && npm run android:sync` (needs Android SDK) |
 

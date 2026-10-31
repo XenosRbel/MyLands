@@ -338,11 +338,19 @@ func (s *Service) MigrateWorldPack(ctx context.Context, adminID, worldID int64, 
 		if _, err := tx.Exec(ctx, `UPDATE worlds SET pack_version=$2, pack_hash=$3, pack_json=$4 WHERE id=$1`, worldID, next.Version, next.Hash, next.JSON()); err != nil {
 			return err
 		}
+		// adminID 0 = system (startup auto-migration): history row has no admin.
+		var actor any
+		if adminID > 0 {
+			actor = adminID
+		}
 		if _, err := tx.Exec(ctx, `INSERT INTO world_pack_history(world_id, from_version, to_version, from_hash, to_hash, admin_id, report) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
-			worldID, curVer, next.Version, curHash, next.Hash, adminID, rep); err != nil {
+			worldID, curVer, next.Version, curHash, next.Hash, actor, rep); err != nil {
 			return err
 		}
 		rep.Applied = true
+		if adminID == 0 {
+			return nil
+		}
 		return s.audit(ctx, tx, adminID, "migrate_pack", fmt.Sprintf("world:%d", worldID), rep)
 	})
 	if err == nil && rep != nil && rep.Applied {

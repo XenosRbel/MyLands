@@ -66,7 +66,8 @@ The client applies `theme.palette` as CSS variables and loads `theme.fonts` from
 2. To upgrade: publish pack vN+1 with a `migrations` entry `fromVersion: vN` listing renames/removals.
 3. Admin runs `POST /api/v1/admin/worlds/{wid}/migrate-pack {packDir, dryRun:true}` → report of IDs in use and anything missing.
 4. If `missing` is empty, run with `dryRun:false`: IDs are rewritten in cities, players, missions, jobs, tiles, heroes, items in one transaction; history + audit recorded.
-5. Constraints: same pack `id`; races/terrains/hero classes cannot be dropped without replacement; numbers (costs, stats) take effect from the migration instant (already-paid jobs keep their times).
+5. Development shortcut: with `RF_AUTO_MIGRATE_PACKS=true` (default outside production) the server performs steps 3–4 automatically at startup for every world listed in `RF_WORLDS`; incompatible packs are logged and skipped.
+6. Constraints: same pack `id`; races/terrains/hero classes cannot be dropped without replacement; numbers (costs, stats) take effect from the migration instant (already-paid jobs keep their times).
 
 ## 7. Creating a new game (checklist)
 

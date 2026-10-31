@@ -68,6 +68,20 @@ func main() {
 			log.Error("world bootstrap", "err", err)
 			os.Exit(1)
 		}
+		if cfg.AutoMigratePacks {
+			// Worlds pin a pack snapshot; bring existing worlds up to the pack on
+			// disk when every ID in use still exists (or is mapped by migrations).
+			rep, err := g.MigrateWorldPack(ctx, 0, id, p, false)
+			switch e, _ := game.AsError(err); {
+			case err == nil && rep.Applied:
+				log.Info("world pack migrated", "slug", parts[0], "from", rep.FromVersion, "to", rep.ToVersion, "rows", rep.Rows)
+			case err == nil && len(rep.Missing) > 0:
+				log.Warn("world pack NOT migrated: incompatible", "slug", parts[0], "missing", rep.Missing)
+			case e != nil && e.Code == "same_pack":
+			case err != nil:
+				log.Warn("world pack migration skipped", "slug", parts[0], "err", err)
+			}
+		}
 		log.Info("world ready", "slug", parts[0], "id", id, "pack", p.ID, "version", p.Version)
 	}
 	// RF_ADMIN_LOGIN promotes an existing login at startup. It is ignored in

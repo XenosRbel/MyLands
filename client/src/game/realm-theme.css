@@ -1197,3 +1197,9 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
  .city-queue-toggle {margin-left:auto;}
  .city-build-toggle {margin-left:3px;}
 }
+
+.game-dock-army {overflow-x:auto;justify-content:flex-start;padding-right:5px;scrollbar-width:thin;}
+.game-dock-unit.inactive {border-color:#75654e;background:linear-gradient(#40372c,#24201a);}
+.game-dock-unit.inactive img {filter:grayscale(1) brightness(.43) contrast(.92);opacity:.79;}
+.game-dock-unit.inactive span {color:#b7ad98;background:#1b1713cc;}
+.game-dock-unit.inactive:hover img {filter:grayscale(.5) brightness(.66);opacity:1;}

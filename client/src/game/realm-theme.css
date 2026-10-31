@@ -283,3 +283,33 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 @media(prefers-reduced-motion:reduce) {
   .ucard,.btn,.bcard,.sidenav button,.research-node { transition:none!important; }
 }
+
+/* Army cards: illustrated heraldic portraits, restrained banners, and resource footer. */
+.ucard .army-card-header { position:relative; align-items:center; gap:12px; }
+.army-card-header .portrait { flex:none; }
+.army-card-identity { min-width:0; padding-right:22px; }
+.army-card-identity strong { display:block; }
+.army-unit-crest {
+  position:absolute;top:8px;right:9px;
+  width:28px;height:37px;display:grid;place-items:center;
+  color:#ead5a8; background:linear-gradient(#745a39,#493924);
+  border:1px solid #b69a6b;
+  clip-path:polygon(0 0,100% 0,100% 80%,50% 100%,0 80%);
+}
+.army-unit-description { flex-grow:1; }
+.army-unit-cost { border-top:1px solid #82705255;justify-content:space-between; }
+.army-unit-cost .timer,.army-unit-cost>span { display:inline-flex;align-items:center;gap:5px; }
+.hero.panel { position:relative;overflow:hidden; }
+.hero.panel::before {
+  content:"";position:absolute;inset:0 0 auto 0;height:150px;
+  pointer-events:none;background:radial-gradient(ellipse at 15% 25%,#a68a5b28,transparent 72%);
+}
+.hero.panel>* { position:relative; }
+.hero.panel .tag { background:#6d574046; }
+.hero.panel h4 { color:#e5d1ac;border-bottom:1px solid #947b5966;padding-bottom:7px; }
+.hero.panel .slot select { width:100%; }
+.missions li { display:flex;align-items:center;gap:12px; }
+.missions li>.icon { color:#c1a677; }
+.messages summary { font-family:var(--font-display); color:#e3d4b6; }
+.report .table th { color:#dfc49b; }
+.research-screen .research-detail { box-shadow:0 8px 23px #0008,inset 0 0 30px #68543120; }

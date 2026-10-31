@@ -14,9 +14,9 @@
     "android:add": "cap add android",
     "yandex:zip": "node scripts/yandex-zip.mjs",
     "check:art": "node scripts/check-pack-art.mjs && node scripts/check-raster-policy.mjs",
-    "predev": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py",
-    "prebuild": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py",
-    "prebuild:yandex": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py"
+    "predev": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py && python3 scripts/paint_world_scene.py",
+    "prebuild": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py && python3 scripts/paint_world_scene.py",
+    "prebuild:yandex": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py && python3 scripts/paint_world_scene.py"
   },
   "dependencies": {
     "@capacitor/core": "^8.5.3",

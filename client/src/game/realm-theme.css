@@ -1182,3 +1182,18 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .city-game-layout {grid-template-rows:minmax(0,1fr);}
   .city-game-stage-title {min-height:35px;}
 }
+
+/* World-first default: production queues are dockable, not permanent empty columns. */
+@media(min-width:721px) {
+ .city-game-layout {grid-template-columns:minmax(0,1fr)!important;}
+ .city-game-layout.queue-expanded {grid-template-columns:minmax(0,1fr) clamp(232px,19vw,295px)!important;}
+ .city-game-rail[hidden] {display:none!important;}
+ .city-game-stage {width:100%;}
+ .city-queue-toggle {margin-left:auto;min-height:27px;padding:3px 11px;}
+ .city-build-toggle {margin-left:5px;}
+}
+@media(max-width:720px) {
+ .city-game-rail[hidden] {display:none!important;}
+ .city-queue-toggle {margin-left:auto;}
+ .city-build-toggle {margin-left:3px;}
+}

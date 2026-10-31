@@ -313,3 +313,29 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 .messages summary { font-family:var(--font-display); color:#e3d4b6; }
 .report .table th { color:#dfc49b; }
 .research-screen .research-detail { box-shadow:0 8px 23px #0008,inset 0 0 30px #68543120; }
+
+/* Original scalable ornamental layers. Assets ship with the client. */
+.screen .panel:not(.research-detail),
+.screen .ucard,
+.modal,
+.auth-card {
+  background-image:
+    url("/ui/medieval-corners.svg"),
+    linear-gradient(145deg,#41372c,#302921 68%,#29231e);
+  background-size:100% 100%,auto;
+  background-repeat:no-repeat;
+}
+.sidenav { background-image:url("/ui/dark-wood.svg"),linear-gradient(#403227,#241c16);background-size:256px 256px,auto; }
+.research-branch,.research-detail {
+  background-image:
+    linear-gradient(135deg,#eadbb820,#ad967010),
+    url("/ui/parchment-grain.svg");
+  background-size:auto,128px 128px;
+}
+.research-heading {
+  background-image:url("/ui/dark-wood.svg");
+  background-size:256px 256px;
+}
+@media(prefers-reduced-motion:reduce) {
+ .screen .ucard,.screen .panel { scroll-behavior:auto; }
+}

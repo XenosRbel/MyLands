@@ -301,7 +301,7 @@ def main():
             out=OUTPUT / f"{tech}-{stage}.webp"
             image=paint(tech,kind,tone,stage)
             image.save(out,format="WEBP",quality=86,method=4)
-    print(f"Painted all 131 level-specific technology WebP icons in {OUTPUT}.")
+    print(f"Painted all 134 level-specific technology WebP icons in {OUTPUT}.")
     paint_utility_icons()
     paint_world_globe()
 

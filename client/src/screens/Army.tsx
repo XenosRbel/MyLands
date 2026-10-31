@@ -22,14 +22,15 @@ export function ArmyScreen() {
             const m = maxAfford(u.cost);
             return (
               <article key={uv.id} className="ucard">
-                <header>
+                <header className="army-card-header">
                   {idx.art(uv.id) && <img className="portrait" src={idx.art(uv.id)} alt="" loading="lazy" draggable={false} />}
-                  <div className="grow">
+                  <div className="grow army-card-identity">
                     <strong>{idx.name(uv.id)}</strong>
                     <div className="muted small">{u.class}</div>
+                    <span className="army-unit-crest" aria-hidden="true"><Icon name={u.class === "siege" ? "castle" : u.class === "scout" ? "eye" : u.class === "transport" ? "bag" : "shield"} size={19} /></span>
                   </div>
                 </header>
-                <p className="small muted">{idx.desc(uv.id)}</p>
+                <p className="small muted army-unit-description">{idx.desc(uv.id)}</p>
                 <div className="stats small" aria-label="Stats">
                   <span title={t("attack")}><Icon name="sword" size={14} /> {u.attack}</span>
                   <span title={t("defense")}><Icon name="shield" size={14} /> {u.defense}%</span>
@@ -44,7 +45,7 @@ export function ArmyScreen() {
                   <span>{t("home")}: <strong>{fmt(city.city.units[uv.id] ?? 0)}</strong></span>
                   {city.unitsAway[uv.id] ? <span>{t("away")}: {fmt(city.unitsAway[uv.id])}</span> : null}
                 </div>
-                <div className="row small"><CostList cost={u.cost ?? {}} have={city.resources} /> <span>{duration(uv.secondsEach)}</span></div>
+                <div className="row small army-unit-cost"><CostList cost={u.cost ?? {}} have={city.resources} /> <span><Icon name="clock" size={14} /> {duration(uv.secondsEach)}</span></div>
                 <Reqs reqs={uv.unmet} />
                 <div className="row">
                   <input type="number" min={1} max={100000} value={q} aria-label={t("quantity")}

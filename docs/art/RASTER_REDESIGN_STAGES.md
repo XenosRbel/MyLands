@@ -24,7 +24,7 @@ Reference: the approved My Lands-inspired castle-screen screenshot.
 | Stage | Deliverable | Status |
 |---|---|---|
 | 0 | Asset inventory, disallowed-art detector and policies | In progress |
-| 1 | Unique raster research icons and progression states | In progress |
+| 1 | Unique raster research icons and progression states | Implemented in code; final art acceptance pending |
 | 2 | Raster resource and top-HUD icon atlas | Not started |
 | 3 | Raster bottom HUD, globe and command controls | Not started |
 | 4 | Painted coherent city scene, not vector landscape | Not started |
@@ -71,3 +71,19 @@ A raster file may still fail art review if it merely embeds old flat SVG imagery
 
 The final strict raster audit must pass with zero SVG asset URLs and zero inline SVG icons.
 This cannot be declared complete while legacy SVG assets remain visible.
+
+## Research stage — implementation pass
+
+- Every research in the Ashen Crowns pack now has a unique raster art identity.
+- All 134 technology-level combinations have individually generated WebP files.
+- The art changes at each new research level, not only at levels 4 and 7.
+- The research tree and side panel both use the generated raster art.
+- The detail panel compares the current and next level visually.
+- Locked, completed, available, pending, and selected states remain distinct.
+- A client build check verifies that all 134 generated WebP assets exist and have the correct file header.
+- The browser screenshot sheet now covers all technology levels.
+- Existing server research costs, effects, exclusivity, and requirements were not changed.
+- Human art-direction review is still needed before final sign-off.
+- The next implementation area is the top resource and kingdom HUD.
+
+A procedural WebP icon is still a prototype until its artistic quality matches the approved resource pack.

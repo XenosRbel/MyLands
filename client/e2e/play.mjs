@@ -17,8 +17,8 @@ if (!globeAsset.ok || !globeAsset.headers.get("content-type")?.includes("image/"
   fail("The game's original globe command artwork is missing.");
 }
 // The city backdrop is an independently illustrated landscape, not repeated tile art.
-const scenery = await fetch(`${base}/ui/city-landscape.svg`);
-if (!scenery.ok || !(await scenery.text()).includes('id="water"')) {
+const scenery = await fetch(`${base}/ui/city-landscape.webp`);
+if (!scenery.ok || !scenery.headers.get("content-type")?.includes("image/")) {
   fail("City landscape with water and fortification art is not present in the client build.");
 }
 for (const asset of ["panel_main.png", "panel_wide.png", "portrait_frame.png", "dialog.png"]) {
@@ -51,7 +51,7 @@ await page.screenshot({ path: `${out}/03-city.png` });
 await page.locator(".game-clock").waitFor();
 await page.locator(".game-dock-globe").waitFor();
 const cityArtEnabled = await page.locator(".city-game-stage .city-scene").evaluate((element) =>
-  getComputedStyle(element).backgroundImage.includes("city-landscape.svg"));
+  getComputedStyle(element).backgroundImage.includes("city-landscape.webp"));
 if (!cityArtEnabled) fail("City stage is still displaying a repeated terrain background.");
 if (await page.locator(".city-game-rail .game-queue-panel").count() < 2)
   fail("The permanent build and train queues are missing from the city window.");

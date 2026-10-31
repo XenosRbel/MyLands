@@ -145,7 +145,10 @@ export function Shell() {
       <nav className="sidenav" aria-label="Main">
         {enabled.map((s) => (
           <button key={s} className={screen === s ? "on" : ""} onClick={() => navigate(s)} aria-current={screen === s ? "page" : undefined}>
-            <Icon name={icons[s]} /> <span>{t(s as Exclude<Screen, "settings">)}</span>
+            {illustratedNav[s] && idx.art(illustratedNav[s]) ?
+              <img className="sidenav-illustrated-icon" src={idx.art(illustratedNav[s])} alt="" loading="lazy" /> :
+              <Icon name={icons[s]} />}
+            <span>{t(s as Exclude<Screen, "settings">)}</span>
             {!!badge(s) && <span className="badge">{badge(s)}</span>}
           </button>
         ))}

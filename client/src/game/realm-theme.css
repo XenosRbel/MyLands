@@ -825,3 +825,9 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .research-branch .research-nodes { overflow-x:auto;padding:4px 2px 6px; }
   .research-branch .research-node { flex:0 0 43px; }
 }
+
+/* Reuse the painted game pack rather than flat generic icons in hero slots. */
+.hero-game-slot-icon img { width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;padding:3px;filter:drop-shadow(0 2px 2px #0009); }
+.hero-inventory-art { width:44px;height:44px;flex:none;object-fit:contain;background:radial-gradient(circle,#a48b624a,transparent); }
+.hero-game-equipment .hero-game-slot:has(img) { border-color:#ab8e5f; }
+.map-game-inspector-art img { image-rendering:auto; }

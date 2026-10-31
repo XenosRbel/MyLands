@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="crater">
-<defs><radialGradient id="bg"><stop stop-color="#756046"/><stop offset="1" stop-color="#211b20"/></radialGradient></defs>
-<rect width="320" height="320" rx="25" fill="url(#bg)"/>
-<circle cx="160" cy="155" r="119" fill="none" stroke="#d9ac61" stroke-opacity=".4" stroke-width="3"/>
-<g fill="#9c8d75" stroke="#322f37" stroke-width="3" stroke-linejoin="round"><path d="M39 208Q157 268 282 208L247 167L90 166Z"/><path d="M136 211L155 58L190 211Z" fill="#a88bf4"/><path d="M107 195L129 114L151 196M190 196L225 115L225 196" fill="#70d7e6"/></g>
-<path d="M38 272H282" stroke="#cfab67" stroke-opacity=".7" stroke-width="5"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="crater"><defs>
+<linearGradient id="hide" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c1a47e"/><stop offset=".45" stop-color="#8d7860"/><stop offset="1" stop-color="#36382f"/></linearGradient>
+<linearGradient id="cloth" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#869083"/><stop offset=".48" stop-color="#4f6158"/><stop offset="1" stop-color="#252c2b"/></linearGradient>
+<linearGradient id="wood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c5a473"/><stop offset=".5" stop-color="#7c5b3e"/><stop offset="1" stop-color="#352b26"/></linearGradient>
+<linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d0d0ba"/><stop offset=".45" stop-color="#7b8880"/><stop offset="1" stop-color="#333c3a"/></linearGradient>
+<linearGradient id="bone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3d2b0"/><stop offset=".5" stop-color="#a79479"/><stop offset="1" stop-color="#53574e"/></linearGradient>
+<filter id="brush" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="3" seed="13" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="s"/><feComponentTransfer in="s" result="a"><feFuncA type="linear" slope=".14"/></feComponentTransfer><feBlend in="SourceGraphic" in2="a" mode="multiply"/></filter>
+<filter id="shade" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="1" dy="8" stdDeviation="6" flood-color="#151b17" flood-opacity=".65"/></filter>
+</defs><g filter="url(#shade)"><ellipse cx="160" cy="289" rx="108" ry="12" fill="#111712" opacity=".18"/><g filter="url(#brush)" stroke-linejoin="round"><ellipse cx="159" cy="215" rx="138" ry="69" fill="url(#iron)" stroke="#383937" stroke-width="9"/><ellipse cx="159" cy="217" rx="108" ry="44" fill="#27211d" stroke="#9e8165" stroke-width="7"/><path d="M53 210L80 158L110 177L148 138L190 175L233 148L269 211" fill="url(#bone)" stroke="#584a40" stroke-width="8"/><ellipse cx="164" cy="216" rx="66" ry="20" fill="#de9951" opacity=".45"/><path d="M117 222L139 190L151 215L168 174L186 210L202 197" fill="none" stroke="#efa35c" stroke-width="9"/><path d="M85 152L65 108L102 133M194 164L238 89L249 159" stroke="#a78567" stroke-width="10" fill="none"/></g></g></svg>

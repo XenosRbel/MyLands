@@ -108,9 +108,9 @@ await page.locator(".toast.ok").waitFor();
 const firstQueue = page.locator(".city-game-rail .game-queue-entry").first();
 await firstQueue.waitFor();
 if (!await firstQueue.locator(".game-queue-progress").count()) fail("Queued building is missing visual progress bar.");
+await page.keyboard.press("Escape");
 await page.screenshot({ path: `${out}/25-active-building-queue.png`, fullPage: true });
 log("upgrade queued");
-await page.keyboard.press("Escape");
 // world speed x50: level 2 takes ~2 s
 await page.waitForTimeout(3500);
 await page.reload();

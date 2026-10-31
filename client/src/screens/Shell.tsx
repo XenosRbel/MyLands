@@ -30,6 +30,7 @@ export function Shell() {
   const { t, idx, overview, city, screen, go } = g;
   const [more, setMore] = useState(false);
   const [heroClass, setHeroClass] = useState<string | null>(null);
+  const [heroLevel, setHeroLevel] = useState<number | null>(null);
   const [clockTime, setClockTime] = useState(() => Date.now());
   useEffect(() => {
     const timer = window.setInterval(() => setClockTime(Date.now()), 1000);
@@ -41,8 +42,8 @@ export function Shell() {
   useEffect(() => {
     let alive = true;
     get<HeroesView>(`/api/v1/worlds/${g.world.id}/heroes`)
-      .then((data) => { if (alive) setHeroClass(data.heroes[0]?.class ?? null); })
-      .catch(() => { if (alive) setHeroClass(null); });
+      .then((data) => { if (alive) { setHeroClass(data.heroes[0]?.class ?? null); setHeroLevel(data.heroes[0]?.level ?? null); } })
+      .catch(() => { if (alive) { setHeroClass(null); setHeroLevel(null); } });
     return () => { alive = false; };
   }, [g.world.id, screen]);
 
@@ -134,6 +135,7 @@ export function Shell() {
             {heroClass && idx.art(heroClass) ?
               <img src={idx.art(heroClass)} alt="" /> :
               <Icon name="user" size={28} />}
+            {heroLevel !== null && <span className="kingdom-token-level hero-level">{heroLevel}</span>}
             <span className="token-label">{t("heroes")}</span>
           </button>
         </div>

@@ -11,6 +11,11 @@ const log = (...a) => console.log("[e2e]", ...a);
 const fail = (m) => { console.error("[e2e] FAIL:", m); process.exit(1); };
 
 // Ensure original painted UI atlas assets survived the production Docker build.
+// The city backdrop is an independently illustrated landscape, not repeated tile art.
+const scenery = await fetch(`${base}/ui/city-landscape.svg`);
+if (!scenery.ok || !(await scenery.text()).includes('id="water"')) {
+  fail("City landscape with water and fortification art is not present in the client build.");
+}
 for (const asset of ["panel_main.png", "panel_wide.png", "portrait_frame.png", "dialog.png"]) {
   const result = await fetch(`${base}/ui/painted/${asset}`);
   if (!result.ok || !result.headers.get("content-type")?.includes("image/")) {
@@ -38,6 +43,13 @@ await page.locator(".city-game-stage .city-scene").waitFor();
 log("joined world; city screen rendered");
 await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
+await page.locator(".game-clock").waitFor();
+const cityArtEnabled = await page.locator(".city-game-stage .city-scene").evaluate((element) =>
+  getComputedStyle(element).backgroundImage.includes("city-landscape.svg"));
+if (!cityArtEnabled) fail("City stage is still displaying a repeated terrain background.");
+if (await page.locator(".city-game-rail .game-queue-panel").count() < 2)
+  fail("The permanent build and train queues are missing from the city window.");
+
 const cityMetrics = await page.evaluate(() => {
   const stage = document.querySelector(".city-game-stage .city-scene").getBoundingClientRect();
   const shell = document.querySelector(".shell").getBoundingClientRect();

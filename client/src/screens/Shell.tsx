@@ -18,6 +18,12 @@ const icons: Record<Screen, string> = {
   reports: "scroll", market: "scale", alliance: "shield", quests: "star", mail: "mail", profile: "user", settings: "gear",
 };
 const primary: Screen[] = ["city", "map", "army", "missions"];
+const illustratedNav: Partial<Record<Screen, string>> = {
+  city: "keep", map: "forest", army: "knight", research: "academy",
+  heroes: "marshal", economy: "mint", market: "market",
+  missions: "watchtower", reports: "scriptorium",
+};
+
 
 export function Shell() {
   const g = useGame();
@@ -145,7 +151,9 @@ export function Shell() {
               <button key={destination} type="button" className={screen === destination ? "active" : ""}
                 aria-current={screen === destination ? "page" : undefined}
                 onClick={() => navigate(destination)} title={t(destination as Exclude<Screen, "settings">)}>
-                <Icon name={icons[destination]} size={23} />
+                {illustratedNav[destination] && idx.art(illustratedNav[destination]) ?
+                  <img className="game-dock-navigation-art" src={idx.art(illustratedNav[destination])} alt="" loading="lazy" /> :
+                  <Icon name={icons[destination]} size={23} />}
                 <span>{t(destination as Exclude<Screen, "settings">)}</span>
               </button>
             ))}

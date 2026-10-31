@@ -1,4 +1,6 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { get } from "../api/client";
+import type { HeroesView } from "../api/types";
 import { useGame, type Screen } from "../game/context";
 import { playGameCue, setGameAudioEnabled } from "../game/audio";
 import { Icon, fmt, Loading, ErrorBox, Timer } from "../ui/kit";
@@ -21,6 +23,15 @@ export function Shell() {
   const g = useGame();
   const { t, idx, overview, city, screen, go } = g;
   const [more, setMore] = useState(false);
+  const [heroClass, setHeroClass] = useState<string | null>(null);
+  useEffect(() => {
+    let alive = true;
+    get<HeroesView>(`/api/v1/worlds/${g.world.id}/heroes`)
+      .then((data) => { if (alive) setHeroClass(data.heroes[0]?.class ?? null); })
+      .catch(() => { if (alive) setHeroClass(null); });
+    return () => { alive = false; };
+  }, [g.world.id, screen]);
+
   const [sound, setSound] = useState(() => {
     try { return localStorage.getItem("rf.sound") === "on"; } catch { return false; }
   });
@@ -89,13 +100,13 @@ export function Shell() {
           <button type="button" className="kingdom-token" onClick={() => navigate("research")}
             title={specialization ? `${idx.name(specialization.id)} (${specializationLevel}): ${specializationBonuses}` : t("chooseSpecialization")}
             aria-label={specialization ? idx.name(specialization.id) : t("chooseSpecialization")}>
-            <Icon name={idx.icon(specialization?.id ?? "") || "shield"} size={28} />
+            <Icon name={specialization?.id === "path_architect" ? "castle" : specialization?.id === "path_steward" ? "wheat" : specialization?.id === "path_warlord" ? "sword" : "shield"} size={28} />
             <span className="token-label">{specialization ? idx.name(specialization.id) : t("chooseSpecialization")}</span>
           </button>
           <button type="button" className="kingdom-token hero-token" onClick={() => navigate("heroes")}
             title={t("heroes")} aria-label={t("heroes")}>
-            {idx.art(idx.pack.heroes.classes[0]?.id ?? "") ?
-              <img src={idx.art(idx.pack.heroes.classes[0].id)} alt="" /> :
+            {heroClass && idx.art(heroClass) ?
+              <img src={idx.art(heroClass)} alt="" /> :
               <Icon name="user" size={28} />}
             <span className="token-label">{t("heroes")}</span>
           </button>

@@ -239,6 +239,53 @@ def paint_utility_icons():
         picture.save(folder/f"{name}.webp",format="WEBP",quality=89,method=4)
     print(f"Painted {len(UTILITY)} original raster utility icons.")
 
+def paint_world_globe():
+    n=480
+    rng=random.Random("ashen-crowns-world-globe")
+    image=Image.new("RGBA",(n,n),(0,0,0,0))
+    draw=ImageDraw.Draw(image)
+    draw.ellipse((4,4,n-4,n-4),fill=(48,31,40,255),outline=(188,144,79),width=16)
+    draw.ellipse((27,27,n-27,n-27),fill=(36,46,48,255),outline=(238,197,117),width=9)
+    draw.ellipse((47,47,n-47,n-47),fill=(34,92,124,255),outline=(160,130,79),width=8)
+    # Soft speckled ocean pigment within a spherical mask.
+    mask=Image.new("L",(n,n))
+    ImageDraw.Draw(mask).ellipse((51,51,n-51,n-51),fill=255)
+    sea=Image.new("RGBA",(n,n),(0,0,0,0))
+    pixels=sea.load()
+    for y in range(51,n-51):
+        for x in range(51,n-51):
+            if mask.getpixel((x,y))==0:continue
+            d=((x-n*.38)**2+(y-n*.3)**2)**.5/n
+            light=max(0.0,1.0-d)
+            noise=rng.randrange(-13,14)
+            pixels[x,y]=(int(29+49*light+noise),int(81+71*light+noise),int(104+87*light+noise),255)
+    draw=ImageDraw.Draw(sea)
+    continents=[
+      [(72,167),(103,122),(145,105),(168,126),(179,164),(160,196),(175,221),(155,263),(121,275),(101,315),(78,282),(65,234)],
+      [(226,85),(279,88),(314,120),(354,136),(388,173),(367,199),(329,213),(315,258),(286,306),(254,338),(232,297),(244,256),(217,213),(237,177)],
+      [(294,355),(329,333),(364,362),(382,406),(347,425),(313,411)],
+    ]
+    for pts in continents:
+        draw.polygon(pts,fill=(97,136,83,255))
+        draw.line(pts+[pts[0]],fill=(180,183,118,240),width=5,joint="curve")
+        for _ in range(22):
+            x=rng.randrange(75,392);y=rng.randrange(105,412)
+            if rng.random()<.48:
+                draw.ellipse((x,y,x+rng.randrange(2,7),y+rng.randrange(2,7)),fill=(139,167,107,60))
+    sea.putalpha(mask)
+    image=Image.alpha_composite(image,sea)
+    draw=ImageDraw.Draw(image)
+    draw.ellipse((41,41,n-41,n-41),outline=(236,194,111),width=8)
+    draw.arc((70,70,n-70,n-70),192,282,fill=(236,238,215),width=10)
+    draw.arc((84,84,n-84,n-84),204,277,fill=(181,219,214),width=7)
+    for i in range(12):
+        a=2*math.pi*i/12
+        cx=n/2+math.cos(a)*(n*.47)
+        cy=n/2+math.sin(a)*(n*.47)
+        draw.ellipse((cx-8,cy-8,cx+8,cy+8),fill=(211,169,94),outline=(74,49,33),width=3)
+    image.save(ROOT/"public"/"ui"/"world-globe.webp",format="WEBP",quality=91,method=5)
+    print("Painted original raster world globe.")
+
 def main():
     OUTPUT.mkdir(parents=True,exist_ok=True)
     for tech,(kind,tone) in TECHS.items():
@@ -248,6 +295,7 @@ def main():
             image.save(out,format="WEBP",quality=86,method=4)
     print(f"Painted {len(TECHS)*3} original WebP technology icons in {OUTPUT}.")
     paint_utility_icons()
+    paint_world_globe()
 
 if __name__ == "__main__":
     main()

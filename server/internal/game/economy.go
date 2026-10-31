@@ -279,6 +279,48 @@ func (c *pctx) CancelOrder(id int64) (*Order, error) {
 	return o, nil
 }
 
+// releaseRaidEscrow returns open market orders to the raided city.
+// The resource ledger records every returned amount.
+// The surrounding defender transaction holds the player lock.
+func (c *pctx) releaseRaidEscrow(ci *City) error {
+	rows, err := c.tx.Query(c.ctx, `SELECT id, sell_res, sell_amount
+		FROM market_orders
+		WHERE city_id=$1 AND player_id=$2 AND world_id=$3 AND status='open'
+		ORDER BY id FOR UPDATE`, ci.ID, c.pl.ID, c.pl.WorldID)
+	if err != nil {
+		return err
+	}
+	type escrow struct {
+		id int64
+		resource string
+		amount int64
+	}
+	var orders []escrow
+	for rows.Next() {
+		var o escrow
+		if err := rows.Scan(&o.id, &o.resource, &o.amount); err != nil {
+			rows.Close()
+			return err
+		}
+		orders = append(orders, o)
+	}
+	err = rows.Err()
+	rows.Close()
+	if err != nil {
+		return err
+	}
+	for _, o := range orders {
+		if _, err := c.tx.Exec(c.ctx, `UPDATE market_orders
+			SET status='cancelled', closed_at=$2 WHERE id=$1`, o.id, c.now); err != nil {
+			return err
+		}
+		if _, err := c.grant(ci, pack.Amounts{o.resource: o.amount}, "market_raid_release", fmt.Sprintf("order:%d", o.id)); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // Exchange trades with the NPC merchant at reference rates minus a fee (a resource sink).
 //
 //	received = floor(amount × rate_from / rate_to × (1 − fee/100))

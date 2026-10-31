@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#182b2a"/><stop offset=".56" stop-color="#52624f"/><stop offset="1" stop-color="#c6a47b"/></linearGradient><linearGradient id="field" x2="0" y2="1"><stop stop-color="#455b3c"/><stop offset="1" stop-color="#1a2e26"/></linearGradient><linearGradient id="veil" x2="0" y2="1"><stop stop-color="#111911" stop-opacity=".65"/><stop offset=".65" stop-color="#1c2519" stop-opacity=".65"/><stop offset="1" stop-color="#161a13" stop-opacity=".9"/></linearGradient></defs>
+<rect width="1440" height="900" fill="url(#sky)"/>
+<circle cx="1100" cy="190" r="100" fill="#f6dbad" opacity=".17"/>
+<g fill="#4b625b" opacity=".7"><path d="M0 515L110 331L179 407L300 278L423 473L547 308L673 461L800 249L913 453L1038 310L1172 445L1293 300L1440 465V900H0Z"/></g>
+<g fill="#344e43" opacity=".8"><path d="M0 576L175 416L323 535L476 385L631 547L775 427L921 535L1070 393L1223 530L1401 408L1440 480V900H0Z"/></g>
+<path d="M0 630Q190 582 420 647T850 632T1440 619V900H0Z" fill="url(#field)"/>
+<g opacity=".9">
+<path d="M965 575V330H1001V283H1012V330H1035V245H1050V328H1096V288H1108V330H1162V575Z" fill="#393d35"/>
+<path d="M986 332L998 300L1013 332M1019 337L1042 286L1066 337M1087 338L1103 307L1117 338" fill="#77705b"/>
+<path d="M979 424H1134V575H979Z" fill="#4a4a3c"/>
+<path d="M950 575V435H976V405H997V575M1128 575V433H1156V397H1185V575" fill="#3c433c"/>
+<path d="M931 575H1208V600H931Z" fill="#242f2b"/>
+<g fill="#aa9870"><rect x="1026" y="402" width="15" height="39"/><rect x="1069" y="402" width="15" height="39"/><path d="M1038 512Q1061 475 1086 512V575H1038Z"/></g>
+</g>
+<g fill="#213c32" opacity=".85"><path d="M0 700L30 486L60 700M63 750L102 448L142 750M120 736L166 495L203 736M210 720L241 523L279 720M280 731L322 467L359 731M1230 733L1270 469L1310 733M1320 752L1360 449L1409 752M1410 720L1440 508L1470 720"/></g>
+<g stroke="#a08a64" stroke-opacity=".14" fill="none" stroke-width="2"><path d="M0 781Q480 720 900 785T1440 771M0 798Q470 743 890 808T1440 794M0 811Q470 769 880 828T1440 824"/></g>
+<rect width="1440" height="900" fill="url(#veil)"/>
+</svg>

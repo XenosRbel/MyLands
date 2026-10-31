@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { command, get } from "../api/client";
 import type { HeroesView, MapTile } from "../api/types";
 import { useGame } from "../game/context";
+import { mapPointerToTile, mapDragOffset } from "../game/map-coordinates";
 import { Action, ErrorBox, Icon, Modal, Res, fmt, duration } from "../ui/kit";
 
 const VIEW = 15;
@@ -22,7 +23,7 @@ export function MapScreen() {
   const [texReady, setTexReady] = useState(0);
   const textures = useMemo(() => {
     const m = new Map<string, HTMLImageElement>();
-    for (const ter of idx.pack.terrains) {
+    for (const ter of [...idx.pack.terrains, ...idx.pack.neutrals, ...idx.pack.buildings.filter((building) => building.id === "keep")]) {
       const url = idx.art(ter.id);
       if (!url) continue;
       const img = new Image();
@@ -39,8 +40,13 @@ export function MapScreen() {
   }), [center, W, H]);
 
   const load = useCallback(() => {
-    get<MapTile[]>(`/api/v1/worlds/${world.id}/map?x=${origin.x}&y=${origin.y}&w=${VIEW}&h=${VIEW}`).then((ts) => { setTiles(ts); setErr(undefined); }, setErr);
-  }, [world.id, origin.x, origin.y]);
+    get<MapTile[]>(`/api/v1/worlds/${world.id}/map?x=${origin.x}&y=${origin.y}&w=${VIEW}&h=${VIEW}`).then((ts) => {
+      setTiles(ts);
+      setErr(undefined);
+      setSel((previous) => previous ?? ts.find((tile) => tile.cityId === city?.city.id)
+        ?? ts.find((tile) => tile.ownerId === overview?.player.id) ?? null);
+    }, setErr);
+  }, [world.id, origin.x, origin.y, city?.city.id, overview?.player.id]);
   useEffect(load, [load]);
 
   const wrap = useRef<HTMLDivElement>(null);
@@ -76,7 +82,7 @@ export function MapScreen() {
         ctx.fillStyle = ter?.color ?? "#444";
         ctx.fillRect(px, py, cell, cell);
       }
-      ctx.strokeStyle = "rgba(0,0,0,.18)";
+      ctx.strokeStyle = "rgba(13,19,14,.07)";
       ctx.strokeRect(px + 0.5, py + 0.5, cell - 1, cell - 1);
       if (tile.ownerId && !tile.cityId) {
         const race = idx.pack.races.find((r) => r.id === tile.race);
@@ -89,21 +95,33 @@ export function MapScreen() {
       }
       if (tile.cityId) {
         const own = tile.ownerId === overview?.player.id;
-        const race = idx.pack.races.find((r) => r.id === tile.race);
-        ctx.fillStyle = own ? accent : race?.color ?? "#ccc";
-        const s = cell * 0.62, o = (cell - s) / 2;
+        const fort = textures.get("keep");
+        const markerSize = cell * 0.94;
+        const markerLeft = px + (cell - markerSize) / 2;
+        const markerTop = py + (cell - markerSize) / 2;
+        ctx.save();
+        ctx.fillStyle = own ? "rgba(116, 141, 100, .55)" : "rgba(115, 83, 66, .6)";
         ctx.beginPath();
-        ctx.moveTo(px + o, py + o + s);
-        ctx.lineTo(px + o, py + o + s * 0.35);
-        ctx.lineTo(px + cell / 2, py + o);
-        ctx.lineTo(px + o + s, py + o + s * 0.35);
-        ctx.lineTo(px + o + s, py + o + s);
-        ctx.closePath();
+        ctx.ellipse(px + cell / 2, py + cell * .77, cell * .38, cell * .12, 0, 0, Math.PI * 2);
         ctx.fill();
-        ctx.strokeStyle = "rgba(0,0,0,.5)";
-        ctx.stroke();
+        if (fort?.complete && fort.naturalWidth) {
+          ctx.shadowColor = "rgba(7, 9, 5, .65)";
+          ctx.shadowBlur = cell * .2;
+          ctx.shadowOffsetY = cell * .08;
+          ctx.drawImage(fort, markerLeft, markerTop, markerSize, markerSize);
+        } else {
+          ctx.fillStyle = "#756348";
+          ctx.fillRect(px + cell * .28, py + cell * .32, cell * .44, cell * .48);
+          ctx.fillRect(px + cell * .36, py + cell * .17, cell * .28, cell * .2);
+        }
+        ctx.restore();
       } else if (tile.neutral) {
         ctx.globalAlpha = tile.cleared ? 0.35 : 1;
+        const siteArt = textures.get(tile.neutral);
+        if (siteArt?.complete && siteArt.naturalWidth) {
+          const inset = cell * 0.04;
+          ctx.drawImage(siteArt, px + inset, py + inset, cell - 2 * inset, cell - 2 * inset);
+        } else {
         ctx.fillStyle = "#1b1410";
         ctx.beginPath();
         ctx.arc(px + cell / 2, py + cell / 2, cell * 0.3, 0, Math.PI * 2);
@@ -113,6 +131,7 @@ export function MapScreen() {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(String(tile.neutralLevel ?? ""), px + cell / 2, py + cell / 2 + 1);
+        }
         ctx.globalAlpha = 1;
       } else if (ter && !ter.passable) {
         ctx.fillStyle = "rgba(0,0,0,.25)";
@@ -129,8 +148,8 @@ export function MapScreen() {
 
   const tileAt = (clientX: number, clientY: number) => {
     const r = canvas.current!.getBoundingClientRect();
-    const x = origin.x + Math.floor((clientX - r.left) / cell), y = origin.y + Math.floor((clientY - r.top) / cell);
-    return tiles.find((tt) => tt.x === x && tt.y === y) ?? null;
+    const tile = mapPointerToTile(clientX, clientY, r, origin, VIEW);
+    return tiles.find((tt) => tt.x === tile.x && tt.y === tile.y) ?? null;
   };
   const onDown = (e: React.PointerEvent) => {
     drag.current = { x: e.clientX, y: e.clientY, cx: center.x, cy: center.y, moved: false };
@@ -139,7 +158,8 @@ export function MapScreen() {
   const onMove = (e: React.PointerEvent) => {
     const d = drag.current;
     if (!d) return;
-    const dx = Math.round((d.x - e.clientX) / cell), dy = Math.round((d.y - e.clientY) / cell);
+    const bounds = canvas.current!.getBoundingClientRect();
+    const { x: dx, y: dy } = mapDragOffset(d.x - e.clientX, d.y - e.clientY, bounds.width, bounds.height, VIEW);
     if (dx || dy) {
       d.moved = true;
       setCenter({ x: clamp(d.cx + dx, 0, W - 1), y: clamp(d.cy + dy, 0, H - 1) });
@@ -164,7 +184,8 @@ export function MapScreen() {
       <h1>{t("map")} <span className="muted small">{origin.x}:{origin.y} — {origin.x + VIEW - 1}:{origin.y + VIEW - 1}</span></h1>
       {err ? <ErrorBox error={err} retry={load} /> : null}
       <div className="map-layout">
-        <div className="map-wrap" ref={wrap}>
+        <div className="map-wrap map-game-world" ref={wrap}>
+          <div className="map-game-world-title"><Icon name="map" size={18} /> {t("map")}</div>
           <canvas ref={canvas} className="map" style={{ width: VIEW * cell, height: VIEW * cell, touchAction: "none" }}
             tabIndex={0} aria-label={t("map") + " — arrow keys to pan, click a tile"}
             onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onKeyDown={onKey} />
@@ -203,9 +224,14 @@ function TilePanel({ tile, onMission }: { tile: MapTile | null; onMission: (k: s
     else if (tile.ownerId && !mine) actions.push("attack", "scout");
     else actions.push("occupy", "settle", "scout");
   }
+  const artwork = tile.cityId ? idx.art("keep") : tile.neutral ? idx.art(tile.neutral) : idx.art(tile.terrain);
   return (
-    <aside className="panel tile-panel">
-      <h3>{t("tile")} {tile.x}:{tile.y}</h3>
+    <aside className="panel tile-panel map-game-inspector">
+      <h3><Icon name="map" size={19} /> {t("tile")} {tile.x}:{tile.y}</h3>
+      <div className="map-game-inspector-art">
+        {artwork ? <img src={artwork} alt="" draggable={false} /> : <Icon name="map" size={42} />}
+        <span>{tile.cityName ?? (tile.neutral ? idx.name(tile.neutral) : idx.name(tile.terrain))}</span>
+      </div>
       <dl className="kv">
         <dt>{t("terrain")}</dt><dd>{idx.name(tile.terrain)}{ter?.resource ? <> · <Res id={ter.resource} n={idx.pack.params.territoryYieldPerHour ?? 0} />{t("perHour")}</> : null}{!ter?.passable && ` (${t("impassable")})`}</dd>
         {tile.cityName && (<><dt>{t("city")}</dt><dd>{tile.cityName}</dd></>)}

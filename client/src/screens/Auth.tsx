@@ -35,7 +35,7 @@ export function AuthScreen({ locale, onSession }: { locale: string; onSession: (
     <main className="auth">
       <div className="auth-card">
         <div className="crest" aria-hidden>
-          <svg viewBox="0 0 64 64" width="72" height="72"><path d="M32 4l24 10v16c0 16-11 26-24 30C19 56 8 46 8 30V14z" fill="var(--surface2)" stroke="var(--accent)" strokeWidth="2.5" /><path d="M20 38l6-14 6 8 6-8 6 14z" fill="var(--accent)" /></svg>
+          <img src="/ui/research/path_architect-3.webp" width={72} height={72} alt="" decoding="async" />
         </div>
         <h1 className="brand">Realmforge</h1>
         <form onSubmit={submit} className="stack">
@@ -120,8 +120,11 @@ export function WorldScreen({ account, locale, onEnter, onLogout }: {
             {joining.pack.races.map((r) => (
               <label key={r.id} className={"race" + (race === r.id ? " on" : "")} style={{ borderColor: race === r.id ? r.color : undefined }}>
                 <input type="radio" name="race" value={r.id} checked={race === r.id} onChange={() => setRace(r.id)} />
-                <strong style={{ color: r.color }}>{idx.text(r.name)}</strong>
-                <span className="muted small">{idx.text(r.desc)}</span>
+                <span className="race-emblem">{idx.art(r.id) ? <img src={idx.art(r.id)} alt="" draggable={false} /> : null}</span>
+                <span className="race-description">
+                  <strong>{idx.text(r.name)}</strong>
+                  <span className="muted small">{idx.text(r.desc)}</span>
+                </span>
               </label>
             ))}
           </fieldset>

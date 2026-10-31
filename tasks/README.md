@@ -23,3 +23,5 @@ Atomic task cards (ID, goal, dependencies, modules, acceptance criteria, require
 - [T-023](T-023.md) — Production deployment — **Open**
 - [T-030](T-030.md) — Yandex Games submission readiness — **Open**
 - [T-031](T-031.md) — Google Play submission readiness — **Open**
+- [T-032](T-032.md) — Общий harness для Codex и Claude Code — **Validation**
+- [T-033](T-033.md) — Principal Architect и обзор HighLoad одного экземпляра — **Definitions added; activation pending**

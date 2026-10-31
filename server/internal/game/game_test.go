@@ -975,3 +975,51 @@ func TestFailedEventIsParkedNotBlocking(t *testing.T) {
 	_ = errors.New
 	_ = fmt.Sprint
 }
+func TestTransportRejectsUnrelatedPlayer(t *testing.T) {
+	e := newEnv(t)
+	sender := e.player("transport_sender")
+	target := e.player("transport_target")
+	e.setUnits(sender, map[string]int64{"spear": 10})
+	x, y := e.location(target)
+	before := e.view(sender).Resources["wood"]
+	_, err := e.city(sender, func(c game.PCtx, ci *game.City) (any, error) {
+		return c.SendMission(ci, game.MissionRequest{
+			Kind: "transport", X: x, Y: y,
+			Units: map[string]int64{"spear": 2},
+			Cargo: pack.Amounts{"wood": 10},
+		})
+	})
+	if code(err) != "not_allied" {
+		t.Fatalf("unrelated transport must be rejected: %v", err)
+	}
+	if got := e.view(sender).Resources["wood"]; got != before {
+		t.Fatalf("rejected transport changed resources: %d -> %d", before, got)
+	}
+}
+
+
+func TestRaidReleasesMarketEscrow(t *testing.T) {
+	e := newEnv(t)
+	attacker := e.player("escrow_attacker")
+	defender := e.player("escrow_defender")
+	e.setUnits(attacker, map[string]int64{"rider": 50})
+	e.give(defender, pack.Amounts{"wood": 500})
+	order := e.mustCity(defender, func(c game.PCtx, ci *game.City) (any, error) {
+		return c.PlaceOrder(ci, "wood", 100, "gold", 30)
+	}).(*game.Order)
+	x, y := e.location(defender)
+	m := e.mustCity(attacker, func(c game.PCtx, ci *game.City) (any, error) {
+		return c.SendMission(ci, game.MissionRequest{
+			Kind: "attack", X: x, Y: y, Units: map[string]int64{"rider": 50},
+		})
+	}).(*game.Mission)
+	e.clk.Set(m.ArriveAt)
+	_ = e.view(defender)
+	var status string
+	if err := e.s.DB.QueryRow(ctx, "SELECT status FROM market_orders WHERE id=$1", order.ID).Scan(&status); err != nil {
+		t.Fatal(err)
+	}
+	if status != "cancelled" {
+		t.Fatalf("market escrow must be released on a successful raid: %s", status)
+	}
+}

@@ -1,0 +1,4 @@
+# Project hooks require explicit trust in Codex /hooks.
+# Keep models, sandbox policy and existing global MCP connections unchanged.
+[features]
+hooks = true

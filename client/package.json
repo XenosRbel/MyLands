@@ -5,14 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "npm run check:art && tsc --noEmit && vite build",
     "build:yandex": "tsc --noEmit && vite build --mode yandex",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "preview": "vite preview",
     "android:sync": "npm run build && cap sync android",
     "android:add": "cap add android",
-    "yandex:zip": "node scripts/yandex-zip.mjs"
+    "yandex:zip": "node scripts/yandex-zip.mjs",
+    "check:art": "node scripts/check-pack-art.mjs && node scripts/check-raster-policy.mjs && node scripts/check-generated-raster.mjs",
+    "predev": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py && python3 scripts/paint_world_scene.py",
+    "prebuild": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py && python3 scripts/paint_world_scene.py",
+    "prebuild:yandex": "node scripts/extract-pack-ui.mjs && python3 scripts/paint_research_sprites.py && python3 scripts/paint_world_scene.py"
   },
   "dependencies": {
     "@capacitor/core": "^8.5.3",

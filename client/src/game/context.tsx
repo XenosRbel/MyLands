@@ -3,6 +3,7 @@ import { api, get, syncServerTime } from "../api/client";
 import type { Account, CityView, Overview, World } from "../api/types";
 import { makeT, type UIKey } from "../i18n/ui";
 import { applyTheme, PackIndex, type Pack } from "./pack";
+import { playGameCue } from "./audio";
 import type { PlatformAdapter } from "../platform/adapter";
 
 export type Screen =
@@ -90,6 +91,8 @@ export function GameProvider(props: {
 
   const toast = useCallback((text: string, kind: Toast["kind"] = "info") => {
     const id = Date.now() + Math.random();
+    if (kind === "ok") playGameCue("reward");
+    if (kind === "error") playGameCue("warning");
     setToasts((ts) => [...ts.slice(-3), { id, text, kind }]);
     setTimeout(() => setToasts((ts) => ts.filter((x) => x.id !== id)), kind === "error" ? 6000 : 3500);
   }, []);

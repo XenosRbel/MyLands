@@ -1,10 +1,14 @@
 # Multi-stage build: web client → Go server → minimal runtime image.
 # NOTE: written for Docker; not executed in the authoring environment (no Docker daemon there).
 FROM node:24-alpine AS client
+RUN apk add --no-cache python3 py3-pillow
 WORKDIR /src/client
 COPY client/package.json client/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY client/ ./
+# The client asset check reads Game Packs from /src/packs.
+COPY packs/ /src/packs/
+COPY docs/reference/MyLands_References_and_Ashen_Crowns_Resource_Pack.zip /src/docs/reference/MyLands_References_and_Ashen_Crowns_Resource_Pack.zip
 RUN npm run build
 
 FROM golang:1.27-alpine AS server

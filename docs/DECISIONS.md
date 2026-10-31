@@ -43,3 +43,17 @@ Format: ID — decision — context/alternatives — consequences. Newest last.
 **D-020 — Platform identity sign-in is pluggable; only `dev` exists.** Yandex/Google identity must be verified server-side (signatures/tokens) — not implemented; endpoint returns 501 for unconfigured platforms. Guest play covers Yandex's "no forced login" rule meanwhile.
 
 **D-021 — No real-money features.** Premium currency (`starglass`) is earned in-game only, non-tradable, non-lootable. Payments/ads require separate product, legal and platform review (brief §14).
+
+**D-022 — Shared project-local agent harness.** Codex and Claude Code call the same Python commands and policies.
+`AGENT.md` remains authoritative; existing skills are shared through relative symlinks.
+Alternative: separate scripts and global settings changes.
+Shared commands reduce drift without changing models, permissions, or existing MCP registrations.
+Hooks provide guardrails; they do not replace the sandbox, explicit trust, tests, or code review.
+See `docs/AGENT_HARNESS.md` and T-032.
+
+**D-023 — Shared Principal Architect role with native client adapters.** One role contract defines evidence, invariants and architecture review output.
+Codex, Claude Code and GitHub Copilot adapters reference that contract with their supported formats.
+The role recommends changes; an implementing agent records documents and runs explicitly assigned measurements.
+Models and permissions remain inherited; Codex instructions do not create a separate read-only sandbox.
+Single-instance capacity proposals remain unimplemented until their workload and acceptance criteria are agreed.
+See T-033 and `docs/architecture/SINGLE_INSTANCE_HIGHLOAD.md`.

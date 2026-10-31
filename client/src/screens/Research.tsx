@@ -109,7 +109,21 @@ export function ResearchScreen() {
         <aside className="research-aside">
           {active && definition && (
             <section className="research-detail panel">
-              <div className="research-detail-art"><ResearchSprite tech={active.id} level={Math.max(active.level,1)} size={96} /></div>
+              <div className="research-detail-evolution">
+                <div className="research-evolution-state">
+                  <ResearchSprite tech={active.id} level={Math.max(active.level, 1)} size={104} />
+                  <span>{t("level")} {active.level}</span>
+                </div>
+                {active.next && (
+                  <>
+                    <span className="research-evolution-arrow" aria-hidden="true">➜</span>
+                    <div className="research-evolution-state next">
+                      <ResearchSprite tech={active.id} level={active.next.level} size={104} />
+                      <span>{t("level")} {active.next.level}</span>
+                    </div>
+                  </>
+                )}
+              </div>
               <h2>{idx.name(active.id)}</h2>
               <div className="muted small">{t("level")} {active.level} / {active.maxLevel}</div>
               <p>{idx.desc(active.id)}</p>

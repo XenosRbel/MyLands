@@ -33,6 +33,15 @@ await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
 
 await page.locator(".city-game-building", { hasText: "Lumberyard" }).click();
+await page.getByRole("dialog").locator(".building-catalog-tabs button").first().waitFor();
+await page.screenshot({ path: `${out}/21-building-catalog.png`, fullPage: true });
+const constructionTabs = page.getByRole("dialog").locator(".building-catalog-tabs button");
+if (await constructionTabs.count() > 1) {
+  await constructionTabs.nth(1).click();
+  if (!await page.getByRole("dialog").locator(".building-catalog-choice").count()) fail("building category tab is empty");
+  await page.getByRole("dialog").locator(".building-catalog-tabs button").filter({hasText:"economy"}).click();
+  await page.getByRole("dialog").locator(".building-catalog-choice").filter({hasText:"Lumberyard"}).click();
+}
 await page.getByRole("dialog").getByRole("button", { name: /Upgrade/ }).click();
 await page.locator(".toast.ok").waitFor();
 log("upgrade queued");

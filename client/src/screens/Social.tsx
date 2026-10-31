@@ -88,7 +88,9 @@ export function HeroesScreen() {
                   return (
                     <div key={slot} className="hero-game-slot">
                       <div className="hero-game-slot-icon">
-                        {item ? <Icon name={idx.icon(item.def) || "star"} size={31} /> : <Icon name="shield" size={27} />}
+                        {item && (idx.art(item.def) || idx.icon(item.def).includes("/")) ?
+                          <img src={idx.art(item.def) || idx.icon(item.def)} alt="" loading="lazy" /> :
+                          <Icon name={item ? idx.icon(item.def) || "star" : "shield"} size={27} />}
                       </div>
                       <div className="hero-game-slot-input">
                         <small>{slot}</small>
@@ -143,7 +145,9 @@ export function HeroesScreen() {
                 <ul className="list">
                   {free.map((item) => (
                     <li key={item.id}>
-                      <Icon name={idx.icon(item.def) || "star"} size={32} />
+                      {idx.art(item.def) || idx.icon(item.def).includes("/") ?
+                        <img className="hero-inventory-art" src={idx.art(item.def) || idx.icon(item.def)} alt="" loading="lazy" /> :
+                        <Icon name={idx.icon(item.def) || "star"} size={32} />}
                       <strong>{idx.name(item.def)}</strong>
                       <span className="small muted">{idx.desc(item.def)}</span>
                     </li>

@@ -41,6 +41,12 @@ await page.screenshot({ path: `${out}/03-city.png` });
 
 await page.locator(".city-game-building", { hasText: "Lumberyard" }).click();
 await page.getByRole("dialog").locator(".building-catalog-tabs button").first().waitFor();
+const dialogAboveHud = await page.evaluate(() => {
+  const rect = document.querySelector(".topbar").getBoundingClientRect();
+  const topElement = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  return !!document.querySelector(".overlay")?.contains(topElement);
+});
+if (!dialogAboveHud) fail("game topbar overlays the construction dialog backdrop");
 await page.screenshot({ path: `${out}/21-building-catalog.png`, fullPage: true });
 const constructionTabs = page.getByRole("dialog").locator(".building-catalog-tabs button");
 if (await constructionTabs.count() > 1) {

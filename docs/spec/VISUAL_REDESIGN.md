@@ -130,3 +130,42 @@ The game still requires a final screenshot pass after later fixes.
 
 The completed browser workflow proves navigation and rendering at tested viewports.
 It does not certify complete similarity with the original My Lands.
+
+## Visual improvement pass — 2026-11-01
+
+### Construction window
+
+The building dialog now contains category tabs.
+Each tab shows a grid of illustrated building choices.
+The selected building displays level, effects, requirements, and costs.
+The original authoritative building command remains unchanged.
+The browser E2E now captures this window and tests category changes.
+
+### Illustrations
+
+Ten units and four neutral sites received rewritten transparent SVG illustrations.
+Flat circular emblems were replaced with material-shaded silhouettes.
+Each texture filter clips noise to the object's alpha.
+This prevents opaque rectangular artifacts around sprites.
+The browser art gallery checks 120px and 48px variants.
+These illustrations still require painted-art parity review.
+
+### Hero and kingdom
+
+Hero equipment uses real Game Pack art and a distinct equipment chamber.
+The current kingdom Path uses an illustrated emblem and level badge.
+The exact portrait and equipment placement still need reference comparison.
+
+### Map
+
+The city marker uses the painted Keep asset.
+Pointer hit testing accounts for CSS canvas scaling.
+Regression tests cover click and drag coordinates at multiple sizes.
+
+### Unfinished quality criteria
+
+Do not equate build success with visual equivalence.
+The illustrations still differ from existing hand-painted WebP artwork.
+Technology nodes use borrowed building artwork pending dedicated images.
+Terrain requires seamless borders and a more cohesive illustrated atlas.
+Other game screens still require explicit screenshot-by-screenshot review.

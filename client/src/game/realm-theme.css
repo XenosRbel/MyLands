@@ -585,3 +585,45 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 .map-game-inspector>.row { padding:11px;gap:7px; }
 .map-game-inspector>.row .btn { flex:1 1 110px; }
 @media(max-width:1100px) { .map-game-inspector { position:static; } }
+
+/* Classic strategy bottom dock: command icons and actual stationed troops. */
+@media(min-width:721px) {
+ .shell { grid-template-rows:var(--top-h) minmax(0,1fr) 76px; }
+ .sidenav { grid-row:2; }
+ .content { grid-row:2; }
+ .game-dock { grid-column:1/-1;grid-row:3;position:sticky;bottom:0;z-index:21; }
+}
+.game-dock {
+  display:flex;align-items:center;gap:13px;min-width:0;padding:8px 16px;
+  background:
+    linear-gradient(180deg,#6c573c 0,#453321 13%,#2b2018 56%,#463523 100%);
+  border-top:3px ridge #ae936a;
+  box-shadow:0 -7px 23px #0b0807a8,inset 0 1px #e6d3ae38;
+}
+.game-dock-actions { display:flex;align-items:center;gap:5px;flex:none; }
+.game-dock-actions button {
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-width:57px;height:59px;padding:5px 7px;
+  color:#d2bb92;background:linear-gradient(#594632,#30261d);
+  border:1px solid #987b55;border-radius:7px;cursor:pointer;
+  box-shadow:inset 0 1px #d5b78c3a;
+}
+.game-dock-actions button span { font:10px/1.1 var(--font-display); }
+.game-dock-actions button.active,.game-dock-actions button:hover {
+  color:#f0deb5;border-color:#d1b78a;background:linear-gradient(#856d49,#4e3b2a);
+}
+.game-dock-city { min-width:100px;display:grid;place-items:center;gap:5px;padding:5px 15px;
+  border:1px solid #a48960;color:#e6d0a9;background:radial-gradient(ellipse,#8a725335,#2b211a);
+  clip-path:polygon(10% 0,90% 0,100% 50%,90% 100%,10% 100%,0 50%); }
+.game-dock-city strong { font:600 13px var(--font-display);white-space:nowrap; }
+.game-dock-city small { font-size:11px;color:#b59d78; }
+.game-dock-army { display:flex;align-items:center;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:thin;flex:1;justify-content:flex-end; }
+.game-dock-unit { min-width:49px;width:53px;height:58px;flex:none;position:relative;overflow:hidden;
+  border:1px solid #98805a;border-radius:4px;background:linear-gradient(#665136,#29221a);cursor:pointer; }
+.game-dock-unit img { width:100%;height:100%;object-fit:cover; }
+.game-dock-unit span { position:absolute;bottom:0;left:0;right:0;background:#1b1511b8;color:#efdbb4;text-align:center;font-size:11px; }
+.game-dock-unit:hover { border-color:#d4bd91; }
+@media(max-width:1190px) { .game-dock-actions button { min-width:44px;padding:4px; }
+ .game-dock-actions button span { display:none; } .game-dock-city { display:none; } }
+@media(max-width:720px) { .game-dock { display:none; } }
+@media(prefers-reduced-motion:reduce) { .game-dock-unit,.game-dock-actions button { transition:none; } }

@@ -172,7 +172,7 @@ export function Shell() {
       <nav className="game-dock" aria-label={t("army")}>
         <button type="button" className={"game-dock-globe" + (screen === "map" ? " active" : "")}
           onClick={() => navigate("map")} title={t("map")} aria-label={t("map")}>
-          <img src="/ui/world-globe.svg" alt="" draggable={false} />
+          <img src="/ui/world-globe.webp" alt="" draggable={false} />
         </button>
         <div className="game-dock-actions">
           {(["city", "army", "alliance", "market", "reports", "profile"] as Screen[])

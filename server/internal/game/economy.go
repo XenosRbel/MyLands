@@ -291,9 +291,9 @@ func (c *pctx) releaseRaidEscrow(ci *City) error {
 		return err
 	}
 	type escrow struct {
-		id int64
+		id       int64
 		resource string
-		amount int64
+		amount   int64
 	}
 	var orders []escrow
 	for rows.Next() {

@@ -997,7 +997,6 @@ func TestTransportRejectsUnrelatedPlayer(t *testing.T) {
 	}
 }
 
-
 func TestRaidReleasesMarketEscrow(t *testing.T) {
 	e := newEnv(t)
 	attacker := e.player("escrow_attacker")

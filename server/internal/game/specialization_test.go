@@ -54,7 +54,7 @@ func TestSpecialisationModifiersApplyAndStopAfterSwitch(t *testing.T) {
 		t.Fatal(err)
 	}
 	c := &pctx{p: loaded, pl: &Player{
-		Race: "thornkin",
+		Race:  "thornkin",
 		Techs: map[string]int{"path_architect": 2},
 	}}
 	c.recomputeMods()

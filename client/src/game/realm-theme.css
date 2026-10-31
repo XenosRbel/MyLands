@@ -645,3 +645,40 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .sidenav button:hover>span:not(.badge),.sidenav button:focus-visible>span:not(.badge) { opacity:1; }
   .sidenav .badge { position:absolute;top:2px;right:0;margin:0; }
 }
+
+/* World-first city correction after first real screenshot review. */
+.city-game-stage .city-scene {
+  aspect-ratio:16/9;
+  background:
+    radial-gradient(ellipse at 51% 58%,transparent 16%,#111d14b3 100%),
+    linear-gradient(140deg,#627549,#394c35 65%,#24352a);
+  border-color:#9c865f;
+}
+.city-game-stage .city-scene .ground {
+  clip-path:none;
+  inset:0;
+  background-size:25% auto;
+  background-position:center center;
+  filter:saturate(.75) brightness(.68);
+  box-shadow:inset 0 0 110px 18px #14241b, inset 0 0 24px #1d3321;
+}
+.city-game-stage .city-scene.walled::before {
+  clip-path:none;
+  background:radial-gradient(ellipse 65% 48% at 50% 49%,#a99a8166,transparent 82%);
+}
+.city-game-stage .city-scene.walled .ground { clip-path:none; }
+.city-game-stage .city-scene::after {
+  background:
+    radial-gradient(ellipse 70% 60% at center,transparent 55%,#0f1c14a1 100%),
+    linear-gradient(180deg,#efe0a316,transparent 28%,#0a110933);
+  box-shadow:inset 0 0 42px #06100b80;
+}
+.city-game-stage .plot.built { width:18.5%; }
+.city-game-stage .plot-label { border-color:#b19a7375;color:#f1e0bf; }
+.city-game-stage .plot.empty { opacity:.62; }
+.city-game-stage .plot.empty:hover,.city-game-stage .plot.empty:focus-visible { opacity:1; }
+@media(max-width:720px) {
+  .city-game-stage .city-scene { aspect-ratio:1/1; }
+  .city-game-stage .plot.built { width:22%; }
+  .city-game-stage .city-scene .ground { background-size:38% auto; }
+}

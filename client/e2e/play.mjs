@@ -50,6 +50,10 @@ await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
 await page.locator(".game-clock").waitFor();
 await page.locator(".topbar .resbar-item .icon").first().waitFor();
+await page.waitForFunction(() => {
+  const images = [...document.querySelectorAll(".topbar .resbar-item .icon")];
+  return images.length >= 7 && images.every(img => img.complete && img.naturalWidth > 0);
+}, {timeout:15000});
 const resourceArt = await page.locator(".topbar .resbar-item .icon").evaluateAll((images) => images.map((img) => ({
   src: img.getAttribute("src"), width: img.naturalWidth, height: img.naturalHeight,
 })));

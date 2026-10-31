@@ -22,7 +22,7 @@ export function MapScreen() {
   const [texReady, setTexReady] = useState(0);
   const textures = useMemo(() => {
     const m = new Map<string, HTMLImageElement>();
-    for (const ter of [...idx.pack.terrains, ...idx.pack.neutrals]) {
+    for (const ter of [...idx.pack.terrains, ...idx.pack.neutrals, ...idx.pack.buildings.filter((building) => building.id === "keep")]) {
       const url = idx.art(ter.id);
       if (!url) continue;
       const img = new Image();
@@ -94,19 +94,26 @@ export function MapScreen() {
       }
       if (tile.cityId) {
         const own = tile.ownerId === overview?.player.id;
-        const race = idx.pack.races.find((r) => r.id === tile.race);
-        ctx.fillStyle = own ? accent : race?.color ?? "#ccc";
-        const s = cell * 0.62, o = (cell - s) / 2;
+        const fort = textures.get("keep");
+        const markerSize = cell * 0.94;
+        const markerLeft = px + (cell - markerSize) / 2;
+        const markerTop = py + (cell - markerSize) / 2;
+        ctx.save();
+        ctx.fillStyle = own ? "rgba(116, 141, 100, .55)" : "rgba(115, 83, 66, .6)";
         ctx.beginPath();
-        ctx.moveTo(px + o, py + o + s);
-        ctx.lineTo(px + o, py + o + s * 0.35);
-        ctx.lineTo(px + cell / 2, py + o);
-        ctx.lineTo(px + o + s, py + o + s * 0.35);
-        ctx.lineTo(px + o + s, py + o + s);
-        ctx.closePath();
+        ctx.ellipse(px + cell / 2, py + cell * .77, cell * .38, cell * .12, 0, 0, Math.PI * 2);
         ctx.fill();
-        ctx.strokeStyle = "rgba(0,0,0,.5)";
-        ctx.stroke();
+        if (fort?.complete && fort.naturalWidth) {
+          ctx.shadowColor = "rgba(7, 9, 5, .65)";
+          ctx.shadowBlur = cell * .2;
+          ctx.shadowOffsetY = cell * .08;
+          ctx.drawImage(fort, markerLeft, markerTop, markerSize, markerSize);
+        } else {
+          ctx.fillStyle = "#756348";
+          ctx.fillRect(px + cell * .28, py + cell * .32, cell * .44, cell * .48);
+          ctx.fillRect(px + cell * .36, py + cell * .17, cell * .28, cell * .2);
+        }
+        ctx.restore();
       } else if (tile.neutral) {
         ctx.globalAlpha = tile.cleared ? 0.35 : 1;
         const siteArt = textures.get(tile.neutral);

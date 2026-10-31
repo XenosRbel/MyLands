@@ -35,10 +35,15 @@ const roman = (n: number) => {
 export function ResearchScreen() {
   const { city, idx, t, refresh, toast } = useGame();
   const [selected, setSelected] = useState<string | null>(null);
+  const [activeBranch, setActiveBranch] = useState<string | null>(null);
   if (!city) return null;
   const branches = Array.from(new Set(idx.pack.techs.map((x) => x.branch)));
-  const activeId = selected && city.techs.some((x) => x.id === selected)
-    ? selected : city.techs[0]?.id;
+  const branch = activeBranch && branches.includes(activeBranch) ? activeBranch : branches[0];
+  const branchTechs = city.techs.filter((view) =>
+    idx.pack.techs.find((def) => def.id === view.id)?.branch === branch
+  );
+  const activeId = selected && branchTechs.some((view) => view.id === selected)
+    ? selected : branchTechs[0]?.id;
   const active = city.techs.find((x) => x.id === activeId);
   const definition = active && idx.pack.techs.find((x) => x.id === active.id);
   const currentSpecialization = idx.pack.techs.find((tech) =>
@@ -54,9 +59,19 @@ export function ResearchScreen() {
         <Icon name="book" size={28} />
         <div><h1>{t("research")}</h1><p className="muted small">{t("researchHint")}</p></div>
       </div>
+      <nav className="research-branch-tabs" aria-label={t("researchTree")}>
+        {branches.map((br) => (
+          <button type="button" key={br} className={branch === br ? "active" : ""}
+            aria-current={branch === br ? "page" : undefined}
+            onClick={() => { setActiveBranch(br); setSelected(null); }}>
+            <Icon name={branchSymbols[br] ?? "book"} size={19} />
+            {br in branchNames ? t(branchNames[br as keyof typeof branchNames]) : br}
+          </button>
+        ))}
+      </nav>
       <div className="research-layout">
         <div className="research-tree" role="region" aria-label={t("researchTree")}>
-          {branches.map((br) => (
+          {branches.filter((br) => br === branch).map((br) => (
             <section key={br} className="research-branch">
               <div className="research-branch-title">
                 <Icon name={branchSymbols[br] ?? "book"} size={24} />

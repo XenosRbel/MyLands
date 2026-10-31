@@ -155,7 +155,7 @@ def paint(tech, kind, tone, stage):
             light=max(0,1-rr*.64)
             px[x,y]=(int(48+52*light+rough),int(38+35*light+rough),int(35+23*light+rough),255)
     d=ImageDraw.Draw(im)
-    for i in range(200):
+    for i in range(18):
         x=rng.randrange(n);y=rng.randrange(n)
         size=rng.randrange(3,30)
         col=(180+rng.randrange(50),153+rng.randrange(45),99+rng.randrange(49),rng.randrange(10,38))
@@ -197,7 +197,7 @@ def main():
         for stage in (1,2,3):
             out=OUTPUT / f"{tech}-{stage}.webp"
             image=paint(tech,kind,tone,stage)
-            image.save(out,format="WEBP",quality=91,method=6)
+            image.save(out,format="WEBP",quality=86,method=4)
     print(f"Painted {len(TECHS)*3} original WebP technology icons in {OUTPUT}.")
 
 if __name__ == "__main__":

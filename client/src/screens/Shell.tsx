@@ -177,8 +177,11 @@ export function Shell() {
           <small>{city ? `${city.city.x}:${city.city.y}` : ""}</small>
         </div>
         <div className="game-dock-army">
-          {city?.units.filter((view) => (city.city.units[view.id] ?? 0) > 0).slice(0, 8).map((view) => (
-            <button type="button" key={view.id} className="game-dock-unit"
+          {city?.units.slice().sort((a, b) =>
+            (city.city.units[b.id] ?? 0) - (city.city.units[a.id] ?? 0)
+          ).slice(0, 13).map((view) => (
+            <button type="button" key={view.id}
+              className={"game-dock-unit" + ((city.city.units[view.id] ?? 0) === 0 ? " inactive" : "")}
               title={`${idx.name(view.id)}: ${fmt(city.city.units[view.id] ?? 0)}`}
               onClick={() => navigate("army")}>
               {idx.art(view.id) ?

@@ -1226,3 +1226,135 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .topbar .title {border-right:2px solid #8b704a65;}
   .kingdom-shortcuts {gap:7px;padding-left:9px;}
 }
+
+/* Approved illustrated castle-screen composition.
+   Reference: fixed named menu / permanent parchment queue / wide world / deep HUD.
+   Supersedes the experimental icon-only and collapsible-queue arrangements. */
+@media (min-width: 721px) {
+  .shell {
+    --nav-w: clamp(174px, 12.8vw, 222px);
+    --top-h: 68px;
+    grid-template-columns:var(--nav-w) minmax(0,1fr);
+    grid-template-rows:var(--top-h) minmax(0,1fr) clamp(105px,12.2vh,132px);
+  }
+  .sidenav {
+    padding:10px 7px 12px;
+    gap:3px;
+    border-right:4px ridge #a78a5b;
+    background:linear-gradient(90deg,#30211c,#3d2735 58%,#25191e);
+  }
+  .sidenav::before {display:none;}
+  .sidenav button {
+    display:flex;justify-content:flex-start;gap:11px;
+    min-height:47px;max-height:none;padding:7px 12px;
+    border:1px solid #a78b643d;
+    border-bottom-color:#ac845e6b;
+    border-radius:3px;
+    font:600 clamp(12px,.9vw,16px)/1.2 var(--font-display);
+    color:#e7d9c8;
+    background:linear-gradient(110deg,#493229bb,#3b2934c9);
+  }
+  .sidenav button .sidenav-illustrated-icon {width:35px;height:35px;flex-shrink:0;}
+  .sidenav button>span:not(.badge) {
+    position:static;display:inline;transform:none;
+    width:auto;max-width:none;white-space:normal;
+    opacity:1;pointer-events:auto;z-index:auto;
+    padding:0;border:0;box-shadow:none;background:none;
+    color:inherit;font:inherit;
+  }
+  .sidenav button.on {
+    color:#fff0ce;
+    background:linear-gradient(95deg,#806136,#512c63 68%,#342137);
+    border:1px solid #b79e6d;
+    box-shadow:inset 0 1px #edcd875c,0 2px 5px #0005;
+  }
+  .sidenav button.on::before {display:none;}
+  .content {padding:0;overflow:auto;}
+  .city-game-screen {height:100%;gap:0;}
+  .city-game-heading {display:none;}
+  .city-game-layout {
+    height:100%;min-height:0;
+    grid-template-columns:minmax(0,1fr) clamp(270px,20.5vw,350px)!important;
+    gap:0!important;
+  }
+  .city-game-stage {
+    border:0;border-right:4px ridge #997a51;
+    box-shadow:inset 0 0 35px #0e1b12b0;
+  }
+  .city-game-stage-title {
+    position:absolute;z-index:5;top:11px;left:11px;right:auto;
+    width:auto;min-width:230px;
+    border:2px ridge #bb9f71;
+    border-radius:3px;
+    background:linear-gradient(#4f3727dc,#301e18e6);
+    box-shadow:0 4px 14px #0008;
+    gap:8px;
+  }
+  .city-game-stage-coordinates {color:#dfccaa;}
+  .city-build-toggle {margin-left:auto;}
+  .city-game-stage .city-scene {
+    height:100%;width:100%;min-height:0;
+    border:0!important;border-radius:0!important;
+    background:radial-gradient(ellipse at 50% 40%,#617a52,#2f4934 75%,#12251e);
+  }
+  .city-game-rail,.city-game-rail[hidden] {
+    display:flex!important;flex-direction:column;
+    overflow-y:auto;min-height:0;height:100%;
+    border:0;border-left:2px solid #c4a671;
+    background:linear-gradient(145deg,#ddcfab,#bca884 75%,#a78d6c);
+    color:#402d21;
+    box-shadow:inset 0 0 0 4px #a48c67;
+  }
+  .city-game-rail-title {
+    background:linear-gradient(#4e314a,#302029);
+    color:#f1ddbf;font-size:1.08rem;
+    justify-content:center;padding:14px 8px;
+    border-bottom:4px ridge #a78a58;
+  }
+  .city-game-rail .panel {
+    background:linear-gradient(#e1d0af,#c8b18f)!important;
+    border:0;border-bottom:3px ridge #a88d61;
+    color:#3e2a1e;
+    box-shadow:none!important;padding:14px!important;margin:0;
+    min-height:155px;
+  }
+  .city-game-rail .panel>h3:first-child {
+    color:#473122;
+    border-bottom:1px solid #aa8c67;
+    font:700 1rem var(--font-display);
+  }
+  .city-game-rail .muted {color:#6d523d;}
+  .city-game-rail .queue li {
+    background:#e7d7b855;
+    border:1px solid #b89b70;
+    border-left:3px solid #95754c;
+    color:#402d20;
+  }
+  .city-game-rail-links {padding:10px;margin-top:auto;background:#b9a27e;}
+  .game-dock {
+    border-top:6px ridge #c4a76b;
+    padding:9px 18px;
+    background:linear-gradient(#65452d,#3e2733 45%,#342025);
+  }
+  .game-dock-actions button {
+    width:clamp(58px,5.2vw,79px);
+    height:clamp(73px,9.4vh,101px);
+    min-width:clamp(58px,5.2vw,79px);
+    border:3px ridge #c2a36d;
+  }
+  .game-dock-actions button .game-dock-navigation-art {width:52px;height:62px;max-height:63px;}
+  .game-dock-actions button span {display:block;font-size:11px;}
+  .game-dock-unit {
+    min-width:clamp(55px,5.4vw,88px);
+    width:clamp(55px,5.4vw,88px);
+    height:clamp(74px,9.4vh,103px);
+  }
+  .game-dock-city {display:none;}
+}
+@media (min-width:721px) and (max-width:1190px) {
+  .shell {--nav-w:173px;}
+  .sidenav button {gap:7px;padding:5px 7px;font-size:12px;min-height:40px;}
+  .sidenav button .sidenav-illustrated-icon {width:28px;height:28px;}
+  .city-game-layout {grid-template-columns:minmax(0,1fr) 265px!important;}
+  .game-dock-actions button {min-width:51px;width:51px;}
+}

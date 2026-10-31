@@ -461,6 +461,9 @@ type MapTile struct {
 const MaxViewport = 64
 
 func (s *Service) Map(ctx contextT, q querier, worldID int64, x, y, w, h int, now time.Time) ([]MapTile, error) {
+	if x < -MaxViewport || y < -MaxViewport || x > 100000 || y > 100000 {
+		return nil, invalid("viewport origin out of range")
+	}
 	if w < 1 || h < 1 || w > MaxViewport || h > MaxViewport {
 		return nil, invalid("viewport must be between 1x1 and %dx%d", MaxViewport, MaxViewport)
 	}

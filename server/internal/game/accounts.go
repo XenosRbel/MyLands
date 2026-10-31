@@ -36,12 +36,24 @@ const (
 	argonKeyLen  = 32
 )
 
+// hashSlots bounds concurrent argon2id computations (19 MiB each) so a burst
+// of logins cannot exhaust memory (SECURITY S-4).
+var hashSlots = make(chan struct{}, 4)
+
+func withHashSlot[T any](fn func() T) T {
+	hashSlots <- struct{}{}
+	defer func() { <-hashSlots }()
+	return fn()
+}
+
 func HashPassword(pw string) (string, error) {
 	salt := make([]byte, 16)
 	if _, err := rand.Read(salt); err != nil {
 		return "", err
 	}
-	key := argon2.IDKey([]byte(pw), salt, argonTime, argonMemory, argonThreads, argonKeyLen)
+	key := withHashSlot(func() []byte {
+		return argon2.IDKey([]byte(pw), salt, argonTime, argonMemory, argonThreads, argonKeyLen)
+	})
 	return fmt.Sprintf("$argon2id$v=19$m=%d,t=%d,p=%d$%s$%s", argonMemory, argonTime, argonThreads,
 		base64.RawStdEncoding.EncodeToString(salt), base64.RawStdEncoding.EncodeToString(key)), nil
 }
@@ -62,7 +74,10 @@ func CheckPassword(hash, pw string) bool {
 	if err1 != nil || err2 != nil {
 		return false
 	}
-	got := argon2.IDKey([]byte(pw), salt, t, m, p, uint32(len(want)))
+	if m > 64*1024 || t > 10 || p > 4 || len(want) > 64 {
+		return false // refuse attacker-chosen expensive parameters
+	}
+	got := withHashSlot(func() []byte { return argon2.IDKey([]byte(pw), salt, t, m, p, uint32(len(want))) })
 	return subtle.ConstantTimeCompare(got, want) == 1
 }
 

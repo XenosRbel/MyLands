@@ -431,7 +431,8 @@ func (c *pctx) Messages(box string, before int64, limit int) ([]Message, error) 
 			return []Message{}, nil
 		}
 		args[0] = *c.pl.AllianceID
-		where = `m.alliance_id=$1`
+		args = append(args, c.pl.ID)
+		where = `m.alliance_id=$1 AND NOT EXISTS (SELECT 1 FROM player_blocks b WHERE b.player_id=$4 AND b.blocked_id=m.from_player)`
 	default:
 		where = `m.to_player=$1 AND NOT EXISTS (SELECT 1 FROM player_blocks b WHERE b.player_id=$1 AND b.blocked_id=m.from_player)`
 	}

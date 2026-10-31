@@ -70,7 +70,12 @@ func main() {
 		}
 		log.Info("world ready", "slug", parts[0], "id", id, "pack", p.ID, "version", p.Version)
 	}
-	if cfg.AdminBootstrap != "" {
+	// RF_ADMIN_LOGIN promotes an existing login at startup. It is ignored in
+	// production because anyone could register that login first (SECURITY S-2);
+	// promote production admins explicitly in SQL instead.
+	if cfg.AdminBootstrap != "" && cfg.Env == "production" {
+		log.Warn("RF_ADMIN_LOGIN ignored in production; promote admins with SQL")
+	} else if cfg.AdminBootstrap != "" {
 		if _, err := db.Exec(ctx, `UPDATE accounts SET is_admin=true WHERE login=$1`, cfg.AdminBootstrap); err != nil {
 			log.Warn("admin bootstrap", "err", err)
 		}

@@ -18,7 +18,7 @@ Format: ID — decision — context/alternatives — consequences. Newest last.
 
 **D-008 — REST + polling, no WebSocket in v0.1.** Authoritative state is always fetched via REST; 15 s polling + timer-triggered refresh is enough for a strategy game with minute-scale timers. Push (SSE) is a planned optimisation for incoming-attack alerts.
 
-**D-009 — Lock order players → cities → missions → heroes → tiles → orders/items; never two player locks in one transaction.** Cross-player effects are routed as events of the affected player (market proceeds = `delivery` event; returning loot belongs to the attacker's `mission_return`). Mission rows may be written by the defender's transaction.
+**D-009 — Lock order players → cities → missions → heroes → tiles → orders/items; never two player locks in one transaction.** Cross-player effects are routed as events of the affected player (market proceeds = `delivery` event; returning loot belongs to the attacker's `mission_return`). Mission rows may be written by the defender's transaction. *Exception*: alliance membership/role changes update another player's row (alliance columns only, no economic effect); the rare deadlock between two officers acting on each other is detected by PostgreSQL and retried by `InTx` (SECURITY S-7).
 
 **D-010 — Upkeep of units away is charged at departure strength until return (simplification).** Keeps D-009 (losses abroad would otherwise change another player's economy mid-interval). Research: missions cost double upkeep (ECO-015) → `missionUpkeepMult = 2` in Ashen Crowns.
 

@@ -19,10 +19,16 @@ func (s *Service) audit(ctx context.Context, q querier, adminID int64, action, t
 // AdminGrant adds (or with negative values removes) resources to a city with
 // a mandatory reason; it goes through the normal settlement path and is audited.
 func (s *Service) AdminGrant(ctx context.Context, adminID, cityID int64, amounts pack.Amounts, reason string) error {
+	return s.InTx(ctx, func(tx pgx.Tx) error { return s.AdminGrantTx(ctx, tx, adminID, cityID, amounts, reason) })
+}
+
+// AdminGrantTx is AdminGrant inside the caller's transaction (used by the
+// idempotent HTTP command path).
+func (s *Service) AdminGrantTx(ctx context.Context, tx pgx.Tx, adminID, cityID int64, amounts pack.Amounts, reason string) error {
 	if len(reason) < 5 {
 		return invalid("a reason of at least 5 characters is required")
 	}
-	return s.InTx(ctx, func(tx pgx.Tx) error {
+	{
 		var pid int64
 		if err := tx.QueryRow(ctx, `SELECT player_id FROM cities WHERE id=$1`, cityID).Scan(&pid); err != nil {
 			return notFound("city")
@@ -57,7 +63,7 @@ func (s *Service) AdminGrant(ctx context.Context, adminID, cityID int64, amounts
 			return err
 		}
 		return c.save()
-	})
+	}
 }
 
 type AdminPlayer struct {
@@ -164,6 +170,12 @@ func (s *Service) RetryEvent(ctx context.Context, adminID, eventID int64) error 
 }
 
 func (s *Service) Ban(ctx context.Context, adminID, accountID int64, until time.Time, reason string) error {
+	if !until.After(s.Clock.Now()) {
+		return invalid("until must be a future RFC 3339 time")
+	}
+	if len(reason) < 5 {
+		return invalid("a reason of at least 5 characters is required")
+	}
 	return s.InTx(ctx, func(tx pgx.Tx) error {
 		if _, err := tx.Exec(ctx, `UPDATE accounts SET banned_until=$2 WHERE id=$1`, accountID, until); err != nil {
 			return err

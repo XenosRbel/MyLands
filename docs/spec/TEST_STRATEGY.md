@@ -9,6 +9,7 @@ Verified locally on 2026-10-31 (PostgreSQL 16 from `scripts/dev-postgres.sh`):
 | `RF_REQUIRE_DB=1 go test -race -count=1 ./...` | All 5 packages with tests pass: `api`, `game`, `pack`, `rules`, plus the OpenAPI coverage test. |
 | `npm test` (vitest) | 7 / 7 pass |
 | `node e2e/play.mjs` | **Not** re-run in this pass. It needs a running server, the built client and Playwright. |
+| `go run ./cmd/loadtest` | **Not** re-run in this pass. The baseline result is recorded in `docs/reports/LOAD_TEST_2026-10-31.md`. |
 
 ---
 
@@ -16,6 +17,8 @@ Verified locally on 2026-10-31 (PostgreSQL 16 from `scripts/dev-postgres.sh`):
 
 ```
                        ┌───────────────────────────┐
+  Load (baseline)      │ server/cmd/loadtest        │  Go HTTP load generator (manual, see §6)
+                       ├───────────────────────────┤
   Browser E2E (1)      │ client/e2e/play.mjs        │  Playwright, desktop + mobile, real server + DB
                        ├───────────────────────────┤
   API / HTTP (7)       │ internal/api/*_test.go     │  httptest server + real PostgreSQL + fake clock
@@ -212,7 +215,7 @@ The original brief text is not stored in the repository. The categories below ar
 | C18 | Browser E2E, desktop and mobile | `play.mjs` | **Covered** for the main loop. Not in CI yet. |
 | C19 | Client unit tests | `client.test.ts` (7) | **Partial**: api client, i18n, formatting. No component tests. |
 | C20 | Accessibility checks | none automated | **Gap** (UI_UX_SPEC §9) |
-| C21 | Load / performance / soak | none | **Gap**: planned in §6 |
+| C21 | Load / performance / soak | `server/cmd/loadtest` (baseline: 200 players, 30 s; report in `docs/reports/LOAD_TEST_2026-10-31.md`) | **Partial**: one baseline only. The full plan is in §6. |
 | C22 | Platform and device (Yandex draft, Android device or emulator) | none | **Gap** |
 | C23 | Backup and restore | `scripts/verify-backup.sh` (manual / `make verify-backup`) | **Script exists**. Not run in CI and not run in this pass. |
 | C24 | Security headers and CORS | `TestCORS` | **Partial**. **Gap:** asserting `X-Content-Type-Options` and `Referrer-Policy`; `/metrics` exposure policy. |
@@ -222,7 +225,7 @@ The original brief text is not stored in the repository. The categories below ar
 ## 5. Known gaps and weaknesses (prioritised)
 
 **High priority**
-1. **No load test.** Throughput, lock contention and worker lag are unknown. See §6.
+1. **Only a baseline load test.** One run with 200 players for 30 s on a shared 4-vCPU host. Rate limits were raised for the run. There is no PvP or market mix, no 1 000+ player run, no event-backlog test and no soak test. Not in CI. See §6.
 2. **Abuse controls are untested** over HTTP: the 429 token bucket, the 60/h message cap, the attack caps, strict assertion of the market price band, `too_many_orders`.
 3. **UGC report and block flow is untested**, yet it is mandatory for Google Play (GP-16).
 4. **No Android device or emulator test** and no Yandex draft-mode test (CSP, `LoadingAPI.ready`, pause on `game_api_pause`). The Android project has not been generated yet.
@@ -239,7 +242,36 @@ The original brief text is not stored in the repository. The categories below ar
 
 ---
 
-## 6. Planned load test
+## 6. Load testing
+
+### 6.0 What exists: baseline harness `server/cmd/loadtest`
+
+```bash
+# against a running server (rate limits must be raised, or the per-IP / per-account buckets dominate)
+RF_RATE_RPS=100000 RF_RATE_BURST=100000 make server        # in another shell
+cd server && go run ./cmd/loadtest -url http://127.0.0.1:8080 -world 1 -players 200 -duration 30s
+```
+
+Each virtual player:
+1. Signs in as a guest (`POST /auth/guest`).
+2. Joins the world.
+3. Loops every 200 ms over {city view, build, city view, train}, with idempotency keys.
+
+The harness reports throughput, p50/p95/p99/max per operation and the response codes.
+
+Baseline from 2026-10-31 (`docs/reports/LOAD_TEST_2026-10-31.md`; server, PostgreSQL and generator all on one 4-vCPU host, world speed ×50):
+
+| Measure | Result |
+|---|---|
+| Throughput | 648 req/s |
+| 5xx | 0 |
+| City view p95 | 190 ms |
+| Build p95 | 177 ms |
+| Train p95 | 147 ms |
+| Join p95 | **1.2 s** (spawn search). The spawn query was then optimized from 55 ms to 5.9 ms (EXPLAIN), but the test has not been re-run. |
+| Events | 0 failed, 0 overdue, 0 tx retries |
+
+The scenarios below extend this baseline. L1 and L2 can be added to `cmd/loadtest` as flags; k6 is optional for richer reporting.
 
 ### 6.1 Goals
 
@@ -247,8 +279,8 @@ Measure p50/p95/p99 latency, throughput, PostgreSQL lock waits, transaction retr
 
 ### 6.2 Tooling
 
-- **Primary: k6** (`loadtest/k6/*.js`, to be created). It has scenarios, thresholds and an HTTP-level view; the setup creates accounts via `POST /auth/register` or `/auth/guest`.
-- **Secondary: a Go load generator** (`server/cmd/loadgen`, to be created) for invariant checks k6 cannot do. It reuses `game.Service` to verify the database state after the run.
+- **Primary: the existing Go generator `server/cmd/loadtest`**, extended with scenario flags (`-scenario L1..L6`, `-poll 15s`, `-mix`) and a post-run invariant checker over SQL (§6.5).
+- **Optional: k6** (`loadtest/k6/*.js`, to be created) for threshold-based CI gating and HTML reports. Its setup creates accounts through `POST /auth/guest` or `/auth/register`.
 
 ### 6.3 Environment
 
@@ -269,7 +301,7 @@ Measure p50/p95/p99 latency, throughput, PostgreSQL lock waits, transaction retr
 | L5 | **Auth storm.** 300 logins per second for 60 s. Argon2id uses 19 MiB per hash, so measure RSS and latency. | Spike |
 | L6 | **Soak.** L1 + L2 at 60 % load for 8 h: check memory and the size of `idempotency_keys` (pruned after 24 h) and `sessions` (never pruned). | Long |
 
-### 6.5 Post-run invariant checks (Go loadgen or SQL)
+### 6.5 Post-run invariant checks (SQL, run by `cmd/loadtest` after the run)
 
 - No negative amount in any `cities.resources` value.
 - `game_events`: no `status='pending' AND due_at < now() - 10s` after the drain, and no `failed` rows.

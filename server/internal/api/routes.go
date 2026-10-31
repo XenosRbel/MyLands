@@ -432,15 +432,13 @@ func (s *Server) routes() {
 			s.fail(w, r, err)
 			return
 		}
-		var req struct {
+		// Keyed like game commands so a retried grant can never apply twice (SECURITY S-5).
+		cmd(s, w, r, func(tx pgx.Tx, req struct {
 			Amounts pack.Amounts `json:"amounts"`
 			Reason  string       `json:"reason"`
-		}
-		if err := decode(r, &req); err != nil {
-			s.fail(w, r, err)
-			return
-		}
-		s.respond(w, r, map[string]bool{"ok": true}, s.G.AdminGrant(r.Context(), account(r).ID, cid, req.Amounts, req.Reason))
+		}) (any, error) {
+			return ok(s.G.AdminGrantTx(r.Context(), tx, account(r).ID, cid, req.Amounts, req.Reason))
+		})
 	}))
 	m.HandleFunc("POST /api/v1/admin/accounts/{aid}/ban", s.admin(func(w http.ResponseWriter, r *http.Request) {
 		aid, err := pathID(r, "aid")

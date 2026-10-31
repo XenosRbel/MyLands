@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api, get } from "./api/client";
+import { api, get, request } from "./api/client";
 import type { Account, Session, World } from "./api/types";
 import { GameProvider } from "./game/context";
 import type { Pack } from "./game/pack";
@@ -76,7 +76,7 @@ export function App({ platform }: { platform: PlatformAdapter }) {
   if (!account) return <AuthScreen locale={locale} onSession={(s: Session) => setAccount(s.account)} />;
   if (!entered)
     return (
-      <WorldScreen account={account} locale={locale} onLogout={() => api.setToken(null)}
+      <WorldScreen account={account} locale={locale} onLogout={() => { request("/api/v1/auth/logout", { method: "POST", body: {} }).catch(() => {}).finally(() => api.setToken(null)); }}
         onEnter={(world, pack) => {
           try {
             localStorage.setItem(WORLD_KEY, String(world.id));

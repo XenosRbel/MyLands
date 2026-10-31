@@ -31,7 +31,9 @@ type Config struct {
 	SessionTTL      time.Duration
 	RateLimitRPS    float64
 	RateLimitBurst  int
-	DevPlatformAuth bool // accept unsigned "dev" platform identities (never in production)
+	DevPlatformAuth bool   // accept unsigned "dev" platform identities (never in production)
+	MetricsToken    string // if set, /metrics requires "Authorization: Bearer <token>"; in production /metrics is disabled without it
+	TrustProxy      bool   // use the left-most X-Forwarded-For address for per-IP limits (only behind a trusted proxy)
 }
 
 func env(key, def string) string {
@@ -50,6 +52,8 @@ func LoadConfig() (Config, error) {
 		PacksDir:       env("RF_PACKS_DIR", "../packs"),
 		ClientDir:      env("RF_CLIENT_DIR", ""),
 		AdminBootstrap: env("RF_ADMIN_LOGIN", ""),
+		MetricsToken:   env("RF_METRICS_TOKEN", ""),
+		TrustProxy:     env("RF_TRUST_PROXY", "") == "true",
 	}
 	c.WorkerEnabled = env("RF_WORKER", "true") == "true"
 	iv, err := time.ParseDuration(env("RF_WORKER_INTERVAL", "1s"))

@@ -210,6 +210,11 @@ func (s *Server) ipLimited(h http.HandlerFunc) http.HandlerFunc {
 		if i := strings.LastIndex(ip, ":"); i > 0 {
 			ip = ip[:i]
 		}
+		if s.Cfg.TrustProxy {
+			if xf := r.Header.Get("X-Forwarded-For"); xf != "" {
+				ip = strings.TrimSpace(strings.Split(xf, ",")[0])
+			}
+		}
 		if !s.limiter.allow("ip:" + ip) {
 			w.Header().Set("Retry-After", "1")
 			writeErr(w, &game.Error{Status: 429, Code: "rate_limited", Message: "too many requests"})
@@ -376,6 +381,15 @@ func (l *limiter) allow(key string) bool {
 }
 
 func (s *Server) metrics(w http.ResponseWriter, r *http.Request) {
+	if s.Cfg.MetricsToken != "" {
+		if bearer(r) != s.Cfg.MetricsToken {
+			writeErr(w, &game.Error{Status: 401, Code: "unauthenticated", Message: "metrics token required"})
+			return
+		}
+	} else if s.Cfg.Env == "production" {
+		http.NotFound(w, r)
+		return
+	}
 	m := &s.G.Metrics
 	st := s.G.DB.Stat()
 	w.Header().Set("Content-Type", "text/plain; version=0.0.4")

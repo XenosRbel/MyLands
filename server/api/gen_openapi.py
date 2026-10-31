@@ -66,7 +66,7 @@ S = [
 ("GET /api/v1/admin/players/{pid}","admin","Inspect player (settled), pending events, ledger (audited)","admin",False,None),
 ("GET /api/v1/admin/events/failed","admin","Parked events","admin",False,None),
 ("POST /api/v1/admin/events/{eid}/retry","admin","Re-queue parked event (audited)","admin",False,{}),
-("POST /api/v1/admin/cities/{cid}/grant","admin","Grant/remove resources with reason (audited)","admin",False,{"amounts":"object","reason":"string"}),
+("POST /api/v1/admin/cities/{cid}/grant","admin","Grant/remove resources with reason (audited, idempotent)","admin",True,{"amounts":"object","reason":"string"}),
 ("POST /api/v1/admin/accounts/{aid}/ban","admin","Ban account until time (audited)","admin",False,{"until":"string","reason":"string"}),
 ("GET /api/v1/admin/audit","admin","Admin audit log","admin",False,None),
 ("GET /api/v1/admin/messages/reported","admin","Reported messages","admin",False,None),

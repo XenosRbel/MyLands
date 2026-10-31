@@ -1784,11 +1784,13 @@ paths:
   /api/v1/admin/cities/{cid}/grant:
     post:
       tags: [admin]
-      summary: "Grant/remove resources with reason (audited)"
+      summary: "Grant/remove resources with reason (audited, idempotent)"
       parameters:
         - {name: cid, in: path, required: true, schema: {type: integer}}
+        - $ref: '#/components/parameters/IdempotencyKey'
       security: [{bearer: []}]
       x-requires-role: admin
+      x-idempotent: true
       requestBody:
         required: true
         content:

@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { useGame, type Screen } from "../game/context";
+import { gameAudioEnabled, playGameCue, setGameAudioEnabled } from "../game/audio";
 import { Icon, fmt, Loading, ErrorBox, Timer } from "../ui/kit";
 import { CityScreen } from "./City";
 import { EconomyScreen } from "./Economy";
@@ -20,6 +21,11 @@ export function Shell() {
   const g = useGame();
   const { t, idx, overview, city, screen, go } = g;
   const [more, setMore] = useState(false);
+  const [sound, setSound] = useState(() => {
+    try { return localStorage.getItem("rf.sound") === "on"; } catch { return false; }
+  });
+  setGameAudioEnabled(sound);
+  const navigate = (s: Screen) => { playGameCue("navigate"); go(s); };
   const enabled: Screen[] = (idx.pack.ui.screens as Screen[]).filter((s) => s !== "settings");
   const badge = (s: Screen) =>
     s === "reports" ? overview?.unreadReports : s === "quests" ? overview?.questsReady : s === "mail" ? overview?.unreadNotifications : 0;
@@ -69,14 +75,23 @@ export function Shell() {
             <div className="resbar-item" title={t("population")}><Icon name="people" size={16} /><span className="amt">{fmt(city.city.population)}</span><span className="rate">/{fmt(city.rates.housing)}</span></div>
           </div>
         )}
-        <button className="icon-btn bell" aria-label={t("notifications")} onClick={() => go("mail")}>
+        <div className="experience-controls">
+          <button type="button" className="experience-sound" aria-label={sound ? t("soundOff") : t("soundOn")} title={sound ? t("soundOff") : t("soundOn")} aria-pressed={sound} onClick={() => {
+            const next = !sound;
+            setSound(next);
+            setGameAudioEnabled(next);
+            try { localStorage.setItem("rf.sound", next ? "on" : "off"); } catch { /* storage unavailable */ }
+            if (next) playGameCue("confirm");
+          }}>{sound ? "♫" : "♪"} <span>{sound ? t("soundOn") : t("soundOff")}</span></button>
+        <button className="icon-btn bell" aria-label={t("notifications")} onClick={() => navigate("mail")}>
           <Icon name="bell" />
           {!!overview?.unreadNotifications && <span className="badge">{overview.unreadNotifications}</span>}
         </button>
+        </div>
       </header>
       <nav className="sidenav" aria-label="Main">
         {enabled.map((s) => (
-          <button key={s} className={screen === s ? "on" : ""} onClick={() => go(s)} aria-current={screen === s ? "page" : undefined}>
+          <button key={s} className={screen === s ? "on" : ""} onClick={() => navigate(s)} aria-current={screen === s ? "page" : undefined}>
             <Icon name={icons[s]} /> <span>{t(s as Exclude<Screen, "settings">)}</span>
             {!!badge(s) && <span className="badge">{badge(s)}</span>}
           </button>
@@ -101,7 +116,7 @@ export function Shell() {
         <div className="sheet" onClick={() => setMore(false)}>
           <div className="sheet-body" onClick={(e) => e.stopPropagation()}>
             {enabled.filter((s) => !primary.includes(s)).map((s) => (
-              <button key={s} onClick={() => { go(s); setMore(false); }}>
+              <button key={s} onClick={() => { navigate(s); setMore(false); }}>
                 <Icon name={icons[s]} size={22} /> <span>{t(s)}</span>
                 {!!badge(s) && <span className="badge">{badge(s)}</span>}
               </button>

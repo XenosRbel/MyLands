@@ -21,6 +21,24 @@ for (const name of ["ashen-crowns"]) {
       console.error(`Missing artwork: ${name}/${id}`);
       failures++;
     }
+    // Guard the original art redraw against reverting to generic framed glyphs.
+    // This is a structural check, not a substitute for human art approval.
+    const illustrated = new Set([
+      "griffin", "ballista", "wagon", "settler", "wolf", "brigand",
+      "troll", "wraith", "golem", "drake",
+      "wolf_den", "brigand_camp", "barrow", "crater",
+    ]);
+    if (illustrated.has(id) && art?.endsWith(".svg")) {
+      const location = resolve(folder, "assets", art);
+      if (existsSync(location)) {
+        const xml = readFileSync(location, "utf8");
+        if (!xml.includes('viewBox="0 0 320 320"') || !xml.includes('filter="url(#') ||
+            xml.includes('<rect width="320" height="320"') || xml.length < 1200) {
+          console.error(`Flat placeholder art detected: ${name}/${id}`);
+          failures++;
+        }
+      }
+    }
     for (const file of [art, icon]) {
       if (!file || file.startsWith("glyph:")) continue;
       if (file.includes("..") || file.startsWith("/")) {

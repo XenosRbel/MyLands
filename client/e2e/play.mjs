@@ -47,6 +47,17 @@ const cityMetrics = await page.evaluate(() => {
 });
 if (cityMetrics.shellWidth < .98 || cityMetrics.sceneWidth < .55 || cityMetrics.sceneHeight < .58 ||
   Math.abs(cityMetrics.dockBottom) > 4) fail("city viewport is not full screen: " + JSON.stringify(cityMetrics));
+await page.setViewportSize({ width: 1680, height: 900 });
+await page.screenshot({ path: `${out}/23-wide-city-hud.png` });
+const wideLayout = await page.evaluate(() => {
+  const world = document.querySelector(".city-game-stage").getBoundingClientRect();
+  const queue = document.querySelector(".city-game-rail").getBoundingClientRect();
+  const dock = document.querySelector(".game-dock").getBoundingClientRect();
+  return { rightGap: window.innerWidth - queue.right, widthRatio: world.width / window.innerWidth, dockBottom: window.innerHeight - dock.bottom };
+});
+if (wideLayout.rightGap > 55 || wideLayout.widthRatio < .55 || Math.abs(wideLayout.dockBottom) > 4)
+  fail("wide desktop HUD still leaves unused game space: " + JSON.stringify(wideLayout));
+await page.setViewportSize({ width: 1360, height: 860 });
 await page.locator(".city-build-toggle").click();
 await page.locator(".city-game-buildings.expanded").waitFor();
 await page.screenshot({ path: `${out}/22-city-catalogue-drawer.png` });

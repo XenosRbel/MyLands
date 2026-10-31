@@ -1,6 +1,6 @@
 # Unknowns, Source Conflicts and Assumptions
 
-Owner: Agent B (Game Designer). Date: **2026-10-31**. Code checked at commit `dfa660e`; pack `packs/ashen-crowns/pack.json` v1.0.0 ("AC").
+Owner: Agent B (Game Designer). Date: **2026-10-31**. Code checked at commit `dfa660e` and re-checked at `ed6acc7` (no rule changes); pack `packs/ashen-crowns/pack.json` v1.0.0 ("AC").
 
 This document consolidates every open question from the research notes, the places where sources disagree, the values we chose ourselves (PROPOSED) for the Ashen Crowns pack, and implementation notes found while comparing code with research.
 
@@ -132,7 +132,7 @@ These are observations about our current engine and pack. They are documentation
 | I-12 | With `defenderRetreatPct` 100 an attacker wins only by destroying every defender within 20 rounds | `rules/combat.go Resolve` | Strong defence bias | Intended for MVP; revisit after playtest. |
 | I-13 | Specialisation choice is permanent | `game/city.go exclusiveTaken` blocks other techs of the group once researched or queued | No respec; reference cancels the old one (TECH-020) | Optional respec rule later. |
 | I-14 | Several rules have no dedicated integration test: same-race/faction penalty, attack cap per target, reinforcing-player cap, specialisation exclusivity | `game/game_test.go` and `api/api_test.go` assert other rule codes (`target_protected`, `friendly_target`, `hero_limit`, …) but not `attack_limit`, `too_many_reinforcing_players`, `specialisation_taken` | Regressions could go unnoticed | Add tests (see PRD Definition of Done). |
-| I-15 | Code comments cite rule IDs in `GAME_RULES.md` (e.g. R-CMB-3) but that file is not in `docs/` | `rules/*.go`, `game/*.go` comments | Readers cannot follow the references | Write `docs/spec/GAME_RULES.md` or update comments. |
+| I-15 | Code comments cite rule IDs (e.g. R-CMB-3) that live in `docs/spec/GAME_RULES.md`; that file was added after the first draft of this document (commit `ed6acc7`) | `rules/*.go`, `game/*.go` comments | Resolved: references can now be followed | Keep `GAME_RULES.md` and these notes in sync. |
 | I-16 | `pack.Unit.Upkeep` comment says "food per hour"; the paying resource is `params.upkeepResource` (gold in AC) | `pack/types.go` | Documentation only | Update comment. |
 | I-17 | Faction IDs (`dawnpact`, `duskbound`) have no localized names | `Race.Faction` is a plain string | UI must show raw IDs or invent names | Add faction names to `strings` (PROPOSED in GDD). |
 

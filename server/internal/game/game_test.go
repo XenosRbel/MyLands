@@ -448,6 +448,20 @@ func TestPvPAttackLootProtectionAndRecall(t *testing.T) {
 	if v := e.view(a); v.City.Units["rider"] != 50 {
 		t.Fatalf("recalled riders not home: %v", v.City.Units)
 	}
+	// An attack that has reached its due time can no longer be recalled (exploit guard).
+	m0 := e.mustCity(a, func(c game.PCtx, ci *game.City) (any, error) {
+		return c.SendMission(ci, game.MissionRequest{Kind: "attack", X: dx, Y: dy, Units: map[string]int64{"rider": 1}})
+	}).(*game.Mission)
+	e.clk.Set(m0.ArriveAt)
+	if _, err := e.pl(a, func(c game.PCtx) (any, error) { return c.Recall(m0.ID) }); code(err) != "already_arrived" && code(err) != "not_recallable" {
+		t.Fatalf("recall after arrival must fail: %v", err)
+	}
+	e.clk.Advance(2 * m0.ArriveAt.Sub(m0.DepartAt))
+	e.exec(`DELETE FROM missions WHERE id=$1 AND status='done'`, m0.ID)
+	e.exec(`UPDATE cities SET units = jsonb_set(units, '{rider}', '50') WHERE id=$1`, a.city)
+	if v := e.view(a); v.City.Units["rider"] != 50 {
+		t.Fatalf("recalled riders not home: %v", v.City.Units)
+	}
 	defBefore := e.view(d).Resources
 	m := e.mustCity(a, func(c game.PCtx, ci *game.City) (any, error) {
 		return c.SendMission(ci, game.MissionRequest{Kind: "attack", X: dx, Y: dy, Units: map[string]int64{"rider": 50}})
@@ -482,8 +496,8 @@ func TestPvPAttackLootProtectionAndRecall(t *testing.T) {
 	}
 	for _, p := range []player{a, d} {
 		reps, _ := e.pl(p, func(c game.PCtx) (any, error) { return c.Reports(0, 10) })
-		if len(reps.([]game.ReportRow)) != 1 {
-			t.Fatal("both sides need the battle report")
+		if len(reps.([]game.ReportRow)) != 2 { // the 1-rider probe and the main attack
+			t.Fatalf("both sides need both battle reports, got %d", len(reps.([]game.ReportRow)))
 		}
 	}
 }

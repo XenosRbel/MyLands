@@ -5,9 +5,9 @@
 | Owner | Agent B (Game Designer) |
 | Status | DRAFT v1 |
 | Date | 2026-10-31 |
-| Code baseline | commit `dfa660e` (Go server `server/`, React client `client/`) |
+| Code baseline | commit `dfa660e`, re-checked at `ed6acc7` (no game-rule changes) (Go server `server/`, React client `client/`) |
 | Content baseline | `packs/ashen-crowns/pack.json` v1.0.0; demo `packs/void-frontier/pack.json` |
-| Related | `docs/spec/GAME_DESIGN_DOCUMENT.md`, `docs/spec/PLATFORM_REQUIREMENTS.md`, `docs/research/MECHANICS_CATALOG.md`, `docs/research/UNKNOWN_AND_ASSUMPTIONS.md`, `docs/research/SOURCE_REGISTER.md` |
+| Related | `docs/spec/GAME_RULES.md` (normative formulas), `docs/spec/GAME_DESIGN_DOCUMENT.md`, `docs/spec/PLATFORM_REQUIREMENTS.md`, `docs/research/MECHANICS_CATALOG.md`, `docs/research/UNKNOWN_AND_ASSUMPTIONS.md`, `docs/research/SOURCE_REGISTER.md` |
 
 **Status words used in this document.** *Implemented* = present in code at the baseline commit; the test that exercises it is named when one exists. *Implemented (untested)* = in code, no dedicated automated test. *Partial* = some of the requirement exists. *Planned* = not in code. Statements about the reference game carry research IDs; all such evidence came from search excerpts only (no page opened directly), so it is never stated as fact.
 

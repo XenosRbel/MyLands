@@ -1073,3 +1073,20 @@ No code was changed. Each item needs a decision from the owner: fix the code or 
 | D-22 | Medium (exploit) | `Recall` does not check `now < arrive_at`. For city targets, the arrival event is the defender's, so an attacker can recall a mission whose arrival is already due but not yet processed. This avoids a lost battle within the worker latency window. The return time (`now − depart`) is then longer than the outbound trip. |
 | D-23 | Low | `ceil` without an epsilon guard in the market fee (and in travel and overflow decay) can round float noise up. Example: a 4.6% fee on 1000 gives 47, not 46. `DurationAt` uses a 10⁻⁹ guard. The others should too, or use integer arithmetic. |
 | D-24 | Low (consistency) | `modifiers.go` says the order is always `(base + Σflat) × (1 + Σpct)`, but `ComputeRates` applies production as `base × (1 + Σpct) + Σflat`. No shipped pack uses flat production modifiers yet, so the decision is open: keep the exception (specified in R-ECO-2) or align it. |
+
+## Appendix E — Resolution of Appendix D discrepancies (2026-10-31)
+
+| # | Discrepancy | Resolution |
+|---|---|---|
+| Market fee ignored building modifiers | **Fixed**: fee uses the accepting city's modifiers (`cityMods`), so Market Hall levels reduce it. Ceil has a 1e-9 float guard. |
+| Attacker modifiers skipped home-city buildings at arrival | **Fixed**: the departure city's building modifiers are merged into attacker modifiers at arrival. |
+| City attack landed after players became allies | **Fixed**: `battleCity` re-checks friendliness and returns the army (`target_became_friendly`). |
+| Recall after due time (exploit) | **Fixed**: outbound missions with `now ≥ arrive_at` return `409 already_arrived`; regression test added. |
+| Production applied flat after pct | **Fixed**: `(base + Σflat) × (1 + Σpct/100)` like every other modifier; unit test added. |
+| `Neutral.capturable` unused, neutrals respawn on territories | **Fixed**: owned territories are pacified (`neutralActive` false when owned); non-capturable sites (e.g. barrows) cannot be occupied (`not_capturable`). |
+| Ashen Crowns `maxCities 9` unreachable | **Fixed in pack 1.1.0**: `citiesPerCapLevels 3` → 1 + ⌊25/3⌋ = 9. |
+| Starglass had no sink | **Fixed in pack 1.1.0**: specialisation Paths (15), settlers (10) and hero hire (5) cost starglass. |
+| `territoryBonusPct` unused | Open: parameter retained for format compatibility; territories use yield (D-013). To be removed in format v2. |
+| Upkeep of dead units abroad until return | By design (D-010). |
+| Escrowed market orders hide stock from raids; 100 % cancel refund | Open balance item (B-flag); candidate fix: cancel fee or lootable escrow. |
+| Neutral rewards ignore carry capacity | By design (PROPOSED): treasure is collected regardless of carts; documented. |

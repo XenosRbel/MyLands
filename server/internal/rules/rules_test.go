@@ -78,6 +78,11 @@ func TestRatesEmploymentAndStorage(t *testing.T) {
 	if r := ComputeRates(in); math.Abs(r.Gross["wood"]-110) > 1e-9 {
 		t.Fatalf("modified wood = %v", r.Gross["wood"])
 	}
+	// flat is added before the percentage (R-MOD-1): (100 + 20) × 1.1 = 132
+	in.Mods.Add(pack.Modifier{Target: "production.wood", Op: "flat", Value: 20}, 1)
+	if r := ComputeRates(in); math.Abs(r.Gross["wood"]-132) > 1e-9 {
+		t.Fatalf("flat-then-pct wood = %v", r.Gross["wood"])
+	}
 }
 
 func TestAccrueCapsAndFloors(t *testing.T) {

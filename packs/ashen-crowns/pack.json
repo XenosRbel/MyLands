@@ -1,7 +1,7 @@
 {
  "formatVersion": 1,
  "id": "ashen-crowns",
- "version": "1.0.0",
+ "version": "1.1.0",
  "meta": {
   "title": {
    "en": "Ashen Crowns",
@@ -86,14 +86,15 @@
   },
   "allianceMaxMembers": 100,
   "cityCapBuilding": "keep",
-  "citiesPerCapLevels": 5,
+  "citiesPerCapLevels": 3,
   "settlerUnit": "settler",
   "territoryCapBuilding": "keep",
   "territoriesPerLevel": 1,
   "territoryBonusPct": 0,
   "heroHireCost": {
    "gold": 300,
-   "grain": 300
+   "grain": 300,
+   "starglass": 5
   },
   "heroBuilding": "warhall",
   "heroesPerBuildingLevel": 1,
@@ -1973,7 +1974,8 @@
     "base": {
      "lore": 400,
      "stone": 400,
-     "gold": 200
+     "gold": 200,
+     "starglass": 15
     },
     "growth": 1.8
    },
@@ -2017,7 +2019,8 @@
     "base": {
      "lore": 400,
      "grain": 400,
-     "gold": 200
+     "gold": 200,
+     "starglass": 15
     },
     "growth": 1.8
    },
@@ -2061,7 +2064,8 @@
     "base": {
      "lore": 400,
      "iron": 400,
-     "gold": 200
+     "gold": 200,
+     "starglass": 15
     },
     "growth": 1.8
    },
@@ -2494,7 +2498,8 @@
     "timber": 800,
     "grain": 800,
     "stone": 600,
-    "gold": 400
+    "gold": 400,
+    "starglass": 10
    },
    "trainSeconds": 1800,
    "trainedIn": "keep",
@@ -4277,6 +4282,11 @@
  "modes": [
   "standard",
   "speed"
+ ],
+ "migrations": [
+  {
+   "fromVersion": "1.0.0"
+  }
  ],
  "ui": {
   "screens": [

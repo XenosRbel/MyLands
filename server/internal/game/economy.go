@@ -231,8 +231,10 @@ func (c *pctx) AcceptOrder(ci *City, id int64) (*Order, error) {
 	if _, err := c.grant(ci, pack.Amounts{o.SellRes: o.SellAmount}, "market_receive", fmt.Sprintf("order:%d", o.ID)); err != nil {
 		return nil, err
 	}
-	fee := c.mods.Apply(float64(c.p.Params.MarketFeePct), "market_fee")
-	proceeds := o.BuyAmount - int64(math.Ceil(float64(o.BuyAmount)*fee/100))
+	// The fee is set by the accepting (buyer's) city modifiers, e.g. its
+	// Market Hall levels (R-MKT-4); ceil with a float guard.
+	fee := c.cityMods(ci).Apply(float64(c.p.Params.MarketFeePct), "market_fee")
+	proceeds := o.BuyAmount - int64(math.Ceil(float64(o.BuyAmount)*fee/100-1e-9))
 	if _, err := c.tx.Exec(c.ctx, `UPDATE market_orders SET status='filled', buyer_player_id=$2, buyer_city_id=$3, closed_at=$4 WHERE id=$1`, o.ID, c.pl.ID, ci.ID, c.now); err != nil {
 		return nil, err
 	}

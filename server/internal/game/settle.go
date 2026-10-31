@@ -228,7 +228,14 @@ func (c *pctx) recomputeMods() {
 // cityMods = player mods + modifier effects of the city's buildings.
 func (c *pctx) cityMods(ci *City) *rules.Mods {
 	m := c.mods.Clone()
-	for id, lvl := range ci.Buildings {
+	m.Merge(c.buildingMods(ci.Buildings))
+	return m
+}
+
+// buildingMods returns the modifier effects of a set of building levels.
+func (c *pctx) buildingMods(buildings map[string]int) *rules.Mods {
+	m := rules.NewMods()
+	for id, lvl := range buildings {
 		b := c.p.Building(id)
 		if b == nil {
 			continue

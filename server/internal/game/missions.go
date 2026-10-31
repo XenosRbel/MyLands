@@ -79,8 +79,10 @@ type tileInfo struct {
 	CityID       *int64
 }
 
+// neutralActive: a neutral guards its tile unless cleared (respawn pending) or
+// the tile is an owned territory (territories are pacified, R-TER-2).
 func (t *tileInfo) neutralActive(now time.Time) bool {
-	return t.Neutral != nil && (t.ClearedUntil == nil || !t.ClearedUntil.After(now))
+	return t.Neutral != nil && t.Owner == nil && (t.ClearedUntil == nil || !t.ClearedUntil.After(now))
 }
 
 func (c *pctx) tile(x, y int, forUpdate bool) (*tileInfo, error) {
@@ -386,6 +388,9 @@ func (c *pctx) SendMission(ci *City, req MissionRequest) (*Mission, error) {
 		if targetCity != nil || t.neutralActive(c.now) {
 			return nil, rule("tile_occupied", "location is not free")
 		}
+		if t.Neutral != nil && !c.p.Neutral(*t.Neutral).Capturable {
+			return nil, rule("not_capturable", "this site cannot be held as a territory")
+		}
 		if targetOwner != nil && targetOwner.ID != c.pl.ID {
 			return nil, rule("tile_owned", "location is owned by another player; attack it with capture enabled")
 		}
@@ -559,6 +564,13 @@ func (c *pctx) missionArrive(id int64) error {
 		return err
 	}
 	attMods := owner.Mods.Clone()
+	// Building modifiers of the departure city (e.g. carry, loot) apply to the
+	// army just as they did when it was sent (read-only, no lock needed).
+	var homeB map[string]int
+	if err := c.tx.QueryRow(c.ctx, `SELECT buildings FROM cities WHERE id=$1`, m.FromCityID).Scan(&homeB); err != nil {
+		return err
+	}
+	attMods.Merge(c.buildingMods(homeB))
 	var hero *Hero
 	if m.HeroID != nil {
 		h, hm, err := c.heroByID(*m.HeroID, true)
@@ -817,6 +829,16 @@ func (c *pctx) xp(score int64, mods *rules.Mods) int64 {
 }
 
 func (c *pctx) battleCity(m *Mission, ci *City, owner *otherPlayer, attMods *rules.Mods, hero *Hero, outbound time.Duration) error {
+	me, err := c.other(c.pl.ID)
+	if err != nil {
+		return err
+	}
+	if fr, err := c.friendly(owner, me); err != nil {
+		return err
+	} else if fr {
+		addResult(m, "outcome", "target_became_friendly")
+		return c.sendBack(m, outbound)
+	}
 	c.factionMods(attMods, owner.Race, c.pl.Race)
 	defMods := c.cityMods(ci)
 	dHero, dHeroMods, err := c.homeHero(ci.ID)
@@ -1041,7 +1063,7 @@ func (c *pctx) battleTerritory(m *Mission, t *tileInfo, owner *otherPlayer, attM
 }
 
 func (c *pctx) occupy(m *Mission, t *tileInfo, outbound time.Duration) error {
-	if t.neutralActive(c.now) || (t.Owner != nil && *t.Owner != m.PlayerID) {
+	if t.neutralActive(c.now) || (t.Owner != nil && *t.Owner != m.PlayerID) || (t.Neutral != nil && !c.p.Neutral(*t.Neutral).Capturable) {
 		addResult(m, "outcome", "tile_unavailable")
 		return c.sendBack(m, outbound)
 	}
@@ -1203,6 +1225,12 @@ func (c *pctx) Recall(id int64) (*Mission, error) {
 	}
 	switch m.Status {
 	case "outbound":
+		// A mission that has reached its due time is resolved by its arrival
+		// event (possibly in another player's transaction); it can no longer be
+		// recalled, otherwise an attack could be cancelled after arriving (R-MSN-12).
+		if !c.now.Before(m.ArriveAt) {
+			return nil, conflict("already_arrived", "the mission has already reached its target")
+		}
 		// the pending arrival event becomes a no-op because status changes
 		addResult(m, "outcome", "recalled")
 		return m, c.sendBack(m, c.now.Sub(m.DepartAt))

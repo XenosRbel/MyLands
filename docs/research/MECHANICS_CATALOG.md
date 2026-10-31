@@ -1,6 +1,6 @@
 # Mechanics Catalog: reference game vs Realmforge engine
 
-Owner: Agent B (Game Designer). Date: **2026-10-31**. Code checked at commit `dfa660e` (`server/`), packs `packs/ashen-crowns/pack.json` v1.0.0 and `packs/void-frontier/pack.json`.
+Owner: Agent B (Game Designer). Date: **2026-10-31**. Code checked at commit `dfa660e` and re-checked at `ed6acc7` (no rule changes in between) (`server/`), packs `packs/ashen-crowns/pack.json` v1.0.0 and `packs/void-frontier/pack.json`.
 
 This is the single table of **every mechanic ID** found in the research notes (`RACES_AND_FACTIONS.md`, `ECONOMY_AND_RESOURCES.md`, `BUILDINGS_AND_TECHNOLOGIES.md`, `ARMY_AND_COMBAT.md`, `HEROES_AND_PROGRESSION.md`, `SOCIAL_AND_MULTIPLAYER.md`, `WORLD_AND_EXPLORATION.md`), with what our engine does about it.
 
@@ -12,7 +12,7 @@ This is the single table of **every mechanic ID** found in the research notes (`
   - **Impl-diff** (implemented differently): the engine covers the same design purpose with a different rule.
   - **Not impl.**: nothing in the engine does this today.
 - **Engine location** uses paths under `server/internal/` (for example `rules/combat.go Resolve`) and pack parameter names (`params.x`) or pack entity IDs. "AC" means the Ashen Crowns pack; "VF" means the Void Frontier demo pack.
-- Code comments mention rule IDs of a `GAME_RULES.md` (e.g. R-CMB-3). That file was not present in `docs/` on 2026-10-31, so this catalog cites code locations directly.
+- Code comments cite normative rule IDs (e.g. R-CMB-3) defined in `docs/spec/GAME_RULES.md`. This catalog cites code locations directly; see `GAME_RULES.md` for the normative formulas.
 
 ## Summary counts
 

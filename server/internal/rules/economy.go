@@ -151,7 +151,8 @@ func ComputeRates(in EconInput) Rates {
 	}
 	for _, res := range p.Resources {
 		g := rawProd[res.ID]*r.Employment + idleTax[res.ID]*float64(r.Idle)
-		g = g*math.Max(0, 1+mods.Pct("production."+res.ID, "production.*")/100) + mods.Flat("production."+res.ID, "production.*")
+		// Order per R-MOD-1: (base + Σflat) × (1 + Σpct/100).
+		g = (g + mods.Flat("production."+res.ID, "production.*")) * math.Max(0, 1+mods.Pct("production."+res.ID, "production.*")/100)
 		r.Gross[res.ID] = math.Max(0, g)
 		if res.Capped {
 			s := float64(res.BaseStorage) + storageAll + storage[res.ID]

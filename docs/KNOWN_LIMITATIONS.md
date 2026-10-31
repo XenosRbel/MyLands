@@ -9,6 +9,7 @@
 - Not implemented: healers/resurrection, fortification pre-round, hero spells/mana, hero capture/ransom, slave capture, building destruction, domain seizure of cities, joint attack, premium auction, clan castle/warehouse, mentor system, tournaments/events, renegade status, rank system beyond score.
 - Combat is deterministic (no damage ranges). Training batches complete at once (no per-unit trickle). Upkeep of units abroad is charged at departure strength until return (D-010).
 - No fog of war: every map tile is visible to every player in the world.
+- Escrowed market orders are not lootable and are refunded fully on cancel (can shelter stock from raids). Transports may target any player's city (gifting; multi-account farming risk, SECURITY S-12). `params.territoryBonusPct` is unused.
 
 ## Engineering
 - Docker image and compose file were written but **not executed** (no Docker daemon in the authoring environment); local runs used native PostgreSQL 16 (`scripts/dev-postgres.sh`).

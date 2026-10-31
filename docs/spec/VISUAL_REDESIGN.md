@@ -98,3 +98,35 @@ Review each screenshot for:
 - The new browser visual workflow needs passing runtime results.
 
 Do not mark the redesign complete before these gaps are reviewed.
+
+## Browser screenshot review — first successful run
+
+Workflow: https://github.com/XenosRbel/MyLands/actions/runs/41241133060
+
+The browser journey completed.
+The screenshot artifact contains twenty desktop and mobile images.
+The tested layout uses the new city, army, hero, and map screens.
+The game still requires a final screenshot pass after later fixes.
+
+### Defects found and addressed
+
+- The city had a large empty black margin. The ground now fills the stage.
+- Research details used dark text against a dark card. The inspector now uses parchment.
+- The research page stacked every branch vertically. Tabs now show one branch.
+- The map inspector initially had no selected location. The owned city is selected when visible.
+- The entry form lacked faction artwork. Race emblems are now displayed.
+- The scene lacked a lower command dock. The desktop shell now shows one.
+- The original E2E used stale building selectors. They were corrected.
+
+### Open quality work
+
+- Review rendered screenshots after all fixes.
+- Compare Russian and English interface captures.
+- Verify long translated strings at small widths.
+- Replace remaining low-detail unit SVGs with painted illustrations.
+- Produce seamless terrain art and level-specific building art.
+- Add hero skill and research illustrations with unique tier designs.
+- Review performance of illustrated maps on low-end mobile hardware.
+
+The completed browser workflow proves navigation and rendering at tested viewports.
+It does not certify complete similarity with the original My Lands.

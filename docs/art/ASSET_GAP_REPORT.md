@@ -1,20 +1,42 @@
-# Asset gap report (after import of Resource Pack v0.1)
+# Asset coverage report — 2026-10-31
 
-Integrated (`theme.icons` / `theme.art` in `packs/ashen-crowns/pack.json` 1.2.0):
+## Verified against repository tree
+The Ashen Crowns pack now resolves artwork for all 82 required game entities.
+The checked entities include resources, buildings, units, terrain, neutral sites, hero classes, hero items, and races.
+The report checks file existence, not artistic quality or runtime rendering.
 
-| Category | Count | Used in client |
-|---|---|---|
-| Resource icons | 7/7 | resource bar, costs, rewards |
-| Item icons | 11/11 | hero equipment and inventory |
-| Building sprites | 22/22 | isometric city scene, building cards, building dialog |
-| Unit portraits | 12/22 | army cards (others fall back to text) |
-| Hero class portraits | 4/4 | heroes screen |
-| Terrain textures | 8/8 | world map canvas, city ground |
+| Category | Coverage |
+|---|---:|
+| Resources | 7/7 |
+| Buildings | 22/22 |
+| Units | 22/22 |
+| Hero classes | 4/4 |
+| Hero items | 11/11 |
+| Terrain | 8/8 |
+| Neutral locations | 4/4 |
+| Race emblems | 4/4 |
 
-Not used / still missing:
-- **UI frame crops** (panel, dialog, buttons, tabs, banner…): delivered with an opaque black background instead of transparency, so they cannot be layered; not imported. Need transparent 9-slice exports.
-- Unit portraits: `wagon`, `settler`, `wolf`, `brigand`, `troll`, `wraith`, `golem`, `drake`.
-- Neutral map sites: `wolf_den`, `brigand_camp`, `barrow`, `crater` (map shows numbered level markers instead).
-- Race and faction emblems; player-city markers in race colours (map draws vector house markers).
-- Login and city backgrounds; building level variants (1/10/20); animations; hover/disabled states.
-- Terrain tiles are not truly seamless; the map shows visible tile seams. A seamless set (or an isometric map style) is recommended.
+Two additional faction emblems are available.
+
+## Changes
+- Added ten original SVG illustrations for missing units.
+- Added four original SVG neutral-site illustrations.
+- Added four race emblems and two faction emblems.
+- Configured each unit icon to use its artwork.
+- Added neutral-site artwork to the world-map canvas.
+- Added `npm run check:art`.
+- Made `npm run build` run the asset check first.
+
+## Still incomplete
+- The new vector artwork is simpler than the existing painted sprites.
+- A consistent hand-painted replacement pass is still needed.
+- UI 9-slice frames remain missing.
+- The terrain images do not tile seamlessly.
+- Building upgrade-level variants remain missing.
+- Login, combat, report, and quest animations need a complete design pass.
+- Original My Lands visual equivalence has not been verified.
+
+## Validation
+The repository tree and Game Pack artwork paths were checked through GitHub.
+No missing target files were found in that check.
+A browser render test and a production build remain unverified.

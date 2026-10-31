@@ -44,3 +44,14 @@ make packs       # validate Game Packs
 
 ## Style
 Go: `gofmt`, `go vet`, small functions, comments state the rule ID (`GAME_RULES R-…`). TypeScript: strict mode, no `any` in new APIs where avoidable, screens get data via `useGame()` and commands via `command()` (idempotency key per action).
+
+## Current visual contract
+
+- The approved My Lands-inspired composition is binding for this project.
+- Preserve named left navigation and the permanently visible right-side queues.
+- Preserve the top resources and hero, and the large bottom portrait dock.
+- Do not add SVG in final player-visible game art.
+- Use original painted WebP/PNG assets; changing a file extension does not imply artistic acceptance.
+- The strict art audit must reach zero legacy SVG files before visual release.
+- Validate the artwork in actual browser screenshots, not only in compilation.
+- See `docs/art/RASTER_REDESIGN_STAGES.md`.

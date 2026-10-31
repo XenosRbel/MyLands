@@ -561,3 +561,27 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .army-game-main-art { min-height:170px;max-height:220px; }
   .army-game-availability { grid-template-columns:repeat(3,minmax(0,1fr)); }
 }
+
+/* World atlas and territory inspector. */
+.map-game-world { padding:0!important;overflow:hidden; }
+.map-game-world-title { display:flex;align-items:center;gap:9px;padding:11px 13px;
+  background:linear-gradient(#604e37,#382d20);color:#edd9b4;border-bottom:2px solid #9f855e;
+  font:600 1.08rem var(--font-display); }
+.map-game-world canvas.map { width:100%;height:auto;aspect-ratio:1/1;display:block;border:0;border-radius:0;
+  box-shadow:inset 0 0 20px #191710; }
+.map-game-world .map-controls { margin:0;padding:11px;background:#372b20;border-top:2px solid #927a57; }
+.map-game-world .map-controls .btn { min-width:33px; }
+.map-game-inspector { padding:0!important;overflow:hidden;position:sticky;top:calc(var(--top-h) + 12px); }
+.map-game-inspector>h3 { padding:12px 14px!important;margin:0!important;border-bottom:2px solid #a08760!important;
+  background:linear-gradient(#67533a,#37291d); }
+.map-game-inspector-art { display:grid;place-items:center;gap:8px;min-height:185px;padding:12px;
+  color:#e4d4b5;background:radial-gradient(ellipse,#82765a74,transparent 70%),#29251e;
+  border-bottom:1px solid #806b4e; }
+.map-game-inspector-art img { width:100%;height:150px;object-fit:contain;filter:drop-shadow(0 5px 8px #0008); }
+.map-game-inspector-art>span { font:600 1rem var(--font-display);text-align:center; }
+.map-game-inspector .kv { padding:14px; }
+.map-game-inspector .neutral { margin:0 13px 13px!important;border:1px solid #8c7859;
+  background:linear-gradient(#4f4230,#332b21); }
+.map-game-inspector>.row { padding:11px;gap:7px; }
+.map-game-inspector>.row .btn { flex:1 1 110px; }
+@media(max-width:1100px) { .map-game-inspector { position:static; } }

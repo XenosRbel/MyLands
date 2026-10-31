@@ -75,6 +75,20 @@ export function Shell() {
             <div className="resbar-item" title={t("population")}><Icon name="people" size={16} /><span className="amt">{fmt(city.city.population)}</span><span className="rate">/{fmt(city.rates.housing)}</span></div>
           </div>
         )}
+        <div className="kingdom-shortcuts">
+          <button type="button" className="kingdom-token" onClick={() => navigate("profile")}
+            title={t("kingdomEmblem")} aria-label={t("kingdomEmblem")}>
+            <Icon name={idx.icon(overview?.player.race ?? "") || "shield"} size={28} />
+            <span className="token-label">{t("kingdomEmblem")}</span>
+          </button>
+          <button type="button" className="kingdom-token hero-token" onClick={() => navigate("heroes")}
+            title={t("heroes")} aria-label={t("heroes")}>
+            {idx.art(idx.pack.heroes.classes[0]?.id ?? "") ?
+              <img src={idx.art(idx.pack.heroes.classes[0].id)} alt="" /> :
+              <Icon name="user" size={28} />}
+            <span className="token-label">{t("heroes")}</span>
+          </button>
+        </div>
         <div className="experience-controls">
           <button type="button" className="experience-sound" aria-label={sound ? t("soundOff") : t("soundOn")} title={sound ? t("soundOff") : t("soundOn")} aria-pressed={sound} onClick={() => {
             const next = !sound;

@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { get } from "../api/client";
 import type { HeroesView } from "../api/types";
 import { useGame, type Screen } from "../game/context";
+import { ResearchSprite } from "../game/ResearchSprite";
 import { playGameCue, setGameAudioEnabled } from "../game/audio";
 import { Icon, fmt, Loading, ErrorBox, Timer } from "../ui/kit";
 import { CityScreen } from "./City";
@@ -57,14 +58,6 @@ export function Shell() {
     .filter((tech) => tech.exclusiveGroup === "calling")
     .find((tech) => (overview?.player.techs?.[tech.id] ?? 0) > 0);
   const specializationLevel = specialization ? overview?.player.techs?.[specialization.id] ?? 0 : 0;
-  const specializationArt: Record<string, string> = {
-    path_architect: "keep",
-    path_steward: "farmstead",
-    path_warlord: "warhall",
-  };
-  const specializationImage = specialization
-    ? idx.art(specializationArt[specialization.id] ?? "academy")
-    : "";
 
   const specializationBonuses = specialization?.effects
     .filter((effect) => effect.type === "modifier" && effect.modifier)
@@ -113,7 +106,7 @@ export function Shell() {
               return (
                 <div key={r.id} className={"resbar-item" + (full ? " full" : "") + (net < 0 ? " neg" : "")}
                   title={`${idx.name(r.id)}: ${fmt(n)}${cap !== undefined ? " / " + fmt(cap) : ""} (${net >= 0 ? "+" : ""}${fmt(net)}${t("perHour")})`}>
-                  <Icon name={idx.icon(r.id) || "star"} size={16} />
+                  <Icon name={idx.icon(r.id) || "star"} size={29} />
                   <span className="amt">{fmt(n)}</span>
                   <span className="rate">{net >= 0 ? "+" : ""}{fmt(net)}</span>
                 </div>
@@ -126,8 +119,9 @@ export function Shell() {
           <button type="button" className="kingdom-token" onClick={() => navigate("research")}
             title={specialization ? `${idx.name(specialization.id)} (${specializationLevel}): ${specializationBonuses}` : t("chooseSpecialization")}
             aria-label={specialization ? idx.name(specialization.id) : t("chooseSpecialization")}>
-            {specializationImage ?
-              <img src={specializationImage} alt="" /> : <Icon name="shield" size={28} />}
+            {specialization ?
+              <ResearchSprite tech={specialization.id} level={specializationLevel} size={44} className="kingdom-specialization-sprite" /> :
+              <Icon name="shield" size={28} />}
             {specializationLevel > 0 && <span className="kingdom-token-level">{specializationLevel}</span>}
             <span className="token-label">{specialization ? idx.name(specialization.id) : t("chooseSpecialization")}</span>
           </button>

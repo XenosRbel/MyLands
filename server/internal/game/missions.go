@@ -889,6 +889,10 @@ func (c *pctx) battleCity(m *Mission, ci *City, owner *otherPlayer, attMods *rul
 	m.Units = rules.GroupCounts(res.AttackerFinal, 0)
 	loot := pack.Amounts{}
 	if res.AttackerWon {
+		// Expose escrowed resources to the same raid as city stock.
+		if err := c.releaseRaidEscrow(ci); err != nil {
+			return err
+		}
 		capacity := c.carryOf(m.Units, attMods)
 		lootPct := attMods.Apply(float64(c.p.Params.LootPct), "loot")
 		loot = rules.Loot(rules.Whole(ci.Res), c.rates(ci).Protected, func(r string) bool {

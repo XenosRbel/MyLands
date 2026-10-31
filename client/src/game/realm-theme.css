@@ -1570,3 +1570,31 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 @media(prefers-reduced-motion:reduce) {
  .research-evolution-state .research-sprite {transition:none;animation:none;}
 }
+
+/* Top HUD: painted resource icons and dedicated specialization medallion. */
+@media(min-width:721px) {
+  .topbar .resbar {display:flex;align-items:center;justify-content:space-between;gap:clamp(4px,.5vw,12px);}
+  .topbar .resbar-item {display:grid;grid-template-columns:31px auto;grid-template-rows:auto auto;align-items:center;
+    column-gap:6px;min-width:0;padding:5px clamp(3px,.5vw,10px);}
+  .topbar .resbar-item .icon {grid-column:1;grid-row:1/3;width:29px;height:29px;object-fit:contain;
+    filter:drop-shadow(0 2px 3px #0f0b0ab3);}
+  .topbar .resbar-item .amt {grid-column:2;grid-row:1;white-space:nowrap;font-weight:700;}
+  .topbar .resbar-item .rate {grid-column:2;grid-row:2;color:#9cae79;white-space:nowrap;}
+  .topbar .resbar-item.neg .rate {color:#de927c;}
+  .topbar .resbar-item.full .amt {color:#f0cda0;}
+  .topbar .kingdom-shortcuts {display:flex;align-items:center;gap:9px;}
+  .topbar .kingdom-token {position:relative;overflow:visible;border-radius:50%;
+    border:3px ridge #bd9b60;background:radial-gradient(ellipse,#6c493c,#2a2027);
+    box-shadow:inset 0 0 9px #0b080c,0 2px 7px #090707a6;}
+  .topbar .kingdom-token .kingdom-specialization-sprite {
+    width:43px;height:43px;object-fit:contain;
+    filter:drop-shadow(0 2px 4px #0e0a09);
+  }
+  .topbar .kingdom-token.hero-token img {object-fit:cover;border-radius:45%;}
+}
+@media(min-width:721px) and (max-width:1120px) {
+  .topbar .resbar-item {grid-template-columns:23px auto;column-gap:3px;}
+  .topbar .resbar-item .icon {width:22px;height:23px;}
+  .topbar .resbar-item .amt {font-size:11px;}
+  .topbar .resbar-item .rate {font-size:10px;}
+}

@@ -61,21 +61,21 @@ func (s *Service) AdminGrant(ctx context.Context, adminID, cityID int64, amounts
 }
 
 type AdminPlayer struct {
-	Player *Player      `json:"player"`
-	Cities []*CityView  `json:"cities"`
-	Events []EventRow   `json:"pendingEvents"`
-	Ledger []LedgerRow  `json:"recentLedger"`
+	Player *Player     `json:"player"`
+	Cities []*CityView `json:"cities"`
+	Events []EventRow  `json:"pendingEvents"`
+	Ledger []LedgerRow `json:"recentLedger"`
 }
 
 type EventRow struct {
-	ID        int64      `json:"id"`
-	PlayerID  int64      `json:"playerId"`
-	Kind      string     `json:"kind"`
-	RefID     int64      `json:"refId"`
-	DueAt     time.Time  `json:"dueAt"`
-	Status    string     `json:"status"`
-	Attempts  int        `json:"attempts"`
-	LastError *string    `json:"lastError"`
+	ID        int64     `json:"id"`
+	PlayerID  int64     `json:"playerId"`
+	Kind      string    `json:"kind"`
+	RefID     int64     `json:"refId"`
+	DueAt     time.Time `json:"dueAt"`
+	Status    string    `json:"status"`
+	Attempts  int       `json:"attempts"`
+	LastError *string   `json:"lastError"`
 }
 
 type LedgerRow struct {
@@ -474,8 +474,8 @@ func applyIDMapping(ctx context.Context, tx pgx.Tx, worldID int64, mapping map[s
 		return err
 	}
 	type mrow struct {
-		id     int64
-		u, uk  map[string]int64
+		id    int64
+		u, uk map[string]int64
 	}
 	var ms []mrow
 	for rows.Next() {
@@ -528,17 +528,17 @@ func applyIDMapping(ctx context.Context, tx pgx.Tx, worldID int64, mapping map[s
 // ---------- Player overview ----------
 
 type Overview struct {
-	Player        *Player      `json:"player"`
+	Player        *Player       `json:"player"`
 	Cities        []CitySummary `json:"cities"`
-	Unread        int          `json:"unreadNotifications"`
-	UnreadReports int          `json:"unreadReports"`
-	QuestsReady   int          `json:"questsReady"`
-	ServerTime    time.Time    `json:"serverTime"`
-	AllianceTag   *string      `json:"allianceTag"`
-	CityCap       int          `json:"cityCap"`
-	TerritoryCap  int          `json:"territoryCap"`
-	Territories   int          `json:"territories"`
-	PackVersion   string       `json:"packVersion"`
+	Unread        int           `json:"unreadNotifications"`
+	UnreadReports int           `json:"unreadReports"`
+	QuestsReady   int           `json:"questsReady"`
+	ServerTime    time.Time     `json:"serverTime"`
+	AllianceTag   *string       `json:"allianceTag"`
+	CityCap       int           `json:"cityCap"`
+	TerritoryCap  int           `json:"territoryCap"`
+	Territories   int           `json:"territories"`
+	PackVersion   string        `json:"packVersion"`
 }
 
 type CitySummary struct {

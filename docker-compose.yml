@@ -1,0 +1,27 @@
+# Local stack: `docker compose up --build` → http://localhost:8080
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: realmforge
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-realmforge-dev}
+      POSTGRES_DB: realmforge
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U realmforge"]
+      interval: 3s
+      retries: 20
+  app:
+    build: .
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      RF_ENV: ${RF_ENV:-development}
+      RF_DATABASE_URL: postgres://realmforge:${POSTGRES_PASSWORD:-realmforge-dev}@db:5432/realmforge?sslmode=disable
+      RF_ALLOW_INSECURE_DB: "true"   # private compose network only
+      RF_WORLDS: ${RF_WORLDS:-ember-1:ashen-crowns:Ember Vale:1}
+      RF_ADMIN_LOGIN: ${RF_ADMIN_LOGIN:-}
+      RF_ALLOWED_ORIGINS: ${RF_ALLOWED_ORIGINS:-http://localhost:8080,http://localhost:5173}
+    ports: ["8080:8080"]
+volumes:
+  pgdata:

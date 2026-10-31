@@ -55,16 +55,16 @@ type UnitView struct {
 }
 
 type CityView struct {
-	City       *City            `json:"city"`
-	Resources  pack.Amounts     `json:"resources"`
-	Rates      rules.Rates      `json:"rates"`
-	ServerTime time.Time        `json:"serverTime"`
-	Buildings  []BuildingView   `json:"buildings"`
-	Techs      []TechView       `json:"techs"`
-	Units      []UnitView       `json:"units"`
-	Queues     map[string][]Job `json:"queues"`
-	Away       map[string]int64 `json:"unitsAway"`
-	Foreign    []StationedGroup `json:"foreignTroops"`
+	City       *City              `json:"city"`
+	Resources  pack.Amounts       `json:"resources"`
+	Rates      rules.Rates        `json:"rates"`
+	ServerTime time.Time          `json:"serverTime"`
+	Buildings  []BuildingView     `json:"buildings"`
+	Techs      []TechView         `json:"techs"`
+	Units      []UnitView         `json:"units"`
+	Queues     map[string][]Job   `json:"queues"`
+	Away       map[string]int64   `json:"unitsAway"`
+	Foreign    []StationedGroup   `json:"foreignTroops"`
 	Mods       map[string]float64 `json:"modifiers"`
 }
 

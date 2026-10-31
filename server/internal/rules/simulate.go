@@ -4,7 +4,7 @@ import "time"
 
 // EconState is the mutable economic state of one city between events.
 type EconState struct {
-	Stock      map[string]int64   // milli units
+	Stock      map[string]int64 // milli units
 	Population int64
 	Garrison   map[string]int64
 	Carry      map[string]float64

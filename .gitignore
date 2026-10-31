@@ -8,3 +8,4 @@ dist/
 /server/bin/
 coverage/
 .DS_Store
+client/yandex-build.zip

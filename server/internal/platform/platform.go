@@ -19,18 +19,18 @@ import (
 
 // Config is read from environment variables only (no secrets in code).
 type Config struct {
-	Env            string // development | test | production
-	HTTPAddr       string
-	DatabaseURL    string
-	PacksDir       string
-	ClientDir      string // optional: serve built client
-	WorkerEnabled  bool
-	WorkerInterval time.Duration
-	AllowedOrigins []string
-	AdminBootstrap string // login granted admin at startup (development only unless explicitly set)
-	SessionTTL     time.Duration
-	RateLimitRPS   float64
-	RateLimitBurst int
+	Env             string // development | test | production
+	HTTPAddr        string
+	DatabaseURL     string
+	PacksDir        string
+	ClientDir       string // optional: serve built client
+	WorkerEnabled   bool
+	WorkerInterval  time.Duration
+	AllowedOrigins  []string
+	AdminBootstrap  string // login granted admin at startup (development only unless explicitly set)
+	SessionTTL      time.Duration
+	RateLimitRPS    float64
+	RateLimitBurst  int
 	DevPlatformAuth bool // accept unsigned "dev" platform identities (never in production)
 }
 

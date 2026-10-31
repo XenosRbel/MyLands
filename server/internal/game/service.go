@@ -67,7 +67,9 @@ func errf(status int, code, format string, a ...any) *Error {
 func invalid(format string, a ...any) *Error {
 	return errf(http.StatusBadRequest, "invalid_request", format, a...)
 }
-func notFound(what string) *Error { return errf(http.StatusNotFound, "not_found", "%s not found", what) }
+func notFound(what string) *Error {
+	return errf(http.StatusNotFound, "not_found", "%s not found", what)
+}
 func forbidden(format string, a ...any) *Error {
 	return errf(http.StatusForbidden, "forbidden", format, a...)
 }

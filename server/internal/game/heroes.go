@@ -12,28 +12,28 @@ import (
 )
 
 type Hero struct {
-	ID           int64          `json:"id"`
-	PlayerID     int64          `json:"playerId"`
-	HomeCityID   int64          `json:"homeCityId"`
-	Name         string         `json:"name"`
-	Class        string         `json:"class"`
-	Level        int            `json:"level"`
-	XP           int64          `json:"xp"`
-	Skills       map[string]int `json:"skills"`
-	Status       string         `json:"status"`
-	WoundedUntil *time.Time     `json:"woundedUntil"`
-	Items        []Item         `json:"items"`
-	SkillPoints  int            `json:"skillPoints"`
-	NextLevelXP  int64          `json:"nextLevelXp"`
+	ID           int64              `json:"id"`
+	PlayerID     int64              `json:"playerId"`
+	HomeCityID   int64              `json:"homeCityId"`
+	Name         string             `json:"name"`
+	Class        string             `json:"class"`
+	Level        int                `json:"level"`
+	XP           int64              `json:"xp"`
+	Skills       map[string]int     `json:"skills"`
+	Status       string             `json:"status"`
+	WoundedUntil *time.Time         `json:"woundedUntil"`
+	Items        []Item             `json:"items"`
+	SkillPoints  int                `json:"skillPoints"`
+	NextLevelXP  int64              `json:"nextLevelXp"`
 	Modifiers    map[string]float64 `json:"modifiers"`
 }
 
 type Item struct {
-	ID      int64  `json:"id"`
-	Def     string `json:"def"`
-	HeroID  *int64 `json:"heroId"`
-	Slot    *string `json:"slot"`
-	Source  string `json:"source"`
+	ID     int64   `json:"id"`
+	Def    string  `json:"def"`
+	HeroID *int64  `json:"heroId"`
+	Slot   *string `json:"slot"`
+	Source string  `json:"source"`
 }
 
 const heroCols = `id, player_id, home_city_id, name, class_id, level, xp, skills, status, wounded_until`

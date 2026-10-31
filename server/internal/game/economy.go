@@ -336,12 +336,12 @@ func (s *Service) Orders(ctx contextT, q querier, worldID int64, sell, buy strin
 // ---------- Territories (GAME_RULES R-TER-1..5) ----------
 
 type Territory struct {
-	X        int          `json:"x"`
-	Y        int          `json:"y"`
-	Terrain  string       `json:"terrain"`
-	Resource string       `json:"resource"`
-	Pending  pack.Amounts `json:"pending"`
-	Since    *time.Time   `json:"since"`
+	X        int              `json:"x"`
+	Y        int              `json:"y"`
+	Terrain  string           `json:"terrain"`
+	Resource string           `json:"resource"`
+	Pending  pack.Amounts     `json:"pending"`
+	Since    *time.Time       `json:"since"`
 	Garrison map[string]int64 `json:"garrison"`
 }
 

@@ -75,57 +75,57 @@ type Theme struct {
 // Params are global balance and rule parameters. All have engine defaults
 // (see Defaults) so packs only override what they need.
 type Params struct {
-	WorldSpeed             float64 `json:"worldSpeed"`             // global time multiplier (>=1 speeds up timers)
-	EconomyTickSeconds     int     `json:"economyTickSeconds"`     // population / starvation step
-	BuildQueueMax          int     `json:"buildQueueMax"`          // queued building upgrades per city
-	TrainQueueMax          int     `json:"trainQueueMax"`          // queued training batches per city
-	ResearchQueueMax       int     `json:"researchQueueMax"`       // queued researches per player
-	CancelRefundPct        int     `json:"cancelRefundPct"`        // refund when cancelling a queued job
-	MapWidth               int     `json:"mapWidth"`
-	MapHeight              int     `json:"mapHeight"`
-	NeutralDensityPct      int     `json:"neutralDensityPct"`      // share of tiles with a neutral object
-	NewbieProtectionHours  int     `json:"newbieProtectionHours"`
-	MinTravelSeconds       int     `json:"minTravelSeconds"`
-	CombatRounds           int     `json:"combatRounds"`
-	LootPct                int     `json:"lootPct"`                // max share of unprotected stock that can be looted
-	ScoutDetectBasePct     int     `json:"scoutDetectBasePct"`
-	PopGrowthPctPerHour    float64 `json:"popGrowthPctPerHour"`    // of free housing per hour
-	FoodPerPopPerHour      float64 `json:"foodPerPopPerHour"`
-	StarvationPctPerTick   float64 `json:"starvationPctPerTick"`   // population lost per tick while food is 0 and deficit
-	FoodResource           string  `json:"foodResource"`           // resource consumed by population and armies
-	PremiumResource        string  `json:"premiumResource,omitempty"` // non-tradable hard/soft premium currency (no real money in MVP)
-	MarketFeePct           int     `json:"marketFeePct"`
-	MarketMaxOpenOrders    int     `json:"marketMaxOpenOrders"`
-	ExchangeRates          map[string]float64 `json:"exchangeRates,omitempty"` // NPC merchant value of 1 unit, in a common value scale
-	ExchangeFeePct         int     `json:"exchangeFeePct"`
-	AllianceCreateCost     Amounts `json:"allianceCreateCost,omitempty"`
-	AllianceMaxMembers     int     `json:"allianceMaxMembers"`
-	CityCapBuilding        string  `json:"cityCapBuilding,omitempty"`  // building whose level grants extra cities
-	CitiesPerCapLevels     int     `json:"citiesPerCapLevels"`         // one extra city per N levels of CityCapBuilding
-	SettlerUnit            string  `json:"settlerUnit,omitempty"`      // unit consumed to found a new city
-	TerritoryCapBuilding   string  `json:"territoryCapBuilding,omitempty"`
-	TerritoriesPerLevel    int     `json:"territoriesPerLevel"`
-	TerritoryBonusPct      int     `json:"territoryBonusPct"`          // production bonus per owned territory for its resource
-	HeroHireCost           Amounts `json:"heroHireCost,omitempty"`
-	HeroBuilding           string  `json:"heroBuilding,omitempty"`
-	HeroesPerBuildingLevel int     `json:"heroesPerBuildingLevel"`
-	HeroWoundHours         int     `json:"heroWoundHours"`
-	AttackScoreFloorPct    int     `json:"attackScoreFloorPct"`        // cannot attack players weaker than this % of own score (anti-bullying); 0 disables
-	UpkeepResource         string  `json:"upkeepResource,omitempty"`   // resource paying army upkeep (defaults to foodResource)
-	DesertionPctPerHour    float64 `json:"desertionPctPerHour"`        // garrison lost per hour while upkeep is unpaid
-	MissionUpkeepMult      float64 `json:"missionUpkeepMult"`          // upkeep multiplier for units away on missions
-	PopGrowthMode          string  `json:"popGrowthMode"`              // "idle" (growth ∝ idle people) | "free_housing"
-	OverflowDecayPctPerHour float64 `json:"overflowDecayPctPerHour"`   // >0: stock may exceed storage and the surplus decays; 0: hard cap
-	DefenseCapPct          float64 `json:"defenseCapPct"`              // max damage reduction from defense (%)
-	DefenderRetreatPct     int     `json:"defenderRetreatPct"`         // defender retreats when losses reach this % (100 = never)
-	SameRaceAttackPct      float64 `json:"sameRaceAttackPct"`          // attack modifier when attacking own race (e.g. -50)
-	SameFactionAttackPct   float64 `json:"sameFactionAttackPct"`       // attack modifier when attacking own faction (e.g. -25)
-	MaxAttacksPerTargetPerDay int  `json:"maxAttacksPerTargetPerDay"`  // 0 = unlimited
-	MaxReinforcingPlayers  int     `json:"maxReinforcingPlayers"`      // distinct foreign players that may station troops in a city
-	MaxHeroes              int     `json:"maxHeroes"`
-	MaxCities              int     `json:"maxCities"`
-	TerritoryYieldPerHour  float64 `json:"territoryYieldPerHour"`      // units/hour of the terrain resource accrued on an owned tile
-	TerritoryYieldCapHours int     `json:"territoryYieldCapHours"`     // uncollected yield stops accruing after this many hours
+	WorldSpeed                float64            `json:"worldSpeed"`         // global time multiplier (>=1 speeds up timers)
+	EconomyTickSeconds        int                `json:"economyTickSeconds"` // population / starvation step
+	BuildQueueMax             int                `json:"buildQueueMax"`      // queued building upgrades per city
+	TrainQueueMax             int                `json:"trainQueueMax"`      // queued training batches per city
+	ResearchQueueMax          int                `json:"researchQueueMax"`   // queued researches per player
+	CancelRefundPct           int                `json:"cancelRefundPct"`    // refund when cancelling a queued job
+	MapWidth                  int                `json:"mapWidth"`
+	MapHeight                 int                `json:"mapHeight"`
+	NeutralDensityPct         int                `json:"neutralDensityPct"` // share of tiles with a neutral object
+	NewbieProtectionHours     int                `json:"newbieProtectionHours"`
+	MinTravelSeconds          int                `json:"minTravelSeconds"`
+	CombatRounds              int                `json:"combatRounds"`
+	LootPct                   int                `json:"lootPct"` // max share of unprotected stock that can be looted
+	ScoutDetectBasePct        int                `json:"scoutDetectBasePct"`
+	PopGrowthPctPerHour       float64            `json:"popGrowthPctPerHour"` // of free housing per hour
+	FoodPerPopPerHour         float64            `json:"foodPerPopPerHour"`
+	StarvationPctPerTick      float64            `json:"starvationPctPerTick"`      // population lost per tick while food is 0 and deficit
+	FoodResource              string             `json:"foodResource"`              // resource consumed by population and armies
+	PremiumResource           string             `json:"premiumResource,omitempty"` // non-tradable hard/soft premium currency (no real money in MVP)
+	MarketFeePct              int                `json:"marketFeePct"`
+	MarketMaxOpenOrders       int                `json:"marketMaxOpenOrders"`
+	ExchangeRates             map[string]float64 `json:"exchangeRates,omitempty"` // NPC merchant value of 1 unit, in a common value scale
+	ExchangeFeePct            int                `json:"exchangeFeePct"`
+	AllianceCreateCost        Amounts            `json:"allianceCreateCost,omitempty"`
+	AllianceMaxMembers        int                `json:"allianceMaxMembers"`
+	CityCapBuilding           string             `json:"cityCapBuilding,omitempty"` // building whose level grants extra cities
+	CitiesPerCapLevels        int                `json:"citiesPerCapLevels"`        // one extra city per N levels of CityCapBuilding
+	SettlerUnit               string             `json:"settlerUnit,omitempty"`     // unit consumed to found a new city
+	TerritoryCapBuilding      string             `json:"territoryCapBuilding,omitempty"`
+	TerritoriesPerLevel       int                `json:"territoriesPerLevel"`
+	TerritoryBonusPct         int                `json:"territoryBonusPct"` // production bonus per owned territory for its resource
+	HeroHireCost              Amounts            `json:"heroHireCost,omitempty"`
+	HeroBuilding              string             `json:"heroBuilding,omitempty"`
+	HeroesPerBuildingLevel    int                `json:"heroesPerBuildingLevel"`
+	HeroWoundHours            int                `json:"heroWoundHours"`
+	AttackScoreFloorPct       int                `json:"attackScoreFloorPct"`       // cannot attack players weaker than this % of own score (anti-bullying); 0 disables
+	UpkeepResource            string             `json:"upkeepResource,omitempty"`  // resource paying army upkeep (defaults to foodResource)
+	DesertionPctPerHour       float64            `json:"desertionPctPerHour"`       // garrison lost per hour while upkeep is unpaid
+	MissionUpkeepMult         float64            `json:"missionUpkeepMult"`         // upkeep multiplier for units away on missions
+	PopGrowthMode             string             `json:"popGrowthMode"`             // "idle" (growth ∝ idle people) | "free_housing"
+	OverflowDecayPctPerHour   float64            `json:"overflowDecayPctPerHour"`   // >0: stock may exceed storage and the surplus decays; 0: hard cap
+	DefenseCapPct             float64            `json:"defenseCapPct"`             // max damage reduction from defense (%)
+	DefenderRetreatPct        int                `json:"defenderRetreatPct"`        // defender retreats when losses reach this % (100 = never)
+	SameRaceAttackPct         float64            `json:"sameRaceAttackPct"`         // attack modifier when attacking own race (e.g. -50)
+	SameFactionAttackPct      float64            `json:"sameFactionAttackPct"`      // attack modifier when attacking own faction (e.g. -25)
+	MaxAttacksPerTargetPerDay int                `json:"maxAttacksPerTargetPerDay"` // 0 = unlimited
+	MaxReinforcingPlayers     int                `json:"maxReinforcingPlayers"`     // distinct foreign players that may station troops in a city
+	MaxHeroes                 int                `json:"maxHeroes"`
+	MaxCities                 int                `json:"maxCities"`
+	TerritoryYieldPerHour     float64            `json:"territoryYieldPerHour"`  // units/hour of the terrain resource accrued on an owned tile
+	TerritoryYieldCapHours    int                `json:"territoryYieldCapHours"` // uncollected yield stops accruing after this many hours
 }
 
 // Defaults returns engine default parameters.
@@ -145,14 +145,14 @@ func Defaults() Params {
 }
 
 type Resource struct {
-	ID       string  `json:"id"`
-	Name     LocText `json:"name"`
-	Desc     LocText `json:"desc,omitempty"`
-	Kind     string  `json:"kind"` // basic | food | rare | premium
-	Capped   bool    `json:"capped"`   // limited by storage
-	Tradable bool    `json:"tradable"` // can be listed on the market
-	Lootable bool    `json:"lootable"` // can be plundered
-	BaseStorage int64 `json:"baseStorage,omitempty"` // storage before buildings
+	ID          string  `json:"id"`
+	Name        LocText `json:"name"`
+	Desc        LocText `json:"desc,omitempty"`
+	Kind        string  `json:"kind"`                  // basic | food | rare | premium
+	Capped      bool    `json:"capped"`                // limited by storage
+	Tradable    bool    `json:"tradable"`              // can be listed on the market
+	Lootable    bool    `json:"lootable"`              // can be plundered
+	BaseStorage int64   `json:"baseStorage,omitempty"` // storage before buildings
 }
 
 // Modifier is a declarative additive-percentage or flat bonus.
@@ -206,9 +206,9 @@ type Duration struct {
 //	modifier  (Modifier with value per level)
 //	queue     (extra build queue slots per level) — reserved
 type Effect struct {
-	Type     string    `json:"type"`
-	Resource string    `json:"resource,omitempty"`
-	PerLevel float64   `json:"perLevel,omitempty"`
+	Type     string  `json:"type"`
+	Resource string  `json:"resource,omitempty"`
+	PerLevel float64 `json:"perLevel,omitempty"`
 	// Growth makes per-level output geometric: v(L) = perLevel*L*growth^(L-1). 0 or 1 = linear.
 	Growth   float64   `json:"growth,omitempty"`
 	Workers  int       `json:"workers,omitempty"`
@@ -274,14 +274,14 @@ type ClassBonus struct {
 }
 
 type HeroConfig struct {
-	Classes   []HeroClass `json:"classes"`
-	Skills    []HeroSkill `json:"skills"`
-	Items     []HeroItem  `json:"items"`
-	Slots     []string    `json:"slots"`
-	MaxLevel  int         `json:"maxLevel"`
-	XPBase    int64       `json:"xpBase"`   // xp to reach level 2
-	XPGrowth  float64     `json:"xpGrowth"` // geometric growth per level
-	SkillPointsPerLevel int `json:"skillPointsPerLevel"`
+	Classes             []HeroClass `json:"classes"`
+	Skills              []HeroSkill `json:"skills"`
+	Items               []HeroItem  `json:"items"`
+	Slots               []string    `json:"slots"`
+	MaxLevel            int         `json:"maxLevel"`
+	XPBase              int64       `json:"xpBase"`   // xp to reach level 2
+	XPGrowth            float64     `json:"xpGrowth"` // geometric growth per level
+	SkillPointsPerLevel int         `json:"skillPointsPerLevel"`
 	// XP gained per point of enemy score destroyed.
 	XPPerScore float64 `json:"xpPerScore"`
 }
@@ -290,7 +290,7 @@ type HeroClass struct {
 	ID        string     `json:"id"`
 	Name      LocText    `json:"name"`
 	Desc      LocText    `json:"desc"`
-	Modifiers []Modifier `json:"modifiers"`         // innate
+	Modifiers []Modifier `json:"modifiers"`          // innate
 	PerLevel  []Modifier `json:"perLevel,omitempty"` // added per hero level
 }
 
@@ -315,20 +315,20 @@ type HeroItem struct {
 type Terrain struct {
 	ID       string  `json:"id"`
 	Name     LocText `json:"name"`
-	Weight   int     `json:"weight"`   // relative frequency in map generation
+	Weight   int     `json:"weight"`             // relative frequency in map generation
 	Resource string  `json:"resource,omitempty"` // resource boosted when owned as territory
 	Passable bool    `json:"passable"`
 	Color    string  `json:"color"`
 }
 
 type Neutral struct {
-	ID              string         `json:"id"`
-	Name            LocText        `json:"name"`
-	Desc            LocText        `json:"desc"`
-	Kind            string         `json:"kind"` // lair | ruin | node
-	Levels          []NeutralLevel `json:"levels"`
-	RespawnSeconds  int            `json:"respawnSeconds"`
-	Capturable      bool           `json:"capturable"` // becomes a territory once cleared
+	ID             string         `json:"id"`
+	Name           LocText        `json:"name"`
+	Desc           LocText        `json:"desc"`
+	Kind           string         `json:"kind"` // lair | ruin | node
+	Levels         []NeutralLevel `json:"levels"`
+	RespawnSeconds int            `json:"respawnSeconds"`
+	Capturable     bool           `json:"capturable"` // becomes a territory once cleared
 }
 
 type NeutralLevel struct {
@@ -347,14 +347,14 @@ type Drop struct {
 
 // Quest conditions use a closed set of types evaluated against server state.
 type Quest struct {
-	ID       string        `json:"id"`
-	Name     LocText       `json:"name"`
-	Desc     LocText       `json:"desc"`
-	Tutorial bool          `json:"tutorial,omitempty"`
-	Requires []string      `json:"requires,omitempty"` // previous quest IDs (claimed)
-	Goal     QuestGoal     `json:"goal"`
-	Rewards  Amounts       `json:"rewards"`
-	Hint     LocText       `json:"hint,omitempty"`
+	ID       string    `json:"id"`
+	Name     LocText   `json:"name"`
+	Desc     LocText   `json:"desc"`
+	Tutorial bool      `json:"tutorial,omitempty"`
+	Requires []string  `json:"requires,omitempty"` // previous quest IDs (claimed)
+	Goal     QuestGoal `json:"goal"`
+	Rewards  Amounts   `json:"rewards"`
+	Hint     LocText   `json:"hint,omitempty"`
 	// UI target the tutorial highlights (screen id).
 	Screen string `json:"screen,omitempty"`
 }
@@ -381,6 +381,6 @@ type UIConfig struct {
 
 type Migration struct {
 	FromVersion string            `json:"fromVersion"`
-	Renames     map[string]string `json:"renames,omitempty"`  // oldId -> newId (any entity kind)
-	Removed     map[string]string `json:"removed,omitempty"`  // removedId -> replacementId or "" to drop
+	Renames     map[string]string `json:"renames,omitempty"` // oldId -> newId (any entity kind)
+	Removed     map[string]string `json:"removed,omitempty"` // removedId -> replacementId or "" to drop
 }

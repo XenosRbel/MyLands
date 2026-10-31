@@ -10,16 +10,16 @@ import (
 // Stack is one unit type on one side of a battle, with modifiers already
 // applied to per-unit stats (see BuildStack).
 type Stack struct {
-	UnitID  string             `json:"unit"`
-	Class   string             `json:"class"`
-	Count   int64              `json:"count"`
-	Attack  float64            `json:"attack"`
-	Defense float64            `json:"defense"`
-	HP      float64            `json:"hp"`
-	Bonuses []pack.ClassBonus  `json:"-"`
-	Score   int                `json:"-"`
-	Group   int                `json:"-"` // owner group (garrison, each reinforcement) for loss attribution
-	wounds  float64            // damage carried over between rounds
+	UnitID  string            `json:"unit"`
+	Class   string            `json:"class"`
+	Count   int64             `json:"count"`
+	Attack  float64           `json:"attack"`
+	Defense float64           `json:"defense"`
+	HP      float64           `json:"hp"`
+	Bonuses []pack.ClassBonus `json:"-"`
+	Score   int               `json:"-"`
+	Group   int               `json:"-"` // owner group (garrison, each reinforcement) for loss attribution
+	wounds  float64           // damage carried over between rounds
 }
 
 // BuildStack applies modifiers in the fixed order (GAME_RULES R-CMB-1):
@@ -48,20 +48,20 @@ type RoundLog struct {
 }
 
 type BattleResult struct {
-	Rounds          []RoundLog       `json:"rounds"`
-	AttackerWon     bool             `json:"attackerWon"`
-	AttackerStart   map[string]int64 `json:"attackerStart"`
-	DefenderStart   map[string]int64 `json:"defenderStart"`
-	AttackerLosses  map[string]int64 `json:"attackerLosses"`
-	DefenderLosses  map[string]int64 `json:"defenderLosses"`
-	AttackerLeft    map[string]int64 `json:"attackerLeft"`
-	DefenderLeft    map[string]int64 `json:"defenderLeft"`
-	AttackerScoreLost int64          `json:"attackerScoreLost"`
-	DefenderScoreLost int64          `json:"defenderScoreLost"`
-	AttackerRetreated bool           `json:"attackerRetreated"`
-	DefenderRetreated bool           `json:"defenderRetreated"`
-	AttackerFinal     []Stack        `json:"-"`
-	DefenderFinal     []Stack        `json:"-"`
+	Rounds            []RoundLog       `json:"rounds"`
+	AttackerWon       bool             `json:"attackerWon"`
+	AttackerStart     map[string]int64 `json:"attackerStart"`
+	DefenderStart     map[string]int64 `json:"defenderStart"`
+	AttackerLosses    map[string]int64 `json:"attackerLosses"`
+	DefenderLosses    map[string]int64 `json:"defenderLosses"`
+	AttackerLeft      map[string]int64 `json:"attackerLeft"`
+	DefenderLeft      map[string]int64 `json:"defenderLeft"`
+	AttackerScoreLost int64            `json:"attackerScoreLost"`
+	DefenderScoreLost int64            `json:"defenderScoreLost"`
+	AttackerRetreated bool             `json:"attackerRetreated"`
+	DefenderRetreated bool             `json:"defenderRetreated"`
+	AttackerFinal     []Stack          `json:"-"`
+	DefenderFinal     []Stack          `json:"-"`
 }
 
 // GroupCounts returns surviving counts per unit for one owner group.

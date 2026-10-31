@@ -21,6 +21,7 @@ const primary: Screen[] = ["city", "map", "army", "missions"];
 const illustratedNav: Partial<Record<Screen, string>> = {
   city: "keep", map: "forest", army: "knight", research: "academy",
   heroes: "marshal", economy: "mint", market: "market",
+  alliance: "warhall", profile: "keep",
   missions: "watchtower", reports: "scriptorium",
 };
 
@@ -169,8 +170,12 @@ export function Shell() {
         {body}
       </main>
       <nav className="game-dock" aria-label={t("army")}>
+        <button type="button" className={"game-dock-globe" + (screen === "map" ? " active" : "")}
+          onClick={() => navigate("map")} title={t("map")} aria-label={t("map")}>
+          <img src="/ui/world-globe.svg" alt="" draggable={false} />
+        </button>
         <div className="game-dock-actions">
-          {(["city", "map", "army", "research", "heroes", "reports"] as Screen[])
+          {(["city", "army", "alliance", "market", "reports", "profile"] as Screen[])
             .filter((destination) => enabled.includes(destination))
             .map((destination) => (
               <button key={destination} type="button" className={screen === destination ? "active" : ""}

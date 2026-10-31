@@ -3,6 +3,7 @@ import { command } from "../api/client";
 import { useGame } from "../game/context";
 import { Action, CostList, duration, Icon, Reqs } from "../ui/kit";
 import { QueuePanel, blockedLabel, effectText } from "./City";
+import { ResearchEmblem } from "../game/ResearchEmblem";
 
 const branchNames = {
   economy: "branchEconomy",
@@ -14,22 +15,6 @@ const branchNames = {
 
 const branchSymbols: Record<string, string> = {
   economy: "wheat", civic: "castle", military: "sword", arcane: "crystal", calling: "star",
-};
-// Reuse the pack's painted building art for progressively more advanced research tiers.
-// These IDs are decorative references, not new technology prerequisites.
-const tierArt: Record<string, string[]> = {
-  economy: ["farmstead", "lumberyard", "quarry", "ironworks", "warehouse", "mint", "market", "tradepost", "vault", "keep"],
-  civic: ["cottages", "warehouse", "market", "watchtower", "tradepost", "academy", "warhall", "vault", "sanctum", "keep"],
-  military: ["barracks", "range", "stables", "workshop", "walls", "watchtower", "warhall", "aerie", "keep", "sanctum"],
-  arcane: ["scriptorium", "academy", "sanctum", "aerie", "vault", "watchtower", "warhall", "keep", "sanctum", "academy"],
-  calling: ["warhall", "academy", "keep"],
-};
-const tierSymbols: Record<string, string[]> = {
-  economy: ["wheat", "log", "stone", "ingot", "coin", "bag", "chart", "castle", "scroll", "star"],
-  civic: ["people", "wheat", "bag", "scroll", "shield", "book", "coin", "castle", "star", "crystal"],
-  military: ["sword", "shield", "boot", "eye", "castle", "bolt", "flag", "heart", "star", "crystal"],
-  arcane: ["scroll", "book", "eye", "crystal", "bolt", "heart", "star", "shield", "castle", "coin"],
-  calling: ["star", "shield", "castle"],
 };
 const roman = (n: number) => {
   const numerals: [number, string][] = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
@@ -93,7 +78,7 @@ export function ResearchScreen() {
                     <div className={"research-path" + (activeId === tv.id ? " selected" : "")} key={tv.id}>
                       <button type="button" className="research-name" onClick={() => setSelected(tv.id)}
                         aria-pressed={activeId === tv.id}>
-                        <span className="research-name-icon"><Icon name={branchSymbols[br] ?? "book"} size={23} /></span>
+                        <span className="research-name-icon"><ResearchEmblem tech={tv.id} level={tv.level} size={42} /></span>
                         <span><strong>{idx.name(tv.id)}</strong><small>{tv.level}/{tv.maxLevel}</small></span>
                       </button>
                       <div className="research-nodes">
@@ -101,18 +86,13 @@ export function ResearchScreen() {
                           const complete = tv.level >= level;
                           const pending = tv.targetLevel === level && tv.level < level;
                           const unlocked = level === tv.level + 1;
-                          const symbol = tierSymbols[br]?.[(level - 1) % 4] ?? "star";
                           return (
                             <button type="button" key={level}
                               className={["research-node", complete && "completed", pending && "pending", unlocked && "available"].filter(Boolean).join(" ")}
                               onClick={() => setSelected(tv.id)}
                               aria-pressed={activeId === tv.id}
                               title={idx.name(tv.id) + " " + roman(level)}>
-                              {idx.art(tierArt[br]?.[(level - 1) % (tierArt[br]?.length || 1)] ?? "") ?
-                                <img className="research-tier-art"
-                                  src={idx.art(tierArt[br][(level - 1) % tierArt[br].length])}
-                                  alt="" loading="lazy" /> :
-                                <Icon name={symbol} size={22 + Math.min(level, 3)} />}
+                              <ResearchEmblem tech={tv.id} level={level} size={36} className="research-tier-art" />
                               <span>{roman(level)}</span>
                               {complete && <b aria-hidden="true">✓</b>}
                             </button>
@@ -129,7 +109,7 @@ export function ResearchScreen() {
         <aside className="research-aside">
           {active && definition && (
             <section className="research-detail panel">
-              <div className="research-detail-art"><Icon name={branchSymbols[definition.branch] ?? "book"} size={50} /></div>
+              <div className="research-detail-art"><ResearchEmblem tech={active.id} level={Math.max(active.level,1)} size={96} /></div>
               <h2>{idx.name(active.id)}</h2>
               <div className="muted small">{t("level")} {active.level} / {active.maxLevel}</div>
               <p>{idx.desc(active.id)}</p>

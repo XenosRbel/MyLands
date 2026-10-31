@@ -170,9 +170,9 @@ export function CityScreen() {
           </section>
         </div>
         <aside className="city-game-rail">
-          <div className="city-game-rail-title"><Icon name="clock" size={18} /> {t("queue")}</div>
+          <div className="city-game-rail-title"><Icon name="castle" size={18} /> {t("constructionQueue")}</div>
           <QueuePanel jobs={city.queues.build} title={t("build")} />
-          <QueuePanel jobs={city.queues.research} title={t("research")} />
+          <div className="city-game-rail-title training"><Icon name="sword" size={18} /> {t("trainingQueue")}</div>
           <QueuePanel jobs={city.queues.train} title={t("train")} />
           <div className="city-game-rail-links">
             <button className="btn small" onClick={() => go("economy")}><Icon name="chart" size={17} /> {t("economy")}</button>

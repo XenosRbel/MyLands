@@ -1203,3 +1203,26 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 .game-dock-unit.inactive img {filter:grayscale(1) brightness(.43) contrast(.92);opacity:.79;}
 .game-dock-unit.inactive span {color:#b7ad98;background:#1b1713cc;}
 .game-dock-unit.inactive:hover img {filter:grayscale(.5) brightness(.66);opacity:1;}
+
+/* Classic resource strip: information is part of the frame, not stacked widgets. */
+@media(min-width:721px) {
+  .topbar {padding:0 13px 0 15px;}
+  .resbar {
+    justify-content:space-around;
+    gap:clamp(5px,.8vw,19px);
+    overflow-x:auto;
+    padding:0 10px;
+  }
+  .resbar-item {
+    border:0;
+    border-right:1px solid #bc9a603a;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    padding:4px 13px 4px 5px;
+  }
+  .resbar-item .amt {font-weight:700;font-family:var(--font-display);font-size:.91rem;color:#e9dabc;}
+  .resbar-item .rate {font-size:.72rem;}
+  .topbar .title {border-right:2px solid #8b704a65;}
+  .kingdom-shortcuts {gap:7px;padding-left:9px;}
+}

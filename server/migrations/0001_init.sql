@@ -343,7 +343,7 @@ CREATE TABLE idempotency_keys (
     key           TEXT NOT NULL,
     request_hash  TEXT NOT NULL,
     status_code   INT NOT NULL DEFAULT 0,
-    response      JSONB,
+    response      BYTEA,                 -- exact bytes replayed to duplicates
     created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
     PRIMARY KEY (account_id, key)
 );

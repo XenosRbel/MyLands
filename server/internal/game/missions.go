@@ -332,6 +332,15 @@ func (c *pctx) SendMission(ci *City, req MissionRequest) (*Mission, error) {
 		if targetCity == nil {
 			return nil, rule("no_target", "transport target must be a city")
 		}
+		// Do not allow transfers to unrelated accounts (anti-farming).
+		// Cross-account transfers require a current alliance relationship.
+		ok, err := c.allied(me, targetOwner)
+		if err != nil {
+			return nil, err
+		}
+		if !ok {
+			return nil, rule("not_allied", "resources can only be sent to your own or allied cities")
+		}
 		cap := c.carryOf(units, mods)
 		for r, n := range req.Cargo {
 			res := c.p.Resource(r)

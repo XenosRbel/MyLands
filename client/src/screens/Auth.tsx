@@ -120,8 +120,11 @@ export function WorldScreen({ account, locale, onEnter, onLogout }: {
             {joining.pack.races.map((r) => (
               <label key={r.id} className={"race" + (race === r.id ? " on" : "")} style={{ borderColor: race === r.id ? r.color : undefined }}>
                 <input type="radio" name="race" value={r.id} checked={race === r.id} onChange={() => setRace(r.id)} />
-                <strong style={{ color: r.color }}>{idx.text(r.name)}</strong>
-                <span className="muted small">{idx.text(r.desc)}</span>
+                <span className="race-emblem">{idx.art(r.id) ? <img src={idx.art(r.id)} alt="" draggable={false} /> : null}</span>
+                <span className="race-description">
+                  <strong>{idx.text(r.name)}</strong>
+                  <span className="muted small">{idx.text(r.desc)}</span>
+                </span>
               </label>
             ))}
           </fieldset>

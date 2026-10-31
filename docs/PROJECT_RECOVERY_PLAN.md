@@ -72,15 +72,23 @@ See `docs/spec/SCIENCE_ENGINE_MIGRATION.md`.
 - [ ] Create transparent nine-slice UI panels and buttons.
 - [ ] Make terrain textures tile without visible seams.
 - [x] Restyle desktop navigation and game HUD with muted medieval surfaces.
-- [ ] Validate all interactions with full browser screenshots.
+- [x] Add browser screenshots for all primary screens.
+- [ ] Review and approve final browser screenshots after all visual fixes.
 - [x] Apply consistent frames, buttons, panels, typography, cards, and modals across existing game screens.
 - [x] Add illustrated army-card heraldry and hero equipment styling.
 - [x] Add original scalable panel and parchment texture assets.
+- [x] Rework city, army, hero, and map layouts around illustrated game content.
+- [x] Add a bottom command dock with actual army portraits.
+- [x] Add tabbed research branches and restore readable parchment details.
+- [x] Add illustrated race selection and a subdued game entry background.
+- [x] Restyle shared modal dialogs as light parchment windows.
 - [ ] Complete full-screen illustration and artwork for every gameplay state.
 - [ ] Add building-level variants and construction effects.
 - [x] Extend the E2E screenshot checklist to missions and reports.
-- [ ] Run and review actual desktop and mobile captures.
-- [ ] Compare each captured screen against licensed visual references.
+- [x] Run desktop and mobile screenshots in CI.
+- [ ] Complete final visual review after recent changes.
+- [x] Compare the city and research screenshots with public My Lands references.
+- [ ] Complete per-screen reference comparisons.
 - [ ] Keep original game brands and third-party assets out of the product.
 
 Acceptance: every screen uses complete art and consistent visual language.
@@ -143,7 +151,9 @@ Acceptance: deployment checklists and platform test cases pass.
 - Not run locally: Docker build, browser E2E, database concurrency tests.
 - CI Docker builds passed on prior branch commits.
 - Full shared visual theme, original texture assets, and army redesign were added.
-- CI validates compilation. Visual screenshot review remains required.
+- Browser screenshot workflow completed successfully on commit 2d0b76a.
+- Latest visual commits still need passing CI and refreshed screenshots.
+- See docs/spec/VISUAL_REDESIGN.md for observed defects and implemented fixes.
 
 ## Current rule
 

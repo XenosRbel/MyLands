@@ -34,3 +34,35 @@
 }
 [data-motion="reduce"] .content { animation:none; }
 [data-motion="reduce"] .sidenav button:hover,[data-motion="reduce"] .resbar-item:hover { transform:none; }
+
+/* Settlement diorama: reinforce depth without changing building positions. */
+.city-scene {
+  isolation:isolate;
+  border:2px solid color-mix(in srgb,var(--accent) 33%,var(--border));
+  box-shadow:0 24px 65px rgba(0,0,0,.35),inset 0 0 45px rgba(0,0,0,.3);
+}
+.city-scene::after {
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,217,152,.07),transparent 32%,rgba(2,8,7,.24));
+  box-shadow:inset 0 0 80px rgba(0,0,0,.25);
+}
+.city-scene .plot { z-index:2; }
+.city-scene .plot img { transition:transform .22s ease,filter .22s ease; }
+.city-scene .plot:focus-visible { outline:2px solid var(--accent);outline-offset:4px; }
+.city-scene .plot.can:not(.built) .plot-mark { animation:build-pulse 2.6s ease-in-out infinite; }
+@keyframes build-pulse {
+  0%,100% { filter:brightness(1); }
+  50% { filter:brightness(1.5); }
+}
+.bcard { background:linear-gradient(145deg,color-mix(in srgb,var(--surface2) 94%,var(--accent)),var(--surface2)); }
+.bcard:hover { box-shadow:0 8px 26px rgba(0,0,0,.2); }
+.bcard .bart { filter:drop-shadow(0 5px 8px rgba(0,0,0,.45)); }
+@media(max-width:720px) {
+ .experience-sound span { display:none; }
+ .experience-sound { min-width:38px; }
+ .city-scene { box-shadow:0 12px 30px rgba(0,0,0,.25); }
+}
+@media(prefers-reduced-motion:reduce) {
+ .city-scene .plot.can:not(.built) .plot-mark { animation:none; }
+}
+[data-motion="reduce"] .city-scene .plot.can:not(.built) .plot-mark { animation:none; }

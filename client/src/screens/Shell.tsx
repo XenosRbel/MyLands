@@ -26,6 +26,16 @@ export function Shell() {
   });
   setGameAudioEnabled(sound);
   const navigate = (s: Screen) => { playGameCue("navigate"); go(s); };
+  const specialization = idx.pack.techs
+    .filter((tech) => tech.exclusiveGroup === "calling")
+    .find((tech) => (overview?.player.techs?.[tech.id] ?? 0) > 0);
+  const specializationLevel = specialization ? overview?.player.techs?.[specialization.id] ?? 0 : 0;
+  const specializationBonuses = specialization?.effects
+    .filter((effect) => effect.type === "modifier" && effect.modifier)
+    .map((effect) => {
+      const modifier = effect.modifier!;
+      return `${modifier.target}: ${modifier.value * specializationLevel > 0 ? "+" : ""}${modifier.value * specializationLevel}${modifier.op === "pct" ? "%" : ""}`;
+    }).join("; ") ?? t("chooseSpecialization");
   const enabled: Screen[] = (idx.pack.ui.screens as Screen[]).filter((s) => s !== "settings");
   const badge = (s: Screen) =>
     s === "reports" ? overview?.unreadReports : s === "quests" ? overview?.questsReady : s === "mail" ? overview?.unreadNotifications : 0;
@@ -76,10 +86,11 @@ export function Shell() {
           </div>
         )}
         <div className="kingdom-shortcuts">
-          <button type="button" className="kingdom-token" onClick={() => navigate("profile")}
-            title={t("kingdomEmblem")} aria-label={t("kingdomEmblem")}>
-            <Icon name={idx.icon(overview?.player.race ?? "") || "shield"} size={28} />
-            <span className="token-label">{t("kingdomEmblem")}</span>
+          <button type="button" className="kingdom-token" onClick={() => navigate("research")}
+            title={specialization ? `${idx.name(specialization.id)} (${specializationLevel}): ${specializationBonuses}` : t("chooseSpecialization")}
+            aria-label={specialization ? idx.name(specialization.id) : t("chooseSpecialization")}>
+            <Icon name={idx.icon(specialization?.id ?? "") || "shield"} size={28} />
+            <span className="token-label">{specialization ? idx.name(specialization.id) : t("chooseSpecialization")}</span>
           </button>
           <button type="button" className="kingdom-token hero-token" onClick={() => navigate("heroes")}
             title={t("heroes")} aria-label={t("heroes")}>

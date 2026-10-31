@@ -32,7 +32,7 @@ log("joined world; city screen rendered");
 await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
 
-await page.locator(".bcard", { hasText: "Lumberyard" }).click();
+await page.locator(".city-game-building", { hasText: "Lumberyard" }).click();
 await page.getByRole("dialog").getByRole("button", { name: /Upgrade/ }).click();
 await page.locator(".toast.ok").waitFor();
 log("upgrade queued");
@@ -40,8 +40,8 @@ await page.keyboard.press("Escape");
 // world speed x50: level 2 takes ~2 s
 await page.waitForTimeout(3500);
 await page.reload();
-await page.locator(".bcard", { hasText: "Lumberyard" }).waitFor();
-const lumber = await page.locator(".bcard", { hasText: "Lumberyard" }).innerText();
+await page.locator(".city-game-building", { hasText: "Lumberyard" }).waitFor();
+const lumber = await page.locator(".city-game-building", { hasText: "Lumberyard" }).innerText();
 if (!/Level 2/.test(lumber)) fail("after reload lumberyard should be level 2, got: " + lumber);
 log("after reload: lumberyard level 2 persisted");
 

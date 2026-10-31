@@ -165,33 +165,80 @@ export function blockedLabel(b: string, t: (k: any) => string): string {
   return ({ resources: t("cost"), requirements: t("requires"), queue_full: t("queue"), race: t("locked"), specialisation_taken: t("locked") } as Record<string, string>)[b] ?? b;
 }
 
-function BuildingModal({ b, onClose }: { b: BuildingView; onClose: () => void }) {
+function BuildingModal({ b: initialBuilding, onClose }: { b: BuildingView; onClose: () => void }) {
   const { idx, t, city, refresh, toast } = useGame();
+  const [selected, setSelected] = useState(initialBuilding.id);
+  const [activeCategory, setActiveCategory] = useState(() => idx.building(initialBuilding.id)?.category ?? "core");
+  const b = city?.buildings.find((item) => item.id === selected) ?? initialBuilding;
   const def = idx.building(b.id)!;
+  const categories = Array.from(new Set((city?.buildings ?? []).map((item) => idx.building(item.id)?.category).filter((x): x is string => !!x)));
+  const collection = city?.buildings.filter((item) => idx.building(item.id)?.category === activeCategory) ?? [];
   return (
-    <Modal title={idx.name(b.id)} onClose={onClose}>
-      {idx.art(b.id) && <img className="modal-art" src={idx.art(b.id)} alt="" draggable={false} />}
-      <p className="muted">{idx.desc(b.id)}</p>
-      <p>{t("level")}: <strong>{b.level}</strong> / {b.maxLevel}</p>
-      <ul className="effects">
-        {def.effects.map((e, i) => (
-          <li key={i}>{effectText(e, idx, b.level || 1)}</li>
-        ))}
-      </ul>
-      {b.next ? (
-        <div className="stack">
-          <div className="row"><span>{t("cost")}:</span><CostList cost={b.next.cost} have={city?.resources} /></div>
-          <div className="row"><span>{t("time")}:</span><span>{duration(b.next.seconds)}</span></div>
-          <Reqs reqs={b.next.unmet} />
-          <Action className="primary" disabled={!!b.next.blocked} run={async () => {
-            await command(`/api/v1/cities/${city!.city.id}/build`, { building: b.id });
-            toast(`${idx.name(b.id)} → ${b.next!.level}`, "ok");
-            await refresh();
-          }}>{b.level === 0 ? t("build") : t("upgrade")} → {b.next.level}</Action>
+    <Modal title={t("build")} onClose={onClose} wide>
+      <div className="building-catalog">
+        <nav className="building-catalog-tabs" aria-label={t("build")}>
+          {categories.map((cat) => (
+            <button key={cat} className={activeCategory === cat ? "active" : ""}
+              aria-current={activeCategory === cat ? "page" : undefined}
+              onClick={() => {
+                setActiveCategory(cat);
+                const first = city?.buildings.find((item) => idx.building(item.id)?.category === cat);
+                if (first) setSelected(first.id);
+              }}>
+              <Icon name={catIcon[cat] ?? "star"} size={17} />
+              {cat}
+            </button>
+          ))}
+        </nav>
+        <div className="building-catalog-layout">
+          <div className="building-catalog-gallery" role="group" aria-label={t("build")}>
+            {collection.map((item) => (
+              <button type="button" key={item.id}
+                className={"building-catalog-choice" + (b.id === item.id ? " active" : "")}
+                aria-pressed={b.id === item.id} title={idx.name(item.id)}
+                onClick={() => setSelected(item.id)}>
+                {idx.art(item.id) ?
+                  <img src={idx.art(item.id)} alt="" loading="lazy" /> :
+                  <Icon name="castle" size={38} />}
+                <small>{idx.name(item.id)}</small>
+                {item.level > 0 && <span className="building-catalog-level">{item.level}</span>}
+              </button>
+            ))}
+          </div>
+          <section className="building-catalog-detail">
+            <div className="building-catalog-detail-title">
+              <h3>{idx.name(b.id)}</h3>
+              <span className="tag">{t("level")} {b.level}/{b.maxLevel}</span>
+            </div>
+            <div className="building-catalog-detail-art">
+              {idx.art(b.id) ? <img src={idx.art(b.id)} alt="" draggable={false} /> : <Icon name="castle" size={64} />}
+            </div>
+            <p>{idx.desc(b.id)}</p>
+            <ul className="effects">
+              {def.effects.map((effect, i) => <li key={i}>{effectText(effect, idx, b.level || 1)}</li>)}
+            </ul>
+            {b.next ? (
+              <div className="building-catalog-build">
+                <div className="row wrap">
+                  <strong>{t("cost")}</strong>
+                  <CostList cost={b.next.cost} have={city?.resources} />
+                </div>
+                <div className="row"><Icon name="clock" size={15} /> {duration(b.next.seconds)}</div>
+                <Reqs reqs={b.next.unmet} />
+                <Action className="primary" disabled={!!b.next.blocked}
+                  title={b.next.blocked ? blockedLabel(b.next.blocked, t) : undefined}
+                  run={async () => {
+                    await command(`/api/v1/cities/${city!.city.id}/build`, { building: b.id });
+                    toast(`${idx.name(b.id)} → ${b.next!.level}`, "ok");
+                    await refresh();
+                  }}>
+                  {b.level === 0 ? t("build") : t("upgrade")} → {b.next.level}
+                </Action>
+              </div>
+            ) : <p className="muted">{t("maxLevel")}</p>}
+          </section>
         </div>
-      ) : (
-        <p className="muted">{t("maxLevel")}</p>
-      )}
+      </div>
     </Modal>
   );
 }

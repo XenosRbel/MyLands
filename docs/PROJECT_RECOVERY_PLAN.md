@@ -22,7 +22,8 @@ Scope: Ashen Crowns game, common engine, Yandex Games, Android.
 - [x] Add a Docker build job to GitHub Actions.
 - [x] Add server Game Pack validation to the CI quality gate.
 - [x] Remove invalid faction artwork keys from Game Pack maps.
-- [ ] Verify the production Docker build completes.
+- [x] Verify the production Docker build in GitHub Actions.
+- [ ] Verify the production Docker build on a local workstation.
 - [ ] Verify local startup through Docker Compose.
 - [ ] Verify the container serves the client, packs, and API.
 - [ ] Verify the database starts from an empty volume.
@@ -43,6 +44,24 @@ Acceptance: production Docker build and first-login browser tests pass.
 - [ ] Review privileged operations and audit records.
 
 Acceptance: exploits cannot bypass resource availability or ownership checks.
+
+## P1: Research and specialisation
+
+- [x] Build the tiered research interface.
+- [x] Add per-tier research icon variation.
+- [x] Display active specialisation bonuses.
+- [x] Permit exclusive Path changes with confirmation.
+- [x] Test server-side Path modifier switching.
+- [x] Document official science rules and current differences.
+- [ ] Implement player-wide science production and progress.
+- [ ] Add laboratory-specific production bonuses.
+- [ ] Add manual confirmation for level upgrades.
+- [ ] Migrate existing research jobs without resource loss.
+- [ ] Run database integration tests for research switching.
+- [ ] Validate all research states across desktop and mobile.
+
+See `docs/spec/RESEARCH_SPECIALISATIONS.md`.
+See `docs/spec/SCIENCE_ENGINE_MIGRATION.md`.
 
 ## P1: Art and visual game design
 
@@ -117,7 +136,8 @@ Acceptance: deployment checklists and platform test cases pass.
 - Confirmed via GitHub: 82 required entities resolve to committed art paths.
 - Fixed: faction names were incorrectly added as entities in theme art maps.
 - Not run locally: Docker build, browser E2E, database concurrency tests.
-- CI Docker build job added. No passing run is verified yet.
+- CI Docker builds passed on prior branch commits.
+- Latest UI and documentation commits require their own final CI result.
 
 ## Current rule
 

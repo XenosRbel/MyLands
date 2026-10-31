@@ -1,0 +1,10 @@
+node_modules/
+dist/
+/client/android/
+*.log
+.env
+.env.*
+!.env.example
+/server/bin/
+coverage/
+.DS_Store

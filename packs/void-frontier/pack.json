@@ -1,0 +1,1604 @@
+{
+ "formatVersion": 1,
+ "id": "void-frontier",
+ "version": "0.1.0",
+ "meta": {
+  "title": {
+   "en": "Void Frontier",
+   "ru": "Пустотный фронтир"
+  },
+  "description": {
+   "en": "Demonstration pack: colonise a hostile moon. Same engine, different setting, rules and balance.",
+   "ru": "Демонстрационный набор: колонизируйте враждебную луну. Тот же движок, другой сеттинг, правила и баланс."
+  },
+  "studio": "Realmforge",
+  "license": "Original demo content (CC BY 4.0)."
+ },
+ "locales": [
+  "en",
+  "ru"
+ ],
+ "defaultLocale": "en",
+ "theme": {
+  "palette": {
+   "bg": "#0b0e17",
+   "surface": "#141a2a",
+   "surface2": "#1c2438",
+   "text": "#e6ecff",
+   "muted": "#8a94b8",
+   "accent": "#5ce1e6",
+   "accent2": "#c45ab3",
+   "danger": "#ff5d73",
+   "ok": "#53d18b",
+   "border": "#26304a"
+  },
+  "fonts": {
+   "display": "Orbitron",
+   "body": "Inter"
+  },
+  "icons": {
+   "alloy": "glyph:ingot",
+   "biomass": "glyph:leaf",
+   "energy": "glyph:bolt",
+   "data": "glyph:chip",
+   "quanta": "glyph:crystal"
+  },
+  "assetsLicense": "Glyph icons drawn in code by the project; fonts from Google Fonts (OFL)."
+ },
+ "params": {
+  "worldSpeed": 1,
+  "mapWidth": 32,
+  "mapHeight": 32,
+  "foodResource": "biomass",
+  "premiumResource": "quanta",
+  "upkeepResource": "biomass",
+  "popGrowthMode": "idle",
+  "popGrowthPctPerHour": 8,
+  "overflowDecayPctPerHour": 0,
+  "minTravelSeconds": 300,
+  "combatRounds": 8,
+  "lootPct": 40,
+  "exchangeRates": {
+   "alloy": 1,
+   "biomass": 1,
+   "energy": 1.2
+  },
+  "heroBuilding": "crew",
+  "heroHireCost": {
+   "alloy": 400
+  },
+  "cityCapBuilding": "command",
+  "settlerUnit": "colony",
+  "territoryCapBuilding": "command",
+  "sameRaceAttackPct": 0,
+  "sameFactionAttackPct": 0,
+  "maxAttacksPerTargetPerDay": 0,
+  "missionUpkeepMult": 1
+ },
+ "resources": [
+  {
+   "id": "alloy",
+   "name": {
+    "en": "Alloy",
+    "ru": "Сплав"
+   },
+   "kind": "basic",
+   "capped": true,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 2000
+  },
+  {
+   "id": "biomass",
+   "name": {
+    "en": "Biomass",
+    "ru": "Биомасса"
+   },
+   "kind": "food",
+   "capped": true,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 2000
+  },
+  {
+   "id": "energy",
+   "name": {
+    "en": "Energy",
+    "ru": "Энергия"
+   },
+   "kind": "basic",
+   "capped": true,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 2000
+  },
+  {
+   "id": "data",
+   "name": {
+    "en": "Data",
+    "ru": "Данные"
+   },
+   "kind": "basic",
+   "capped": false,
+   "tradable": false,
+   "lootable": false
+  },
+  {
+   "id": "quanta",
+   "name": {
+    "en": "Quanta",
+    "ru": "Кванты"
+   },
+   "kind": "premium",
+   "capped": false,
+   "tradable": false,
+   "lootable": false
+  }
+ ],
+ "races": [
+  {
+   "id": "concord",
+   "faction": "union",
+   "color": "#5aa9e6",
+   "name": {
+    "en": "Concord Colonists",
+    "ru": "Колонисты Согласия"
+   },
+   "desc": {
+    "en": "Orderly settlers with efficient habitats.",
+    "ru": "Организованные поселенцы с эффективными модулями."
+   },
+   "modifiers": [
+    {
+     "target": "housing",
+     "op": "pct",
+     "value": 10
+    },
+    {
+     "target": "production.energy",
+     "op": "pct",
+     "value": 10
+    }
+   ]
+  },
+  {
+   "id": "swarm",
+   "faction": "hive",
+   "color": "#c45ab3",
+   "name": {
+    "en": "Brood Swarm",
+    "ru": "Рой"
+   },
+   "desc": {
+    "en": "A biomass-hungry hive that overwhelms by numbers.",
+    "ru": "Улей, жаждущий биомассы и берущий числом."
+   },
+   "modifiers": [
+    {
+     "target": "production.biomass",
+     "op": "pct",
+     "value": 15
+    },
+    {
+     "target": "attack.beast",
+     "op": "pct",
+     "value": 10
+    }
+   ]
+  }
+ ],
+ "buildings": [
+  {
+   "id": "command",
+   "name": {
+    "en": "Command Hub",
+    "ru": "Командный узел"
+   },
+   "desc": {
+    "en": "Command Hub",
+    "ru": "Командный узел"
+   },
+   "category": "core",
+   "maxLevel": 20,
+   "cost": {
+    "base": {
+     "alloy": 150,
+     "energy": 100
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 120,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "housing",
+     "perLevel": 50
+    }
+   ],
+   "score": 15
+  },
+  {
+   "id": "habitat",
+   "name": {
+    "en": "Habitat Ring",
+    "ru": "Жилое кольцо"
+   },
+   "desc": {
+    "en": "Habitat Ring",
+    "ru": "Жилое кольцо"
+   },
+   "category": "economy",
+   "maxLevel": 20,
+   "cost": {
+    "base": {
+     "alloy": 80
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 60,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "housing",
+     "perLevel": 100,
+     "growth": 1.05
+    }
+   ],
+   "score": 4
+  },
+  {
+   "id": "refinery",
+   "name": {
+    "en": "Alloy Refinery",
+    "ru": "Завод сплавов"
+   },
+   "desc": {
+    "en": "Alloy Refinery",
+    "ru": "Завод сплавов"
+   },
+   "category": "economy",
+   "maxLevel": 20,
+   "cost": {
+    "base": {
+     "energy": 50
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 50,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "produce",
+     "resource": "alloy",
+     "perLevel": 35,
+     "workers": 4,
+     "growth": 1.05
+    }
+   ],
+   "score": 4
+  },
+  {
+   "id": "biodome",
+   "name": {
+    "en": "Biodome",
+    "ru": "Биокупол"
+   },
+   "desc": {
+    "en": "Biodome",
+    "ru": "Биокупол"
+   },
+   "category": "economy",
+   "maxLevel": 20,
+   "cost": {
+    "base": {
+     "alloy": 50
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 50,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "produce",
+     "resource": "biomass",
+     "perLevel": 40,
+     "workers": 4,
+     "growth": 1.05
+    }
+   ],
+   "score": 4
+  },
+  {
+   "id": "reactor",
+   "name": {
+    "en": "Fusion Reactor",
+    "ru": "Термоядерный реактор"
+   },
+   "desc": {
+    "en": "Fusion Reactor",
+    "ru": "Термоядерный реактор"
+   },
+   "category": "economy",
+   "maxLevel": 20,
+   "cost": {
+    "base": {
+     "alloy": 60
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 60,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "produce",
+     "resource": "energy",
+     "perLevel": 30,
+     "workers": 4,
+     "growth": 1.05
+    }
+   ],
+   "score": 4
+  },
+  {
+   "id": "lab",
+   "name": {
+    "en": "Research Lab",
+    "ru": "Лаборатория"
+   },
+   "desc": {
+    "en": "Research Lab",
+    "ru": "Лаборатория"
+   },
+   "category": "science",
+   "maxLevel": 15,
+   "cost": {
+    "base": {
+     "alloy": 100,
+     "energy": 100
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 120,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "produce",
+     "resource": "data",
+     "perLevel": 12,
+     "workers": 4,
+     "growth": 1.05
+    }
+   ],
+   "score": 4,
+   "requires": [
+    {
+     "type": "building",
+     "id": "command",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "depot",
+   "name": {
+    "en": "Cargo Depot",
+    "ru": "Грузовое депо"
+   },
+   "desc": {
+    "en": "Cargo Depot",
+    "ru": "Грузовое депо"
+   },
+   "category": "storage",
+   "maxLevel": 20,
+   "cost": {
+    "base": {
+     "alloy": 60
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 60,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "storage",
+     "resource": "*",
+     "perLevel": 1500,
+     "growth": 1.1
+    }
+   ],
+   "score": 4
+  },
+  {
+   "id": "bunker",
+   "name": {
+    "en": "Shielded Bunker",
+    "ru": "Защищённый бункер"
+   },
+   "desc": {
+    "en": "Shielded Bunker",
+    "ru": "Защищённый бункер"
+   },
+   "category": "storage",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "alloy": 120
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 120,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "protect",
+     "resource": "*",
+     "perLevel": 200
+    }
+   ],
+   "score": 4,
+   "requires": [
+    {
+     "type": "building",
+     "id": "depot",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "shields",
+   "name": {
+    "en": "Planetary Shield",
+    "ru": "Планетарный щит"
+   },
+   "desc": {
+    "en": "Planetary Shield",
+    "ru": "Планетарный щит"
+   },
+   "category": "military",
+   "maxLevel": 15,
+   "cost": {
+    "base": {
+     "energy": 200,
+     "alloy": 100
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 180,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "wall",
+      "op": "flat",
+      "value": 3
+     }
+    }
+   ],
+   "score": 4,
+   "requires": [
+    {
+     "type": "building",
+     "id": "command",
+     "level": 3
+    }
+   ]
+  },
+  {
+   "id": "dock",
+   "name": {
+    "en": "Drop Dock",
+    "ru": "Десантный док"
+   },
+   "desc": {
+    "en": "Drop Dock",
+    "ru": "Десантный док"
+   },
+   "category": "military",
+   "maxLevel": 20,
+   "cost": {
+    "base": {
+     "alloy": 120,
+     "energy": 80
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 120,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "train_time",
+      "op": "pct",
+      "value": -2
+     }
+    }
+   ],
+   "score": 4,
+   "requires": [
+    {
+     "type": "building",
+     "id": "command",
+     "level": 2
+    }
+   ]
+  },
+  {
+   "id": "crew",
+   "name": {
+    "en": "Crew Quarters",
+    "ru": "Каюты экипажей"
+   },
+   "desc": {
+    "en": "Crew Quarters",
+    "ru": "Каюты экипажей"
+   },
+   "category": "military",
+   "maxLevel": 5,
+   "cost": {
+    "base": {
+     "alloy": 300,
+     "energy": 300
+    },
+    "growth": 1.45
+   },
+   "time": {
+    "baseSeconds": 300,
+    "growth": 1.4
+   },
+   "effects": [],
+   "score": 4,
+   "requires": [
+    {
+     "type": "building",
+     "id": "command",
+     "level": 3
+    }
+   ]
+  }
+ ],
+ "techs": [
+  {
+   "id": "nanofab",
+   "name": {
+    "en": "Nanofabrication",
+    "ru": "Нанофабрикация"
+   },
+   "desc": {
+    "en": "+6% alloy.",
+    "ru": "+6% сплава."
+   },
+   "branch": "industry",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "data": 80
+    },
+    "growth": 1.5
+   },
+   "time": {
+    "baseSeconds": 180,
+    "growth": 1.45
+   },
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "production.alloy",
+      "op": "pct",
+      "value": 6
+     }
+    }
+   ],
+   "requires": [
+    {
+     "type": "building",
+     "id": "lab",
+     "level": 1
+    }
+   ],
+   "score": 3
+  },
+  {
+   "id": "hydroponics",
+   "name": {
+    "en": "Hydroponics",
+    "ru": "Гидропоника"
+   },
+   "desc": {
+    "en": "+6% biomass.",
+    "ru": "+6% биомассы."
+   },
+   "branch": "industry",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "data": 80
+    },
+    "growth": 1.5
+   },
+   "time": {
+    "baseSeconds": 180,
+    "growth": 1.45
+   },
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "production.biomass",
+      "op": "pct",
+      "value": 6
+     }
+    }
+   ],
+   "requires": [
+    {
+     "type": "building",
+     "id": "lab",
+     "level": 1
+    }
+   ],
+   "score": 3
+  },
+  {
+   "id": "weapons",
+   "name": {
+    "en": "Plasma Weapons",
+    "ru": "Плазменное оружие"
+   },
+   "desc": {
+    "en": "+4% attack.",
+    "ru": "+4% атаки."
+   },
+   "branch": "military",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "data": 120,
+     "energy": 100
+    },
+    "growth": 1.55
+   },
+   "time": {
+    "baseSeconds": 300,
+    "growth": 1.5
+   },
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "attack.*",
+      "op": "pct",
+      "value": 4
+     }
+    }
+   ],
+   "requires": [
+    {
+     "type": "building",
+     "id": "lab",
+     "level": 2
+    }
+   ],
+   "score": 4
+  },
+  {
+   "id": "warp",
+   "name": {
+    "en": "Warp Drives",
+    "ru": "Варп-двигатели"
+   },
+   "desc": {
+    "en": "+6% speed.",
+    "ru": "+6% скорости."
+   },
+   "branch": "military",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "data": 100
+    },
+    "growth": 1.5
+   },
+   "time": {
+    "baseSeconds": 240,
+    "growth": 1.45
+   },
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "speed",
+      "op": "pct",
+      "value": 6
+     }
+    }
+   ],
+   "requires": [
+    {
+     "type": "building",
+     "id": "lab",
+     "level": 2
+    }
+   ],
+   "score": 3
+  },
+  {
+   "id": "doctrine_raider",
+   "name": {
+    "en": "Raider Doctrine",
+    "ru": "Доктрина рейдеров"
+   },
+   "desc": {
+    "en": "+10% loot. Exclusive.",
+    "ru": "+10% добычи. Исключающая."
+   },
+   "branch": "doctrine",
+   "exclusiveGroup": "doctrine",
+   "maxLevel": 3,
+   "cost": {
+    "base": {
+     "data": 400
+    },
+    "growth": 1.8
+   },
+   "time": {
+    "baseSeconds": 1200,
+    "growth": 1.5
+   },
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "loot",
+      "op": "pct",
+      "value": 10
+     }
+    }
+   ],
+   "requires": [
+    {
+     "type": "building",
+     "id": "command",
+     "level": 4
+    }
+   ],
+   "score": 5
+  },
+  {
+   "id": "doctrine_builder",
+   "name": {
+    "en": "Builder Doctrine",
+    "ru": "Доктрина строителей"
+   },
+   "desc": {
+    "en": "-15% build time. Exclusive.",
+    "ru": "-15% времени строительства. Исключающая."
+   },
+   "branch": "doctrine",
+   "exclusiveGroup": "doctrine",
+   "maxLevel": 3,
+   "cost": {
+    "base": {
+     "data": 400
+    },
+    "growth": 1.8
+   },
+   "time": {
+    "baseSeconds": 1200,
+    "growth": 1.5
+   },
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "build_time",
+      "op": "pct",
+      "value": -15
+     }
+    }
+   ],
+   "requires": [
+    {
+     "type": "building",
+     "id": "command",
+     "level": 4
+    }
+   ],
+   "score": 5
+  }
+ ],
+ "units": [
+  {
+   "id": "trooper",
+   "name": {
+    "en": "Trooper",
+    "ru": "Штурмовик"
+   },
+   "desc": {
+    "en": "Trooper",
+    "ru": "Штурмовик"
+   },
+   "class": "infantry",
+   "attack": 10,
+   "defense": 12,
+   "hp": 45,
+   "speed": 6,
+   "carry": 20,
+   "upkeep": 0.5,
+   "cost": {
+    "alloy": 30,
+    "biomass": 30
+   },
+   "trainSeconds": 45,
+   "trainedIn": "dock",
+   "score": 1,
+   "bonuses": [
+    {
+     "vsClass": "ranged",
+     "pct": 30
+    }
+   ]
+  },
+  {
+   "id": "sniper",
+   "name": {
+    "en": "Sniper Drone",
+    "ru": "Дрон-снайпер"
+   },
+   "desc": {
+    "en": "Sniper Drone",
+    "ru": "Дрон-снайпер"
+   },
+   "class": "ranged",
+   "attack": 16,
+   "defense": 4,
+   "hp": 30,
+   "speed": 7,
+   "carry": 5,
+   "upkeep": 0.4,
+   "cost": {
+    "alloy": 40,
+    "energy": 20
+   },
+   "trainSeconds": 60,
+   "trainedIn": "dock",
+   "score": 1,
+   "bonuses": [
+    {
+     "vsClass": "beast",
+     "pct": 30
+    }
+   ]
+  },
+  {
+   "id": "hover",
+   "name": {
+    "en": "Hover Tank",
+    "ru": "Ховер-танк"
+   },
+   "desc": {
+    "en": "Hover Tank",
+    "ru": "Ховер-танк"
+   },
+   "class": "cavalry",
+   "attack": 25,
+   "defense": 15,
+   "hp": 100,
+   "speed": 11,
+   "carry": 40,
+   "upkeep": 1.2,
+   "cost": {
+    "alloy": 90,
+    "energy": 60
+   },
+   "trainSeconds": 150,
+   "trainedIn": "dock",
+   "score": 3,
+   "bonuses": [
+    {
+     "vsClass": "infantry",
+     "pct": 30
+    }
+   ]
+  },
+  {
+   "id": "probe",
+   "name": {
+    "en": "Recon Probe",
+    "ru": "Зонд-разведчик"
+   },
+   "desc": {
+    "en": "Recon Probe",
+    "ru": "Зонд-разведчик"
+   },
+   "class": "scout",
+   "attack": 0,
+   "defense": 1,
+   "hp": 10,
+   "speed": 20,
+   "carry": 0,
+   "upkeep": 0.1,
+   "cost": {
+    "energy": 25
+   },
+   "trainSeconds": 30,
+   "trainedIn": "dock",
+   "score": 1,
+   "scout": 1
+  },
+  {
+   "id": "hauler",
+   "name": {
+    "en": "Cargo Hauler",
+    "ru": "Грузовой челнок"
+   },
+   "desc": {
+    "en": "Cargo Hauler",
+    "ru": "Грузовой челнок"
+   },
+   "class": "transport",
+   "attack": 0,
+   "defense": 3,
+   "hp": 60,
+   "speed": 8,
+   "carry": 400,
+   "upkeep": 0.3,
+   "cost": {
+    "alloy": 60
+   },
+   "trainSeconds": 60,
+   "trainedIn": "dock",
+   "score": 1
+  },
+  {
+   "id": "colony",
+   "name": {
+    "en": "Colony Ship",
+    "ru": "Колониальный корабль"
+   },
+   "desc": {
+    "en": "Colony Ship",
+    "ru": "Колониальный корабль"
+   },
+   "class": "settler",
+   "attack": 0,
+   "defense": 2,
+   "hp": 80,
+   "speed": 4,
+   "carry": 600,
+   "upkeep": 1,
+   "cost": {
+    "alloy": 900,
+    "biomass": 900,
+    "energy": 600
+   },
+   "trainSeconds": 1800,
+   "trainedIn": "command",
+   "score": 10
+  },
+  {
+   "id": "ravager",
+   "name": {
+    "en": "Ravager",
+    "ru": "Опустошитель"
+   },
+   "desc": {
+    "en": "Ravager",
+    "ru": "Опустошитель"
+   },
+   "class": "beast",
+   "attack": 22,
+   "defense": 6,
+   "hp": 70,
+   "speed": 12,
+   "carry": 25,
+   "upkeep": 0.7,
+   "cost": {
+    "biomass": 90
+   },
+   "trainSeconds": 90,
+   "trainedIn": "dock",
+   "score": 2,
+   "bonuses": [
+    {
+     "vsClass": "cavalry",
+     "pct": 40
+    }
+   ],
+   "races": [
+    "swarm"
+   ]
+  },
+  {
+   "id": "aegis",
+   "name": {
+    "en": "Aegis Walker",
+    "ru": "Шагоход «Эгида»"
+   },
+   "desc": {
+    "en": "Aegis Walker",
+    "ru": "Шагоход «Эгида»"
+   },
+   "class": "infantry",
+   "attack": 14,
+   "defense": 30,
+   "hp": 90,
+   "speed": 5,
+   "carry": 10,
+   "upkeep": 0.9,
+   "cost": {
+    "alloy": 80,
+    "energy": 40
+   },
+   "trainSeconds": 120,
+   "trainedIn": "dock",
+   "score": 3,
+   "races": [
+    "concord"
+   ]
+  },
+  {
+   "id": "crawler",
+   "name": {
+    "en": "Void Crawler",
+    "ru": "Пустотный ползун"
+   },
+   "desc": {
+    "en": "Void Crawler",
+    "ru": "Пустотный ползун"
+   },
+   "class": "beast",
+   "attack": 9,
+   "defense": 5,
+   "hp": 40,
+   "speed": 8,
+   "carry": 0,
+   "upkeep": 0,
+   "trainSeconds": 0,
+   "score": 1
+  },
+  {
+   "id": "sentinel",
+   "name": {
+    "en": "Derelict Sentinel",
+    "ru": "Заброшенный страж"
+   },
+   "desc": {
+    "en": "Derelict Sentinel",
+    "ru": "Заброшенный страж"
+   },
+   "class": "siege",
+   "attack": 35,
+   "defense": 35,
+   "hp": 250,
+   "speed": 2,
+   "carry": 0,
+   "upkeep": 0,
+   "trainSeconds": 0,
+   "score": 6
+  }
+ ],
+ "heroes": {
+  "classes": [
+   {
+    "id": "captain",
+    "name": {
+     "en": "Captain",
+     "ru": "Капитан"
+    },
+    "desc": {
+     "en": "+6% attack.",
+     "ru": "+6% атаки."
+    },
+    "modifiers": [
+     {
+      "target": "attack.*",
+      "op": "pct",
+      "value": 6
+     }
+    ],
+    "perLevel": [
+     {
+      "target": "attack.*",
+      "op": "pct",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "engineer",
+    "name": {
+     "en": "Engineer",
+     "ru": "Инженер"
+    },
+    "desc": {
+     "en": "+6% hit points, +10% carry.",
+     "ru": "+6% здоровья, +10% груза."
+    },
+    "modifiers": [
+     {
+      "target": "hp.*",
+      "op": "pct",
+      "value": 6
+     },
+     {
+      "target": "carry",
+      "op": "pct",
+      "value": 10
+     }
+    ]
+   }
+  ],
+  "skills": [
+   {
+    "id": "overclock",
+    "name": {
+     "en": "Overclock",
+     "ru": "Разгон"
+    },
+    "desc": {
+     "en": "+3% speed.",
+     "ru": "+3% скорости."
+    },
+    "maxLevel": 5,
+    "modifiers": [
+     {
+      "target": "speed",
+      "op": "pct",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "id": "targeting",
+    "name": {
+     "en": "Targeting AI",
+     "ru": "ИИ наведения"
+    },
+    "desc": {
+     "en": "+3% attack.",
+     "ru": "+3% атаки."
+    },
+    "maxLevel": 5,
+    "modifiers": [
+     {
+      "target": "attack.*",
+      "op": "pct",
+      "value": 3
+     }
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "plasma_pistol",
+    "name": {
+     "en": "Plasma Pistol",
+     "ru": "Плазменный пистолет"
+    },
+    "desc": {
+     "en": "+4% attack.",
+     "ru": "+4% атаки."
+    },
+    "slot": "weapon",
+    "rarity": "common",
+    "modifiers": [
+     {
+      "target": "attack.*",
+      "op": "pct",
+      "value": 4
+     }
+    ]
+   },
+   {
+    "id": "exosuit",
+    "name": {
+     "en": "Exosuit",
+     "ru": "Экзокостюм"
+    },
+    "desc": {
+     "en": "+5% hp.",
+     "ru": "+5% здоровья."
+    },
+    "slot": "suit",
+    "rarity": "rare",
+    "modifiers": [
+     {
+      "target": "hp.*",
+      "op": "pct",
+      "value": 5
+     }
+    ]
+   }
+  ],
+  "slots": [
+   "weapon",
+   "suit"
+  ],
+  "maxLevel": 20,
+  "xpBase": 150,
+  "xpGrowth": 1.4,
+  "skillPointsPerLevel": 1,
+  "xpPerScore": 0.5
+ },
+ "terrains": [
+  {
+   "id": "regolith",
+   "name": {
+    "en": "Regolith",
+    "ru": "Реголит"
+   },
+   "weight": 40,
+   "resource": "alloy",
+   "passable": true,
+   "color": "#8d8a99"
+  },
+  {
+   "id": "icefield",
+   "name": {
+    "en": "Ice Field",
+    "ru": "Ледяное поле"
+   },
+   "weight": 20,
+   "resource": "biomass",
+   "passable": true,
+   "color": "#bcd7e6"
+  },
+  {
+   "id": "geyser",
+   "name": {
+    "en": "Thermal Vent",
+    "ru": "Термальный источник"
+   },
+   "weight": 10,
+   "resource": "energy",
+   "passable": true,
+   "color": "#d98b4a"
+  },
+  {
+   "id": "chasm",
+   "name": {
+    "en": "Chasm",
+    "ru": "Разлом"
+   },
+   "weight": 8,
+   "passable": false,
+   "color": "#1d1b26"
+  },
+  {
+   "id": "dust",
+   "name": {
+    "en": "Dust Sea",
+    "ru": "Пыльное море"
+   },
+   "weight": 12,
+   "passable": true,
+   "color": "#a99673"
+  }
+ ],
+ "neutrals": [
+  {
+   "id": "nest",
+   "name": {
+    "en": "Crawler Nest",
+    "ru": "Гнездо ползунов"
+   },
+   "desc": {
+    "en": "Native lifeforms.",
+    "ru": "Местные формы жизни."
+   },
+   "kind": "lair",
+   "respawnSeconds": 10800,
+   "capturable": true,
+   "levels": [
+    {
+     "level": 1,
+     "guards": {
+      "crawler": 8
+     },
+     "rewards": {
+      "biomass": 200,
+      "alloy": 100
+     },
+     "xp": 20
+    },
+    {
+     "level": 2,
+     "guards": {
+      "crawler": 32
+     },
+     "rewards": {
+      "biomass": 400,
+      "alloy": 200
+     },
+     "xp": 40
+    },
+    {
+     "level": 3,
+     "guards": {
+      "crawler": 72
+     },
+     "rewards": {
+      "biomass": 600,
+      "alloy": 300
+     },
+     "xp": 60
+    },
+    {
+     "level": 4,
+     "guards": {
+      "crawler": 128
+     },
+     "rewards": {
+      "biomass": 800,
+      "alloy": 400
+     },
+     "xp": 80
+    }
+   ]
+  },
+  {
+   "id": "derelict",
+   "name": {
+    "en": "Derelict Station",
+    "ru": "Заброшенная станция"
+   },
+   "desc": {
+    "en": "Ancient tech and quanta.",
+    "ru": "Древние технологии и кванты."
+   },
+   "kind": "ruin",
+   "respawnSeconds": 43200,
+   "capturable": false,
+   "levels": [
+    {
+     "level": 1,
+     "guards": {
+      "sentinel": 2
+     },
+     "rewards": {
+      "data": 150,
+      "quanta": 3
+     },
+     "xp": 50,
+     "drops": [
+      {
+       "item": "exosuit",
+       "chance": 5
+      }
+     ]
+    },
+    {
+     "level": 2,
+     "guards": {
+      "sentinel": 8
+     },
+     "rewards": {
+      "data": 300,
+      "quanta": 6
+     },
+     "xp": 100,
+     "drops": [
+      {
+       "item": "exosuit",
+       "chance": 10
+      }
+     ]
+    },
+    {
+     "level": 3,
+     "guards": {
+      "sentinel": 18
+     },
+     "rewards": {
+      "data": 450,
+      "quanta": 9
+     },
+     "xp": 150,
+     "drops": [
+      {
+       "item": "exosuit",
+       "chance": 15
+      }
+     ]
+    },
+    {
+     "level": 4,
+     "guards": {
+      "sentinel": 32
+     },
+     "rewards": {
+      "data": 600,
+      "quanta": 12
+     },
+     "xp": 200,
+     "drops": [
+      {
+       "item": "exosuit",
+       "chance": 20
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "id": "v01",
+   "name": {
+    "en": "Power Up",
+    "ru": "Включить питание"
+   },
+   "desc": {
+    "en": "Upgrade the Fusion Reactor to level 2.",
+    "ru": "Улучшите реактор до 2 уровня."
+   },
+   "tutorial": true,
+   "goal": {
+    "type": "building_level",
+    "id": "reactor",
+    "amount": 2
+   },
+   "rewards": {
+    "alloy": 200
+   },
+   "screen": "city"
+  },
+  {
+   "id": "v02",
+   "name": {
+    "en": "Feed the Crew",
+    "ru": "Накормить экипаж"
+   },
+   "desc": {
+    "en": "Upgrade the Biodome to level 2.",
+    "ru": "Улучшите биокупол до 2 уровня."
+   },
+   "tutorial": true,
+   "requires": [
+    "v01"
+   ],
+   "goal": {
+    "type": "building_level",
+    "id": "biodome",
+    "amount": 2
+   },
+   "rewards": {
+    "biomass": 200
+   },
+   "screen": "city"
+  },
+  {
+   "id": "v03",
+   "name": {
+    "en": "Science!",
+    "ru": "Наука!"
+   },
+   "desc": {
+    "en": "Build a Research Lab.",
+    "ru": "Постройте лабораторию."
+   },
+   "tutorial": true,
+   "requires": [
+    "v02"
+   ],
+   "goal": {
+    "type": "building_level",
+    "id": "lab",
+    "amount": 1
+   },
+   "rewards": {
+    "data": 100
+   },
+   "screen": "city"
+  },
+  {
+   "id": "v04",
+   "name": {
+    "en": "Garrison",
+    "ru": "Гарнизон"
+   },
+   "desc": {
+    "en": "Train 10 units.",
+    "ru": "Обучите 10 единиц."
+   },
+   "tutorial": true,
+   "requires": [
+    "v03"
+   ],
+   "goal": {
+    "type": "units_trained",
+    "amount": 10
+   },
+   "rewards": {
+    "energy": 300
+   },
+   "screen": "army"
+  },
+  {
+   "id": "v05",
+   "name": {
+    "en": "Purge the Nest",
+    "ru": "Зачистить гнездо"
+   },
+   "desc": {
+    "en": "Clear a crawler nest.",
+    "ru": "Зачистите гнездо."
+   },
+   "requires": [
+    "v04"
+   ],
+   "goal": {
+    "type": "neutrals_cleared",
+    "amount": 1
+   },
+   "rewards": {
+    "quanta": 5
+   },
+   "screen": "map"
+  }
+ ],
+ "start": {
+  "resources": {
+   "alloy": 800,
+   "biomass": 800,
+   "energy": 600,
+   "quanta": 10
+  },
+  "buildings": {
+   "command": 1,
+   "habitat": 1,
+   "refinery": 1,
+   "biodome": 1,
+   "reactor": 1,
+   "depot": 1
+  },
+  "units": {
+   "trooper": 8,
+   "probe": 2
+  },
+  "population": 60
+ },
+ "modes": [
+  "standard"
+ ],
+ "ui": {
+  "screens": [
+   "city",
+   "economy",
+   "research",
+   "army",
+   "heroes",
+   "map",
+   "missions",
+   "reports",
+   "market",
+   "quests",
+   "mail",
+   "profile",
+   "settings"
+  ]
+ }
+}

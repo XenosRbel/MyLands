@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "id": "minimal-test",
+  "version": "1.0.0",
+  "meta": {"title": {"en": "Minimal"}, "description": {"en": "Test pack"}},
+  "locales": ["en"],
+  "defaultLocale": "en",
+  "theme": {"palette": {"bg": "#101010", "surface": "#202020", "text": "#ffffff", "muted": "#999999", "accent": "#ffaa00", "danger": "#ff0000", "ok": "#00ff00"}, "assetsLicense": "test"},
+  "params": {"foodResource": "food", "economyTickSeconds": 600, "mapWidth": 16, "mapHeight": 16,
+    "heroBuilding": "hall", "heroHireCost": {"gold": 10}, "settlerUnit": "settler", "cityCapBuilding": "hall", "territoryCapBuilding": "hall",
+    "exchangeRates": {"wood": 1, "food": 1, "gold": 4}},
+  "resources": [
+    {"id": "wood", "name": {"en": "Wood"}, "kind": "basic", "capped": true, "tradable": true, "lootable": true, "baseStorage": 1000},
+    {"id": "food", "name": {"en": "Food"}, "kind": "food", "capped": true, "tradable": true, "lootable": true, "baseStorage": 1000},
+    {"id": "gold", "name": {"en": "Gold"}, "kind": "rare", "capped": false, "tradable": true, "lootable": true},
+    {"id": "gem", "name": {"en": "Gem"}, "kind": "premium", "capped": false, "tradable": false, "lootable": false}
+  ],
+  "races": [{"id": "human", "name": {"en": "Human"}, "desc": {"en": "x"}, "modifiers": [{"target": "production.wood", "op": "pct", "value": 10}]}],
+  "buildings": [
+    {"id": "hall", "name": {"en": "Hall"}, "desc": {"en": "x"}, "category": "core", "maxLevel": 10, "cost": {"base": {"wood": 100}, "growth": 1.5}, "time": {"baseSeconds": 60, "growth": 1.5}, "effects": [{"type": "housing", "perLevel": 100}], "score": 10},
+    {"id": "lumber", "name": {"en": "Lumber"}, "desc": {"en": "x"}, "category": "economy", "maxLevel": 10, "cost": {"base": {"wood": 50}, "growth": 1.4}, "time": {"baseSeconds": 30, "growth": 1.4}, "effects": [{"type": "produce", "resource": "wood", "perLevel": 100, "workers": 10}], "score": 5},
+    {"id": "farm", "name": {"en": "Farm"}, "desc": {"en": "x"}, "category": "economy", "maxLevel": 10, "cost": {"base": {"wood": 50}, "growth": 1.4}, "time": {"baseSeconds": 30, "growth": 1.4}, "effects": [{"type": "produce", "resource": "food", "perLevel": 100, "workers": 10}], "score": 5},
+    {"id": "barracks", "name": {"en": "Barracks"}, "desc": {"en": "x"}, "category": "military", "maxLevel": 10, "cost": {"base": {"wood": 80}, "growth": 1.5}, "time": {"baseSeconds": 60, "growth": 1.5}, "requires": [{"type": "building", "id": "hall", "level": 2}], "effects": [{"type": "protect", "resource": "*", "perLevel": 50}], "score": 5}
+  ],
+  "techs": [
+    {"id": "axes", "name": {"en": "Axes"}, "desc": {"en": "x"}, "branch": "economy", "maxLevel": 5, "cost": {"base": {"wood": 100}, "growth": 2}, "time": {"baseSeconds": 60, "growth": 2}, "requires": [{"type": "building", "id": "hall", "level": 1}], "effects": [{"type": "modifier", "modifier": {"target": "production.wood", "op": "pct", "value": 5}}], "score": 3}
+  ],
+  "units": [
+    {"id": "spear", "name": {"en": "Spear"}, "desc": {"en": "x"}, "class": "infantry", "attack": 10, "defense": 10, "hp": 50, "speed": 6, "carry": 20, "upkeep": 1, "cost": {"wood": 20, "food": 10}, "trainSeconds": 30, "trainedIn": "barracks", "score": 1},
+    {"id": "rider", "name": {"en": "Rider"}, "desc": {"en": "x"}, "class": "cavalry", "attack": 20, "defense": 5, "hp": 80, "speed": 12, "carry": 40, "upkeep": 2, "cost": {"wood": 50, "food": 20}, "trainSeconds": 60, "trainedIn": "barracks", "bonuses": [{"vsClass": "ranged", "pct": 50}], "score": 3},
+    {"id": "spy", "name": {"en": "Spy"}, "desc": {"en": "x"}, "class": "scout", "attack": 0, "defense": 1, "hp": 10, "speed": 20, "carry": 0, "upkeep": 0.5, "scout": 1, "cost": {"wood": 10}, "trainSeconds": 20, "trainedIn": "barracks", "score": 1},
+    {"id": "settler", "name": {"en": "Settler"}, "desc": {"en": "x"}, "class": "settler", "attack": 0, "defense": 1, "hp": 20, "speed": 4, "carry": 0, "upkeep": 1, "cost": {"wood": 300, "food": 300}, "trainSeconds": 300, "trainedIn": "hall", "score": 5},
+    {"id": "wolf", "name": {"en": "Wolf"}, "desc": {"en": "x"}, "class": "beast", "attack": 8, "defense": 4, "hp": 40, "speed": 10, "carry": 0, "upkeep": 0, "score": 1}
+  ],
+  "heroes": {
+    "classes": [{"id": "warlord", "name": {"en": "Warlord"}, "desc": {"en": "x"}, "modifiers": [{"target": "attack.*", "op": "pct", "value": 5}], "perLevel": [{"target": "attack.*", "op": "pct", "value": 1}]}],
+    "skills": [{"id": "fury", "name": {"en": "Fury"}, "desc": {"en": "x"}, "maxLevel": 5, "modifiers": [{"target": "attack.infantry", "op": "pct", "value": 3}]}],
+    "items": [{"id": "blade", "name": {"en": "Blade"}, "desc": {"en": "x"}, "slot": "weapon", "rarity": "rare", "modifiers": [{"target": "attack.*", "op": "pct", "value": 4}]}],
+    "slots": ["weapon", "armor"],
+    "maxLevel": 30, "xpBase": 100, "xpGrowth": 1.5, "skillPointsPerLevel": 1, "xpPerScore": 1
+  },
+  "terrains": [
+    {"id": "plains", "name": {"en": "Plains"}, "weight": 5, "resource": "food", "passable": true, "color": "#88aa55"},
+    {"id": "forest", "name": {"en": "Forest"}, "weight": 3, "resource": "wood", "passable": true, "color": "#336633"},
+    {"id": "lake", "name": {"en": "Lake"}, "weight": 1, "passable": false, "color": "#335599"}
+  ],
+  "neutrals": [
+    {"id": "den", "name": {"en": "Den"}, "desc": {"en": "x"}, "kind": "lair", "respawnSeconds": 3600, "capturable": true,
+     "levels": [{"level": 1, "guards": {"wolf": 5}, "rewards": {"gold": 50}, "xp": 10, "drops": [{"item": "blade", "chance": 50}]},
+                {"level": 2, "guards": {"wolf": 20}, "rewards": {"gold": 150}, "xp": 30}]}
+  ],
+  "quests": [
+    {"id": "q_lumber", "name": {"en": "Lumber"}, "desc": {"en": "Build lumber 2"}, "tutorial": true, "goal": {"type": "building_level", "id": "lumber", "amount": 2}, "rewards": {"wood": 100}, "screen": "city"},
+    {"id": "q_army", "name": {"en": "Army"}, "desc": {"en": "Train 5"}, "requires": ["q_lumber"], "goal": {"type": "units_trained", "amount": 5}, "rewards": {"gold": 20}, "screen": "army"}
+  ],
+  "start": {"resources": {"wood": 500, "food": 500, "gold": 100, "gem": 5}, "buildings": {"hall": 1, "lumber": 1, "farm": 1}, "population": 30},
+  "modes": ["standard"],
+  "ui": {"screens": ["city", "economy", "research", "army", "heroes", "map", "missions", "reports", "market", "alliance", "quests", "mail", "profile", "settings"]}
+}

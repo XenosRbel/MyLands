@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="ballista">
+<defs><radialGradient id="bg"><stop stop-color="#566b73"/><stop offset="1" stop-color="#211b20"/></radialGradient></defs>
+<rect width="320" height="320" rx="25" fill="url(#bg)"/>
+<circle cx="160" cy="155" r="119" fill="none" stroke="#d9ac61" stroke-opacity=".4" stroke-width="3"/>
+<g fill="#9c8d75" stroke="#322f37" stroke-width="3" stroke-linejoin="round"><path d="M56 195L256 195L233 220L81 220Z"/><path d="M85 192L159 131L237 192M159 129V241M79 122Q159 170 237 122" fill="none" stroke="#e8bb73" stroke-width="15"/><path d="M159 102V195" stroke="#d8e9ef" stroke-width="9"/></g>
+<path d="M38 272H282" stroke="#cfab67" stroke-opacity=".7" stroke-width="5"/>
+</svg>

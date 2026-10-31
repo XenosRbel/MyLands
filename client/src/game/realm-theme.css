@@ -1444,3 +1444,33 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 @media(prefers-reduced-motion:reduce) {
  .game-queue-progress>span {transition:none;}
 }
+
+/* The approved UI begins with a framed clock at the top left. */
+.game-clock {
+  display:grid;place-items:center;flex:none;
+  min-width:clamp(112px,9.2vw,153px);height:48px;
+  margin-right:8px;padding:6px 14px;
+  font:700 clamp(16px,1.25vw,22px) var(--font-display);
+  color:#f3e7d1;font-variant-numeric:tabular-nums;
+  letter-spacing:.025em;text-shadow:0 1px 3px #080605;
+  border:3px ridge #c6a36b;border-radius:45%;
+  box-shadow:inset 0 0 0 3px #5e452f,0 2px 9px #0009;
+  background:radial-gradient(ellipse,#573744,#261e25 78%);
+}
+@media(min-width:721px) {
+ .topbar .game-clock {position:relative;}
+ .topbar .game-clock::before {
+   content:"";position:absolute;inset:-8px;pointer-events:none;
+   border:6px solid #a99058;border-radius:48%;
+   box-shadow:inset 0 1px #f0d3a45e;
+   opacity:.52;
+ }
+ .topbar .title {min-width:95px;}
+ .topbar {gap:7px;}
+}
+@media(max-width:1180px) {
+ .game-clock {min-width:88px;height:41px;padding:4px 6px;font-size:14px;margin-right:0;}
+}
+@media(max-width:720px) {
+ .game-clock {display:none;}
+}

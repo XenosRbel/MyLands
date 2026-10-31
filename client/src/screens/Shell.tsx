@@ -30,6 +30,14 @@ export function Shell() {
   const { t, idx, overview, city, screen, go } = g;
   const [more, setMore] = useState(false);
   const [heroClass, setHeroClass] = useState<string | null>(null);
+  const [clockTime, setClockTime] = useState(() => Date.now());
+  useEffect(() => {
+    const timer = window.setInterval(() => setClockTime(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+  const clock = new Intl.DateTimeFormat(g.locale === "ru" ? "ru-RU" : "en-GB", {
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false,
+  }).format(clockTime);
   useEffect(() => {
     let alive = true;
     get<HeroesView>(`/api/v1/worlds/${g.world.id}/heroes`)
@@ -80,6 +88,7 @@ export function Shell() {
   return (
     <div className="shell">
       <header className="topbar">
+        <div className="game-clock" aria-label={t("gameTime")} role="timer">{clock}</div>
         <div className="title">
           <span className="game-title">{idx.title}</span>
           {overview && overview.cities.length > 1 ? (

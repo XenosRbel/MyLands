@@ -1,0 +1,36 @@
+/* Game atmosphere. Game Pack tokens remain authoritative. */
+.shell {
+  background:
+    radial-gradient(ellipse 65% 45% at 72% 5%, color-mix(in srgb, var(--accent) 12%, transparent), transparent),
+    radial-gradient(ellipse 42% 60% at 0% 100%, rgba(41, 64, 57, .22), transparent),
+    var(--bg);
+}
+.topbar {
+  box-shadow: 0 8px 34px rgba(0,0,0,.23);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+.game-title { font-family: var(--font-display); letter-spacing: .055em; text-shadow: 0 1px 16px color-mix(in srgb, var(--accent) 24%, transparent); }
+.sidenav { background: linear-gradient(170deg, color-mix(in srgb, var(--surface) 92%, #080706), var(--bg)); box-shadow: 8px 0 35px rgba(0,0,0,.16); }
+.sidenav button { position: relative; transition: color .2s, background .2s, transform .2s; }
+.sidenav button:hover { transform: translateX(3px); }
+.sidenav button.on { background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 19%, var(--surface)), transparent); }
+.sidenav button.on::before { content:""; position:absolute; left:0; top:18%; bottom:18%; width:3px; border-radius:4px; background:var(--accent); box-shadow:0 0 14px var(--accent); }
+.content { animation: realm-enter .3s cubic-bezier(.2,.8,.2,1) both; }
+.panel { background: linear-gradient(140deg, color-mix(in srgb, var(--surface) 96%, var(--accent)), var(--surface)); box-shadow: 0 10px 32px rgba(0,0,0,.13), inset 0 1px rgba(255,255,255,.035); }
+.btn.primary { box-shadow:0 3px 16px color-mix(in srgb, var(--accent) 16%, transparent); }
+.btn.primary:hover:not(:disabled) { filter:brightness(1.09); box-shadow:0 4px 24px color-mix(in srgb, var(--accent) 30%, transparent); }
+.resbar-item { transition: background .2s, transform .2s; }
+.resbar-item:hover { transform:translateY(-2px); background:color-mix(in srgb, var(--accent) 8%, transparent); }
+.experience-controls { display:flex; align-items:center; gap:.3rem; margin-inline-start:auto; }
+.experience-sound { border:1px solid var(--border); color:var(--text); background:var(--surface2); border-radius:8px; padding:.4rem .65rem; font:inherit; cursor:pointer; min-height:36px; }
+.experience-sound:hover { border-color:var(--accent); }
+.experience-sound[aria-pressed="true"] { color:var(--accent); }
+@keyframes realm-enter { from { opacity:.45; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
+@media (prefers-reduced-motion:reduce) {
+  .content { animation:none }
+  .sidenav button,.resbar-item { transition:none }
+  .sidenav button:hover,.resbar-item:hover { transform:none }
+}
+[data-motion="reduce"] .content { animation:none; }
+[data-motion="reduce"] .sidenav button:hover,[data-motion="reduce"] .resbar-item:hover { transform:none; }

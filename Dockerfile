@@ -7,6 +7,7 @@ RUN npm ci --no-audit --no-fund
 COPY client/ ./
 # The client asset check reads Game Packs from /src/packs.
 COPY packs/ /src/packs/
+COPY docs/reference/MyLands_References_and_Ashen_Crowns_Resource_Pack.zip /src/docs/reference/MyLands_References_and_Ashen_Crowns_Resource_Pack.zip
 RUN npm run build
 
 FROM golang:1.27-alpine AS server

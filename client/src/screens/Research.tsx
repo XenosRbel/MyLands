@@ -15,6 +15,15 @@ const branchNames = {
 const branchSymbols: Record<string, string> = {
   economy: "wheat", civic: "castle", military: "sword", arcane: "crystal", calling: "star",
 };
+// Reuse the pack's painted building art for progressively more advanced research tiers.
+// These IDs are decorative references, not new technology prerequisites.
+const tierArt: Record<string, string[]> = {
+  economy: ["farmstead", "lumberyard", "quarry", "ironworks", "warehouse", "mint", "market", "tradepost", "vault", "keep"],
+  civic: ["cottages", "warehouse", "market", "watchtower", "tradepost", "academy", "warhall", "vault", "sanctum", "keep"],
+  military: ["barracks", "range", "stables", "workshop", "walls", "watchtower", "warhall", "aerie", "keep", "sanctum"],
+  arcane: ["scriptorium", "academy", "sanctum", "aerie", "vault", "watchtower", "warhall", "keep", "sanctum", "academy"],
+  calling: ["warhall", "academy", "keep"],
+};
 const tierSymbols: Record<string, string[]> = {
   economy: ["wheat", "log", "stone", "ingot", "coin", "bag", "chart", "castle", "scroll", "star"],
   civic: ["people", "wheat", "bag", "scroll", "shield", "book", "coin", "castle", "star", "crystal"],
@@ -99,7 +108,11 @@ export function ResearchScreen() {
                               onClick={() => setSelected(tv.id)}
                               aria-pressed={activeId === tv.id}
                               title={idx.name(tv.id) + " " + roman(level)}>
-                              <Icon name={symbol} size={22 + Math.min(level, 3)} />
+                              {idx.art(tierArt[br]?.[(level - 1) % (tierArt[br]?.length || 1)] ?? "") ?
+                                <img className="research-tier-art"
+                                  src={idx.art(tierArt[br][(level - 1) % tierArt[br].length])}
+                                  alt="" loading="lazy" /> :
+                                <Icon name={symbol} size={22 + Math.min(level, 3)} />}
                               <span>{roman(level)}</span>
                               {complete && <b aria-hidden="true">✓</b>}
                             </button>

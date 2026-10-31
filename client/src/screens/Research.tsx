@@ -4,6 +4,14 @@ import { useGame } from "../game/context";
 import { Action, CostList, duration, Icon, Reqs } from "../ui/kit";
 import { QueuePanel, blockedLabel, effectText } from "./City";
 
+const branchNames = {
+  economy: "branchEconomy",
+  civic: "branchCivic",
+  military: "branchMilitary",
+  arcane: "branchArcane",
+  calling: "branchCalling",
+} as const;
+
 const branchSymbols: Record<string, string> = {
   economy: "wheat", civic: "castle", military: "sword", arcane: "crystal", calling: "star",
 };
@@ -52,7 +60,7 @@ export function ResearchScreen() {
             <section key={br} className="research-branch">
               <div className="research-branch-title">
                 <Icon name={branchSymbols[br] ?? "book"} size={24} />
-                <strong>{idx.string("branch." + br) || br}</strong>
+                <strong>{br in branchNames ? t(branchNames[br as keyof typeof branchNames]) : br}</strong>
               </div>
               <div className="research-paths">
                 {city.techs.filter((x) => idx.pack.techs.find((d) => d.id === x.id)?.branch === br).map((tv) => {

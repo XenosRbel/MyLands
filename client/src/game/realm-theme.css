@@ -682,3 +682,56 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .city-game-stage .plot.built { width:22%; }
   .city-game-stage .city-scene .ground { background-size:38% auto; }
 }
+
+/* Parchment dialogs: dark carved frame, light working surface. */
+.modal {
+  background:#d4c19c;
+  border:4px ridge #a68a60;
+  color:#372b20;
+  box-shadow:0 25px 80px #000c,inset 0 0 0 4px #6e54345c,inset 0 0 0 8px #ded0ad;
+}
+.modal header { color:#e8d8b4;box-shadow:inset 0 -1px #d2b88c4f; }
+.modal header .icon-btn { color:#f1dfbf; }
+.modal header h2 { color:#f1e0bd; }
+.modal-body {
+  background:
+    linear-gradient(145deg,#e7d9bbd9,#c6b08bbf),
+    url("/ui/parchment-grain.svg");
+  color:#392e20;
+  border:1px solid #a38962;
+  border-top:0;
+  box-shadow:inset 0 0 33px #72563530;
+  padding:21px;
+}
+.modal-body h2,.modal-body h3,.modal-body h4,.modal-body strong { color:#382c20; }
+.modal-body .muted,.modal-body .small.muted { color:#6e5a41; }
+.modal-body .tag { color:#5b462f;background:#cbb793;border-color:#9c835f; }
+.modal-body .tag.ok { color:#415c34;border-color:#71825b; }
+.modal-body .tag.danger,.modal-body .req { color:#923d31; }
+.modal-body .reqs { color:#705a41; }
+.modal-body .res { color:#3e3323; }
+.modal-body .res.short { color:#a13f30; }
+.modal-body .btn { background:linear-gradient(#6b563c,#453426);color:#f4e6c9;border-color:#9c7f58; }
+.modal-body .btn.primary { background:linear-gradient(#84906b,#556947);border-color:#8b9e77;color:#fff2db; }
+.modal-body .btn.ghost { color:#47331c;background:#c8b38e;border-color:#907657; }
+.modal-body input,.modal-body select,.modal-body textarea {
+  background:#f0e2c3;color:#362719;border:1px solid #937a56;
+  box-shadow:inset 0 1px 3px #927b5e36;
+}
+.modal-body input:focus-visible,.modal-body select:focus-visible { outline:2px solid #7a8c64; }
+.modal-body fieldset { border-color:#a38964;background:#cdb99773; }
+.modal-body .table { color:#423121;background:#d7c5a1;border-color:#a08c6d; }
+.modal-body .table thead { background:#a99570;color:#382a1c; }
+.modal-body .table thead th { color:#382c1d; }
+.modal-body .table td,.modal-body .table th { border-bottom-color:#a18b6c; }
+.modal-body .table tbody tr:nth-child(even) { background:#a88f6144; }
+.modal-body .table tbody tr:hover { background:#afa07d; }
+.modal-body .effects,.modal-body .kv,.modal-body p { color:#493928; }
+.modal-body .modal-art { max-width:100%;max-height:235px;padding:8px;
+  background:radial-gradient(ellipse,#eadcc2,#b59d76);border:1px solid #a38c68;
+  filter:drop-shadow(0 4px 8px #3a271745);
+}
+.modal-body .slot { background:#baa17b5e;border-color:#997c54;color:#33261c; }
+.modal-body .slot .muted { color:#5b4934; }
+.modal-body .progress { background:#ae9876;border-color:#8f7652; }
+.modal-body .empty { color:#695641;background:#baa4815c;border-color:#a08763; }

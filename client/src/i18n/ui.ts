@@ -1,5 +1,6 @@
 // Engine UI strings (game-specific names come from the Game Pack).
 const en = {
+  gameTime: "Local time",
   appLoading: "Loading…",
   signIn: "Sign in",
   register: "Create account",
@@ -204,7 +205,7 @@ const en = {
 export type UIKey = keyof typeof en;
 
 const ru: Record<UIKey, string> = {
-  appLoading: "Загрузка…", signIn: "Войти", register: "Создать аккаунт", playAsGuest: "Играть как гость", login: "Логин",
+  gameTime: "Местное время", appLoading: "Загрузка…", signIn: "Войти", register: "Создать аккаунт", playAsGuest: "Играть как гость", login: "Логин",
   password: "Пароль", logout: "Выйти", haveAccount: "У меня есть аккаунт", newAccount: "Впервые? Создайте аккаунт",
   chooseWorld: "Выберите мир", enterWorld: "Войти", joinWorld: "Присоединиться", rulerName: "Имя правителя",
   chooseRace: "Выберите народ", players: "игроков", speed: "скорость", city: "Город", economy: "Экономика",

@@ -291,3 +291,38 @@ Unfinished, requiring actual original art production:
 
 Do not solve these gaps by replacing labeled panels with compact admin navigation.
 Do not declare reference parity until scene artwork is authored and integrated.
+
+## Integrated environment and detailed HUD pass — 2026-11-01
+
+The reviewed city screen previously showed repeated terrain texture.
+A new original, authored vector environment is stored at `client/public/ui/city-landscape.svg`.
+This environment contains stone cliffs, watercourses, fortification walls, towers, woods, and pathways.
+The environmental scene scales with the viewport while existing building buttons remain interactive.
+It is not a screenshot copied from My Lands.
+It is a prototype art layer; hand-painted parity remains an open quality gate.
+
+The top-left HUD now displays a live local clock.
+The clock is labeled as local time, not claimed to be server time.
+The permanent queue panels now show the job artwork, countdown, cancellable job control, and progress bar.
+The progress is calculated from server-provided job start and finish timestamps.
+The existing server-side queue APIs remain authoritative.
+No new resource production or training mechanic was introduced.
+
+### Browser acceptance
+
+- Check that the original city landscape asset loads from the built client.
+- Check that the scene uses the city landscape rather than repeated ground tiles.
+- Check that time, resources, kingdom specialization, and hero shortcuts remain visible.
+- Check the permanent queue panels with both empty and active queues.
+- Verify the construction upgrade action still succeeds.
+- Verify the finished city after a reload.
+- Compare composition at 1360x860 and 1680x900.
+- Keep the reference-parity status open until human visual review.
+
+### Art debt
+
+- The detailed world background is scalable vector scenery, not a painted environment.
+- Building artwork still lacks coherent level-specific variants.
+- Buildings remain independent placed sprites and may not match the reference perspective exactly.
+- Waterfall animation and world ambience still require a separate performance review.
+- The remaining SVG entity art still requires painting-style consistency review.

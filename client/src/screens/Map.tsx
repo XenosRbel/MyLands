@@ -39,8 +39,13 @@ export function MapScreen() {
   }), [center, W, H]);
 
   const load = useCallback(() => {
-    get<MapTile[]>(`/api/v1/worlds/${world.id}/map?x=${origin.x}&y=${origin.y}&w=${VIEW}&h=${VIEW}`).then((ts) => { setTiles(ts); setErr(undefined); }, setErr);
-  }, [world.id, origin.x, origin.y]);
+    get<MapTile[]>(`/api/v1/worlds/${world.id}/map?x=${origin.x}&y=${origin.y}&w=${VIEW}&h=${VIEW}`).then((ts) => {
+      setTiles(ts);
+      setErr(undefined);
+      setSel((previous) => previous ?? ts.find((tile) => tile.cityId === city?.city.id)
+        ?? ts.find((tile) => tile.ownerId === overview?.player.id) ?? null);
+    }, setErr);
+  }, [world.id, origin.x, origin.y, city?.city.id, overview?.player.id]);
   useEffect(load, [load]);
 
   const wrap = useRef<HTMLDivElement>(null);

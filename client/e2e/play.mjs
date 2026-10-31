@@ -54,16 +54,16 @@ const wideLayout = await page.evaluate(() => {
   const dock = document.querySelector(".game-dock").getBoundingClientRect();
   const queue = document.querySelector(".city-game-rail");
   const troopCount = document.querySelectorAll(".game-dock-unit").length;
-  return { rightGap: window.innerWidth - world.right, widthRatio: world.width / window.innerWidth,
-    dockBottom: window.innerHeight - dock.bottom, queueHidden: queue.hidden, troopCount };
+  const menu = document.querySelector(".sidenav").getBoundingClientRect();
+  const rail = queue.getBoundingClientRect();
+  return { rightGap: window.innerWidth - rail.right, widthRatio: world.width / window.innerWidth,
+    dockBottom: window.innerHeight - dock.bottom, queueVisible: !queue.hidden,
+    menuWidth: menu.width, troopCount };
 });
-if (wideLayout.rightGap > 55 || wideLayout.widthRatio < .78 || Math.abs(wideLayout.dockBottom) > 4 ||
-    !wideLayout.queueHidden || wideLayout.troopCount < 4)
-  fail("wide desktop HUD still leaves unused game space: " + JSON.stringify(wideLayout));
-await page.locator(".city-queue-toggle").click();
-await page.locator(".city-game-rail:not([hidden])").waitFor();
+if (wideLayout.rightGap > 35 || wideLayout.widthRatio < .54 || Math.abs(wideLayout.dockBottom) > 4 ||
+    !wideLayout.queueVisible || wideLayout.menuWidth < 170 || wideLayout.troopCount < 4)
+  fail("wide reference HUD is incomplete: " + JSON.stringify(wideLayout));
 await page.screenshot({ path: `${out}/24-wide-city-queue.png` });
-await page.locator(".city-queue-toggle").click();
 await page.setViewportSize({ width: 1360, height: 860 });
 await page.locator(".city-build-toggle").click();
 await page.locator(".city-game-buildings.expanded").waitFor();

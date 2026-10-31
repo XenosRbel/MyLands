@@ -169,3 +169,31 @@ The illustrations still differ from existing hand-painted WebP artwork.
 Technology nodes use borrowed building artwork pending dedicated images.
 Terrain requires seamless borders and a more cohesive illustrated atlas.
 Other game screens still require explicit screenshot-by-screenshot review.
+
+## Authored game UI atlas — 2026-11-01
+
+The original project resource archive includes eleven rendered UI components.
+These images include illustrated panels, buttons, portrait frames, and decorative ornaments.
+The project previously left them inside an archive.
+The client displayed CSS-only approximations instead.
+
+The build now extracts those assets with `client/scripts/extract-pack-ui.mjs`.
+The extraction uses the Node standard library.
+The source archive is `docs/reference/MyLands_References_and_Ashen_Crowns_Resource_Pack.zip`.
+The generated images are written to `client/public/ui/painted/`.
+The source archive is copied into the Docker client-build stage.
+The generated folder is ignored by Git.
+The client build packages the extracted images into Vite's `dist`.
+
+Illustrated frame assets are now used for game dialogs and hero/army panels.
+A painted portrait frame is used for the hero portrait.
+The atlas colors are muted through frame-layer filtering.
+The approved overall color palette remains unchanged.
+
+Build acceptance:
+1. Test ZIP extraction on a fresh checkout.
+2. Confirm `npm run build` packages the generated images.
+3. Confirm Docker produces the same images.
+4. Check the building, army, and hero dialog screenshot artifacts.
+5. Reject dialog layouts that obscure close buttons or other controls.
+6. Reject a release until visual-reference comparison passes.

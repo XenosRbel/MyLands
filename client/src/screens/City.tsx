@@ -90,40 +90,70 @@ export function CityScene({ onOpen }: { onOpen: (b: BuildingView) => void }) {
 }
 
 export function CityScreen() {
-  const { city, idx, t } = useGame();
+  const { city, idx, t, go } = useGame();
   const [open, setOpen] = useState<BuildingView | null>(null);
+  const [category, setCategory] = useState<string>("all");
   if (!city) return null;
-  const cats = Array.from(new Set(idx.pack.buildings.map((b) => b.category)));
+  const cats = Array.from(new Set(city.buildings.map((b) => idx.building(b.id)?.category).filter((x): x is string => !!x)));
+  const filtered = category === "all" ? city.buildings : city.buildings.filter((b) => idx.building(b.id)?.category === category);
+  const activeBuildings = city.buildings.filter((b) => b.level > 0).length;
   return (
-    <div className="screen">
-      <h1>{city.city.name} <span className="muted small">({city.city.x}:{city.city.y})</span></h1>
-      <CityScene onOpen={setOpen} />
-      <div className="grid-2">
-        <div>
-          {cats.map((cat) => {
-            const list = city.buildings.filter((b) => idx.building(b.id)?.category === cat);
-            if (!list.length) return null;
-            return (
-              <section key={cat} className="panel">
-                <h3><Icon name={catIcon[cat] ?? "star"} /> {cat[0].toUpperCase() + cat.slice(1)}</h3>
-                <div className="cards">
-                  {list.map((b) => (
-                    <button key={b.id} className={"bcard" + (b.level === 0 ? " unbuilt" : "") + (b.next?.blocked ? "" : " ready")} onClick={() => setOpen(b)}>
-                      {idx.art(b.id) && <img className="bart" src={idx.art(b.id)} alt="" loading="lazy" draggable={false} />}
-                      <div className="bname">{idx.name(b.id)}</div>
-                      <div className="blevel">{b.level === 0 ? "—" : `${t("level")} ${b.level}`}{b.targetLevel > b.level ? ` → ${b.targetLevel}` : ""}</div>
-                      {b.next && <div className="bstate">{b.next.blocked ? <span className={"tag " + b.next.blocked}>{blockedLabel(b.next.blocked, t)}</span> : <span className="tag ok">{b.level === 0 ? t("build") : t("upgrade")}</span>}</div>}
-                    </button>
-                  ))}
-                </div>
-              </section>
-            );
-          })}
+    <div className="screen city-game-screen">
+      <div className="city-game-heading">
+        <div className="city-game-crest"><Icon name="castle" size={30} /></div>
+        <div className="city-game-identity">
+          <h1>{city.city.name}</h1>
+          <span className="small">{city.city.x}:{city.city.y} · {activeBuildings}/{city.buildings.length} {t("build")}</span>
         </div>
-        <aside>
-          <QueuePanel jobs={city.queues.build} title={t("queue") + " · " + t("build")} />
-          <QueuePanel jobs={city.queues.research} title={t("queue") + " · " + t("research")} />
-          <QueuePanel jobs={city.queues.train} title={t("queue") + " · " + t("train")} />
+        <div className="city-game-quick-actions">
+          <button className="btn small" onClick={() => go("map")}><Icon name="map" size={16} /> {t("map")}</button>
+          <button className="btn small" onClick={() => go("research")}><Icon name="book" size={16} /> {t("research")}</button>
+          <button className="btn small" onClick={() => go("army")}><Icon name="sword" size={16} /> {t("army")}</button>
+        </div>
+      </div>
+      <div className="city-game-layout">
+        <div className="city-game-stage">
+          <div className="city-game-stage-title"><Icon name="castle" size={18} /> {city.city.name}</div>
+          <CityScene onOpen={setOpen} />
+          <section className="city-game-buildings">
+            <div className="city-game-section-title"><Icon name="bag" size={18} /> {t("build")} <span className="small muted">{filtered.length}</span></div>
+            <div className="city-game-categories" role="group" aria-label={t("build")}>
+              <button className={category === "all" ? "selected" : ""} aria-pressed={category === "all"} onClick={() => setCategory("all")}>{t("all")}</button>
+              {cats.map((cat) => (
+                <button key={cat} className={category === cat ? "selected" : ""} aria-pressed={category === cat}
+                  onClick={() => setCategory(cat)}>
+                  <Icon name={catIcon[cat] ?? "star"} size={16} /> {cat}
+                </button>
+              ))}
+            </div>
+            <div className="city-game-building-list">
+              {filtered.map((b) => (
+                <button key={b.id} className={"city-game-building" + (b.level === 0 ? " empty-building" : "")}
+                  onClick={() => setOpen(b)}>
+                  <span className="city-game-building-art">
+                    {idx.art(b.id) ? <img src={idx.art(b.id)} alt="" loading="lazy" /> : <Icon name="castle" size={28} />}
+                  </span>
+                  <span className="city-game-building-info">
+                    <strong>{idx.name(b.id)}</strong>
+                    <small>{b.level === 0 ? t("build") : `${t("level")} ${b.level}`}{b.targetLevel > b.level ? ` → ${b.targetLevel}` : ""}</small>
+                  </span>
+                  <span className="city-game-building-action">
+                    {b.next && !b.next.blocked ? <Icon name="star" size={16} /> : <Icon name="book" size={16} />}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </section>
+        </div>
+        <aside className="city-game-rail">
+          <div className="city-game-rail-title"><Icon name="clock" size={18} /> {t("queue")}</div>
+          <QueuePanel jobs={city.queues.build} title={t("build")} />
+          <QueuePanel jobs={city.queues.research} title={t("research")} />
+          <QueuePanel jobs={city.queues.train} title={t("train")} />
+          <div className="city-game-rail-links">
+            <button className="btn small" onClick={() => go("economy")}><Icon name="chart" size={17} /> {t("economy")}</button>
+            <button className="btn small" onClick={() => go("heroes")}><Icon name="user" size={17} /> {t("heroes")}</button>
+          </div>
         </aside>
       </div>
       {open && <BuildingModal b={city.buildings.find((x) => x.id === open.id) ?? open} onClose={() => setOpen(null)} />}

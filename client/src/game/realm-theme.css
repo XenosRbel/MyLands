@@ -1104,3 +1104,49 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .city-game-buildings.expanded {max-height:none;}
   .city-game-stage-coordinates {font-size:11px;color:#cfbd9c;}
 }
+
+/* Bottom control language: portrait rosette and unit roster, not dashboard buttons. */
+@media(min-width:721px) {
+ .game-dock {
+   border-top:5px ridge #b19662;
+   background:
+     radial-gradient(ellipse 70% 70% at 16% 0,#8a6c4061,transparent),
+     linear-gradient(180deg,#493520,#2c2117 55%,#483320);
+   box-shadow:0 -12px 30px #0d0a08c7,inset 0 2px #c8a97745;
+ }
+ .game-dock::before,.game-dock::after {
+   content:"";pointer-events:none;position:absolute;top:-4px;bottom:0;width:30px;opacity:.63;
+   background:url("/ui/painted/portrait_frame.png") center/90px 100% no-repeat;
+ }
+ .game-dock::before {left:0;}
+ .game-dock::after {right:0;transform:scaleX(-1);}
+ .game-dock-actions {position:relative;border-right:1px solid #a1895c80;padding-right:14px;}
+ .game-dock-actions button {
+   flex-shrink:0;
+   border:2px ridge #bfa374;
+   border-radius:40% 40% 45% 45%;
+   box-shadow:inset 0 0 8px #17110bd0,0 2px 7px #080604aa;
+   background:radial-gradient(ellipse 65% 75% at 45% 30%,#766041,#302419 82%);
+ }
+ .game-dock-actions button.active {
+   background:radial-gradient(ellipse at 40% 25%,#ad8955,#513d2b 70%);
+   box-shadow:0 0 0 2px #c3a16a,inset 0 0 12px #22180f;
+ }
+ .game-dock-actions button .game-dock-navigation-art {object-fit:contain;}
+ .game-dock-army {height:100%;border-left:0;gap:5px;align-self:center;}
+ .game-dock-unit {
+   border:2px ridge #a88c5d;
+   border-radius:3px;
+   background:linear-gradient(#57422d,#211b17);
+   box-shadow:inset 0 0 0 2px #2a1e1466;
+ }
+ .game-dock-unit img {object-fit:contain;padding:2px;}
+ .game-dock-unit span {border-top:1px solid #ac91635c;font-weight:700;}
+ .city-game-rail {
+   background:linear-gradient(145deg,#51412e,#2f241c 80%);
+   border:2px ridge #a58b60;
+   box-shadow:inset 0 0 0 3px #322719,0 8px 18px #0a08066b;
+ }
+ .city-game-rail .panel {background:transparent;}
+ .city-game-rail .queue li {border-left-color:#bba06d;}
+}

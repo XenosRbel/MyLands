@@ -92,3 +92,18 @@ scripts/           dev-postgres, backup/restore/verify
 ```
 
 Start with [`PRODUCT.md`](PRODUCT.md) for the product, [`AGENT.md`](AGENT.md) for contributor rules and [`docs/spec/ARCHITECTURE.md`](docs/spec/ARCHITECTURE.md) for internals.
+
+## Visual design and research systems
+
+The research interface uses a restrained, original parchment-and-timber theme.
+It includes technology branches, level nodes, research costs, and specialisation bonuses.
+The current server supports three exclusive Ashen Crowns specialisations.
+Starting another Path removes the earlier Path and its bonuses.
+New research bonuses start only after completion.
+
+See [Research and specialisations](docs/spec/RESEARCH_SPECIALISATIONS.md).
+See [Science engine migration](docs/spec/SCIENCE_ENGINE_MIGRATION.md).
+See [Project recovery plan](docs/PROJECT_RECOVERY_PLAN.md).
+See [Controlled technical writing](docs/STYLE_AND_WRITING.md).
+
+The full My Lands science-production model is not implemented.

@@ -1474,3 +1474,25 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 @media(max-width:720px) {
  .game-clock {display:none;}
 }
+
+/* The reference's oversized illustrated globe anchors the command dock. */
+.game-dock-globe {
+  flex:none;display:grid;place-items:center;position:relative;cursor:pointer;
+  width:clamp(87px,8.4vw,127px);height:clamp(87px,8.4vw,127px);
+  border-radius:50%;padding:0;overflow:visible;
+  border:0;background:transparent;
+  margin:-17px 8px -9px -9px;
+  filter:drop-shadow(0 5px 7px #0f0a0ab5);
+}
+.game-dock-globe img {width:100%;height:100%;object-fit:contain;transition:transform .22s;}
+.game-dock-globe:hover img,.game-dock-globe:focus-visible img {transform:scale(1.045);}
+.game-dock-globe:focus-visible {outline:2px solid #d3b37e;outline-offset:3px;}
+.game-dock-globe.active::after {
+ content:"";position:absolute;inset:7%;border-radius:50%;
+ box-shadow:inset 0 0 0 3px #edc97f88;pointer-events:none;
+}
+@media(min-width:721px) and (max-width:1190px) {
+ .game-dock-globe {width:88px;height:88px;margin:-10px 2px -8px -9px;}
+}
+@media(max-width:720px) {.game-dock-globe {display:none;}}
+@media(prefers-reduced-motion:reduce) {.game-dock-globe img {transition:none;}}

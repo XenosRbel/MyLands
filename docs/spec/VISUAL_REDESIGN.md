@@ -197,3 +197,36 @@ Build acceptance:
 4. Check the building, army, and hero dialog screenshot artifacts.
 5. Reject dialog layouts that obscure close buttons or other controls.
 6. Reject a release until visual-reference comparison passes.
+
+## Full-viewport correction — user screenshot 2026-11-01
+
+The user supplied a 1669 × 895 browser screenshot.
+The settlement and queue panel occupied roughly the left 1000 pixels.
+The rest of the game viewport was empty.
+The bottom dock used flat square buttons with an undersized troop roster.
+The building catalogue was permanently visible underneath the city scene.
+This was a major layout failure, not a color-palette issue.
+
+The desktop shell now reserves the full height for the game stage.
+The city uses the available content width without the old max-width cap.
+The city layout maintains a right-side production queue.
+The settlement scene grows to the available stage height.
+The building catalogue becomes an opened-on-demand drawer.
+The bottom dock has engraved circular action controls.
+The troop portraits remain present in the bottom HUD.
+
+The new browser test asserts minimum scene width and height.
+It also checks that the dock touches the bottom of the viewport.
+The test captures the expanded construction drawer separately.
+
+### Acceptance conditions
+
+- City scenery should be the dominant visual element.
+- No giant blank region should remain to the right of the game area.
+- The top resource strip and right hero/specialisation shortcuts remain usable.
+- The bottom dock must be anchored to the viewport.
+- The building catalogue must not shrink the default city scene.
+- Building selection and upgrading remain functional.
+- All game controls must work at both desktop and mobile sizes.
+
+The latest visual CI must pass before marking this correction as verified.

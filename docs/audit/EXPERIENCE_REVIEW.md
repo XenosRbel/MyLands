@@ -10,9 +10,9 @@
 
 ## High-priority findings
 1. **P0 — Game feel.** The main shell uses a conventional application sidebar and generic panels. Build a game HUD, illustrated screen headers, and world-first navigation.
-2. **P0 — Art coverage.** The documented asset gap includes missing unit portraits, neutral sites, and emblems. Finish art coverage before visual sign-off.
+2. **P0 — Art quality.** All required entity images now have paths. Ten unit illustrations remain simpler vector art. Finish visual consistency before sign-off.
 3. **P0 — Exploitable mechanics.** The documented market escrow shelters stock from raids. Restrict or account for this mechanic.
-4. **P0 — Economy abuse.** Transports can target arbitrary players. Add anti-farming rules and audit events.
+4. **P0 — Economy abuse.** Transport dispatch now blocks unrelated players. Multi-account abuse needs further telemetry and review.
 5. **P1 — Missing gameplay.** Combat omits healing and hero spells. City construction omits placement on cells.
 6. **P1 — Map presentation.** The square grid lacks fog of war. Define visibility and discovery states.
 7. **P1 — Localization.** Two UI locales exist. Add semantic review and in-context screenshots.
@@ -25,11 +25,16 @@
 - Added theme-aware panel depth and subtle navigation transitions.
 - Added motion reduction at the operating-system and game levels.
 - Added development instructions for Codex and Claude Code.
+- Added missing unit, site, and emblem SVG artwork.
+- Added asset validation to the client build.
+- Added transport restrictions and a regression test.
+- Added a GitHub Actions quality gate.
 
 ## Not completed
 - No full visual remake or all-screen playthrough.
 - No runtime screenshot comparison or performance validation.
 - No executed database integration tests in this connector session.
+- Market escrow raid protection remains unresolved. Do not mark this issue fixed.
 - No confirmed source-wide localization quality or balance verification.
 
 ## Acceptance criteria for the next implementation stage

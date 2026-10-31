@@ -13,7 +13,10 @@
     "android:sync": "npm run build && cap sync android",
     "android:add": "cap add android",
     "yandex:zip": "node scripts/yandex-zip.mjs",
-    "check:art": "node scripts/check-pack-art.mjs"
+    "check:art": "node scripts/check-pack-art.mjs",
+    "predev": "node scripts/extract-pack-ui.mjs",
+    "prebuild": "node scripts/extract-pack-ui.mjs",
+    "prebuild:yandex": "node scripts/extract-pack-ui.mjs"
   },
   "dependencies": {
     "@capacitor/core": "^8.5.3",

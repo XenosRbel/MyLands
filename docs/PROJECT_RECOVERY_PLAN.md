@@ -158,3 +158,24 @@ Acceptance: deployment checklists and platform test cases pass.
 ## Current rule
 
 Do not mark the project complete while any P0 task remains open.
+
+## Screenshot-driven HUD correction — 2026-11-01
+
+- [x] Remove global game-content width restriction for desktop.
+- [x] Expand settlement scenery to full viewport height.
+- [x] Replace permanently visible building dashboard with an on-demand drawer.
+- [x] Anchor the bottom dock to the desktop viewport.
+- [x] Rework bottom actions into framed round controls.
+- [x] Keep hero and specialization controls in the top HUD.
+- [x] Collapse the queue by default and allow reopening it.
+- [x] Show empty troop slots as desaturated unit artwork without fabricating counts.
+- [x] Rework the top resource strip to behave as continuous HUD information.
+- [x] Expand the world map's main area and right-side inspector.
+- [x] Add 1360x860 and 1680x900 layout regression coverage.
+- [ ] Inspect the final 1680x900 screenshot with queue collapsed.
+- [ ] Replace repeated ground textures with a seamless world environment.
+- [ ] Approve HUD layout against public reference screenshots.
+- [ ] Verify every screen under the final wide-screen changes.
+
+Source screenshots: docs/research/VISUAL_REFERENCES.md
+Detailed acceptance: docs/spec/VISUAL_REDESIGN.md

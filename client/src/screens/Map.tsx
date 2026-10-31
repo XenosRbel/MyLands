@@ -22,7 +22,7 @@ export function MapScreen() {
   const [texReady, setTexReady] = useState(0);
   const textures = useMemo(() => {
     const m = new Map<string, HTMLImageElement>();
-    for (const ter of idx.pack.terrains) {
+    for (const ter of [...idx.pack.terrains, ...idx.pack.neutrals]) {
       const url = idx.art(ter.id);
       if (!url) continue;
       const img = new Image();
@@ -104,6 +104,13 @@ export function MapScreen() {
         ctx.stroke();
       } else if (tile.neutral) {
         ctx.globalAlpha = tile.cleared ? 0.35 : 1;
+        const siteArt = textures.get(tile.neutral);
+        if (siteArt?.complete && siteArt.naturalWidth) {
+          const inset = cell * 0.04;
+          ctx.drawImage(siteArt, px + inset, py + inset, cell - 2 * inset, cell - 2 * inset);
+          ctx.globalAlpha = 1;
+          continue;
+        }
         ctx.fillStyle = "#1b1410";
         ctx.beginPath();
         ctx.arc(px + cell / 2, py + cell / 2, cell * 0.3, 0, Math.PI * 2);

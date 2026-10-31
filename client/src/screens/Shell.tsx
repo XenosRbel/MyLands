@@ -47,6 +47,15 @@ export function Shell() {
     .filter((tech) => tech.exclusiveGroup === "calling")
     .find((tech) => (overview?.player.techs?.[tech.id] ?? 0) > 0);
   const specializationLevel = specialization ? overview?.player.techs?.[specialization.id] ?? 0 : 0;
+  const specializationArt: Record<string, string> = {
+    path_architect: "keep",
+    path_steward: "farmstead",
+    path_warlord: "warhall",
+  };
+  const specializationImage = specialization
+    ? idx.art(specializationArt[specialization.id] ?? "academy")
+    : "";
+
   const specializationBonuses = specialization?.effects
     .filter((effect) => effect.type === "modifier" && effect.modifier)
     .map((effect) => {
@@ -106,7 +115,9 @@ export function Shell() {
           <button type="button" className="kingdom-token" onClick={() => navigate("research")}
             title={specialization ? `${idx.name(specialization.id)} (${specializationLevel}): ${specializationBonuses}` : t("chooseSpecialization")}
             aria-label={specialization ? idx.name(specialization.id) : t("chooseSpecialization")}>
-            <Icon name={specialization?.id === "path_architect" ? "castle" : specialization?.id === "path_steward" ? "wheat" : specialization?.id === "path_warlord" ? "sword" : "shield"} size={28} />
+            {specializationImage ?
+              <img src={specializationImage} alt="" /> : <Icon name="shield" size={28} />}
+            {specializationLevel > 0 && <span className="kingdom-token-level">{specializationLevel}</span>}
             <span className="token-label">{specialization ? idx.name(specialization.id) : t("chooseSpecialization")}</span>
           </button>
           <button type="button" className="kingdom-token hero-token" onClick={() => navigate("heroes")}

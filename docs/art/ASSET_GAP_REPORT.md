@@ -75,3 +75,21 @@ This is a visual release blocker.
 Map city markers, hero items, and research illustration wiring were improved.
 The 14 low-quality SVG illustrations have not yet been replaced.
 No claim of 1:1 visual parity or complete art coverage is justified.
+
+## Illustrated SVG pass — 2026-11-01
+
+All fourteen original flat placeholder SVG files were redrawn in place.
+The new artwork uses transparent backgrounds, layered materials, shaded silhouettes, and texture filters.
+Illustrations were adjusted to be readable at small UI sizes.
+They no longer use the generic circular badge template.
+
+Affected units: griffin, ballista, wagon, settler, wolf, brigand, troll, wraith, golem, drake.
+Affected sites: wolf_den, brigand_camp, barrow, crater.
+
+The Game Pack asset paths stay unchanged.
+The existing icon and artwork consumers automatically receive the new SVGs.
+The art integrity script now rejects old flat 320-pixel placeholder backgrounds.
+
+Important limitation: the new SVGs are detailed vector illustrations, not hand-painted WebP portraits.
+They still require aesthetic comparison against the painted art.
+Do not classify the painted-art parity requirement as passed.

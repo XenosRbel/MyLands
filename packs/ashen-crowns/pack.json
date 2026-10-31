@@ -4410,7 +4410,97 @@
       "mail",
       "profile",
       "settings"
-    ]
+    ],
+    "cityLayout": {
+      "keep": [
+        51,
+        43
+      ],
+      "cottages": [
+        37,
+        65
+      ],
+      "lumberyard": [
+        24,
+        49
+      ],
+      "farmstead": [
+        33,
+        38
+      ],
+      "quarry": [
+        69,
+        70
+      ],
+      "ironworks": [
+        76,
+        49
+      ],
+      "tradepost": [
+        52,
+        74
+      ],
+      "mint": [
+        62,
+        58
+      ],
+      "scriptorium": [
+        42,
+        23
+      ],
+      "academy": [
+        62,
+        28
+      ],
+      "warehouse": [
+        83,
+        60
+      ],
+      "vault": [
+        58,
+        19
+      ],
+      "walls": [
+        79,
+        76
+      ],
+      "watchtower": [
+        82,
+        30
+      ],
+      "barracks": [
+        71,
+        41
+      ],
+      "range": [
+        29,
+        26
+      ],
+      "stables": [
+        25,
+        66
+      ],
+      "aerie": [
+        72,
+        20
+      ],
+      "workshop": [
+        40,
+        79
+      ],
+      "sanctum": [
+        49,
+        15
+      ],
+      "market": [
+        46,
+        56
+      ],
+      "warhall": [
+        64,
+        82
+      ]
+    }
   },
   "strings": {
     "tutorial.welcome": {

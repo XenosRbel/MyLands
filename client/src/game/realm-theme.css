@@ -1535,3 +1535,38 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 @media(prefers-reduced-motion:reduce) {
   .research-node .research-sprite {animation:none;transition:none;}
 }
+
+/* Technology window: show actual painted art evolution at every new level. */
+.research-detail-evolution {
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  min-height:143px;padding:10px 7px;margin:0 0 14px;
+  border:2px ridge #a38b66;
+  background:radial-gradient(ellipse at 50% 36%,#f3e7cb,#bca381);
+}
+.research-evolution-state {
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  min-width:0;max-width:132px;flex:1;
+}
+.research-evolution-state .research-sprite {
+  display:block;width:clamp(62px,8vw,103px);height:auto;
+  aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 4px 5px #5b443870);
+}
+.research-evolution-state.next .research-sprite {
+  filter:drop-shadow(0 4px 6px #83643d99);
+}
+.research-evolution-state>span {
+  color:#4c3926;font:700 12px var(--font-display);
+}
+.research-evolution-arrow {font-size:25px;color:#7a694e;flex:none;}
+.research-node:focus-visible,.research-name:focus-visible,.research-branch-tabs button:focus-visible {
+  outline:3px solid #8f986d;outline-offset:2px;
+}
+.research-node .research-sprite {image-rendering:auto;}
+.research-node[aria-pressed="true"] {outline:2px solid #8b7753;outline-offset:1px;}
+@media(max-width:720px) {
+ .research-detail-evolution {min-height:105px;padding:6px;}
+ .research-evolution-state .research-sprite {width:75px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ .research-evolution-state .research-sprite {transition:none;animation:none;}
+}

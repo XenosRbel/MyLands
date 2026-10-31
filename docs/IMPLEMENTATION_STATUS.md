@@ -37,7 +37,7 @@ Last updated: 2026-10-31. Legend: ✅ implemented & tested · 🟡 partial · �
 | Android (Capacitor) | 🟡 config ✅; native project/AAB ⛔ (no SDK) | client/capacitor.config.ts | — |
 | Backup/restore | ✅ (logical) | scripts/*.sh | verify-backup executed |
 | Docker | 🟡 files written, not executed | Dockerfile, docker-compose.yml | — |
-| Load testing | ⛔ | — | — |
+| Load testing | 🟡 baseline: 200 players, 648 req/s, 0 errors (docs/reports/LOAD_TEST_2026-10-31.md) | server/cmd/loadtest | manual run |
 
 ## Last verification run
 

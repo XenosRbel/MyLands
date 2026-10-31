@@ -185,7 +185,7 @@ func (s *Service) findSpawn(ctx context.Context, tx pgx.Tx, worldID int64, p *pa
 	var x, y int
 	err := tx.QueryRow(ctx, `SELECT x, y FROM tiles t
 		WHERE world_id=$1 AND city_id IS NULL AND neutral_id IS NULL AND owner_player_id IS NULL AND terrain = ANY($2)
-		  AND NOT EXISTS (SELECT 1 FROM cities c WHERE c.world_id=t.world_id AND abs(c.x-t.x) <= 2 AND abs(c.y-t.y) <= 2)
+		  AND NOT EXISTS (SELECT 1 FROM cities c WHERE c.world_id=t.world_id AND c.x BETWEEN t.x-2 AND t.x+2 AND c.y BETWEEN t.y-2 AND t.y+2)
 		ORDER BY (x-$3)*(x-$3) + (y-$4)*(y-$4) + random()*20 LIMIT 1 FOR UPDATE SKIP LOCKED`,
 		worldID, passable, cx, cy).Scan(&x, &y)
 	if errors.Is(err, pgx.ErrNoRows) {

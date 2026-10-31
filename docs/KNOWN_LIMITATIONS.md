@@ -15,7 +15,7 @@
 - Android project not generated and no APK/AAB built (no Android SDK in the environment). Capacitor config and scripts exist.
 - Yandex/Google platform identity verification not implemented (`/auth/platform` returns 501 except the `dev` platform, which is disabled in production).
 - Rate limiter is in-memory per instance (not shared across instances).
-- No load/performance test yet. No WebSocket/SSE push (polling).
+- Only a baseline load test (200 players, single host). Join under burst is slow (p95 1.2 s). No WebSocket/SSE push (polling).
 - No PITR/WAL archiving configured; logical backups + verified restore script only.
 - Client UI strings exist in English and Russian only; Void Frontier is a demo, not a complete game.
 - No monetisation, ads or payments (intentional).

@@ -13,3 +13,13 @@ Use one canonical term for each concept.
 Do not claim tests passed unless they ran.
 Run `make lint`, `make test`, and `make e2e` when the environment supports them.
 Record missing validation in the change report.
+
+## Raster-only game art
+
+Never introduce new SVG files into visible game artwork.
+Never render inline SVG in a game component.
+Use original WebP or PNG sprites, not rasterized flat SVG placeholders.
+Treat legacy SVG assets as unfinished art debt.
+Run `npm run check:art` after changing client visuals.
+Review raster contact sheets before approving artwork.
+See `docs/art/RASTER_REDESIGN_STAGES.md` for the staged process.

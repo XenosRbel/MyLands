@@ -1358,3 +1358,89 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .city-game-layout {grid-template-columns:minmax(0,1fr) 265px!important;}
   .game-dock-actions button {min-width:51px;width:51px;}
 }
+
+/* Illustrated castle landscape uses an original environmental backdrop rather than repeating terrain tiles.
+   Building buttons remain interactive elements above the background. */
+.city-game-stage .city-scene {
+  isolation:isolate;
+  background:
+    linear-gradient(180deg,#182b2130,#1e31231c 44%,#101b18a1),
+    url("/ui/city-landscape.svg") center center / cover no-repeat,
+    #38513d!important;
+}
+.city-game-stage .city-scene .ground {
+  background-image:none!important;
+  background-color:transparent!important;
+  background-repeat:no-repeat!important;
+  opacity:0;
+  pointer-events:none;
+}
+.city-game-stage .city-scene.walled::before {display:none;}
+.city-game-stage .city-scene::after {
+  background:radial-gradient(ellipse 83% 88% at 50% 44%,transparent 70%,#07130b3b 100%)!important;
+  box-shadow:inset 0 0 23px #08170d75!important;
+  pointer-events:none;
+}
+.city-game-stage .plot.built {filter:drop-shadow(0 7px 8px #10170f9e);}
+.city-game-stage .plot.built img {
+  image-rendering:auto;
+  filter:drop-shadow(0 8px 7px #09150dba);
+}
+.city-game-stage .plot.built .plot-label {
+  opacity:1;
+  bottom:-1%;
+  background:linear-gradient(#5d482a,#2a2118);
+  border:2px ridge #c3a46b;
+  border-radius:6px;
+  color:#f0deb5;
+  padding:2px 7px;
+  font:700 11px var(--font-display);
+  text-shadow:0 1px 2px #000;
+}
+.city-game-stage .plot.built .plot-label b {
+  display:inline-grid;place-items:center;
+  min-width:19px;height:20px;margin-left:7px;
+  border:1px solid #d1b785;
+  border-radius:5px;
+  background:#48301e;
+  color:#f7e5be;
+}
+.city-game-stage .plot.empty {opacity:.5;}
+.city-game-stage .plot.empty:hover,.city-game-stage .plot.empty:focus-visible {opacity:1;}
+@media (prefers-reduced-motion:no-preference) {
+  .city-game-stage .city-scene::before {
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(106deg,transparent 39%,#ecf4db09 48%,transparent 60%);
+    animation:castle-light 24s ease-in-out infinite alternate;
+  }
+  @keyframes castle-light {from {opacity:.1;} to {opacity:.8;}}
+}
+.game-queue-panel .game-queue-list {margin:0;padding:0;list-style:none;}
+.city-game-rail .game-queue-panel .game-queue-entry,
+.game-queue-panel .game-queue-entry {
+  display:grid;grid-template-columns:58px minmax(0,1fr) 29px;align-items:center;gap:8px;
+  min-height:81px;padding:9px 6px;margin:0 0 7px;
+  border:1px solid #b29a70;border-left:3px solid #9c7d4f;
+  background:linear-gradient(#e7d9ba,#cbb694);color:#493520;
+}
+.game-queue-entry .game-queue-art {width:56px;height:60px;display:grid;place-items:center;
+ background:radial-gradient(circle,#f3e9ce,#b6a07b);border:2px ridge #957b56;overflow:hidden;}
+.game-queue-art img {width:100%;height:100%;object-fit:contain;}
+.game-queue-information {min-width:0;display:grid;gap:6px;}
+.game-queue-information strong {font:700 13px/1.2 var(--font-display);color:#443020;}
+.game-queue-time {font:600 13px var(--font-body);color:#3d3326;}
+.game-queue-progress {width:100%;height:11px;overflow:hidden;border:2px inset #79664c;
+ background:#534c37;border-radius:3px;}
+.game-queue-progress>span {display:block;height:100%;background:linear-gradient(#94b56e,#526b39);
+ box-shadow:inset 0 1px #c9dc9b;transition:width 1s linear;}
+.game-queue-entry .game-queue-cancel {min-width:27px;width:27px;height:30px;padding:4px!important;
+ background:linear-gradient(#a54f47,#682522)!important;border:1px solid #7c342b;color:#fff1d7!important;}
+.game-queue-count {float:right;padding:1px 7px;border-radius:4px;background:#8a725166;color:#f9e4bb;font-size:12px;}
+.city-game-rail .game-queue-empty {padding:10px 5px;color:#624b37;min-height:42px;}
+@media(max-width:720px) {
+ .game-queue-panel .game-queue-entry {grid-template-columns:49px minmax(0,1fr) 27px;}
+ .game-queue-entry .game-queue-art {width:47px;height:50px;}
+}
+@media(prefers-reduced-motion:reduce) {
+ .game-queue-progress>span {transition:none;}
+}

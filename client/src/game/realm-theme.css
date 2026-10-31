@@ -1508,30 +1508,30 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 
 /* Original illustrated science seals replace borrowed building sprites. */
 .research-node {isolation:isolate;position:relative;}
-.research-node .research-emblem {
+.research-node .research-sprite {
   display:block;flex:none;width:40px;height:40px;max-width:100%;
   transition:transform .22s ease,filter .22s ease;
   filter:drop-shadow(0 2px 3px #1a1511a8);
 }
-.research-node:hover .research-emblem,.research-node:focus-visible .research-emblem {
+.research-node:hover .research-sprite,.research-node:focus-visible .research-sprite {
   transform:scale(1.12);
   filter:drop-shadow(0 3px 5px #110d09b9);
 }
-.research-node.completed .research-emblem {filter:drop-shadow(0 2px 4px #425c39);}
-.research-node:not(.completed):not(.available):not(.pending) .research-emblem {
+.research-node.completed .research-sprite {filter:drop-shadow(0 2px 4px #425c39);}
+.research-node:not(.completed):not(.available):not(.pending) .research-sprite {
   filter:grayscale(.6) brightness(.65);opacity:.78;
 }
-.research-node.pending .research-emblem {
+.research-node.pending .research-sprite {
   animation:research-seal-queued 2.8s ease-in-out infinite;
 }
 @keyframes research-seal-queued {0%,100%{filter:brightness(.9)}50%{filter:brightness(1.2)}}
 .research-name-icon {display:grid;place-items:center;overflow:visible;}
-.research-name-icon .research-emblem {width:42px;height:42px;filter:drop-shadow(0 2px 4px #19140b);}
-.research-detail-art .research-emblem {max-width:110px;width:100%;height:auto;filter:drop-shadow(0 5px 8px #4e342a88);}
+.research-name-icon .research-sprite {width:42px;height:42px;filter:drop-shadow(0 2px 4px #19140b);}
+.research-detail-art .research-sprite {max-width:110px;width:100%;height:auto;filter:drop-shadow(0 5px 8px #4e342a88);}
 .research-node.completed::after {pointer-events:none;}
 @media(max-width:720px) {
-  .research-node .research-emblem {width:34px;height:34px;}
+  .research-node .research-sprite {width:34px;height:34px;}
 }
 @media(prefers-reduced-motion:reduce) {
-  .research-node .research-emblem {animation:none;transition:none;}
+  .research-node .research-sprite {animation:none;transition:none;}
 }

@@ -33,6 +33,12 @@ export function ResearchScreen() {
     ? selected : city.techs[0]?.id;
   const active = city.techs.find((x) => x.id === activeId);
   const definition = active && idx.pack.techs.find((x) => x.id === active.id);
+  const currentSpecialization = idx.pack.techs.find((tech) =>
+    tech.exclusiveGroup === "calling" && (city.techs.find((item) => item.id === tech.id)?.level ?? 0) > 0
+  );
+  const switchingSpecialization = Boolean(
+    definition?.exclusiveGroup === "calling" && currentSpecialization && currentSpecialization.id !== active?.id
+  );
 
   return (
     <div className="screen research-screen">
@@ -93,6 +99,18 @@ export function ResearchScreen() {
               <div className="muted small">{t("level")} {active.level} / {active.maxLevel}</div>
               <p>{idx.desc(active.id)}</p>
               {definition.exclusiveGroup && <span className="tag">{definition.exclusiveGroup}</span>}
+              {definition.exclusiveGroup === "calling" && (
+                <div className="research-specialization">
+                  <h3>{t("specializationBonuses")}</h3>
+                  {definition.effects.filter((e) => e.type === "modifier" && e.modifier).map((effect, i) => (
+                    <div key={i} className="specialization-bonus">
+                      <Icon name="star" size={15} />
+                      <strong>{effectText(effect, idx, Math.max(1, active.level || 1))}</strong>
+                    </div>
+                  ))}
+                  {switchingSpecialization && <p className="warn small">{t("switchSpecializationWarning")}</p>}
+                </div>
+              )}
               <h3>{t("progress")}</h3>
               <div className="research-level-progress" role="progressbar" aria-valuemin={0} aria-valuemax={active.maxLevel} aria-valuenow={active.level}>
                 <span style={{ width: (100 * active.level / active.maxLevel) + "%" }} />
@@ -107,6 +125,7 @@ export function ResearchScreen() {
                   <div className="row"><Icon name="clock" size={15} /> {duration(active.next.seconds)}</div>
                   <Reqs reqs={active.next.unmet} />
                   <Action className="primary" disabled={!!active.next.blocked}
+                    confirm={switchingSpecialization ? t("switchSpecializationWarning") : undefined}
                     title={active.next.blocked ? blockedLabel(active.next.blocked, t) : undefined}
                     run={async () => {
                       await command(`/api/v1/cities/${city.city.id}/research`, { tech: active.id });

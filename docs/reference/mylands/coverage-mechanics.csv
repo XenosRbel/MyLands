@@ -1,0 +1,187 @@
+mechanic_id,area,mechanic,research_status,card
+RACE-001,RACE,"One race per account/server, fixes roster, economy, faction",VERIFIED,ML-D02
+RACE-002,RACE,Elves: best wood; healer bonus,VERIFIED,ML-D02
+RACE-003,RACE,Dark Elves: wood + iron; faster/better mages,VERIFIED,ML-D02
+RACE-004,RACE,"Knights: gold, carrier capacity, warehouses (crops disputed)",VERIFIED,ML-D02
+RACE-005,RACE,Demons: stone; strongest mercenary,VERIFIED,ML-D02
+RACE-006,RACE,Wizards: crops + iron; half mana cost; spell resistance,VERIFIED,ML-D02
+RACE-007,RACE,Undead: wood + stone,VERIFIED,ML-D02
+RACE-008,RACE,Chimeras: underground specialist,VERIFIED,ML-D02
+RACE-009,RACE,"Native-land +25 Defence, max Defence 50, not for Renegades",VERIFIED,ML-D02
+FAC-001,FAC,Two factions (Light / Dark) derived from race,VERIFIED,ML-D02
+FAC-002,FAC,"Attack −50% vs own race, −25% vs own faction",VERIFIED,ML-D02
+FAC-003,FAC,Renegade status 7 days after attacking own race,VERIFIED,ML-D02
+FAC-004,FAC,Faction Loyalty rating (gold value of enemy-faction kills),VERIFIED,ML-D02
+ECO-001,ECO,Wood from Main Building and Woodcutter,VERIFIED,ML-M05
+ECO-002,ECO,Crops from Windmill only; price band 8–20,VERIFIED,ML-M05
+ECO-003,ECO,Stone from quarry / mines / pits,VERIFIED,ML-M05
+ECO-004,ECO,Iron from plant / mines / pits,VERIFIED,ML-M05
+ECO-005,ECO,"Gold from Trading Post (idle tax), plant, mines",VERIFIED,ML-M05
+ECO-006,ECO,"Premium Black Gems: from lakes, grail, ruins, auction, real money; not stealable",VERIFIED,ML-M05
+ECO-007,ECO,"Science Points from labs, pooled across domains, surplus lost",VERIFIED,ML-M05
+ECO-008,ECO,Hero mana | VERIFIED (exists),med,ML-M05
+ECO-009,ECO,"Finite deposits, drop to 1/h, recovery building",VERIFIED,ML-M05
+ECO-010,ECO,"Production modifier stack (terrain −50..+200%, village +30%, pit +100%, paid +25%)",VERIFIED,ML-M05
+ECO-011,ECO,"Outer domains (mines, pits, lakes, grail) as contested nodes",VERIFIED,ML-M05
+ECO-012,ECO,Per-domain storage limit from warehouses + main building; production halts at cap,VERIFIED,ML-M05
+ECO-013,ECO,"Over-storage surplus lost 1%/h; hard cap 999,999,999",VERIFIED,ML-M05
+ECO-014,ECO,Cache: theft-protected amount,VERIFIED,ML-M05
+ECO-015,ECO,Gold upkeep; 0.5%/h desertion when unpaid; double on missions; Exchequer up to 96%,VERIFIED,ML-M05
+ECO-016,ECO,Costs paid from selected domain; units cost resources and population,VERIFIED,ML-M05
+ECO-017,ECO,Player market: resources ↔ gold; merchants needed to buy; tax,VERIFIED,ML-M05
+ECO-018,ECO,Exchange tab: resource swap at worse rates,VERIFIED,ML-M05
+ECO-019,ECO,"Black Gem auction for gold (rating ≥ 10M, +5,000 step)",VERIFIED,ML-M05
+ECO-020,ECO,"Transport units (merchants/carriers), capacity",VERIFIED,ML-M05
+ECO-021,ECO,Ancient Magic: paid boosts and instant completion,VERIFIED,ML-M05
+ECO-022,ECO,Market-average gold valuation for ratings,VERIFIED,ML-M05
+ECO-023,ECO,Loot/items from monster ruins,VERIFIED,ML-M05
+ECO-024,ECO,Domain-local economy; only SP global,VERIFIED,ML-M05
+BLD-000,BLD,"Cells, builders, time bonus cap 80%, building deletion",VERIFIED,ML-D03
+BLD-001,BLD,"Main Building (max level 5): wood, storage, housing, cells",VERIFIED,ML-D03
+BLD-002,BLD,City Gate unlocks outward actions,VERIFIED,ML-D03
+BLD-003,BLD,"Cell grid: Capital 51, new city 22→43, City Expansion",VERIFIED,ML-D03
+BLD-004,BLD,"4 villages per city, +30% production",VERIFIED,ML-D03
+BLD-005,BLD,Deposit-cell restriction until land-use science,VERIFIED,ML-D03
+BLD-006,BLD,Terraformer clears obstacle cells,VERIFIED,ML-D03
+BLD-010,BLD,Woodcutter,VERIFIED,ML-D03
+BLD-011,BLD,Windmill,VERIFIED,ML-D03
+BLD-012,BLD,Stone Quarry,VERIFIED,ML-D03
+BLD-013,BLD,Iron Plant,VERIFIED,ML-D03
+BLD-014,BLD,Gold Plant,VERIFIED,ML-D03
+BLD-015,BLD,Trading Post (idle tax),VERIFIED,ML-D03
+BLD-016,BLD,Chalice of Abundance (deposit recovery),VERIFIED,ML-D03
+BLD-017,BLD,Alchemist Lab (SP),VERIFIED,ML-D03
+BLD-018,BLD,Warehouse,VERIFIED,ML-D03
+BLD-019,BLD,Cottage: living places and growth,VERIFIED,ML-D03
+BLD-020,BLD,Market building,VERIFIED,ML-D03
+BLD-021,BLD,Tavern (Capital only) for heroes,VERIFIED,ML-D03
+BLD-022,BLD,Military training buildings,VERIFIED,ML-D03
+BLD-023,BLD,"Special-unit buildings (merchants, spies, explorers, settlers, visionaries, mirrors)",VERIFIED,ML-D03
+BLD-024,BLD,"Defensive buildings: Fortification, Tower, Magic Tower",VERIFIED,ML-D03
+BLD-025,BLD,Outer-domain main buildings,VERIFIED,ML-D03
+BLD-026,BLD,Improved / perfect / monumental buildings,VERIFIED,ML-D03
+TECH-001,TECH,"Science system: SP, levels, confirmation + payment",VERIFIED,ML-D05
+TECH-002,TECH,"""Charged"" repeatable sciences (City Expansion, Capital Transfer)",VERIFIED,ML-D05
+TECH-003,TECH,Gate science,VERIFIED,ML-D05
+TECH-004,TECH,Villages science,VERIFIED,ML-D05
+TECH-005,TECH,Colonisation: more cities,VERIFIED,ML-D05
+TECH-006,TECH,Market science (range by level),VERIFIED,ML-D05
+TECH-007,TECH,Merchantry (merchants),VERIFIED,ML-D05
+TECH-008,TECH,Exchequer: salary reduction up to 96%,VERIFIED,ML-D05
+TECH-009,TECH,Cache science,VERIFIED,ML-D05
+TECH-010,TECH,"Construction, Repair, Towers, Fortification, Magic Towers",VERIFIED,ML-D05
+TECH-011,TECH,Heroes Managing / Hero Skills (cap 12),VERIFIED,ML-D05
+TECH-012,TECH,"Vision, Reflection, Espionage, Diplomacy",VERIFIED,ML-D05
+TECH-013,TECH,Mission Control (simultaneous missions),VERIFIED,ML-D05
+TECH-014,TECH,Underground domains science,VERIFIED,ML-D05
+TECH-015,TECH,Clan Castles science,VERIFIED,ML-D05
+TECH-016,TECH,Alchemy (levels 1–6/7),VERIFIED,ML-D05
+TECH-017,TECH,Land-use science,VERIFIED,ML-D05
+TECH-018,TECH,Resurrection science,INFERRED,ML-D05
+TECH-019,TECH,"Capital Transfer, City Expansion",VERIFIED,ML-D05
+TECH-020,TECH,"One specialisation (3 levels); a second cancels the first; Architect −50/65/80%, Trader, B",VERIFIED,ML-D05
+TECH-021,TECH,Community early science order | VERIFIED (community advice),low,ML-D05
+POP-001,POP,"Domain population cap 150,000",VERIFIED,ML-M05
+POP-002,POP,Growth: Main Building + Cottages + idle reproduction 0.04 × idle/h,VERIFIED,ML-M05
+POP-003,POP,"Idle population: flees first, raises gold",VERIFIED,ML-M05
+POP-004,POP,Workers staff producers,VERIFIED,ML-M05
+POP-005,POP,Builders,VERIFIED,ML-M05
+POP-006,POP,Overcrowding flight formula,VERIFIED,ML-M05
+POP-007,POP,"""Distribute Builders/Workers"" buttons",VERIFIED,ML-M05
+POP-008,POP,Enemy destruction kills workers,VERIFIED,ML-M05
+POP-009,POP,Units consume population,VERIFIED,ML-M05
+QST-001,QST,"Optional advisor quests, manual reward claim",VERIFIED,ML-M17
+QST-002,QST,Rewards to Capital; blocked if a Capital battle is < 2 h away,VERIFIED,ML-M17
+QST-003,QST,Protection rewards (from monster attacks),VERIFIED,ML-M17
+QST-004,QST,Quest chains,VERIFIED,ML-M17
+QST-005,QST,Typical early flow (community),INFERRED,ML-M17
+QST-006,QST,Formal tutorial / newbie shield,UNKNOWN,ML-M17
+ARMY-001,ARMY,8 unit categories per race; one race change,VERIFIED,ML-D04
+ARMY-002,ARMY,4 levels per category via war science; upgrade cost difference,VERIFIED,ML-D04
+ARMY-003,ARMY,"Unit stats: attack range, health, defence, salary, rating",VERIFIED,ML-D04
+ARMY-004,ARMY,"Carriers: zero attack, capacity",VERIFIED,ML-D04
+ARMY-005,ARMY,Healers resurrect after battle,VERIFIED,ML-D04
+ARMY-006,ARMY,Mercenaries ignore fortification round,VERIFIED,ML-D04
+ARMY-007,ARMY,Mages reduce tower damage,VERIFIED,ML-D04
+ARMY-008,ARMY,Training pipeline: science → building → queue,VERIFIED,ML-D04
+ARMY-009,ARMY,Unit levelling cost on science upgrade,VERIFIED,ML-D04
+ARMY-010,ARMY,Gold salary; 0.5%/h desertion; double on missions,VERIFIED,ML-D04
+ARMY-011,ARMY,Sanctuary (hide troops),VERIFIED,ML-D04
+ARMY-012,ARMY,Captured underground Barracks give training discounts,VERIFIED,ML-D04
+ARMY-013,ARMY,Race specialisations affecting the army,VERIFIED,ML-D04
+ARMY-014,ARMY,Monsters as NPC race,VERIFIED,ML-D04
+MSN-001,MSN,Mission taxonomy (combat / hero / non-combat),VERIFIED,ML-M06
+MSN-002,MSN,Speed tiers 1 / 1.25 / 1.5 / 2,VERIFIED,ML-M06
+MSN-003,MSN,Squad award; 15-min minimum duration,VERIFIED,ML-M06
+MSN-004,MSN,Max 2 attacks on the same domain per 24 h,VERIFIED,ML-M06
+MSN-005,MSN,"Recall until ""too close""",VERIFIED,ML-M06
+MSN-006,MSN,Robbery with 50% cap on outer domains; hero needed for artefacts,VERIFIED,ML-M06
+MSN-007,MSN,Slaves capture,VERIFIED,ML-M06
+MSN-008,MSN,Buildings destruction (outside city wall),VERIFIED,ML-M06
+MSN-009,MSN,Domain seizure (no defensive buildings left),VERIFIED,ML-M06
+MSN-010,MSN,Espionage with access levels 1–4,VERIFIED,ML-M06
+MSN-011,MSN,Resource transport / troop relocation,VERIFIED,ML-M06
+MSN-012,MSN,Assistance at 2× speed,VERIFIED,ML-M06
+CMB-001,CMB,Max 20 rounds; attacker loses on timeout,VERIFIED,ML-M07
+CMB-002,CMB,Fortifications pre-round kills attackers,VERIFIED,ML-M07
+CMB-003,CMB,"Damage: sum attack, reduce by defence %, proportional spread, overflow redistributed; stoc",VERIFIED,ML-M07
+CMB-004,CMB,Pursuer/victim loop: Warriors→Archers→Airborne→Cavalry→Warriors,VERIFIED,ML-M07
+CMB-005,CMB,Retreat thresholds per army,VERIFIED,ML-M07
+CMB-006,CMB,Victory rule; defender wins ties,VERIFIED,ML-M07
+CMB-007,CMB,Multiple armies per side,VERIFIED,ML-M07
+CMB-008,CMB,"Defensive buildings (towers, magic towers)",VERIFIED,ML-M07
+CMB-009,CMB,Resurrection/necromancy rounds; kill counting after them,VERIFIED,ML-M07
+CMB-010,CMB,Battle calculator (30-run average),VERIFIED,ML-M07
+CMB-011,CMB,Losing hero stunned / imprisoned,VERIFIED,ML-M07
+CMB-012,CMB,Battle and spy reports,INFERRED,ML-M07
+HERO-001,HERO,Hiring: science + Tavern + rank; daily random offers,VERIFIED,ML-M09
+HERO-002,HERO,Max 7 heroes,VERIFIED,ML-M09
+HERO-003,HERO,Hero classes gate skills | INFERRED (list) / VERIFIED (exists) | low / med,Impl-diff,ML-M09
+HERO-004,HERO,Hero specialty with 3 levels (economic governor),VERIFIED,ML-M09
+HERO-005,HERO,"3 basic skills, +2 per level; active vs passive",VERIFIED,ML-M09
+HERO-006,HERO,Spells and mana,VERIFIED,ML-M09
+HERO-007,HERO,"Stun, capture, dungeon, ransom",VERIFIED,ML-M09
+HERO-008,HERO,XP from killed troops' value; level cap 12,VERIFIED,ML-M09
+HERO-009,HERO,"Artefacts, sets (9 of 12), vault",VERIFIED,ML-M09
+HERO-010,HERO,"Alchemy: crystals, perfection, runes",VERIFIED,ML-M09
+HERO-011,HERO,Player rank from rating; rank gates,VERIFIED,ML-M09
+HERO-012,HERO,Sciences as progression tree,VERIFIED,ML-M09
+SOC-001,SOC,Rank rule: no attacks on lower-rank cities,VERIFIED,ML-M12
+SOC-002,SOC,One-time revenge right for 24 h,VERIFIED,ML-M12
+SOC-003,SOC,"Newbie protection layers (compassion, Ancients 60 days)",VERIFIED,ML-M12
+SOC-004,SOC,Max 2 attacks per domain per 24 h,VERIFIED,ML-M12
+SOC-005,SOC,Faction loyalty rating,VERIFIED,ML-M12
+SOC-006,SOC,Bounty brotherhood,VERIFIED,ML-M12
+SOC-007,SOC,Temple protection (≤ 5 players),VERIFIED,ML-M12
+SOC-010,SOC,"Clans 5–100 members, roles, two governance types",VERIFIED,ML-M12
+SOC-011,SOC,Clan warehouse,VERIFIED,ML-M12
+SOC-012,SOC,"Clan Castle, War & Peace points, standards",VERIFIED,ML-M12
+SOC-013,SOC,Alliances via Diplomacy (≤ 7),VERIFIED,ML-M12
+SOC-014,SOC,"Joint attack (one joiner, 50/50 loot)",VERIFIED,ML-M12
+SOC-015,SOC,Joint defence: up to 3 players + owner,VERIFIED,ML-M12
+SOC-016,SOC,Mentor / apprentice,VERIFIED,ML-M12
+SOC-020,SOC,Player market,VERIFIED,ML-M12
+SOC-021,SOC,Premium-currency auction,VERIFIED,ML-M12
+SOC-022,SOC,Transfers between own domains; 3% merchant death; gem gifting,VERIFIED,ML-M12
+SOC-030,SOC,"Mail, contacts, filters, reports | VERIFIED (mail) / UNKNOWN (chat)",med,ML-M12
+SOC-031,SOC,"Conduct rules, gag, bans",VERIFIED,ML-M12
+SOC-040,SOC,Advisor quests,VERIFIED,ML-M12
+SOC-041,SOC,Tournaments,VERIFIED,ML-M12
+SOC-042,SOC,Random events at 19:00,VERIFIED,ML-M12
+SOC-043,SOC,Server types and Faction War mode,VERIFIED,ML-M12
+SOC-044,SOC,Premium touchpoints,VERIFIED,ML-M12
+WLD-001,WLD,Empire → Kingdom → Square hierarchy,VERIFIED,ML-M03
+WLD-002,WLD,Domain types,VERIFIED,ML-M03
+WLD-003,WLD,Capital 51 cells; up to 8 more cities; 4 villages,VERIFIED,ML-M03
+WLD-004,WLD,Outer domains & seizure,VERIFIED,ML-M03
+WLD-005,WLD,"Ruins: 1–7 per kingdom, respawn, rank-filtered discovery, gems",VERIFIED,ML-M03
+WLD-006,WLD,"Gem hot-spots (lakes, grail 200/h, relocation)",VERIFIED,ML-M03
+WLD-007,WLD,Exploration mission (2–10% death),VERIFIED,ML-M03
+WLD-008,WLD,"Pits (temporary, +100%)",VERIFIED,ML-M03
+WLD-009,WLD,Mines,VERIFIED,ML-M03
+WLD-010,WLD,Gates and tunnels (open 5 min / close 6 h),VERIFIED,ML-M03
+WLD-011,WLD,Camps (mobile bases),VERIFIED,ML-M03
+WLD-012,WLD,Barracks / underground estates | VERIFIED / UNKNOWN,med,ML-M03
+WLD-013,WLD,Clan Castle siege,VERIFIED,ML-M03
+WLD-014,WLD,Dungeon (cross-ref HERO-007) | (see HERO-007),—,ML-M03
+WLD-015,WLD,Monster attacks on players,VERIFIED,ML-M03

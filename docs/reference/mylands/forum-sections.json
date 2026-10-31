@@ -1,0 +1,158 @@
+{
+ "access_date": "2026-11-01",
+ "method": "forum index and 4 section listings read",
+ "base": "https://ru.mlgame.org/forum/viewforum.php?f=",
+ "sections": [
+  {
+   "f": 40,
+   "title": "Холл Славы",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 41,
+   "title": "Рассказы о сносе архируин",
+   "status": "LISTING_READ"
+  },
+  {
+   "f": 42,
+   "title": "Великие достижения и рекорды",
+   "status": "LISTING_READ"
+  },
+  {
+   "f": 6,
+   "title": "Общение, юмор и творчество",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 20,
+   "title": "Приколы и юмор",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 21,
+   "title": "Творчество игроков",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 7,
+   "title": "Конкурсы",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 46,
+   "title": "Встречи в реале",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 34,
+   "title": "Угадай в игре",
+   "status": "LISTING_READ"
+  },
+  {
+   "f": 54,
+   "title": "Новости 2Pay",
+   "status": "LISTING_READ"
+  },
+  {
+   "f": 53,
+   "title": "Вопросы как заплатить (2Pay)",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 55,
+   "title": "Предложения по 2Pay",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 321,
+   "title": "Галилея: кооперация",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 24,
+   "title": "Бакар: кланы",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 361,
+   "title": "Инферно: кланы",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 343,
+   "title": "Жемчужный: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 336,
+   "title": "Евразиум: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 267,
+   "title": "Шумерия: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 273,
+   "title": "Эллада: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 387,
+   "title": "Мория: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 296,
+   "title": "Богемия: война",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 306,
+   "title": "Вертиго: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 324,
+   "title": "Дартмир: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 351,
+   "title": "Зонар: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 380,
+   "title": "Ледария: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 449,
+   "title": "Хаос: мир",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 178,
+   "title": "Выживание: Война фракций",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 188,
+   "title": "Вопросы по Войне фракций",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 181,
+   "title": "Ордана: Противостояние",
+   "status": "TITLE_ONLY"
+  },
+  {
+   "f": 194,
+   "title": "Пифия: Противостояние",
+   "status": "TITLE_ONLY"
+  }
+ ],
+ "note": "Темы внутри подразделов серверов не открывались"
+}

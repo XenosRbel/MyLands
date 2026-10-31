@@ -1,0 +1,410 @@
+[
+  {
+    "id": "W-01",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Kingdom",
+    "title": "Kingdom",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "50",
+    "revision_date": "2021-04-23",
+    "scope": "Координаты королевства, выбранное владение, террайн",
+    "unresolved": [
+      "Число королевств",
+      "Размер сетки полей и схема нумерации",
+      "Метрика расстояния"
+    ]
+  },
+  {
+    "id": "W-02",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=City",
+    "title": "City",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "104",
+    "revision_date": "2021-04-23",
+    "scope": "Столица, ячейки, развитие, перенос и удаление",
+    "unresolved": [
+      "Семь дополнительных городов против восьми в прежних англоязычных выдержках",
+      "Время первого открытия ворот после телепортации",
+      "Порядок переноса столицы и судьба ячеек44–51"
+    ]
+  },
+  {
+    "id": "W-03",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Sectors",
+    "title": "Sectors",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "17",
+    "revision_date": "2021-04-23",
+    "scope": "Посёлки, общие участки и разрушение",
+    "unresolved": [
+      "Точное число и нумерация строительных ячеек каждого поселка",
+      "Геометрия пересечений на краях королевства"
+    ]
+  },
+  {
+    "id": "W-04",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Outer_estates",
+    "title": "Outer_estates",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "24",
+    "revision_date": "2021-04-23",
+    "scope": "Таксономия, захват, отказ, продление и побег",
+    "unresolved": [
+      "Формула повреждения зданий выше1уровня",
+      "Дистанция выбора ближайшего города",
+      "Смысл всегда можно грабить при закрытом туннеле"
+    ]
+  },
+  {
+    "id": "W-05",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Pit",
+    "title": "Pit",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "11",
+    "revision_date": "2021-04-23",
+    "scope": "Копи, уровни, срок жизни и туннель",
+    "unresolved": [
+      "Таблица ячеек и добычи по5уровням",
+      "Распределение срока жизни",
+      "Старая ссылка на3дня деградации против новых4дней Gate"
+    ]
+  },
+  {
+    "id": "W-06",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mine",
+    "title": "Mine",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "12",
+    "revision_date": "2021-04-23",
+    "scope": "Карьер, Штольня, Золотая жила и купцы",
+    "unresolved": [
+      "Базовые параметры Центрального здания",
+      "Точные запасы ресурсов и срок жизни",
+      "Редакционная ссылка на копь в абзаце туннеля"
+    ]
+  },
+  {
+    "id": "W-07",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Lake",
+    "title": "Lake",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "11",
+    "revision_date": "2021-04-23",
+    "scope": "Солёное озеро",
+    "unresolved": [
+      "Распределение срока жизни",
+      "Производительность и запас Черного жемчуга"
+    ]
+  },
+  {
+    "id": "W-08",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Grail",
+    "title": "Grail",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "10",
+    "revision_date": "2021-04-23",
+    "scope": "Грааль, перенос20:00, Черный жемчуг",
+    "unresolved": [
+      "Распределение новой позиции",
+      "Точный срок жизни",
+      "Порядок событий при одновременном переносе и атаке"
+    ]
+  },
+  {
+    "id": "W-09",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Underground_estates",
+    "title": "Underground_estates",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "20",
+    "revision_date": "2025-10-28",
+    "scope": "Подземные владения, вход и штраф длительности",
+    "unresolved": [
+      "Геометрия и вместимость подземного слоя",
+      "Порядок наложения штрафов и турнирной услуги"
+    ]
+  },
+  {
+    "id": "W-10",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Barracks",
+    "title": "Barracks",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "39",
+    "revision_date": "2022-04-08",
+    "scope": "Бараки",
+    "unresolved": [
+      "Численные диапазоны6параметров",
+      "Распределение гарнизона",
+      "Точный алгоритм суммирования с другими бонусами"
+    ]
+  },
+  {
+    "id": "W-11",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Tomb",
+    "title": "Tomb",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "3",
+    "revision_date": "2021-04-23",
+    "scope": "Гробница и рецепты",
+    "unresolved": [
+      "Составы гарнизонов",
+      "Распределение рецептов",
+      "Правило выбора ближайших подкреплений"
+    ]
+  },
+  {
+    "id": "W-12",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Sarcophagus",
+    "title": "Sarcophagus",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "2",
+    "revision_date": "2025-10-27",
+    "scope": "Саркофаг и заточки",
+    "unresolved": [
+      "Источник называет награду заточкой, далее рецептом",
+      "Составы гарнизонов и распределение наград"
+    ]
+  },
+  {
+    "id": "W-13",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Acropolis",
+    "title": "Acropolis",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "5",
+    "revision_date": "2025-10-27",
+    "scope": "Акрополь и Античные руны",
+    "unresolved": [
+      "Распределение9рун",
+      "Составы гарнизонов"
+    ]
+  },
+  {
+    "id": "W-14",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Exploration",
+    "title": "Exploration",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "48",
+    "revision_date": "2021-04-23",
+    "scope": "Исследование, видимость и гибель исследователей",
+    "unresolved": [
+      "Таблица скорость→вероятность2–10%",
+      "Точный охват часового ограничения королевства",
+      "Приоритет обнаружения нескольких объектов"
+    ]
+  },
+  {
+    "id": "W-15",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Colonization",
+    "title": "Colonization",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "19",
+    "revision_date": "2021-04-23",
+    "scope": "Колонизация",
+    "unresolved": [
+      "Таблица скорость→стартовый набор",
+      "Полный набор критериев пригодности поля",
+      "Гонка нескольких колонизаторов"
+    ]
+  },
+  {
+    "id": "W-16",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Espionage",
+    "title": "Espionage",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "21",
+    "revision_date": "2021-04-23",
+    "scope": "Шпионаж и5исходов доступа",
+    "unresolved": [
+      "Вероятности между5табличными соотношениями",
+      "Формула потерь шпионов и антишпионов",
+      "Согласование тайного убежища с уровнями доступа"
+    ]
+  },
+  {
+    "id": "W-17",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Watch",
+    "title": "Watch",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "8",
+    "revision_date": "2021-04-23",
+    "scope": "Наблюдение, провидцы и зеркала",
+    "unresolved": [
+      "Порядок случайных потерь",
+      "Независимость бросков и округления"
+    ]
+  },
+  {
+    "id": "W-18",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=MoveResources",
+    "title": "MoveResources",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "22",
+    "revision_date": "2021-04-23",
+    "scope": "Перевозка ресурсов",
+    "unresolved": [
+      "Стоимость по скорости",
+      "Вместимость купцов",
+      "Момент и распределение гибели3%"
+    ]
+  },
+  {
+    "id": "W-19",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=MoveArmy",
+    "title": "MoveArmy",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "23",
+    "revision_date": "2021-04-23",
+    "scope": "Перемещение войск",
+    "unresolved": [
+      "Формула базового времени",
+      "Стоимость миссии",
+      "Пограничное поведение ровно за60секунд"
+    ]
+  },
+  {
+    "id": "W-20",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Camp",
+    "title": "Camp",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "12",
+    "revision_date": "2021-04-23",
+    "scope": "Лагерь",
+    "unresolved": [
+      "Лимит лагерей по науке",
+      "Отмена и refund по стадиям",
+      "Поведение при окончании365дней купцов"
+    ]
+  },
+  {
+    "id": "W-21",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Gate",
+    "title": "Gate",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "37",
+    "revision_date": "2026-09-29",
+    "scope": "Ворота,8рас и деградация поселков",
+    "unresolved": [
+      "3дня в старых Pit/Mine против4дней Gate",
+      "Распределение повреждений",
+      "Одновременные закрытие и прибытие"
+    ]
+  },
+  {
+    "id": "W-22",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Ruin",
+    "title": "Ruin",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "45",
+    "revision_date": "2021-04-23",
+    "scope": "Руины, появление, срок жизни, смена идентичности",
+    "unresolved": [
+      "Денежный алгоритм количества ЧЖ",
+      "Гарнизоны и рост монстров",
+      "Конфликт с Serv по агрессивным уровням и максимуму руин"
+    ]
+  },
+  {
+    "id": "W-23",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Stonehenge",
+    "title": "Stonehenge",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "10",
+    "revision_date": "2021-04-23",
+    "scope": "Стоунхендж и руны",
+    "unresolved": [
+      "Составы гарнизонов",
+      "Распределение9рун",
+      "Правило выбора ближайших подкреплений"
+    ]
+  },
+  {
+    "id": "W-24",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Resources",
+    "title": "Resources",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "61",
+    "revision_date": "2023-05-31",
+    "scope": "Террайн-ресурсная матрица; остальная экономика в соседнем документе",
+    "unresolved": [
+      "Семантика пустых ячеек матрицы",
+      "Алгоритм генерации месторождений",
+      "Размеры запасов"
+    ]
+  },
+  {
+    "id": "W-25",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Recovery",
+    "title": "Recovery",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "20",
+    "revision_date": "2025-10-28",
+    "scope": "Чаша изобилия: правила и2уровня",
+    "unresolved": [
+      "Полные сроки строительства",
+      "Раса8отсутствует на иллюстрациях7вариантов",
+      "Точные правила бонусов и округления"
+    ]
+  },
+  {
+    "id": "W-26",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Serv",
+    "title": "Serv",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "52",
+    "revision_date": "2024-03-27",
+    "scope": "Различия режимов мира",
+    "unresolved": [
+      "Совместимость всех режимов с последними страницами2026",
+      "Конфликт с Ruin по агрессивным уровням"
+    ]
+  },
+  {
+    "id": "W-27",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Combat",
+    "title": "Combat",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": "128",
+    "revision_date": "2026-09-30",
+    "scope": "Страница прочитана для навигации; боевые таблицы принадлежат боевому направлению",
+    "unresolved": [
+      "Никакие новые боевые правила в этом файле не выводятся"
+    ]
+  },
+  {
+    "id": "W-28",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Underground",
+    "title": "Underground",
+    "access_date": "2026-11-01",
+    "method": "UNAVAILABLE",
+    "revision": null,
+    "scope": "Главная статья подземного слоя",
+    "unresolved": [
+      "Две попытки web open завершились Cache miss; ссылки из других страниц не равны прочтению статьи"
+    ]
+  }
+]

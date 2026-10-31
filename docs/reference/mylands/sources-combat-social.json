@@ -1,0 +1,372 @@
+[
+ {
+  "id": "CS-01",
+  "section": "CS-01",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Units",
+  "title": "Units",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 29,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-02",
+  "section": "CS-02",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=UnitDescription",
+  "title": "UnitDescription",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 186,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-03",
+  "section": "CS-03",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=UnitParametrs",
+  "title": "UnitParametrs",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 94,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-04",
+  "section": "CS-04",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Combat",
+  "title": "Combat",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 128,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-05",
+  "section": "CS-05",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Attack",
+  "title": "Attack",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 33,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-06",
+  "section": "CS-06",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Title",
+  "title": "Title",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 61,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-07",
+  "section": "CS-07",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Fraction",
+  "title": "Fraction",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 80,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-08",
+  "section": "CS-08–09",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Joint_attack",
+  "title": "Joint_attack",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 9,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-09",
+  "section": "CS-08–09",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Assist",
+  "title": "Assist",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 16,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-10",
+  "section": "CS-35–37",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Attack_Destroy",
+  "title": "Attack_Destroy",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 12,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-11",
+  "section": "CS-35–37",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Attack_Capture",
+  "title": "Attack_Capture",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 6,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-12",
+  "section": "CS-35–37",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=RelMis",
+  "title": "RelMis",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 3,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-13",
+  "section": "CS-10–12",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=HeroTemp",
+  "title": "HeroTemp",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 104,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-14",
+  "section": "CS-10–12",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=HeroClasses",
+  "title": "HeroClasses",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 112,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-15",
+  "section": "CS-10–12",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Skills",
+  "title": "Skills",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 20,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-16",
+  "section": "CS-13–15",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Spells",
+  "title": "Spells",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 31,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-17",
+  "section": "CS-13–15",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=UPSET",
+  "title": "UPSET",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 8,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-18",
+  "section": "CS-39",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Prison",
+  "title": "Prison",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 29,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-19",
+  "section": "CS-16–18",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Artefacts",
+  "title": "Artefacts",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 74,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-20",
+  "section": "CS-16–18",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Scrolls",
+  "title": "Scrolls",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 17,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-21",
+  "section": "CS-16–18",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Alchemy",
+  "title": "Alchemy",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 113,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-22",
+  "section": "CS-19–21",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Clan",
+  "title": "Clan",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 61,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-23",
+  "section": "CS-19–21",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Monarch",
+  "title": "Monarch",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 1,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-24",
+  "section": "CS-19–21",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Democrat",
+  "title": "Democrat",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 12,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-25",
+  "section": "CS-22",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Clan_castle",
+  "title": "Clan_castle",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 62,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-26",
+  "section": "CS-23,",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mentor",
+  "title": "Mentor",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 9,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-27",
+  "section": "CS-23,",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Brotherhood",
+  "title": "Brotherhood",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 10,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-28",
+  "section": "CS-24",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Market",
+  "title": "Market",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 52,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-29",
+  "section": "CS-25",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Aukcion",
+  "title": "Aukcion",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 12,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-30",
+  "section": "CS-26–29",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=BlackPearl",
+  "title": "BlackPearl",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 87,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-31",
+  "section": "CS-26–29",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Premium",
+  "title": "Premium",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 4,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-32",
+  "section": "CS-26–29",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=InMoney",
+  "title": "InMoney",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 71,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-33",
+  "section": "CS-26–29",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Vacation",
+  "title": "Vacation",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 11,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-34",
+  "section": "CS-31–32",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Tournament",
+  "title": "Tournament",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 63,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-35",
+  "section": "CS-31–32",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Utopia",
+  "title": "Utopia",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 5,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-36",
+  "section": "CS-34",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=PMS",
+  "title": "PMS",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 27,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ },
+ {
+  "id": "CS-37",
+  "section": "CS-34",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Serv",
+  "title": "Serv",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 52,
+  "note": "Реестр восстановлен из COMBAT_HEROES_SOCIAL.md; дата правки страницы не сохранена"
+ }
+]

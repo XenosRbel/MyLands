@@ -1,0 +1,13 @@
+id,asset,size_px,states,alpha,count,format,license,status
+ART-UI-FRAME,Рамка интерфейса,1268x884 опорный экран,normal,alpha по краям,1,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-UI-BTN,Круглые кнопки меню,96x96,normal;hover;pressed;disabled,да,12,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-RES-ICON,Иконки ресурсов и ЧЖ,64x64,normal,да,8,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-CITY-BG,Фон города по расе,2536x1768,day,нет,8,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-BLD,Здание города,256x256,idle;building;upgrading;ruined,да,по ML-D03,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-OUTER,Внешние владения и поселки,192x192,idle;captured;closed,да,по ML-D03,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-UNIT,Иконка войска,128x128,normal;gray;selected,да,по ML-D04,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-HERO,Портрет героя,256x320,normal;captured,да,по ML-M09,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-TERRAIN,Тайл террайна,512x512,normal,нет,по ML-R08,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-MAP-OBJ,"Объекты карты: руина, копь, озеро",192x192,idle;destroyed,да,по ML-M02,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-SPELL,Иконка заклинания и навыка,64x64,ready;cooldown;active,да,по ML-D06,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED
+ART-ITEM,Иконка предмета,64x64,normal;equipped,да,по ML-D06,WebP или PNG,original; запись в ASSET_PROVENANCE.md,PROPOSED

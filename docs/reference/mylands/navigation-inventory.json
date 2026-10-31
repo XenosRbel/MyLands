@@ -1,0 +1,1166 @@
+{
+  "access_date": "2026-11-01",
+  "method": "official_HTML_links_read",
+  "sources": [
+    "https://ru.mlgame.org/wiki",
+    "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Buildings",
+    "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Serv"
+  ],
+  "note": "Inventory of linked pages; not proof of complete rule extraction or gameplay parity.",
+  "pages": [
+    {
+      "page": "UserPreferences",
+      "label": "G’day (anonymous guest)",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=UserPreferences",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "MyLands",
+      "label": "Show Reader View",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=MyLands&skin=reader",
+      "discovered_on": [
+        "MyLands",
+        "MyLands"
+      ]
+    },
+    {
+      "page": "BlackPearl",
+      "label": "Чёрный жемчуг",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=BlackPearl",
+      "discovered_on": [
+        "MyLands",
+        "MyLands",
+        "MyLands",
+        "Buildings",
+        "Serv",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Attack",
+      "label": "война",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Attack",
+      "discovered_on": [
+        "MyLands",
+        "MyLands",
+        "Buildings",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "HeroTemp",
+      "label": "героев",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=HeroTemp",
+      "discovered_on": [
+        "MyLands",
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Outer_estates",
+      "label": "поселений",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Outer_estates",
+      "discovered_on": [
+        "MyLands",
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Sectors",
+      "label": "поселки",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Sectors",
+      "discovered_on": [
+        "MyLands",
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Clan",
+      "label": "объединяйтесь",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Clan",
+      "discovered_on": [
+        "MyLands",
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Start",
+      "label": "Правьте мудро и ведите свой народ к процветанию!",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Start",
+      "discovered_on": [
+        "MyLands",
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Rules",
+      "label": "Правила",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Rules",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "InMoney",
+      "label": "Ввод денег",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=InMoney",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Race",
+      "label": "Расы",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Race",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "City",
+      "label": "Города",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=City",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Resources",
+      "label": "Ресурсы",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Resources",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "People",
+      "label": "Население",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=People",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Buildings",
+      "label": "Здания",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Buildings",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Buildings",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Gate",
+      "label": "Ворота",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Gate",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Market",
+      "label": "Рынок",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Market",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Aukcion",
+      "label": "Аукцион",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Aukcion",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Units",
+      "label": "Войска",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Units",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "UnitDescription",
+      "label": "Описание",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=UnitDescription",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "UnitParametrs",
+      "label": "Параметры",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=UnitParametrs",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Science",
+      "label": "Науки",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Science",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "ScienceDescription",
+      "label": "Описание наук",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=ScienceDescription",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Alchemy",
+      "label": "Алхимия",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Alchemy",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Spec",
+      "label": "Специализации",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Spec",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Kingdom",
+      "label": "Королевство",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Kingdom",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Pit",
+      "label": "Копи",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Pit",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Mine",
+      "label": "Шахты",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mine",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Lake",
+      "label": "Соленое озеро",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Lake",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Grail",
+      "label": "Грааль",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Grail",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Underground",
+      "label": "Подземелье",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Underground",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Underground_estates",
+      "label": "Подземные владения",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Underground_estates",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Barracks",
+      "label": "Бараки",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Barracks",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Tomb",
+      "label": "Гробница",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Tomb",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Sarcophagus",
+      "label": "Саркофаг",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Sarcophagus",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Acropolis",
+      "label": "Акрополь",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Acropolis",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Ruin",
+      "label": "Руины",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Ruin",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Stonehenge",
+      "label": "Стоунхендж",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Stonehenge",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Ancients",
+      "label": "Защита древних",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Ancients",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Title",
+      "label": "Звания",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Title",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Rating",
+      "label": "Рейтинги",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Rating",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Fraction",
+      "label": "Фракции",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Fraction",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Joint_attack",
+      "label": "Совместная атака",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Joint_attack",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Assist",
+      "label": "Подмога",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Assist",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Combat",
+      "label": "БОЙ",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Combat",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Calculator",
+      "label": "Калькулятор боя",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Calculator",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "HeroMis",
+      "label": "Миссии с героем",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=HeroMis",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Camp",
+      "label": "Основание лагеря",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Camp",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "NonAttack",
+      "label": "Небоевые миссии",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=NonAttack",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Espionage",
+      "label": "Шпионаж",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Espionage",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Exploration",
+      "label": "Исследование",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Exploration",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Colonization",
+      "label": "Основание города",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Colonization",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Watch",
+      "label": "Наблюдение",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Watch",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "MoveResources",
+      "label": "Перевозка ресурсов",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=MoveResources",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "MoveArmy",
+      "label": "Перемещение войск",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=MoveArmy",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "HeroClasses",
+      "label": "Классы героев",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=HeroClasses",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Skills",
+      "label": "Навыки",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Skills",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Spells",
+      "label": "Заклинания",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Spells",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "SpellName",
+      "label": "Описание заклинаний",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=SpellName",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Casts",
+      "label": "Наложенные заклинания",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Casts",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Cooldown",
+      "label": "Подготовка заклинания",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Cooldown",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Artefacts",
+      "label": "Артефакты",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Artefacts",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Scrolls",
+      "label": "Свитки",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Scrolls",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "ManaBottles",
+      "label": "Бутылки маны и опыта",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=ManaBottles",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "UPSET",
+      "label": "Ошеломление",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=UPSET",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Alliance",
+      "label": "Союзы",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Alliance",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Deputy",
+      "label": "Заместитель",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Deputy",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Monarch",
+      "label": "Монархические",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Monarch",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Democrat",
+      "label": "Демократические",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Democrat",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Clan_castle",
+      "label": "Клановые замки",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Clan_castle",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Catapult",
+      "label": "Катапульта",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Catapult",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Mentor",
+      "label": "Наставничество",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mentor",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Tournament",
+      "label": "Турниры",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Tournament",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Utopia",
+      "label": "Утопия артефактов",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Utopia",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Brotherhood",
+      "label": "Братство меча",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Brotherhood",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "PMS",
+      "label": "Случайные события",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=PMS",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Quests",
+      "label": "Квесты",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Quests",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Mes",
+      "label": "Сообщения",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mes",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Serv",
+      "label": "Отличия серверов",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Serv",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv",
+        "Serv",
+        "Serv"
+      ]
+    },
+    {
+      "page": "FAQ",
+      "label": "FAQ",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=FAQ",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Mistakes",
+      "label": "Ошибки при оплате",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mistakes",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "Referal",
+      "label": "Реферальная система",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Referal",
+      "discovered_on": [
+        "MyLands",
+        "Buildings",
+        "Serv"
+      ]
+    },
+    {
+      "page": "City_hall",
+      "label": "Центральное здание",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=City_hall",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Alchemist",
+      "label": "Лаборатория алхимиков",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Alchemist",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Samwill",
+      "label": "Хижина дровосека",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Samwill",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Mine_stone",
+      "label": "Каменоломня",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mine_stone",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Shop",
+      "label": "Торговая лавка",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Shop",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Windmill",
+      "label": "Мельница",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Windmill",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Mine_iron",
+      "label": "Рудник",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mine_iron",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Mine_gold",
+      "label": "Прииск",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mine_gold",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Recovery",
+      "label": "Чаша изобилия",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Recovery",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Houses",
+      "label": "Жилища",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Houses",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Warehouse",
+      "label": "Склады",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Warehouse",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Terraformer",
+      "label": "Терраформер",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Terraformer",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Diplomat",
+      "label": "Дипломатический корпус",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Diplomat",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Resurrector",
+      "label": "Воскреситель",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Resurrector",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Temple",
+      "label": "Храм",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Temple",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Clan_warehouse",
+      "label": "Склад клана",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Clan_warehouse",
+      "discovered_on": [
+        "Buildings",
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Artefact_store",
+      "label": "Сокровищница",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Artefact_store",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Tavern",
+      "label": "Таверна",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Tavern",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Prison",
+      "label": "Темница",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Prison",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Scavenger_build",
+      "label": "Дом вассалов",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Scavenger_build",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Melee_build",
+      "label": "Казарма",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Melee_build",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Cavalry_build",
+      "label": "Конюшня",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Cavalry_build",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Flyer_build",
+      "label": "Бастион пегасов",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Flyer_build",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Range_build",
+      "label": "Стрельбище",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Range_build",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Healer_build",
+      "label": "Монастырь",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Healer_build",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Miner_build",
+      "label": "Орден наемников",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Miner_build",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Mage_build",
+      "label": "Школа магии",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mage_build",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Merch_guild",
+      "label": "Гильдия купцов",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Merch_guild",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Spy_guild",
+      "label": "Гильдия шпионов",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Spy_guild",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Antispy_guild",
+      "label": "Гильдия антишпионов",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Antispy_guild",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Exped",
+      "label": "Экспедиционный корпус",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Exped",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Colony",
+      "label": "Центр колонизации",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Colony",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Watch_tower",
+      "label": "Башня провидцев",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Watch_tower",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Antiwatch_tower",
+      "label": "Башня зеркал",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Antiwatch_tower",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Fortification",
+      "label": "Укрепление",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Fortification",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Magic_Tower",
+      "label": "Башня",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Magic_Tower",
+      "discovered_on": [
+        "Buildings",
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Attack_Destroy",
+      "label": "Боевые миссии",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Attack_Destroy",
+      "discovered_on": [
+        "Buildings"
+      ]
+    },
+    {
+      "page": "Apocalypse",
+      "label": "Подробнее про Апокалипсис",
+      "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Apocalypse",
+      "discovered_on": [
+        "Serv"
+      ]
+    }
+  ]
+}

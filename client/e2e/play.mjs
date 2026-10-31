@@ -45,11 +45,13 @@ const lumber = await page.locator(".bcard", { hasText: "Lumberyard" }).innerText
 if (!/Level 2/.test(lumber)) fail("after reload lumberyard should be level 2, got: " + lumber);
 log("after reload: lumberyard level 2 persisted");
 
-for (const [name, file] of [["Economy", "04-economy"], ["Research", "05-research"], ["Army", "06-army"], ["Map", "07-map"], ["Quests", "08-quests"], ["Market", "09-market"], ["Alliance", "10-alliance"], ["Heroes", "11-heroes"], ["Mail", "12-mail"], ["Profile", "13-profile"]]) {
+for (const [name, file] of [["Economy", "04-economy"], ["Research", "05-research"], ["Army", "06-army"], ["Map", "07-map"], ["Quests", "08-quests"], ["Market", "09-market"], ["Alliance", "10-alliance"], ["Heroes", "11-heroes"], ["Mail", "12-mail"], ["Profile", "13-profile"], ["Missions", "17-missions"], ["Reports", "18-reports"]]) {
   await page.locator("nav.sidenav").getByRole("button", { name }).click();
   await page.locator("main.content h1").first().waitFor();
   await page.waitForLoadState("networkidle");
-  await page.screenshot({ path: `${out}/${file}.png` });
+  await page.screenshot({ path: `${out}/${file}.png`, fullPage: true });
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  if (overflow > 2) fail(`${name} horizontal overflow on desktop: ${overflow}px`);
 }
 // claim the first tutorial quest through the UI
 await page.locator("nav.sidenav").getByRole("button", { name: "Quests" }).click();
@@ -82,6 +84,12 @@ await mp.waitForLoadState("networkidle");
 await mp.screenshot({ path: `${out}/15-mobile-city.png` });
 await mp.locator("nav.bottomnav").getByRole("button", { name: "More" }).click();
 await mp.screenshot({ path: `${out}/16-mobile-more.png` });
+await mp.locator(".sheet-body").getByRole("button", { name: "Army" }).click().catch(async () => {
+  await mp.locator("nav.bottomnav").getByRole("button", { name: "More" }).click();
+  await mp.locator(".sheet-body").getByRole("button", { name: "Research" }).click();
+});
+await mp.locator("main.content h1").first().waitFor();
+await mp.screenshot({ path: `${out}/19-mobile-secondary-screen.png`, fullPage: true });
 const overflow = await mp.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
 if (overflow > 1) fail("horizontal overflow on mobile: " + overflow + "px");
 log("mobile layout has no horizontal overflow");

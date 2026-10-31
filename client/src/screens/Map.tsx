@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { command, get } from "../api/client";
 import type { HeroesView, MapTile } from "../api/types";
 import { useGame } from "../game/context";
+import { mapPointerToTile, mapDragOffset } from "../game/map-coordinates";
 import { Action, ErrorBox, Icon, Modal, Res, fmt, duration } from "../ui/kit";
 
 const VIEW = 15;
@@ -147,12 +148,8 @@ export function MapScreen() {
 
   const tileAt = (clientX: number, clientY: number) => {
     const r = canvas.current!.getBoundingClientRect();
-    // Use the rendered canvas bounds, not the backing bitmap cell size.
-    // CSS scales the entire map to the available world-viewport width.
-    const renderedCellX = r.width / VIEW, renderedCellY = r.height / VIEW;
-    const x = origin.x + Math.floor((clientX - r.left) / renderedCellX);
-    const y = origin.y + Math.floor((clientY - r.top) / renderedCellY);
-    return tiles.find((tt) => tt.x === x && tt.y === y) ?? null;
+    const tile = mapPointerToTile(clientX, clientY, r, origin, VIEW);
+    return tiles.find((tt) => tt.x === tile.x && tt.y === tile.y) ?? null;
   };
   const onDown = (e: React.PointerEvent) => {
     drag.current = { x: e.clientX, y: e.clientY, cx: center.x, cy: center.y, moved: false };
@@ -162,8 +159,7 @@ export function MapScreen() {
     const d = drag.current;
     if (!d) return;
     const bounds = canvas.current!.getBoundingClientRect();
-    const dx = Math.round((d.x - e.clientX) / (bounds.width / VIEW));
-    const dy = Math.round((d.y - e.clientY) / (bounds.height / VIEW));
+    const { x: dx, y: dy } = mapDragOffset(d.x - e.clientX, d.y - e.clientY, bounds.width, bounds.height, VIEW);
     if (dx || dy) {
       d.moved = true;
       setCenter({ x: clamp(d.cx + dx, 0, W - 1), y: clamp(d.cy + dy, 0, H - 1) });

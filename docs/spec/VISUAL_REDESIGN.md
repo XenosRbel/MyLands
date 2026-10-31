@@ -230,3 +230,34 @@ The test captures the expanded construction drawer separately.
 - All game controls must work at both desktop and mobile sizes.
 
 The latest visual CI must pass before marking this correction as verified.
+
+## Wide-screen reference comparison — 2026-11-01
+
+A real CI screenshot at 1680 × 900 was reviewed.
+The former unused right-hand viewport has been eliminated.
+The city stage now spans the available browser width.
+The world scenery remains dominated by a repeated terrain texture.
+This terrain repetition remains an artistic weakness.
+
+The reference interface dedicates the world viewport to the game.
+Production queues are not required to occupy a large empty column.
+The city queue rail now opens on demand.
+The bottom HUD now displays additional unit-type slots.
+Zero-count units appear as subdued portraits, not fabricated troops.
+
+### Verified by automated layout checks
+
+- The world container reaches near the right browser edge.
+- The default city world occupies a large portion of the viewport.
+- The dock touches the bottom viewport edge.
+- The city queue starts collapsed.
+- The queue can be expanded and collapsed.
+- The bottom dock contains multiple troop portrait slots.
+- A wide 1680 × 900 screenshot is retained as a CI artifact.
+
+### Still open
+
+- Replace repeated terrain patterns with coherent environmental artwork.
+- Compare city building arrangement and scale to reference screenshots.
+- Refine decorative frame proportions at all browser sizes.
+- Validate the next visual CI after queue/HUD changes.

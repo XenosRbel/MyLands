@@ -1598,3 +1598,34 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   .topbar .resbar-item .amt {font-size:11px;}
   .topbar .resbar-item .rate {font-size:10px;}
 }
+
+/* Top-right kingdom specialization and hero: enlarged reference portrait hierarchy. */
+@media(min-width:1280px) {
+  .topbar .kingdom-shortcuts {gap:13px;flex:none;padding:0 13px;}
+  .topbar .kingdom-token:not(.hero-token) {
+    width:60px;height:60px;min-width:60px;
+    border:3px ridge #bfa06b;
+  }
+  .topbar .kingdom-token:not(.hero-token) .kingdom-specialization-sprite {
+    width:51px;height:51px;max-width:100%;
+  }
+  .topbar .kingdom-token.hero-token {
+    width:70px;height:70px;min-width:70px;
+    margin:0 -6px 0 1px;
+    border:4px ridge #c6a570;
+    box-shadow:inset 0 0 11px #100a0d,0 4px 12px #080707a8;
+  }
+  .topbar .kingdom-token.hero-token>img {
+    width:100%;height:100%;object-fit:cover;object-position:center 20%;
+    border-radius:50%;padding:1px;
+  }
+  .topbar .kingdom-token.hero-token .hero-level {
+    width:25px;height:25px;right:-6px;bottom:-4px;
+    border:2px solid #bfa06c;font-size:13px;
+  }
+}
+@media(min-width:721px) and (max-width:1279px) {
+  .topbar .kingdom-token.hero-token {width:51px;height:51px;min-width:51px;}
+  .topbar .kingdom-token:not(.hero-token) {width:47px;height:47px;min-width:47px;}
+  .topbar .kingdom-token:not(.hero-token) .kingdom-specialization-sprite {width:40px;height:40px;}
+}

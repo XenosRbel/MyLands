@@ -83,3 +83,37 @@ The game uses the existing authoritative server clock.
 The code and Game Pack were inspected through GitHub.
 The full database integration test suite has not been verified.
 Do not mark this design complete until the listed tests pass.
+
+## Reference research families
+
+Source: https://mlgame.ru/wiki-ru/Wiki.jsp?page=ScienceDescription
+
+The original game groups technologies by their function.
+The Ashen Crowns technology graph requires a similar breadth.
+
+| Reference family | Current Ashen Crowns status | Required work |
+|---|---|---|
+| Basic city permissions | Partial | Validate gates, expansion, and multiple construction slots |
+| Military units | Partial | Connect level upgrades to unit characteristics |
+| City defence | Partial | Connect fortifications and protection to technology |
+| Building unlocks | Partial | Audit every construction prerequisite |
+| Economy upgrades | Partial | Verify production and storage modifiers |
+| Hero sciences | Partial | Enforce hero limits and level caps |
+| Player-intervention technology | Missing | Add a confirmation and settlement workflow |
+| Global science production | Missing | Add shared science points across all cities |
+| Change research focus | Missing | Add preserved progress and focus switching |
+| Specialisation | Implemented for three Paths | Test switching, bonuses, and per-level presentation |
+
+Research mechanics must remain configurable through Game Packs.
+Do not hard-code the original game's technology names.
+Do not insert unverified original game costs.
+
+## Specialisation decisions
+
+The three existing Paths remain the initial implemented set.
+The game needs no hard-coded specialization ID in server rules.
+Gameplay modifiers are defined by each Path's effects.
+The interface can identify a Path by its exclusive group.
+
+Research mode changes require an explicit Game Pack version.
+Existing worlds retain their pinned rules until a migration is approved.

@@ -25,7 +25,7 @@ Reference: the approved My Lands-inspired castle-screen screenshot.
 |---|---|---|
 | 0 | Asset inventory, disallowed-art detector and policies | In progress |
 | 1 | Unique raster research icons and progression states | Implemented in code; final art acceptance pending |
-| 2 | Raster resource and top-HUD icon atlas | Not started |
+| 2 | Raster resource and top-HUD icon atlas | Implemented base; responsive and artistic review pending |
 | 3 | Raster bottom HUD, globe and command controls | Not started |
 | 4 | Painted coherent city scene, not vector landscape | Not started |
 | 5 | Level-variant building portraits and footprints | Not started |
@@ -87,3 +87,14 @@ This cannot be declared complete while legacy SVG assets remain visible.
 - The next implementation area is the top resource and kingdom HUD.
 
 A procedural WebP icon is still a prototype until its artistic quality matches the approved resource pack.
+
+## Top HUD — implementation pass
+
+- Retained the approved resource strip, clock, selected kingdom specialisation and hero position.
+- Enlarged the seven existing painted resource icons from the Game Pack.
+- Reused actual research WebP artwork for the selected kingdom specialisation.
+- Expanded hero portrait and level badge proportions on large desktop screens.
+- Preserved real resource balances, production rates and storage warnings from server state.
+- Browser QA waits for all resource images to load and rejects missing or vector icons.
+- Pending: compare screenshots at 1360x860 and 1680x900 and correct text collisions.
+- Pending: painted emblem/frame quality still needs explicit reference approval.

@@ -1,7 +1,7 @@
 {
  "formatVersion": 1,
  "id": "ashen-crowns",
- "version": "1.1.0",
+ "version": "1.2.0",
  "meta": {
   "title": {
    "en": "Ashen Crowns",
@@ -41,15 +41,74 @@
    "body": "Inter"
   },
   "icons": {
-   "timber": "glyph:log",
-   "grain": "glyph:wheat",
-   "stone": "glyph:stone",
-   "iron": "glyph:ingot",
-   "gold": "glyph:coin",
-   "lore": "glyph:scroll",
-   "starglass": "glyph:crystal"
+   "timber": "resources/timber.webp",
+   "grain": "resources/grain.webp",
+   "stone": "resources/stone.webp",
+   "iron": "resources/iron.webp",
+   "gold": "resources/gold.webp",
+   "lore": "resources/lore.webp",
+   "starglass": "resources/starglass.webp",
+   "ember_sword": "items/ember_sword.webp",
+   "horned_helm": "items/horned_helm.webp",
+   "iron_blade": "items/iron_blade.webp",
+   "leather_jerkin": "items/leather_jerkin.webp",
+   "lucky_coin": "items/lucky_coin.webp",
+   "sage_tome": "items/sage_tome.webp",
+   "scout_hood": "items/scout_hood.webp",
+   "skyfall_lance": "items/skyfall_lance.webp",
+   "starglass_mail": "items/starglass_mail.webp",
+   "warden_plate": "items/warden_plate.webp",
+   "wind_charm": "items/wind_charm.webp"
   },
-  "assetsLicense": "Glyph icons are drawn in code (SVG) by the project; no third-party art. Fonts loaded from Google Fonts under the SIL Open Font License."
+  "assetsLicense": "Raster art (resources, items, buildings, units, heroes, terrain) generated for this project with OpenAI image generation (ChatGPT) on 2026-10-31 by the project owner from docs/art/ART_PROMPTS.md; original designs, no third-party game assets; provenance recorded in docs/art/ASSET_PROVENANCE.md (not a legal opinion — confirm tool terms before commercial release). Fallback glyph icons drawn in code (SVG) by the project. Fonts from Google Fonts under the SIL Open Font License.",
+  "art": {
+   "academy": "buildings/academy.webp",
+   "aerie": "buildings/aerie.webp",
+   "barracks": "buildings/barracks.webp",
+   "cottages": "buildings/cottages.webp",
+   "farmstead": "buildings/farmstead.webp",
+   "ironworks": "buildings/ironworks.webp",
+   "keep": "buildings/keep.webp",
+   "lumberyard": "buildings/lumberyard.webp",
+   "market": "buildings/market.webp",
+   "mint": "buildings/mint.webp",
+   "quarry": "buildings/quarry.webp",
+   "range": "buildings/range.webp",
+   "sanctum": "buildings/sanctum.webp",
+   "scriptorium": "buildings/scriptorium.webp",
+   "stables": "buildings/stables.webp",
+   "tradepost": "buildings/tradepost.webp",
+   "vault": "buildings/vault.webp",
+   "walls": "buildings/walls.webp",
+   "warehouse": "buildings/warehouse.webp",
+   "warhall": "buildings/warhall.webp",
+   "watchtower": "buildings/watchtower.webp",
+   "workshop": "buildings/workshop.webp",
+   "bannerguard": "units/bannerguard.webp",
+   "battlemage": "units/battlemage.webp",
+   "bonelord": "units/bonelord.webp",
+   "bowman": "units/bowman.webp",
+   "cinderhound": "units/cinderhound.webp",
+   "crossbow": "units/crossbow.webp",
+   "knight": "units/knight.webp",
+   "militia": "units/militia.webp",
+   "outrider": "units/outrider.webp",
+   "pikeman": "units/pikeman.webp",
+   "scout": "units/scout.webp",
+   "thornweaver": "units/thornweaver.webp",
+   "marshal": "heroes/marshal.webp",
+   "pathfinder": "heroes/pathfinder.webp",
+   "sage": "heroes/sage.webp",
+   "warden": "heroes/warden.webp",
+   "ashland": "terrain/ashland.webp",
+   "forest": "terrain/forest.webp",
+   "hills": "terrain/hills.webp",
+   "ironridge": "terrain/ironridge.webp",
+   "lake": "terrain/lake.webp",
+   "marsh": "terrain/marsh.webp",
+   "mountains": "terrain/mountains.webp",
+   "plains": "terrain/plains.webp"
+  }
  },
  "params": {
   "worldSpeed": 1,
@@ -4286,6 +4345,9 @@
  "migrations": [
   {
    "fromVersion": "1.0.0"
+  },
+  {
+   "fromVersion": "1.1.0"
   }
  ],
  "ui": {

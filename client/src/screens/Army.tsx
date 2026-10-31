@@ -23,8 +23,11 @@ export function ArmyScreen() {
             return (
               <article key={uv.id} className="ucard">
                 <header>
-                  <strong>{idx.name(uv.id)}</strong>
-                  <span className="muted small">{u.class}</span>
+                  {idx.art(uv.id) && <img className="portrait" src={idx.art(uv.id)} alt="" loading="lazy" draggable={false} />}
+                  <div className="grow">
+                    <strong>{idx.name(uv.id)}</strong>
+                    <div className="muted small">{u.class}</div>
+                  </div>
                 </header>
                 <p className="small muted">{idx.desc(uv.id)}</p>
                 <div className="stats small" aria-label="Stats">

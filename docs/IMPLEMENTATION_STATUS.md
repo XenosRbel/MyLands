@@ -33,6 +33,7 @@ Last updated: 2026-10-31. Legend: ✅ implemented & tested · 🟡 partial · �
 | API: auth, idempotency, rate limit, CORS, strict JSON, OpenAPI coverage | ✅ | api/ | TestIdempotentCommands, TestCORS, TestHealthAndAuthRequired, TestCrossAccountAccessDenied, TestOpenAPICoversAllRoutes |
 | Game Pack engine: format, validator, CLI, 2 packs | ✅ | pack/, packs/ | pack_test.go (22 negative cases + shipped packs) |
 | Web client: all 14 screens, responsive, i18n EN/RU, server-time timers, idempotent commands | ✅ | client/ | vitest (7), browser E2E e2e/play.mjs |
+| Pack art: isometric city scene, building sprites, unit/hero portraits, item & resource icons, textured map (Resource Pack v0.1) | ✅ (UI frames, neutral sites, 10 unit portraits missing) | client/src/screens/City.tsx, Map.tsx; packs/ashen-crowns/assets; scripts/import_art.py | TestShippedPacks (asset files exist), browser E2E |
 | Yandex HTML5 build + adapter | 🟡 build/zip ✅; SDK identity/moderation ⛔ | client/scripts/yandex-zip.mjs | manual |
 | Android (Capacitor) | 🟡 config ✅; native project/AAB ⛔ (no SDK) | client/capacitor.config.ts | — |
 | Backup/restore | ✅ (logical) | scripts/*.sh | verify-backup executed |

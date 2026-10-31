@@ -15,6 +15,7 @@ Atomic task cards (ID, goal, dependencies, modules, acceptance criteria, require
 - [T-011](T-011.md) — HTTP API: idempotency, auth, limits, CORS, OpenAPI — **Done**
 - [T-012](T-012.md) — Original pack Ashen Crowns + demo Void Frontier — **Done**
 - [T-013](T-013.md) — Web client: 14 screens, responsive, EN/RU — **Done**
+- [T-015](T-015.md) — Integrate Resource Pack v0.1 art — **Done**
 - [T-014](T-014.md) — Platform packaging — **Partial**
 - [T-020](T-020.md) — Live re-verification of research and platform rules — **Open**
 - [T-021](T-021.md) — Load test harness — **Open**

@@ -38,6 +38,57 @@ export function QueuePanel({ jobs, title }: { jobs: Job[]; title: string }) {
   );
 }
 
+// Isometric slots around the centre: Chebyshev rings of a 5×5 grid (24 + centre).
+const SLOTS: [number, number][] = (() => {
+  const out: [number, number][] = [];
+  for (let r = 1; r <= 2; r++)
+    for (let i = -r; i <= r; i++)
+      for (let j = -r; j <= r; j++) if (Math.max(Math.abs(i), Math.abs(j)) === r) out.push([i, j]);
+  // front slots first so the most-used buildings sit nearest the viewer
+  return out.sort((a, b) => b[0] + b[1] - (a[0] + a[1]) || a[0] - b[0]);
+})();
+
+/** Isometric city scene: the keep in the centre, every building type on its plot. */
+export function CityScene({ onOpen }: { onOpen: (b: BuildingView) => void }) {
+  const { city, idx, t, refresh } = useGame();
+  if (!city) return null;
+  const layout = idx.pack.ui.cityLayout;
+  const core = city.buildings.find((b) => idx.building(b.id)?.category === "core");
+  const rest = city.buildings.filter((b) => b !== core);
+  const place = (b: BuildingView, slot: [number, number] | null): { x: number; y: number } => {
+    if (layout?.[b.id]) return { x: layout[b.id][0], y: layout[b.id][1] };
+    const [i, j] = slot ?? [0, 0];
+    return { x: 50 + (i - j) * 10.5, y: 50 + (i + j) * 7.4 };
+  };
+  const items = [
+    ...(core ? [{ b: core, pos: place(core, null), main: true }] : []),
+    ...rest.map((b, k) => ({ b, pos: place(b, SLOTS[k % SLOTS.length]), main: false })),
+  ].sort((a, b) => a.pos.y - b.pos.y);
+  const busy = new Map(city.queues.build.map((j) => [j.item, j]));
+  const walls = Object.entries(city.city.buildings).some(([id, l]) => l > 0 && (idx.building(id)?.effects ?? []).some((e) => e.modifier?.target === "wall"));
+  const ground = idx.art(idx.pack.terrains.find((x) => x.passable)?.id ?? "");
+  return (
+    <section className={"city-scene" + (walls ? " walled" : "")} aria-label={city.city.name}>
+      <div className="ground" style={ground ? { backgroundImage: `url(${ground})` } : undefined} />
+      {items.map(({ b, pos, main }) => {
+        const art = idx.art(b.id);
+        const job = busy.get(b.id);
+        const built = b.level > 0;
+        const scale = main ? 1.25 : 0.82 + Math.min(b.level, 20) * 0.012;
+        return (
+          <button key={b.id} className={"plot" + (built ? " built" : " empty") + (b.next && !b.next.blocked ? " can" : "")}
+            style={{ left: pos.x + "%", top: pos.y + "%", "--s": scale } as React.CSSProperties}
+            onClick={() => onOpen(b)} title={`${idx.name(b.id)} — ${built ? t("level") + " " + b.level : t("build")}`}>
+            {built && art ? <img src={art} alt={idx.name(b.id)} draggable={false} /> : <span className="plot-mark">{built ? idx.name(b.id) : "+"}</span>}
+            <span className="plot-label">{idx.name(b.id)}{built ? <b>{b.level}</b> : null}</span>
+            {job && <span className="plot-busy"><Timer until={job.finishesAt} onDone={refresh} /></span>}
+          </button>
+        );
+      })}
+    </section>
+  );
+}
+
 export function CityScreen() {
   const { city, idx, t } = useGame();
   const [open, setOpen] = useState<BuildingView | null>(null);
@@ -46,6 +97,7 @@ export function CityScreen() {
   return (
     <div className="screen">
       <h1>{city.city.name} <span className="muted small">({city.city.x}:{city.city.y})</span></h1>
+      <CityScene onOpen={setOpen} />
       <div className="grid-2">
         <div>
           {cats.map((cat) => {
@@ -57,6 +109,7 @@ export function CityScreen() {
                 <div className="cards">
                   {list.map((b) => (
                     <button key={b.id} className={"bcard" + (b.level === 0 ? " unbuilt" : "") + (b.next?.blocked ? "" : " ready")} onClick={() => setOpen(b)}>
+                      {idx.art(b.id) && <img className="bart" src={idx.art(b.id)} alt="" loading="lazy" draggable={false} />}
                       <div className="bname">{idx.name(b.id)}</div>
                       <div className="blevel">{b.level === 0 ? "—" : `${t("level")} ${b.level}`}{b.targetLevel > b.level ? ` → ${b.targetLevel}` : ""}</div>
                       {b.next && <div className="bstate">{b.next.blocked ? <span className={"tag " + b.next.blocked}>{blockedLabel(b.next.blocked, t)}</span> : <span className="tag ok">{b.level === 0 ? t("build") : t("upgrade")}</span>}</div>}
@@ -87,6 +140,7 @@ function BuildingModal({ b, onClose }: { b: BuildingView; onClose: () => void })
   const def = idx.building(b.id)!;
   return (
     <Modal title={idx.name(b.id)} onClose={onClose}>
+      {idx.art(b.id) && <img className="modal-art" src={idx.art(b.id)} alt="" draggable={false} />}
       <p className="muted">{idx.desc(b.id)}</p>
       <p>{t("level")}: <strong>{b.level}</strong> / {b.maxLevel}</p>
       <ul className="effects">

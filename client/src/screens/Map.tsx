@@ -18,6 +18,20 @@ export function MapScreen() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const drag = useRef<{ x: number; y: number; cx: number; cy: number; moved: boolean } | null>(null);
   const [cell, setCell] = useState(36);
+  // Terrain textures from the pack (theme.art); redraw once each image loads.
+  const [texReady, setTexReady] = useState(0);
+  const textures = useMemo(() => {
+    const m = new Map<string, HTMLImageElement>();
+    for (const ter of idx.pack.terrains) {
+      const url = idx.art(ter.id);
+      if (!url) continue;
+      const img = new Image();
+      img.onload = () => setTexReady((n) => n + 1);
+      img.src = url;
+      m.set(ter.id, img);
+    }
+    return m;
+  }, [idx]);
 
   const origin = useMemo(() => ({
     x: Math.max(0, Math.min(W - VIEW, center.x - Math.floor(VIEW / 2))),
@@ -56,8 +70,12 @@ export function MapScreen() {
     for (const tile of tiles) {
       const px = (tile.x - origin.x) * cell, py = (tile.y - origin.y) * cell;
       const ter = idx.terrain(tile.terrain);
-      ctx.fillStyle = ter?.color ?? "#444";
-      ctx.fillRect(px, py, cell, cell);
+      const tex = textures.get(tile.terrain);
+      if (tex?.complete && tex.naturalWidth) ctx.drawImage(tex, px, py, cell, cell);
+      else {
+        ctx.fillStyle = ter?.color ?? "#444";
+        ctx.fillRect(px, py, cell, cell);
+      }
       ctx.strokeStyle = "rgba(0,0,0,.18)";
       ctx.strokeRect(px + 0.5, py + 0.5, cell - 1, cell - 1);
       if (tile.ownerId && !tile.cityId) {
@@ -107,7 +125,7 @@ export function MapScreen() {
         ctx.lineWidth = 1;
       }
     }
-  }, [tiles, cell, origin, sel, idx, overview?.player.id]);
+  }, [tiles, cell, origin, sel, idx, overview?.player.id, textures, texReady]);
 
   const tileAt = (clientX: number, clientY: number) => {
     const r = canvas.current!.getBoundingClientRect();

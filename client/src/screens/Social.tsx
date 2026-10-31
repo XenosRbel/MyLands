@@ -3,7 +3,7 @@ import { command, get } from "../api/client";
 import type { Alliance, HeroesView, Invite, Message, Notification, Order, RankRow } from "../api/types";
 import { useGame } from "../game/context";
 import { describeModifier } from "../game/pack";
-import { Action, CostList, Empty, ErrorBox, Loading, Modal, Progress, Res, Tabs, Timer, fmt, useLoad } from "../ui/kit";
+import { Action, CostList, Empty, ErrorBox, Icon, Loading, Modal, Progress, Res, Tabs, Timer, fmt, useLoad } from "../ui/kit";
 
 // ---------------- Heroes ----------------
 export function HeroesScreen() {
@@ -39,6 +39,7 @@ export function HeroesScreen() {
       {!d.heroes.length ? <Empty /> : d.heroes.map((h) => (
         <section className="panel hero" key={h.id}>
           <header className="row">
+            {idx.art(h.class) && <img className="portrait hero" src={idx.art(h.class)} alt="" loading="lazy" draggable={false} />}
             <strong>{h.name}</strong> <span className="tag">{idx.name(h.class)}</span> <span>{t("level")} {h.level}</span>
             <span className="muted small">{h.status === "mission" ? t("away") : t("home")}</span>
             {h.woundedUntil && Date.parse(h.woundedUntil) > Date.now() && <span className="tag danger">{t("wounded")} <Timer until={h.woundedUntil} /></span>}
@@ -65,7 +66,7 @@ export function HeroesScreen() {
                   <span className="muted small">{slot}</span>
                   {it ? (
                     <Action className="small ghost" disabled={h.status !== "idle"} run={async () => { await command(`/api/v1/worlds/${world.id}/heroes/${h.id}/unequip`, { slot }); hv.reload(); }}>
-                      {idx.name(it.def)} ✕
+                      <Icon name={idx.icon(it.def) || "star"} size={22} /> {idx.name(it.def)} ✕
                     </Action>
                   ) : (
                     <select disabled={h.status !== "idle"} value="" aria-label={slot} onChange={async (e) => {
@@ -90,7 +91,7 @@ export function HeroesScreen() {
       {free.length > 0 && (
         <section className="panel">
           <h3>{t("inventory")}</h3>
-          <ul className="list">{free.map((i) => <li key={i.id}><strong>{idx.name(i.def)}</strong> <span className="small muted">{idx.desc(i.def)}</span></li>)}</ul>
+          <ul className="list">{free.map((i) => <li key={i.id}><Icon name={idx.icon(i.def) || "star"} size={36} /> <strong>{idx.name(i.def)}</strong> <span className="small muted">{idx.desc(i.def)}</span></li>)}</ul>
         </section>
       )}
     </div>

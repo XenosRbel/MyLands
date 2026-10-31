@@ -20,7 +20,7 @@ Shipped packs:
 | `version` | semver | ✔ | bump on any change; worlds pin a version |
 | `meta` | `{title, subtitle?, description, studio?, license?}` | ✔ | localized texts |
 | `locales`, `defaultLocale` | string[] / string | ✔ | every `name` must exist for every locale |
-| `theme` | `{palette, fonts?, icons?, assetsLicense}` | ✔ | palette needs `bg surface text muted accent danger ok` (hex); icons map entity id → `glyph:<name>` or relative asset path; `assetsLicense` mandatory provenance statement |
+| `theme` | `{palette, fonts?, icons?, art?, assetsLicense}` | ✔ | palette needs `bg surface text muted accent danger ok` (hex); `icons` maps entity id → `glyph:<name>` or relative asset path (small icons: resources, items); `art` maps entity id → relative asset path of a large illustration (building sprite, unit/hero portrait, terrain texture); paths match `[a-z0-9_-/]+.(png|webp|svg|jpg)`; `assetsLicense` mandatory provenance statement |
 | `params` | object | – | balance/rule parameters; engine defaults apply (see §3) |
 | `resources`, `races`, `buildings`, `techs`, `units` | arrays | ✔ (resources, races) | see §2 |
 | `heroes` | `{classes, skills, items, slots, maxLevel, xpBase, xpGrowth, skillPointsPerLevel, xpPerScore}` | – | requires `params.heroBuilding` if classes exist |
@@ -58,7 +58,7 @@ Schema & strictness (unknown fields rejected) · ID format & global uniqueness �
 
 ## 5. Theming & assets
 
-The client applies `theme.palette` as CSS variables and loads `theme.fonts` from Google Fonts; icons use built-in original SVG glyphs (`glyph:*`) or files from `packs/<id>/assets/` served at `/packs/<id>/assets/…`. Replacing art = replacing files + icon map, no code change. Every pack must state asset provenance in `assetsLicense`.
+The client applies `theme.palette` as CSS variables and loads `theme.fonts` from Google Fonts; icons use built-in original SVG glyphs (`glyph:*`) or files from `packs/<id>/assets/` served at `/packs/<id>/assets/…` (the pack directory name must equal the pack id). `theme.art` drives the isometric city scene (building sprites placed on plots; positions from `ui.cityLayout` or an automatic ring layout), unit and hero portraits and map terrain textures. Import new art with `scripts/import_art.py <src assets> packs/<id>` (trims, resizes, converts to WebP). The shipped-packs test fails if any referenced file is missing. Replacing art = replacing files + icon map, no code change. Every pack must state asset provenance in `assetsLicense`.
 
 ## 6. Versioning & world migration
 

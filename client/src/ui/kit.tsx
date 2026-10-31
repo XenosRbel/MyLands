@@ -41,6 +41,9 @@ const glyphs: Record<string, ReactNode> = {
 };
 
 export function Icon({ name, size = 18, title }: { name: string; size?: number; title?: string }) {
+  if (name.includes("/")) {
+    return <img className="icon img" src={name} width={size} height={size} alt={title ?? ""} title={title} decoding="async" draggable={false} />;
+  }
   const g = glyphs[name.replace(/^glyph:/, "")] ?? glyphs.star;
   return (
     <svg className="icon" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7}

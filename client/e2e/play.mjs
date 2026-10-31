@@ -29,6 +29,7 @@ await page.screenshot({ path: `${out}/02-join.png` });
 await page.getByRole("button", { name: "Join" }).click();
 await page.locator(".bcard", { hasText: "Lumberyard" }).waitFor();
 log("joined world; city screen rendered");
+await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
 
 await page.locator(".bcard", { hasText: "Lumberyard" }).click();
@@ -47,7 +48,7 @@ log("after reload: lumberyard level 2 persisted");
 for (const [name, file] of [["Economy", "04-economy"], ["Research", "05-research"], ["Army", "06-army"], ["Map", "07-map"], ["Quests", "08-quests"], ["Market", "09-market"], ["Alliance", "10-alliance"], ["Heroes", "11-heroes"], ["Mail", "12-mail"], ["Profile", "13-profile"]]) {
   await page.locator("nav.sidenav").getByRole("button", { name }).click();
   await page.locator("main.content h1").first().waitFor();
-  await page.waitForTimeout(400);
+  await page.waitForLoadState("networkidle");
   await page.screenshot({ path: `${out}/${file}.png` });
 }
 // claim the first tutorial quest through the UI
@@ -77,6 +78,7 @@ await mp.locator("main.content h1").first().waitFor(); // restores the last scre
 await mp.screenshot({ path: `${out}/15a-mobile-map.png` });
 await mp.locator("nav.bottomnav").getByRole("button", { name: "City" }).click();
 await mp.locator(".bcard").first().waitFor();
+await mp.waitForLoadState("networkidle");
 await mp.screenshot({ path: `${out}/15-mobile-city.png` });
 await mp.locator("nav.bottomnav").getByRole("button", { name: "More" }).click();
 await mp.screenshot({ path: `${out}/16-mobile-more.png` });

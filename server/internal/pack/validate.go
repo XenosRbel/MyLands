@@ -15,11 +15,12 @@ func (e Errors) Error() string {
 }
 
 var (
-	reEntityID = regexp.MustCompile(`^[a-z][a-z0-9_]{0,47}$`)
-	rePackID   = regexp.MustCompile(`^[a-z0-9][a-z0-9-]{1,47}$`)
-	reVersion  = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
-	reLocale   = regexp.MustCompile(`^[a-z]{2}(-[A-Z]{2})?$`)
-	reColor    = regexp.MustCompile(`^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$`)
+	reEntityID  = regexp.MustCompile(`^[a-z][a-z0-9_]{0,47}$`)
+	rePackID    = regexp.MustCompile(`^[a-z0-9][a-z0-9-]{1,47}$`)
+	reVersion   = regexp.MustCompile(`^\d+\.\d+\.\d+$`)
+	reLocale    = regexp.MustCompile(`^[a-z]{2}(-[A-Z]{2})?$`)
+	reColor     = regexp.MustCompile(`^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$`)
+	reAssetPath = regexp.MustCompile(`^[a-z0-9_-]+(/[a-z0-9_-]+)*\.(png|webp|svg|jpg)$`)
 )
 
 var (
@@ -733,12 +734,17 @@ func (v *validator) theme() {
 			v.errf("theme.palette.%s=%q invalid colour", k, c)
 		}
 	}
-	for id, path := range t.Icons {
-		if _, ok := v.ids[id]; !ok && id != "app" {
-			v.errf("theme.icons: unknown entity %q", id)
-		}
-		if strings.Contains(path, "..") || strings.HasPrefix(path, "/") || strings.Contains(path, "://") {
-			v.errf("theme.icons.%s: path %q must be relative to the pack assets dir", id, path)
+	for field, m := range map[string]map[string]string{"icons": t.Icons, "art": t.Art} {
+		for id, path := range m {
+			if _, ok := v.ids[id]; !ok && id != "app" {
+				v.errf("theme.%s: unknown entity %q", field, id)
+			}
+			if !strings.HasPrefix(path, "glyph:") && !reAssetPath.MatchString(path) {
+				v.errf("theme.%s.%s: path %q must be a relative asset path (a-z0-9_-/ . png|webp|svg|jpg) or glyph:<name>", field, id, path)
+			}
+			if strings.Contains(path, "..") || strings.HasPrefix(path, "/") || strings.Contains(path, "://") {
+				v.errf("theme.%s.%s: path %q must be relative to the pack assets dir", field, id, path)
+			}
 		}
 	}
 	if strings.TrimSpace(t.AssetsLicense) == "" {

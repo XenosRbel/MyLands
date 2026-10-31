@@ -2,6 +2,7 @@
 // and icons from the pack, so a different pack yields a different game with
 // no client code changes.
 import type { Amounts, Loc, Requirement } from "../api/types";
+import { api } from "../api/client";
 
 export interface Modifier {
   target: string;
@@ -77,7 +78,7 @@ export interface Pack {
   meta: { title: Loc; subtitle?: Loc; description: Loc };
   locales: string[];
   defaultLocale: string;
-  theme: { palette: Record<string, string>; fonts?: Record<string, string>; icons?: Record<string, string> };
+  theme: { palette: Record<string, string>; fonts?: Record<string, string>; icons?: Record<string, string>; art?: Record<string, string> };
   params: Record<string, any>;
   resources: PackResource[];
   races: PackRace[];
@@ -94,7 +95,7 @@ export interface Pack {
   terrains: (Named & { color: string; passable: boolean; resource?: string })[];
   neutrals: PackNeutral[];
   quests: PackQuest[];
-  ui: { screens: string[] };
+  ui: { screens: string[]; cityLayout?: Record<string, [number, number]> };
   strings?: Record<string, Loc>;
 }
 
@@ -152,8 +153,19 @@ export class PackIndex {
   neutral(id: string) {
     return this.pack.neutrals.find((n) => n.id === id);
   }
+  /** URL of a file in the pack's assets directory (served by the game server). */
+  assetUrl(rel: string): string {
+    return `${api.base}/packs/${this.pack.id}/assets/${rel}`;
+  }
+  /** Small icon: a resolved image URL, a "glyph:<name>" for built-in SVG, or "". */
   icon(id: string): string {
-    return this.pack.theme.icons?.[id] ?? "";
+    const v = this.pack.theme.icons?.[id] ?? "";
+    return v && !v.startsWith("glyph:") ? this.assetUrl(v) : v;
+  }
+  /** Large illustration URL (building sprite, portrait, terrain texture) or "". */
+  art(id: string): string {
+    const v = this.pack.theme.art?.[id];
+    return v ? this.assetUrl(v) : "";
   }
   string(key: string): string {
     return this.text(this.pack.strings?.[key]);

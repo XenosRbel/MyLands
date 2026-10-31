@@ -95,6 +95,8 @@ func TestValidationErrors(t *testing.T) {
 		{"missing locale", func(p *Pack) { p.Locales = []string{"en", "ru"} }, `missing text for locale "ru"`},
 		{"palette", func(p *Pack) { p.Theme.Palette["bg"] = "red" }, "invalid colour"},
 		{"icon path traversal", func(p *Pack) { p.Theme.Icons = map[string]string{"wood": "../../etc/passwd"} }, "relative"},
+		{"art unknown entity", func(p *Pack) { p.Theme.Art = map[string]string{"dragon": "units/dragon.webp"} }, `theme.art: unknown entity "dragon"`},
+		{"art bad path", func(p *Pack) { p.Theme.Art = map[string]string{"spear": "units/Spear Man.exe"} }, "relative asset path"},
 		{"food resource", func(p *Pack) { p.Params.FoodResource = "bread" }, "foodResource"},
 		{"tick alignment", func(p *Pack) { p.Params.EconomyTickSeconds = 700 }, "divide 86400"},
 		{"screen", func(p *Pack) { p.UI.Screens = append(p.UI.Screens, "casino") }, "unknown screen"},
@@ -117,8 +119,20 @@ func TestShippedPacks(t *testing.T) {
 	dirs, _ := filepath.Glob("../../../packs/*/pack.json")
 	for _, d := range dirs {
 		t.Run(filepath.Base(filepath.Dir(d)), func(t *testing.T) {
-			if _, err := LoadFile(d); err != nil {
+			l, err := LoadFile(d)
+			if err != nil {
 				t.Fatal(err)
+			}
+			// every referenced asset file must exist next to the pack
+			for _, m := range []map[string]string{l.Theme.Icons, l.Theme.Art} {
+				for id, rel := range m {
+					if strings.HasPrefix(rel, "glyph:") {
+						continue
+					}
+					if _, err := os.Stat(filepath.Join(filepath.Dir(d), "assets", rel)); err != nil {
+						t.Errorf("asset for %s missing: %s", id, rel)
+					}
+				}
 			}
 		})
 	}

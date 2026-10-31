@@ -68,6 +68,10 @@ type Theme struct {
 	// Icons maps entity IDs to asset paths relative to the pack's assets dir,
 	// or to a built-in glyph name prefixed with "glyph:".
 	Icons map[string]string `json:"icons,omitempty"`
+	// Art maps entity IDs to large illustrations (building sprites, unit and
+	// hero portraits, terrain textures, neutral sites), relative to the pack
+	// assets dir. Optional; the client falls back to icons/glyphs.
+	Art map[string]string `json:"art,omitempty"`
 	// AssetsLicense documents the provenance of all bundled art.
 	AssetsLicense string `json:"assetsLicense"`
 }

@@ -1,5 +1,7 @@
 # Claude Code project instructions
 
+@../.agents/HARNESS.md
+
 Read `AGENT.md` before editing any file.
 Read `docs/STYLE_AND_WRITING.md` before writing documentation.
 Load the relevant skill from `.claude/skills/` before editing a subsystem.

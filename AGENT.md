@@ -2,6 +2,9 @@
 
 `AGENTS.md` is a symlink to this file.
 
+Shared Codex and Claude Code workflow: read `.agents/HARNESS.md`.
+Setup, hook trust and limitations: `docs/AGENT_HARNESS.md`.
+
 ## Before you start
 1. Read `PROJECT_CONTEXT.md`, `docs/IMPLEMENTATION_STATUS.md`, `docs/KNOWN_LIMITATIONS.md`, and the relevant spec in `docs/spec/`.
 2. Pick or create a task card in `tasks/` (ID, goal, dependencies, modules, acceptance criteria, required tests).

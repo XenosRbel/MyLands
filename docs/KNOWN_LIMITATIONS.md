@@ -12,6 +12,10 @@
 - Escrowed market orders are not lootable and are refunded fully on cancel (can shelter stock from raids). Transports may target any player's city (gifting; multi-account farming risk, SECURITY S-12). `params.territoryBonusPct` is unused.
 
 ## Engineering
+- Agent harness: live client sessions and Codex hook trust require separate validation. Direct JSON-event tests do not prove client activation.
+- Principal Architect: native role invocation and GitHub profile discovery remain unverified. The 1000-CCU capacity review contains proposals, not new load-test evidence (T-033).
+- Agent harness: shell guards recognize common commands; arbitrary programs and unsupported tools can bypass them. See `docs/AGENT_HARNESS.md`.
+- Baseline `make lint` currently fails on existing Go formatting in `economy.go`, `game_test.go`, and `specialization_test.go` under `server/internal/game/` (T-032).
 - Docker image and compose file were written but **not executed** (no Docker daemon in the authoring environment); local runs used native PostgreSQL 16 (`scripts/dev-postgres.sh`).
 - Android project not generated and no APK/AAB built (no Android SDK in the environment). Capacitor config and scripts exist.
 - Yandex/Google platform identity verification not implemented (`/auth/platform` returns 501 except the `dev` platform, which is disabled in production).

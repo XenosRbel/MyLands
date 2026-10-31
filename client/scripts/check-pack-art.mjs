@@ -33,6 +33,7 @@ for (const name of ["ashen-crowns"]) {
       if (existsSync(location)) {
         const xml = readFileSync(location, "utf8");
         if (!xml.includes('viewBox="0 0 320 320"') || !xml.includes('filter="url(#') ||
+            !xml.includes('in2="SourceAlpha" operator="in"') ||
             xml.includes('<rect width="320" height="320"') || xml.length < 1200) {
           console.error(`Flat placeholder art detected: ${name}/${id}`);
           failures++;

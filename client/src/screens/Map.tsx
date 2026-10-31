@@ -108,9 +108,7 @@ export function MapScreen() {
         if (siteArt?.complete && siteArt.naturalWidth) {
           const inset = cell * 0.04;
           ctx.drawImage(siteArt, px + inset, py + inset, cell - 2 * inset, cell - 2 * inset);
-          ctx.globalAlpha = 1;
-          continue;
-        }
+        } else {
         ctx.fillStyle = "#1b1410";
         ctx.beginPath();
         ctx.arc(px + cell / 2, py + cell / 2, cell * 0.3, 0, Math.PI * 2);
@@ -120,6 +118,7 @@ export function MapScreen() {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(String(tile.neutralLevel ?? ""), px + cell / 2, py + cell / 2 + 1);
+        }
         ctx.globalAlpha = 1;
       } else if (ter && !ter.passable) {
         ctx.fillStyle = "rgba(0,0,0,.25)";

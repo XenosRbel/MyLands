@@ -179,3 +179,27 @@ Do not mark the project complete while any P0 task remains open.
 
 Source screenshots: docs/research/VISUAL_REFERENCES.md
 Detailed acceptance: docs/spec/VISUAL_REDESIGN.md
+
+## Visual integration — updated 2026-11-01
+
+- [x] Add an original scalable castle environmental backdrop with cliffs, water and fortification walls.
+- [x] Replace the endlessly repeating city terrain texture with this backdrop.
+- [x] Keep real buildings as clickable objects over the backdrop.
+- [x] Display only constructed buildings and active construction sites in the world.
+- [x] Move every building's scene coordinates into the Ashen Crowns Game Pack.
+- [x] Add illustrated queue rows with job art, progress, countdown and cancel control.
+- [x] Add a clock to the top HUD, labeled as local time.
+- [x] Show the active hero's real level in the portrait badge.
+- [x] Restore the prominent illustrated world globe in the lower HUD.
+- [x] Restore the classic lower action order for city, army, alliance, market, reports and player.
+- [x] Extend browser smoke tests to load the city backdrop, globe and active queue.
+- [ ] Review the latest CI screenshots at desktop and mobile widths.
+- [ ] Replace the vector environment with art matching the existing painted WebP pack.
+- [ ] Draw distinct building sprites for major level milestones.
+- [ ] Produce final technology icon art for every level and branch.
+- [ ] Complete hand-painted visual parity for the remaining SVG units.
+- [ ] Approve every window's reference layout through a screenshot diff review.
+- [ ] Sign off the full game UI once all workflows and art acceptance gates pass.
+
+The browser tests prove functionality and coarse layout.
+They do not establish pixel-accurate equivalence with the provided original visual reference.

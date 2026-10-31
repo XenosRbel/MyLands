@@ -49,6 +49,14 @@ log("joined world; city screen rendered");
 await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
 await page.locator(".game-clock").waitFor();
+await page.locator(".topbar .resbar-item .icon").first().waitFor();
+const resourceArt = await page.locator(".topbar .resbar-item .icon").evaluateAll((images) => images.map((img) => ({
+  src: img.getAttribute("src"), width: img.naturalWidth, height: img.naturalHeight,
+})));
+if (resourceArt.length < 7 || resourceArt.some((img) => !img.width || !img.height || img.src.endsWith(".svg"))) {
+  fail("Top HUD must show the painted raster images of all seven game resources: " + JSON.stringify(resourceArt));
+}
+
 await page.locator(".game-dock-globe").waitFor();
 const cityArtEnabled = await page.locator(".city-game-stage .city-scene").evaluate((element) =>
   getComputedStyle(element).backgroundImage.includes("city-landscape.webp"));

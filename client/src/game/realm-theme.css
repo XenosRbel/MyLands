@@ -320,20 +320,20 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 .modal,
 .auth-card {
   background-image:
-    url("/ui/medieval-corners.svg"),
+    linear-gradient(135deg,#a78f6317,#44322220),
     linear-gradient(145deg,#41372c,#302921 68%,#29231e);
   background-size:100% 100%,auto;
   background-repeat:no-repeat;
 }
-.sidenav { background-image:url("/ui/dark-wood.svg"),linear-gradient(#403227,#241c16);background-size:256px 256px,auto; }
+.sidenav { background-image:repeating-linear-gradient(0deg,#261d1644 0 3px,#4a36292b 6px 13px),linear-gradient(#403227,#241c16);background-size:256px 256px,auto; }
 .research-branch,.research-detail {
   background-image:
     linear-gradient(135deg,#eadbb820,#ad967010),
-    url("/ui/parchment-grain.svg");
+    repeating-linear-gradient(30deg,#dfceb02b 0 3px,#b39e7d11 5px 9px);
   background-size:auto,128px 128px;
 }
 .research-heading {
-  background-image:url("/ui/dark-wood.svg");
+  background-image:repeating-linear-gradient(0deg,#261d1644 0 3px,#4a36292b 6px 13px);
   background-size:256px 256px;
 }
 @media(prefers-reduced-motion:reduce) {
@@ -696,7 +696,7 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 .modal-body {
   background:
     linear-gradient(145deg,#e7d9bbd9,#c6b08bbf),
-    url("/ui/parchment-grain.svg");
+    repeating-linear-gradient(30deg,#dfceb02b 0 3px,#b39e7d11 5px 9px);
   color:#392e20;
   border:1px solid #a38962;
   border-top:0;
@@ -740,7 +740,7 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 .auth {
   background:
     linear-gradient(90deg,#111a17db,#1a241d88 48%,#121b16c8),
-    url("/ui/realm-landscape.svg") center/cover fixed;
+    url("/ui/city-landscape.webp") center/cover fixed;
 }
 .auth-card { background:linear-gradient(145deg,#423527e8,#2c241de8)!important;backdrop-filter:blur(5px); }
 .auth-card.wide { width:min(860px,100%); }
@@ -792,7 +792,7 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 .research-screen .research-detail.panel {
   background:
     linear-gradient(135deg,#e4d5b8e6,#c7b08de6),
-    url("/ui/parchment-grain.svg") !important;
+    repeating-linear-gradient(30deg,#dfceb02b 0 3px,#b39e7d11 5px 9px) !important;
   background-size:auto,128px 128px!important;
   border:2px ridge #a58c67!important;
   color:#3d3021!important;

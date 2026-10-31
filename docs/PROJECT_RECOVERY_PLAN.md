@@ -20,6 +20,8 @@ Scope: Ashen Crowns game, common engine, Yandex Games, Android.
 - [x] Copy Game Packs into the Docker client stage.
 - [x] Add asset-path validation to the client build.
 - [x] Add a Docker build job to GitHub Actions.
+- [x] Add server Game Pack validation to the CI quality gate.
+- [x] Remove invalid faction artwork keys from Game Pack maps.
 - [ ] Verify the production Docker build completes.
 - [ ] Verify local startup through Docker Compose.
 - [ ] Verify the container serves the client, packs, and API.
@@ -32,7 +34,9 @@ Acceptance: production Docker build and first-login browser tests pass.
 
 - [x] Restrict transports to owned or allied cities.
 - [x] Add a regression test for unrelated transports.
-- [ ] Prevent market escrow from sheltering resources during raids.
+- [x] Release market escrow into the city before successful raid plunder.
+- [x] Add a regression test for released escrow orders.
+- [ ] Confirm escrow release and plunder with database integration tests.
 - [ ] Verify ledger integrity across place, accept, cancel, and plunder.
 - [ ] Add concurrency tests for battles and market orders.
 - [ ] Review cross-account transfers and alliance farming.
@@ -111,6 +115,7 @@ Acceptance: deployment checklists and platform test cases pass.
 
 - Confirmed via GitHub: missing Docker copy caused asset-check ENOENT.
 - Confirmed via GitHub: 82 required entities resolve to committed art paths.
+- Fixed: faction names were incorrectly added as entities in theme art maps.
 - Not run locally: Docker build, browser E2E, database concurrency tests.
 - CI Docker build job added. No passing run is verified yet.
 

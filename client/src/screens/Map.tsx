@@ -81,7 +81,7 @@ export function MapScreen() {
         ctx.fillStyle = ter?.color ?? "#444";
         ctx.fillRect(px, py, cell, cell);
       }
-      ctx.strokeStyle = "rgba(0,0,0,.18)";
+      ctx.strokeStyle = "rgba(13,19,14,.07)";
       ctx.strokeRect(px + 0.5, py + 0.5, cell - 1, cell - 1);
       if (tile.ownerId && !tile.cityId) {
         const race = idx.pack.races.find((r) => r.id === tile.race);
@@ -147,7 +147,11 @@ export function MapScreen() {
 
   const tileAt = (clientX: number, clientY: number) => {
     const r = canvas.current!.getBoundingClientRect();
-    const x = origin.x + Math.floor((clientX - r.left) / cell), y = origin.y + Math.floor((clientY - r.top) / cell);
+    // Use the rendered canvas bounds, not the backing bitmap cell size.
+    // CSS scales the entire map to the available world-viewport width.
+    const renderedCellX = r.width / VIEW, renderedCellY = r.height / VIEW;
+    const x = origin.x + Math.floor((clientX - r.left) / renderedCellX);
+    const y = origin.y + Math.floor((clientY - r.top) / renderedCellY);
     return tiles.find((tt) => tt.x === x && tt.y === y) ?? null;
   };
   const onDown = (e: React.PointerEvent) => {
@@ -157,7 +161,9 @@ export function MapScreen() {
   const onMove = (e: React.PointerEvent) => {
     const d = drag.current;
     if (!d) return;
-    const dx = Math.round((d.x - e.clientX) / cell), dy = Math.round((d.y - e.clientY) / cell);
+    const bounds = canvas.current!.getBoundingClientRect();
+    const dx = Math.round((d.x - e.clientX) / (bounds.width / VIEW));
+    const dy = Math.round((d.y - e.clientY) / (bounds.height / VIEW));
     if (dx || dy) {
       d.moved = true;
       setCenter({ x: clamp(d.cx + dx, 0, W - 1), y: clamp(d.cy + dy, 0, H - 1) });

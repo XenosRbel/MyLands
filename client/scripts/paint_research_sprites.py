@@ -56,6 +56,27 @@ def motif(draw, kind, light, shadow):
         P([(x,48),(x-65,148),(x-29,139),(x-53,176),(x+52,176),(x+30,139),(x+65,148)])
         L([(x,156),(x,202)], gold, 15)
         for i in range(10): L([(x+(-30+i*7),125+i%3*10),(x+(-12+i*4),94+i%2*11)], gold, 3)
+    elif kind == "book":
+        P([(48,71),(112,72),(128,91),(145,72),(211,71),(211,185),(145,186),(128,203),(112,187),(48,185)])
+        L([(128,92),(128,195)],gold,9)
+        L([(63,104),(105,105)],dark,5)
+        L([(153,105),(195,104)],dark,5)
+    elif kind == "mail":
+        P([(49,87),(210,87),(210,174),(49,174)],gold)
+        L([(50,88),(128,140),(209,88)],shadow,9)
+        L([(51,175),(104,133)],shadow,6)
+        L([(207,175),(151,133)],shadow,6)
+    elif kind == "clock":
+        draw.ellipse((54,58,202,204),fill=gold,outline=dark,width=9)
+        draw.ellipse((69,73,187,190),fill=shadow,outline=(245,220,163),width=5)
+        L([(128,95),(128,135),(163,159)],gold,11)
+    elif kind == "compass":
+        draw.ellipse((54,58,202,204),fill=gold,outline=dark,width=9)
+        P([(128,67),(161,128),(128,193),(95,128)],shadow)
+        P([(128,70),(128,128),(161,128)],gold)
+    elif kind == "cross":
+        L([(77,80),(180,181)],gold,18)
+        L([(180,80),(77,181)],gold,18)
     elif kind == "wheat":
         L([(125,210),(125,65)], gold, 9)
         for i in range(7):
@@ -191,6 +212,33 @@ def paint(tech, kind, tone, stage):
     im=im.convert("RGB").resize((SIZE,SIZE),Image.Resampling.LANCZOS)
     return im
 
+UTILITY = {
+    "log":"tree", "wheat":"wheat", "stone":"castle", "ingot":"hammer",
+    "coin":"coin", "scroll":"book", "crystal":"crystal", "leaf":"tree",
+    "bolt":"star", "chip":"gear", "sword":"swords", "shield":"shield",
+    "heart":"star", "boot":"wagon", "bag":"crown", "people":"horn",
+    "castle":"castle", "clock":"clock", "bell":"crown", "map":"compass",
+    "flag":"crown", "star":"star", "book":"book", "mail":"mail",
+    "chart":"gear", "user":"helmet", "gear":"gear", "scale":"swords",
+    "menu":"book", "eye":"eye", "skull":"helmet", "close":"cross",
+}
+
+def paint_utility_icons():
+    folder = ROOT / "public" / "ui" / "glyphs"
+    folder.mkdir(parents=True,exist_ok=True)
+    for name,kind in UTILITY.items():
+        picture=Image.new("RGBA",(SIZE,SIZE),(0,0,0,0))
+        draw=ImageDraw.Draw(picture)
+        motif(draw,kind,(203,171,119),(98,71,43))
+        shadow=Image.new("RGBA",(SIZE,SIZE))
+        shadow.paste(picture,(3,4))
+        shadow=shadow.filter(ImageFilter.GaussianBlur(5))
+        shadow.putalpha(shadow.getchannel("A").point(lambda a:int(a*.45)))
+        picture=Image.alpha_composite(shadow,picture)
+        picture=picture.resize((96,96),Image.Resampling.LANCZOS)
+        picture.save(folder/f"{name}.webp",format="WEBP",quality=89,method=4)
+    print(f"Painted {len(UTILITY)} original raster utility icons.")
+
 def main():
     OUTPUT.mkdir(parents=True,exist_ok=True)
     for tech,(kind,tone) in TECHS.items():
@@ -199,6 +247,7 @@ def main():
             image=paint(tech,kind,tone,stage)
             image.save(out,format="WEBP",quality=86,method=4)
     print(f"Painted {len(TECHS)*3} original WebP technology icons in {OUTPUT}.")
+    paint_utility_icons()
 
 if __name__ == "__main__":
     main()

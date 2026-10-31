@@ -1,0 +1,52 @@
+name: Visual gameplay smoke tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      RF_WORLDS: "ember-1:ashen-crowns:Ember Vale:50"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+      - name: Build and start game
+        run: docker compose up --build -d
+      - name: Check game readiness
+        run: |
+          for i in $(seq 1 90); do
+            if curl -fsS http://127.0.0.1:8080/readyz > /dev/null; then exit 0; fi
+            sleep 2
+          done
+          docker compose logs --no-color
+          exit 1
+      - name: Install browser test dependencies
+        working-directory: client
+        run: |
+          npm ci --no-audit --no-fund
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Capture gameplay screenshots
+        working-directory: client
+        run: |
+          mkdir -p ../artifacts/gameplay
+          node e2e/play.mjs http://127.0.0.1:8080 ../artifacts/gameplay
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mylands-gameplay-screenshots
+          path: artifacts/gameplay/
+          if-no-files-found: warn
+      - name: Print game logs on failure
+        if: failure()
+        run: docker compose logs --no-color --tail=200
+      - name: Stop test stack
+        if: always()
+        run: docker compose down -v

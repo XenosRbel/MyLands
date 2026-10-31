@@ -71,6 +71,33 @@ await page.mouse.click(box.x + box.width / 2 + 3, box.y + box.height / 2 + 3);
 await page.waitForTimeout(300);
 await page.screenshot({ path: `${out}/14-map-selected.png` });
 
+// Render all formerly inconsistent art assets at portrait and UI-icon sizes.
+const artPages = [
+  ...["griffin", "ballista", "wagon", "settler", "wolf", "brigand", "troll", "wraith", "golem", "drake"].map((id) => ({id, dir:"units"})),
+  ...["wolf_den", "brigand_camp", "barrow", "crater"].map((id) => ({id, dir:"neutrals"})),
+];
+const artHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;padding:24px;background:#302820;color:#e9d7b6;font:14px Georgia,serif;}
+h1{margin:0 0 17px;font-size:23px;color:#e2ca9f;}
+section{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;}
+article{border:1px solid #8c7655;border-radius:6px;padding:8px;background:linear-gradient(#5e4b35,#2c241d);text-align:center;}
+img{width:120px;height:120px;max-width:100%;object-fit:contain;background:radial-gradient(ellipse,#b5a07a55,transparent 70%);}
+small{display:block;overflow-wrap:anywhere;font-weight:600;margin:4px 0 6px;}
+.mini{width:48px;height:48px;}
+</style></head><body><h1>Ashen Crowns · art consistency audit</h1><section>${artPages.map((a) =>
+  `<article><small>${a.id}</small><img src="${base}/packs/ashen-crowns/assets/${a.dir}/${a.id}.svg" alt="${a.id}"><div><img class="mini" src="${base}/packs/ashen-crowns/assets/${a.dir}/${a.id}.svg" alt=""></div></article>`
+).join("")}</section></body></html>`;
+const artPage = await ctx.newPage();
+await artPage.setViewportSize({ width: 1320, height: 680 });
+await artPage.goto(base);
+await artPage.setContent(artHtml);
+await artPage.waitForFunction(() =>
+  [...document.querySelectorAll("article img")].every((img) => img.complete && img.naturalWidth > 0),
+  { timeout: 15000 }
+);
+await artPage.screenshot({path: `${out}/20-art-consistency.png`, fullPage: true});
+await artPage.close();
+
 // mobile layout
 const m = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true,
   storageState: await ctx.storageState() });

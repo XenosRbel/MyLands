@@ -137,6 +137,36 @@ export function Shell() {
         {nextTutorial}
         {body}
       </main>
+      <nav className="game-dock" aria-label={t("army")}>
+        <div className="game-dock-actions">
+          {(["city", "map", "army", "research", "heroes", "reports"] as Screen[])
+            .filter((destination) => enabled.includes(destination))
+            .map((destination) => (
+              <button key={destination} type="button" className={screen === destination ? "active" : ""}
+                aria-current={screen === destination ? "page" : undefined}
+                onClick={() => navigate(destination)} title={t(destination as Exclude<Screen, "settings">)}>
+                <Icon name={icons[destination]} size={23} />
+                <span>{t(destination as Exclude<Screen, "settings">)}</span>
+              </button>
+            ))}
+        </div>
+        <div className="game-dock-city">
+          <strong>{city?.city.name}</strong>
+          <small>{city ? `${city.city.x}:${city.city.y}` : ""}</small>
+        </div>
+        <div className="game-dock-army">
+          {city?.units.filter((view) => (city.city.units[view.id] ?? 0) > 0).slice(0, 8).map((view) => (
+            <button type="button" key={view.id} className="game-dock-unit"
+              title={`${idx.name(view.id)}: ${fmt(city.city.units[view.id] ?? 0)}`}
+              onClick={() => navigate("army")}>
+              {idx.art(view.id) ?
+                <img src={idx.art(view.id)} alt="" loading="lazy" /> :
+                <Icon name="shield" size={23} />}
+              <span>{fmt(city.city.units[view.id] ?? 0)}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
       <nav className="bottomnav" aria-label="Main">
         {primary.filter((s) => enabled.includes(s)).map((s) => (
           <button key={s} className={screen === s ? "on" : ""} onClick={() => navigate(s)}>

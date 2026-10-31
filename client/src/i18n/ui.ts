@@ -33,6 +33,7 @@ const en = {
   settings: "Settings",
   more: "More",
   // common
+  all: "All",
   level: "Level",
   upgrade: "Upgrade",
   build: "Build",

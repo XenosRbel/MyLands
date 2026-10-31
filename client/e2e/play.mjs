@@ -12,8 +12,8 @@ const fail = (m) => { console.error("[e2e] FAIL:", m); process.exit(1); };
 
 // Ensure original painted UI atlas assets survived the production Docker build.
 // The approved frame requires both a scenic city and an illustrated world-globe shortcut.
-const globeAsset = await fetch(`${base}/ui/world-globe.svg`);
-if (!globeAsset.ok || !(await globeAsset.text()).includes('id="sea"')) {
+const globeAsset = await fetch(`${base}/ui/world-globe.webp`);
+if (!globeAsset.ok || !globeAsset.headers.get("content-type")?.includes("image/")) {
   fail("The game's original globe command artwork is missing.");
 }
 // The city backdrop is an independently illustrated landscape, not repeated tile art.

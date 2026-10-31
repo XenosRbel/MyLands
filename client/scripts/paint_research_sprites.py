@@ -184,12 +184,12 @@ def paint(tech, kind, tone, stage):
         im=Image.alpha_composite(im,glaze)
     d=ImageDraw.Draw(im)
     center=n//2
-    ring=(207,172,109) if stage==1 else (232,203,142) if stage==2 else (248,222,164)
+    ring=(min(246,196+stage*5),min(235,157+stage*7),min(192,92+stage*9))
     d.ellipse((12,12,n-12,n-12),fill=None,outline=(37,28,25),width=24)
     d.ellipse((24,24,n-24,n-24),outline=ring,width=12)
     d.ellipse((40,40,n-40,n-40),outline=(106,75,53),width=5)
-    for i in range(stage*4):
-        a=2*math.pi*i/(stage*4)-math.pi/2
+    for i in range(4+stage*2):
+        a=2*math.pi*i/(4+stage*2)-math.pi/2
         cx=center+int(math.cos(a)*(n//2-30))
         cy=center+int(math.sin(a)*(n//2-30))
         d.ellipse((cx-8,cy-8,cx+8,cy+8),fill=ring,outline=(72,51,32),width=3)
@@ -207,8 +207,15 @@ def paint(tech, kind, tone, stage):
     im=Image.alpha_composite(im,symbol)
     d=ImageDraw.Draw(im)
     d.arc((26,26,n-26,n-26),198,299,fill=(247,220,161),width=5)
-    if stage==3:
-        d.arc((36,36,n-36,n-36),-8,105,fill=(244,224,175),width=6)
+    if stage>=4:
+        d.arc((36,36,n-36,n-36),-8,10+stage*13,fill=(244,224,175),width=3+stage//3)
+    if stage>=7:
+        d.arc((56,56,n-56,n-56),160,160+stage*9,fill=(222,199,142),width=3+stage//4)
+    if stage>=9:
+        for a in (0,90,180,270):
+            x=center+int(math.cos(math.radians(a))*185)
+            y=center+int(math.sin(math.radians(a))*185)
+            d.ellipse((x-10,y-10,x+10,y+10),fill=(242,222,169),outline=(70,45,27),width=3)
     im=im.convert("RGB").resize((SIZE,SIZE),Image.Resampling.LANCZOS)
     return im
 
@@ -289,11 +296,12 @@ def paint_world_globe():
 def main():
     OUTPUT.mkdir(parents=True,exist_ok=True)
     for tech,(kind,tone) in TECHS.items():
-        for stage in (1,2,3):
+        max_level=3 if tech.startswith("path_") else 5 if tech in {"beastlore","engineering","arcana","plunder","heroics"} else 10
+        for stage in range(1,max_level+1):
             out=OUTPUT / f"{tech}-{stage}.webp"
             image=paint(tech,kind,tone,stage)
             image.save(out,format="WEBP",quality=86,method=4)
-    print(f"Painted {len(TECHS)*3} original WebP technology icons in {OUTPUT}.")
+    print(f"Painted all 131 level-specific technology WebP icons in {OUTPUT}.")
     paint_utility_icons()
     paint_world_globe()
 

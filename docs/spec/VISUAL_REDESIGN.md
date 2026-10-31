@@ -261,3 +261,33 @@ Zero-count units appear as subdued portraits, not fabricated troops.
 - Compare city building arrangement and scale to reference screenshots.
 - Refine decorative frame proportions at all browser sizes.
 - Validate the next visual CI after queue/HUD changes.
+
+## Approved visual reference correction — 2026-11-01
+
+The user re-supplied the approved illustrated game layout.
+This image supersedes the experimental minimal dashboard and icon-only HUD.
+It must be used as the composition target for the desktop game.
+
+Reference areas:
+1. Top: continuous resource strip, time, crown and actual hero portrait.
+2. Left: always-visible full-height navigation with readable section titles.
+3. Center: illustrated, walled isometric castle landscape with cliffs and waterfalls.
+4. Right: permanently visible light parchment construction and training queues.
+5. Bottom: heavily framed control dock and large illustrated troop portraits.
+
+Changes made:
+- Restored labeled left navigation at a reference-like width.
+- Restored the permanent right queue column.
+- Retained a full viewport-centered city stage.
+- Kept a large illustrated bottom HUD with troop counts.
+- Updated the browser geometry test to require these regions.
+
+Unfinished, requiring actual original art production:
+- The current scene is composed of separate existing building sprites and tiled terrain.
+- It does not contain the reference castle landscape, walls, cliffs or waterfalls.
+- UI atlas ornamentation does not fully match the supplied composition.
+- The top time display and precise iconography still need reference comparison.
+- Other panels require visual comparisons, not only compilation.
+
+Do not solve these gaps by replacing labeled panels with compact admin navigation.
+Do not declare reference parity until scene artwork is authored and integrated.

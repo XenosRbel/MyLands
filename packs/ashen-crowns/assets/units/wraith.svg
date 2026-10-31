@@ -1,7 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="wraith">
-<defs><radialGradient id="bg"><stop stop-color="#566b73"/><stop offset="1" stop-color="#211b20"/></radialGradient></defs>
-<rect width="320" height="320" rx="25" fill="url(#bg)"/>
-<circle cx="160" cy="155" r="119" fill="none" stroke="#d9ac61" stroke-opacity=".4" stroke-width="3"/>
-<g fill="#9c8d75" stroke="#322f37" stroke-width="3" stroke-linejoin="round"><path d="M80 237Q57 133 111 78Q157 26 219 89Q262 149 237 239L193 216L158 247L125 218Z"/><path d="M117 137L145 147M181 147L208 137" stroke="#c7a5fa" stroke-width="10"/><path d="M143 181Q164 193 188 179" fill="none" stroke="#b4a1d8" stroke-width="7"/></g>
-<path d="M38 272H282" stroke="#cfab67" stroke-opacity=".7" stroke-width="5"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="wraith"><defs>
+<linearGradient id="hide" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c1a47e"/><stop offset=".45" stop-color="#8d7860"/><stop offset="1" stop-color="#36382f"/></linearGradient>
+<linearGradient id="cloth" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#869083"/><stop offset=".48" stop-color="#4f6158"/><stop offset="1" stop-color="#252c2b"/></linearGradient>
+<linearGradient id="wood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c5a473"/><stop offset=".5" stop-color="#7c5b3e"/><stop offset="1" stop-color="#352b26"/></linearGradient>
+<linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d0d0ba"/><stop offset=".45" stop-color="#7b8880"/><stop offset="1" stop-color="#333c3a"/></linearGradient>
+<linearGradient id="bone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3d2b0"/><stop offset=".5" stop-color="#a79479"/><stop offset="1" stop-color="#53574e"/></linearGradient>
+<filter id="brush" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="3" seed="13" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="s"/><feComponentTransfer in="s" result="a"><feFuncA type="linear" slope=".14"/></feComponentTransfer><feBlend in="SourceGraphic" in2="a" mode="multiply"/></filter>
+<filter id="shade" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="1" dy="8" stdDeviation="6" flood-color="#151b17" flood-opacity=".65"/></filter>
+</defs><g filter="url(#shade)"><ellipse cx="160" cy="289" rx="108" ry="12" fill="#111712" opacity=".18"/><g filter="url(#brush)" stroke-linejoin="round"><path d="M124 80Q156 31 211 76L231 139Q248 207 275 268L230 252L219 287L182 254L151 286L129 253L79 269Q104 211 89 151Z" fill="url(#cloth)" stroke="#26323d" stroke-width="8"/><path d="M137 97Q146 62 190 76L215 101L207 159L147 152Z" fill="#19252c" stroke="#7695a5" stroke-width="6"/><path d="M148 123Q163 112 177 123M190 124Q205 112 217 124" fill="none" stroke="#b2d7d8" stroke-width="8"/><path d="M155 143Q176 164 194 144" fill="none" stroke="#8cb3b5" stroke-width="5"/><path d="M114 163L64 246M223 162L265 239" fill="none" stroke="#88a8af" stroke-width="10" stroke-linecap="round"/><path d="M115 190Q93 230 62 272M221 192Q238 242 267 278" stroke="#c9e9e0" stroke-width="4" fill="none" opacity=".7"/></g></g></svg>

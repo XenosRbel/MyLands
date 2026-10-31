@@ -8,11 +8,11 @@ const branchSymbols: Record<string, string> = {
   economy: "wheat", civic: "castle", military: "sword", arcane: "crystal", calling: "star",
 };
 const tierSymbols: Record<string, string[]> = {
-  economy: ["wheat", "coin", "ingot", "castle"],
-  civic: ["people", "scroll", "castle", "star"],
-  military: ["sword", "shield", "castle", "star"],
-  arcane: ["scroll", "crystal", "star", "bolt"],
-  calling: ["star", "shield", "castle", "coin"],
+  economy: ["wheat", "log", "stone", "ingot", "coin", "bag", "chart", "castle", "scroll", "star"],
+  civic: ["people", "wheat", "bag", "scroll", "shield", "book", "coin", "castle", "star", "crystal"],
+  military: ["sword", "shield", "boot", "eye", "castle", "bolt", "flag", "heart", "star", "crystal"],
+  arcane: ["scroll", "book", "eye", "crystal", "bolt", "heart", "star", "shield", "castle", "coin"],
+  calling: ["star", "shield", "castle"],
 };
 const roman = (n: number) => {
   const numerals: [number, string][] = [[10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
@@ -56,7 +56,7 @@ export function ResearchScreen() {
               </div>
               <div className="research-paths">
                 {city.techs.filter((x) => idx.pack.techs.find((d) => d.id === x.id)?.branch === br).map((tv) => {
-                  const milestones = Array.from({ length: Math.min(tv.maxLevel, 5) }, (_, i) => i + 1);
+                  const milestones = Array.from({ length: tv.maxLevel }, (_, i) => i + 1);
                   return (
                     <div className={"research-path" + (activeId === tv.id ? " selected" : "")} key={tv.id}>
                       <button type="button" className="research-name" onClick={() => setSelected(tv.id)}
@@ -82,7 +82,6 @@ export function ResearchScreen() {
                             </button>
                           );
                         })}
-                        {tv.maxLevel > 5 && <span className="research-extra">+{tv.maxLevel - 5}</span>}
                       </div>
                     </div>
                   );

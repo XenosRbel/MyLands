@@ -170,7 +170,8 @@ export function MapScreen() {
       <h1>{t("map")} <span className="muted small">{origin.x}:{origin.y} — {origin.x + VIEW - 1}:{origin.y + VIEW - 1}</span></h1>
       {err ? <ErrorBox error={err} retry={load} /> : null}
       <div className="map-layout">
-        <div className="map-wrap" ref={wrap}>
+        <div className="map-wrap map-game-world" ref={wrap}>
+          <div className="map-game-world-title"><Icon name="map" size={18} /> {t("map")}</div>
           <canvas ref={canvas} className="map" style={{ width: VIEW * cell, height: VIEW * cell, touchAction: "none" }}
             tabIndex={0} aria-label={t("map") + " — arrow keys to pan, click a tile"}
             onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onKeyDown={onKey} />
@@ -209,9 +210,14 @@ function TilePanel({ tile, onMission }: { tile: MapTile | null; onMission: (k: s
     else if (tile.ownerId && !mine) actions.push("attack", "scout");
     else actions.push("occupy", "settle", "scout");
   }
+  const artwork = tile.cityId ? idx.art("keep") : tile.neutral ? idx.art(tile.neutral) : idx.art(tile.terrain);
   return (
-    <aside className="panel tile-panel">
-      <h3>{t("tile")} {tile.x}:{tile.y}</h3>
+    <aside className="panel tile-panel map-game-inspector">
+      <h3><Icon name="map" size={19} /> {t("tile")} {tile.x}:{tile.y}</h3>
+      <div className="map-game-inspector-art">
+        {artwork ? <img src={artwork} alt="" draggable={false} /> : <Icon name="map" size={42} />}
+        <span>{tile.cityName ?? (tile.neutral ? idx.name(tile.neutral) : idx.name(tile.terrain))}</span>
+      </div>
       <dl className="kv">
         <dt>{t("terrain")}</dt><dd>{idx.name(tile.terrain)}{ter?.resource ? <> · <Res id={ter.resource} n={idx.pack.params.territoryYieldPerHour ?? 0} />{t("perHour")}</> : null}{!ter?.passable && ` (${t("impassable")})`}</dd>
         {tile.cityName && (<><dt>{t("city")}</dt><dd>{tile.cityName}</dd></>)}

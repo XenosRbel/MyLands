@@ -27,10 +27,10 @@ Do not claim visual parity without screenshot comparison.
 
 | Screen | Layout | Controls | Assets | Browser review |
 |---|---|---|---|---|
-| City | World-first stage, building tray, right queue rail | Existing build and navigation | Existing sprites | Pending |
-| Army | Unit roster, detail chamber, training dock | Existing training commands | Existing unit portraits | Pending |
-| Heroes | Hero roster, large portrait, equipment, skills | Existing hero commands | Existing hero and item icons | Pending |
-| World map | Map frame, illustrated inspector, mission controls | Existing missions and map pan | Existing terrain and sites | Pending |
+| City | World-first stage, building tray, right queue rail, quick actions | Existing build and navigation | Existing sprites | Pending |
+| Army | Select-one-unit roster, illustrated detail chamber, training dock | Existing training commands | Existing unit portraits | Pending |
+| Heroes | Selectable hero roster, large portrait, equipment slots, skill rail | Existing hero commands | Existing hero and item icons | Pending |
+| World map | Atlas frame, illustrated selected-location inspector, mission controls | Existing missions and map pan | Existing terrain and sites | Pending |
 | Research | Tiered technology tree and specialization | Existing research commands | Glyphs per tier | Pending |
 | Economy | Unified framed statistics and actions | Existing controls | Resource artwork | Pending |
 | Market | Unified game panels | Existing trading controls | Resource artwork | Pending |
@@ -42,6 +42,9 @@ Do not claim visual parity without screenshot comparison.
 ## UI architecture
 
 The game UI remains React and CSS.
+The desktop shell includes a bottom command dock with real stationed units.
+A compact left icon rail keeps secondary destinations accessible.
+The top bar retains resources, kingdom specialisation, and hero shortcuts.
 Game state remains server-authoritative.
 World navigation uses the existing screen context.
 Game Pack art remains resolved through PackIndex.
@@ -90,6 +93,8 @@ Review each screenshot for:
 - Combat animation is not built.
 - The city stage uses predetermined plots, not free construction placement.
 - Screens need human comparison against reference images.
+- Source reference screenshots show a game-first world viewport and a bottom action dock.
+- A browser build passing does not prove that all art matches the reference.
 - The new browser visual workflow needs passing runtime results.
 
 Do not mark the redesign complete before these gaps are reviewed.

@@ -1365,7 +1365,7 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
   isolation:isolate;
   background:
     linear-gradient(180deg,#182b2130,#1e31231c 44%,#101b18a1),
-    url("/ui/city-landscape.svg") center center / cover no-repeat,
+    url("/ui/city-landscape.webp") center center / cover no-repeat,
     #38513d!important;
 }
 .city-game-stage .city-scene .ground {

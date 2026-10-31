@@ -7,6 +7,7 @@ const client = resolve(import.meta.dirname, "..");
 const pack = JSON.parse(readFileSync(resolve(client,"../packs/ashen-crowns/pack.json"),"utf8"));
 let count=0;
 let failures=0;
+const hashes=new Set();
 for(const tech of pack.techs) {
   for(let level=1;level<=tech.maxLevel;level++) {
     const path=resolve(client,"public/ui/research",`${tech.id}-${level}.webp`);
@@ -22,6 +23,12 @@ for(const tech of pack.techs) {
       console.error(`Invalid WebP sprite: ${tech.id} level ${level}`);
       failures++;
     }
+    const hash=createHash("sha256").update(image).digest("hex");
+    if (hashes.has(hash)) {
+      console.error(`Duplicate research sprite artwork: ${tech.id} level ${level}`);
+      failures++;
+    }
+    hashes.add(hash);
     count++;
   }
 }

@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="wagon">
-<defs><radialGradient id="bg"><stop stop-color="#566b73"/><stop offset="1" stop-color="#211b20"/></radialGradient></defs>
-<rect width="320" height="320" rx="25" fill="url(#bg)"/>
-<circle cx="160" cy="155" r="119" fill="none" stroke="#d9ac61" stroke-opacity=".4" stroke-width="3"/>
-<g fill="#9c8d75" stroke="#322f37" stroke-width="3" stroke-linejoin="round"><path d="M61 150H251L230 217H80Z"/><path d="M65 146L128 94H209L254 146" fill="#ab7042"/><circle cx="104" cy="232" r="26" fill="#262a30" stroke="#e1b75d" stroke-width="9"/><circle cx="225" cy="232" r="26" fill="#262a30" stroke="#e1b75d" stroke-width="9"/></g>
-<path d="M38 272H282" stroke="#cfab67" stroke-opacity=".7" stroke-width="5"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="wagon"><defs>
+<linearGradient id="hide" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c1a47e"/><stop offset=".43" stop-color="#8d7860"/><stop offset=".74" stop-color="#5a554a"/><stop offset="1" stop-color="#302f2a"/></linearGradient>
+<linearGradient id="cloth" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#738071"/><stop offset=".45" stop-color="#4f5d53"/><stop offset="1" stop-color="#272e2d"/></linearGradient>
+<linearGradient id="wood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c09b65"/><stop offset=".5" stop-color="#785436"/><stop offset="1" stop-color="#382c25"/></linearGradient>
+<linearGradient id="iron" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c6c7b7"/><stop offset=".43" stop-color="#7d877d"/><stop offset="1" stop-color="#343a3a"/></linearGradient>
+<linearGradient id="bone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3cba3"/><stop offset=".42" stop-color="#a48d72"/><stop offset="1" stop-color="#555447"/></linearGradient>
+<linearGradient id="feather" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dec08c"/><stop offset=".45" stop-color="#ac875a"/><stop offset="1" stop-color="#574534"/></linearGradient>
+<filter id="texture" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".085" numOctaves="3" seed="11" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="s"/><feComponentTransfer in="s" result="a"><feFuncA type="linear" slope=".13"/></feComponentTransfer><feBlend in="SourceGraphic" in2="a" mode="multiply"/></filter>
+<filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="1" dy="8" stdDeviation="6" flood-color="#1a1b17" flood-opacity=".6"/></filter>
+</defs><g filter="url(#shadow)"><ellipse cx="160" cy="287" rx="114" ry="13" fill="#141916" opacity=".18"/><g filter="url(#texture)"><g stroke="#34251e" stroke-width="6" stroke-linejoin="round"><path d="M40 201L244 205L227 247L70 239Z" fill="url(#wood)"/><path d="M68 197Q81 116 150 110Q227 116 239 201Z" fill="url(#cloth)" stroke="#70523c" stroke-width="7"/><path d="M86 193L91 142Q120 105 153 118Q190 118 220 148L224 196" fill="none" stroke="#b9a079" stroke-width="9"/><path d="M124 118L120 197M184 122L186 202" stroke="#8e765a" stroke-width="5"/><path d="M78 202L229 205L207 230L91 229Z" fill="url(#wood)"/><circle cx="103" cy="250" r="28" fill="url(#iron)"/><circle cx="211" cy="251" r="28" fill="url(#iron)"/><path d="M103 225V275M80 250H126M211 226V277M187 251H236" stroke="#b28b58" stroke-width="5"/><path d="M230 224L284 225" stroke="#b5905f" stroke-width="12"/></g></g></g></svg>

@@ -1,6 +1,7 @@
 # Multi-stage build: web client → Go server → minimal runtime image.
 # NOTE: written for Docker; not executed in the authoring environment (no Docker daemon there).
 FROM node:24-alpine AS client
+RUN apk add --no-cache python3 py3-pillow
 WORKDIR /src/client
 COPY client/package.json client/package-lock.json ./
 RUN npm ci --no-audit --no-fund

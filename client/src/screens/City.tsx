@@ -94,7 +94,7 @@ export function CityScreen() {
   const [open, setOpen] = useState<BuildingView | null>(null);
   const [category, setCategory] = useState<string>("all");
   const [showCatalogue, setShowCatalogue] = useState(false);
-  const [showQueue, setShowQueue] = useState(false);
+
   if (!city) return null;
   const cats = Array.from(new Set(city.buildings.map((b) => idx.building(b.id)?.category).filter((x): x is string => !!x)));
   const filtered = category === "all" ? city.buildings : city.buildings.filter((b) => idx.building(b.id)?.category === category);
@@ -113,9 +113,9 @@ export function CityScreen() {
           <button className="btn small" onClick={() => go("army")}><Icon name="sword" size={16} /> {t("army")}</button>
         </div>
       </div>
-      <div className={"city-game-layout" + (showQueue ? " queue-expanded" : "")}>
+      <div className="city-game-layout">
         <div className="city-game-stage">
-          <div className="city-game-stage-title"><Icon name="castle" size={18} /> {city.city.name}<span className="city-game-stage-coordinates">{city.city.x}:{city.city.y}</span><button type="button" className="btn small city-queue-toggle" aria-expanded={showQueue} onClick={() => setShowQueue(!showQueue)}><Icon name="clock" size={16}/>{t("queue")}</button><button type="button" className="btn small city-build-toggle" aria-expanded={showCatalogue} onClick={() => setShowCatalogue(!showCatalogue)}><Icon name="bag" size={16}/>{t("build")}</button></div>
+          <div className="city-game-stage-title"><Icon name="castle" size={18} /> {city.city.name}<span className="city-game-stage-coordinates">{city.city.x}:{city.city.y}</span><button type="button" className="btn small city-build-toggle" aria-expanded={showCatalogue} onClick={() => setShowCatalogue(!showCatalogue)}><Icon name="bag" size={16}/>{t("build")}</button></div>
           <CityScene onOpen={setOpen} />
           <section className={"city-game-buildings" + (showCatalogue ? " expanded" : "")} aria-label={t("build")}>
             <div className="city-game-section-title"><Icon name="bag" size={18} /> {t("build")} <span className="small muted">{filtered.length}</span><button type="button" className="city-catalogue-close" aria-label={t("close")} onClick={() => setShowCatalogue(false)}><Icon name="close" size={18}/></button></div>
@@ -147,7 +147,7 @@ export function CityScreen() {
             </div>
           </section>
         </div>
-        <aside className="city-game-rail" hidden={!showQueue}>
+        <aside className="city-game-rail">
           <div className="city-game-rail-title"><Icon name="clock" size={18} /> {t("queue")}</div>
           <QueuePanel jobs={city.queues.build} title={t("build")} />
           <QueuePanel jobs={city.queues.research} title={t("research")} />

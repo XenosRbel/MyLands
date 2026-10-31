@@ -11,7 +11,8 @@ describe("raster-only artwork", () => {
     expect(researchSpriteStage(7)).toBe(7);
     expect(researchSpriteStage(10)).toBe(10);
     expect(researchSpriteStage(999)).toBe(10);
-    expect(researchSpriteUrl("path_architect",8)).toBe("/ui/research/path_architect-8.webp");
+    expect(researchSpriteUrl("forestry",8)).toBe("/ui/research/forestry-8.webp");
+    expect(researchSpriteUrl("path_architect",3)).toBe("/ui/research/path_architect-3.webp");
   });
   it("never embeds an SVG in research or UI controls", () => {
     const art = renderToStaticMarkup(<ResearchSprite tech="forestry" level={9} />);

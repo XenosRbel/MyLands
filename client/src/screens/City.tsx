@@ -92,7 +92,7 @@ export function CityScene({ onOpen }: { onOpen: (b: BuildingView) => void }) {
   return (
     <section className={"city-scene" + (walls ? " walled" : "")} aria-label={city.city.name}>
       <div className="ground" style={ground ? { backgroundImage: `url(${ground})` } : undefined} />
-      {items.map(({ b, pos, main }) => {
+      {items.filter(({ b }) => b.level > 0 || busy.has(b.id)).map(({ b, pos, main }) => {
         const art = idx.art(b.id);
         const job = busy.get(b.id);
         const built = b.level > 0;

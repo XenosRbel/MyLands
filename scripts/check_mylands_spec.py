@@ -72,6 +72,17 @@ for i, c in mech.items():
     if c not in cards:
         err(f"mechanic {i}: card {c} does not exist")
 
+# Exact tables: roster size and consistent row widths.
+roster = list(csv.DictReader((REF / "units-roster.csv").open()))
+if len(roster) != 280:
+    err(f"units-roster.csv: expected 280 rows, got {len(roster)}")
+for page, tabs in json.loads((REF / "tables-dom.json").read_text())["pages"].items():
+    for name, rows in tabs.items():
+        width = len(rows[0])
+        for r in rows:
+            if len(r) != width:
+                err(f"tables-dom.json: {page}/{name}: row width {len(r)} != {width}")
+
 # Markdown links to local files must resolve.
 for md in list(REF.glob("*.md")) + list(MOD.glob("*.md")) + list(CARDS.glob("*.md")):
     for target in re.findall(r"\]\(([^)#\s]+)", md.read_text()):

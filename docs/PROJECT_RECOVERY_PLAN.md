@@ -71,11 +71,16 @@ See `docs/spec/SCIENCE_ENGINE_MIGRATION.md`.
 - [ ] Replace placeholder vector images with consistent painted sprites.
 - [ ] Create transparent nine-slice UI panels and buttons.
 - [ ] Make terrain textures tile without visible seams.
-- [ ] Replace administrative navigation with a coherent game HUD.
-- [ ] Complete city, map, battles, research, army, heroes, and reports.
+- [x] Restyle desktop navigation and game HUD with muted medieval surfaces.
+- [ ] Validate all interactions with full browser screenshots.
+- [x] Apply consistent frames, buttons, panels, typography, cards, and modals across existing game screens.
+- [x] Add illustrated army-card heraldry and hero equipment styling.
+- [x] Add original scalable panel and parchment texture assets.
+- [ ] Complete full-screen illustration and artwork for every gameplay state.
 - [ ] Add building-level variants and construction effects.
-- [ ] Validate desktop and mobile screen captures.
-- [ ] Compare each screen against licensed visual references.
+- [x] Extend the E2E screenshot checklist to missions and reports.
+- [ ] Run and review actual desktop and mobile captures.
+- [ ] Compare each captured screen against licensed visual references.
 - [ ] Keep original game brands and third-party assets out of the product.
 
 Acceptance: every screen uses complete art and consistent visual language.
@@ -137,7 +142,8 @@ Acceptance: deployment checklists and platform test cases pass.
 - Fixed: faction names were incorrectly added as entities in theme art maps.
 - Not run locally: Docker build, browser E2E, database concurrency tests.
 - CI Docker builds passed on prior branch commits.
-- Latest UI and documentation commits require their own final CI result.
+- Full shared visual theme, original texture assets, and army redesign were added.
+- CI validates compilation. Visual screenshot review remains required.
 
 ## Current rule
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { command } from "../api/client";
 import type { BuildingView, Job } from "../api/types";
 import { useGame } from "../game/context";
@@ -9,26 +9,48 @@ const catIcon: Record<string, string> = { core: "castle", economy: "wheat", stor
 
 export function QueuePanel({ jobs, title }: { jobs: Job[]; title: string }) {
   const { idx, t, city, refresh, toast } = useGame();
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!jobs.length) return;
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, [jobs.length]);
+  const progress = (job: Job) => {
+    const start = Date.parse(job.startsAt);
+    const end = Date.parse(job.finishesAt);
+    if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) return 0;
+    return Math.min(100, Math.max(0, (now - start) * 100 / (end - start)));
+  };
   return (
-    <section className="panel">
-      <h3>{title}</h3>
+    <section className="panel game-queue-panel">
+      <h3>{title}{jobs.length > 0 && <span className="game-queue-count">{jobs.length}</span>}</h3>
       {!jobs.length ? (
-        <p className="muted small">{t("queueEmpty")}</p>
+        <p className="muted small game-queue-empty">{t("queueEmpty")}</p>
       ) : (
-        <ol className="queue">
+        <ol className="queue game-queue-list">
           {jobs.map((j, i) => (
-            <li key={j.id}>
-              <span>
-                {idx.name(j.item)} {j.kind === "train" ? `×${j.quantity}` : `→ ${j.level}`}
+            <li className={"game-queue-entry" + (i === 0 ? " active" : "")} key={j.id}>
+              <span className="game-queue-art" aria-hidden="true">
+                {idx.art(j.item) ? <img src={idx.art(j.item)} alt="" loading="lazy" /> : <Icon name="clock" size={28} />}
               </span>
-              {Date.parse(j.startsAt) <= Date.now() + 1000 ? <Timer until={j.finishesAt} onDone={refresh} /> : <span className="muted small">{t("queue")}</span>}
+              <span className="game-queue-information">
+                <strong>{idx.name(j.item)} {j.kind === "train" ? `×${j.quantity}` : `→ ${j.level}`}</strong>
+                <span className="game-queue-time">
+                  {Date.parse(j.startsAt) <= now + 1000 ?
+                    <Timer until={j.finishesAt} onDone={refresh} /> : t("queue")}
+                </span>
+                <span className="game-queue-progress" role="progressbar" aria-label={idx.name(j.item)}
+                  aria-valuenow={Math.round(progress(j))} aria-valuemin={0} aria-valuemax={100}>
+                  <span style={{ width: progress(j) + "%" }} />
+                </span>
+              </span>
               {i === jobs.length - 1 && (
-                <Action className="small ghost" confirm={t("cancel") + "?"} run={async () => {
+                <Action className="small ghost game-queue-cancel" confirm={t("cancel") + "?"} run={async () => {
                   const r = await command<{ refund: Record<string, number> }>(`/api/v1/cities/${city!.city.id}/jobs/cancel`, { jobId: j.id });
                   toast(t("cancel") + " ✓", "ok");
                   await refresh();
                   return r;
-                }}>{t("cancel")}</Action>
+                }}><Icon name="close" size={16} /></Action>
               )}
             </li>
           ))}

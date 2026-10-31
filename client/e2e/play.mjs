@@ -34,10 +34,22 @@ await page.getByLabel("Ruler name").fill("Cinder " + String(Date.now()).slice(-6
 await page.locator("label.race", { hasText: "Ashborn" }).click();
 await page.screenshot({ path: `${out}/02-join.png` });
 await page.getByRole("button", { name: "Join" }).click();
-await page.locator(".city-game-building", { hasText: "Lumberyard" }).waitFor();
+await page.locator(".city-game-stage .city-scene").waitFor();
 log("joined world; city screen rendered");
 await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
+const cityMetrics = await page.evaluate(() => {
+  const stage = document.querySelector(".city-game-stage .city-scene").getBoundingClientRect();
+  const shell = document.querySelector(".shell").getBoundingClientRect();
+  const dock = document.querySelector(".game-dock").getBoundingClientRect();
+  return { sceneWidth: stage.width / window.innerWidth, sceneHeight: stage.height / window.innerHeight,
+    shellWidth: shell.width / window.innerWidth, dockBottom: window.innerHeight - dock.bottom };
+});
+if (cityMetrics.shellWidth < .98 || cityMetrics.sceneWidth < .55 || cityMetrics.sceneHeight < .58 ||
+  Math.abs(cityMetrics.dockBottom) > 4) fail("city viewport is not full screen: " + JSON.stringify(cityMetrics));
+await page.locator(".city-build-toggle").click();
+await page.locator(".city-game-buildings.expanded").waitFor();
+await page.screenshot({ path: `${out}/22-city-catalogue-drawer.png` });
 
 await page.locator(".city-game-building", { hasText: "Lumberyard" }).click();
 await page.getByRole("dialog").locator(".building-catalog-tabs button").first().waitFor();
@@ -62,6 +74,7 @@ await page.keyboard.press("Escape");
 // world speed x50: level 2 takes ~2 s
 await page.waitForTimeout(3500);
 await page.reload();
+await page.locator(".city-build-toggle").click();
 await page.locator(".city-game-building", { hasText: "Lumberyard" }).waitFor();
 const lumber = await page.locator(".city-game-building", { hasText: "Lumberyard" }).innerText();
 if (!/Level 2/.test(lumber)) fail("after reload lumberyard should be level 2, got: " + lumber);
@@ -128,7 +141,7 @@ await mp.goto(base);
 await mp.locator("main.content h1").first().waitFor(); // restores the last screen (map)
 await mp.screenshot({ path: `${out}/15a-mobile-map.png` });
 await mp.locator("nav.bottomnav").getByRole("button", { name: "City" }).click();
-await mp.locator(".city-game-building").first().waitFor();
+await mp.locator(".city-game-stage .city-scene").waitFor();
 await mp.waitForLoadState("networkidle");
 await mp.screenshot({ path: `${out}/15-mobile-city.png` });
 await mp.locator("nav.bottomnav").getByRole("button", { name: "More" }).click();

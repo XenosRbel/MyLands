@@ -28,7 +28,10 @@ def patch(scene, kind, bounds, blur=14, alpha=230):
     d.ellipse((-8,-6,width+8,height+5),fill=alpha)
     mask=mask.filter(ImageFilter.GaussianBlur(blur))
     layer.putalpha(mask)
-    scene.alpha_composite(layer,(x0,y0))
+    left=max(0,x0);top=max(0,y0);right=min(W,x1);bottom=min(H,y1)
+    if right<=left or bottom<=top:return
+    layer=layer.crop((left-x0,top-y0,right-x0,bottom-y0))
+    scene.alpha_composite(layer,(left,top))
 
 def main():
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)

@@ -1496,3 +1496,12 @@ canvas.map { border:3px ridge #9d8865;border-radius:3px;box-shadow:0 10px 28px #
 }
 @media(max-width:720px) {.game-dock-globe {display:none;}}
 @media(prefers-reduced-motion:reduce) {.game-dock-globe img {transition:none;}}
+
+/* Permanent parchment column uses separate building and troop-training headers. */
+@media(min-width:721px) {
+  .city-game-rail .city-game-rail-title.training {
+    margin-top:5px;border-top:4px ridge #b89b69;
+  }
+  .city-game-rail .game-queue-panel {min-height:125px;}
+  .city-game-rail .game-queue-panel .game-queue-empty {min-height:70px;}
+}

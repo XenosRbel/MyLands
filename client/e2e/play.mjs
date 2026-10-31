@@ -27,7 +27,7 @@ await page.getByLabel("Ruler name").fill("Cinder " + String(Date.now()).slice(-6
 await page.locator("label.race", { hasText: "Ashborn" }).click();
 await page.screenshot({ path: `${out}/02-join.png` });
 await page.getByRole("button", { name: "Join" }).click();
-await page.locator(".bcard", { hasText: "Lumberyard" }).waitFor();
+await page.locator(".city-game-building", { hasText: "Lumberyard" }).waitFor();
 log("joined world; city screen rendered");
 await page.waitForLoadState("networkidle");
 await page.screenshot({ path: `${out}/03-city.png` });
@@ -79,7 +79,7 @@ await mp.goto(base);
 await mp.locator("main.content h1").first().waitFor(); // restores the last screen (map)
 await mp.screenshot({ path: `${out}/15a-mobile-map.png` });
 await mp.locator("nav.bottomnav").getByRole("button", { name: "City" }).click();
-await mp.locator(".bcard").first().waitFor();
+await mp.locator(".city-game-building").first().waitFor();
 await mp.waitForLoadState("networkidle");
 await mp.screenshot({ path: `${out}/15-mobile-city.png` });
 await mp.locator("nav.bottomnav").getByRole("button", { name: "More" }).click();

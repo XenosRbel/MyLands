@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { api, ApiError } from "../api/client";
 import { useGame } from "../game/context";
 import type { Amounts, Requirement } from "../api/types";
@@ -189,7 +190,9 @@ export function Modal({ title, onClose, children, wide }: { title: string; onClo
       prev?.focus?.();
     };
   }, [onClose]);
-  return (
+  // Render outside the animated game content stacking context.
+  // Otherwise the fixed overlay appears below the resource bar and bottom HUD.
+  return createPortal(
     <div className="overlay" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div className={"modal" + (wide ? " wide" : "")} role="dialog" aria-modal="true" aria-label={title} tabIndex={-1} ref={ref}>
         <header>
@@ -198,7 +201,8 @@ export function Modal({ title, onClose, children, wide }: { title: string; onClo
         </header>
         <div className="modal-body">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

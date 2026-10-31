@@ -63,8 +63,6 @@
       "ironvow": "emblems/ironvow.svg",
       "ashborn": "emblems/ashborn.svg",
       "gravewarden": "emblems/gravewarden.svg",
-      "dawnpact": "emblems/dawnpact.svg",
-      "duskbound": "emblems/duskbound.svg",
       "militia": "units/militia.webp",
       "pikeman": "units/pikeman.webp",
       "bowman": "units/bowman.webp",
@@ -153,9 +151,7 @@
       "thornkin": "emblems/thornkin.svg",
       "ironvow": "emblems/ironvow.svg",
       "ashborn": "emblems/ashborn.svg",
-      "gravewarden": "emblems/gravewarden.svg",
-      "dawnpact": "emblems/dawnpact.svg",
-      "duskbound": "emblems/duskbound.svg"
+      "gravewarden": "emblems/gravewarden.svg"
     }
   },
   "params": {

@@ -12,5 +12,9 @@
 - **Обязательные тесты**:
   - Юнит-тесты pack.Validate.
   - make packs.
-- **Результат**: Открыта
+- **Результат**: Частично выполнена (2026-11-01). Выполнена часть «схема базы данных». Часть «схема Game Pack» не начата.
+  - Проект: `docs/modernization/DB_DESIGN.md`. Миграция: `server/migrations/0002_mylands_foundations.sql`.
+  - Тесты: `server/migrations/migrations_test.go`. Запущены `make test-go` и `make lint` на PostgreSQL 16, результат зелёный.
+  - Не выполнено: `pack.Validate`, отклонение неизвестных полей пака, `make packs`.
+  - Не проверено: гонка параллельных подтверждений платежа, `VALIDATE CONSTRAINT` на реальных данных, `make e2e`.
 - **Ограничения**: Значения со статусом `UNKNOWN` не заменяются собственными.

@@ -1,0 +1,210 @@
+# Проектирование базы данных My Lands
+
+Дата: 2026-11-01. Задача: [ML-D01](../../tasks/mylands/ML-D01.md).
+Миграция: `server/migrations/0002_mylands_foundations.sql`.
+Тесты: `server/migrations/migrations_test.go`.
+Целевая СУБД: PostgreSQL 16.
+
+## 1. Принципы
+
+1. Миграции только добавляют изменения. Файл `0001_init.sql` не меняется.
+2. Данные Game Pack остаются в JSON пака. База хранит состояние игрока и ссылки на идентификаторы пака.
+3. Каждое изменение состояния выполняется в одной транзакции.
+4. Порядок блокировок: `players`, `cities`, `missions`, `heroes`, `tiles`, заказы и предметы.
+5. Транзакция не блокирует двух игроков.
+6. Правила и формулы остаются в `server/internal/rules`.
+
+### 1.1. Почему определения пака не лежат в таблицах
+
+1. Пак версионируется и закрепляется снимком в `worlds.pack_json`. Второй источник правды создаёт расхождения.
+2. Переименование идентификатора требует записи `migrations` в паке. Таблицы определений дублировали бы этот процесс.
+3. Значения со статусом `UNKNOWN` и `PROPOSED` меняются часто. Правка JSON дешевле миграции.
+4. База хранит только то, что должна защитить ограничениями: владение, баланс, срок, уникальность.
+5. Исключение — реестр `service_defs`. Он нужен для внешнего ключа и группы исключительности. Цены и эффекты в него не входят.
+6. Реестр `server_param_defs` задаёт тип и диапазон параметра профиля. Значения параметров хранятся типизированно.
+
+## 2. Обзор существующей схемы
+
+Метод: чтение `0001_init.sql` и сверка с правилами `AGENT.md`.
+Серьёзность: High — риск потери данных или обхода инварианта. Medium — слабая защита или риск производительности. Low — стиль.
+
+| ID | Серьёзность | Находка | Действие |
+|---|---|---|---|
+| F-01 | High | `resource_ledger.delta` — JSONB `resourceId -> число`. Это нарушение 1НФ: сумму по ресурсу нельзя проверить SQL | Не исправляется в 0002. Смена формата ломает код. Рекомендация R-1 |
+| F-02 | High | `resource_ledger.world_id`, `player_id`, `city_id` без внешних ключей. Журнал может ссылаться на несуществующие строки | Добавлены внешние ключи `NOT VALID` |
+| F-03 | Medium | `idempotency_keys.account_id` без внешнего ключа. Строки переживают удаление аккаунта | Добавлен внешний ключ `NOT VALID`, `ON DELETE CASCADE` |
+| F-04 | Medium | Нет CHECK на неотрицательность: `cities.population`, `heroes.level/xp`, `tiles.neutral_level`, `jobs.level` | Добавлены CHECK `NOT VALID` |
+| F-05 | Medium | Нет CHECK `missions.arrive_at >= depart_at` | Добавлен CHECK `NOT VALID` |
+| F-06 | Medium | JSONB-столбцы `techs`, `stats`, `resources`, `buildings`, `units`, `econ_carry` не проверяют тип объекта | Добавлены CHECK `jsonb_typeof = 'object'` |
+| F-07 | Medium | Нет индексов на внешних ключах: `players.account_id`, `heroes.home_city_id`, `missions.hero_id`, `tiles.city_id`, `deliveries.*`, `messages.from_player`, `alliance_invites.player_id`, `world_pack_history.world_id`, `alliance_relations.other_id`, `market_orders.city_id` | Добавлены индексы, частичные там, где столбец часто пуст |
+| F-08 | Medium | `cities.resources`, `buildings`, `units` — JSONB состояния. Это 1НФ-компромисс | Принято: город читается и блокируется целиком. Нет запросов по отдельному зданию. Пересмотр после замера |
+| F-09 | Medium | Нет внешнего ключа `worlds -> профиль сервера` | Добавлен `worlds.profile_id` |
+| F-10 | Low | `BIGSERIAL` вместо `GENERATED ALWAYS AS IDENTITY` | Не исправляется: смена требует переписывания последовательностей. Новые таблицы используют IDENTITY |
+| F-11 | Low | Статусы — `TEXT` с `CHECK`. Это допустимо для изменяемых наборов | Сохранено. Новые таблицы следуют тому же стилю |
+| F-12 | Low | Имя столбца `idempotency_keys.key` совпадает с ключевым словом SQL (не зарезервированным) | Не меняется. Запросы работают |
+| F-13 | Low | Нет внешних ключей `reports.world_id` уже есть. `notifications` без `world_id` | Наблюдение. Действий нет |
+| F-14 | Low | Остатки производства лежат в `econ_carry` JSONB. Тип значений не проверяется | Наблюдение. Проверяет движок |
+
+Положительные находки:
+1. Все времена имеют тип `TIMESTAMPTZ`.
+2. Количества — `BIGINT`. Деньги не хранятся в `FLOAT`.
+3. Частичные уникальные индексы защищают активные приглашения, названия альянсов и слоты героя.
+4. `UNIQUE (kind, ref_id, due_at)` делает события идемпотентными.
+
+### 2.1. Рекомендации на будущее
+
+1. R-1. Заменить `resource_ledger.delta` на строки `resource_ledger_lines(ledger_id, resource_id, amount)`. Нужна миграция кода и данных.
+2. R-2. Выполнить `VALIDATE CONSTRAINT` для всех ограничений `NOT VALID` после проверки данных.
+3. R-3. Перейти на `IDENTITY` при следующей пересборке таблиц.
+4. R-4. Замерить план запросов по `cities` до любой нормализации F-08.
+
+## 3. Целевая модель
+
+Таблицы миграции 0002:
+
+| Таблица | Назначение |
+|---|---|
+| `server_profiles` | Профиль сервера: код, название, статус |
+| `server_param_defs` | Реестр параметров: вид, минимум, максимум, значение по умолчанию |
+| `server_profile_params` | Одно типизированное значение на профиль и параметр |
+| `premium_wallets` | Кошелёк ЧЖ на пару аккаунт и мир |
+| `premium_ledger` | Журнал ЧЖ, только добавление |
+| `payment_orders` | Тестовые платёжные заказы |
+| `service_defs` | Реестр услуг: код, группа, ссылка на пак |
+| `service_instances` | Активные и закрытые услуги игрока |
+
+### 3.1. Профиль сервера
+
+1. Профиль не хранится одним JSONB. Каждый параметр — строка с числовым типом `NUMERIC(14,4)`.
+2. Триггер проверяет диапазон из `server_param_defs`.
+3. Для вида `integer` триггер отклоняет дробные значения.
+4. `worlds.profile_id` связывает мир с профилем. Столбец допускает NULL для старых миров.
+5. Миграция не заполняет профили. Значения приходят из конфигурации (ML-D08).
+6. Формулы остаются в движке. Таблицы хранят только множители.
+
+### 3.2. Кошелёк ЧЖ
+
+1. Кошелёк принадлежит аккаунту на сервере. Ключ: `UNIQUE (account_id, world_id)`.
+2. Баланс не бывает отрицательным: `CHECK (balance >= 0)`.
+3. Баланс меняется только вставкой в `premium_ledger`.
+4. Триггер вставки блокирует кошелёк, считает `balance_after` и обновляет баланс.
+5. Прямое изменение баланса отклоняется триггером `premium_wallet_guard`.
+6. Журнал не допускает `UPDATE`, `DELETE` и `TRUNCATE`.
+7. Знак `delta` зависит от причины. Покупка, возврат и выдача положительны. Расход и списание отрицательны.
+8. Ключ `UNIQUE (wallet_id, reason, ref)` защищает от повторной записи.
+9. Представление `premium_wallet_audit` сверяет баланс и сумму журнала.
+10. Блокировка кошелька идёт после блокировки `players`. Порядок блокировок не нарушается.
+
+Журнал ЧЖ отделён от `resource_ledger`. Причина: у ЧЖ нет города, а у `resource_ledger` столбец `city_id` обязателен.
+Правило «каждый расход и выдача пишут журнал» выполняется для обоих журналов.
+
+### 3.3. Тестовые платежи
+
+1. Провайдер фиксирован: `CHECK (provider = 'mock')`. Валюта фиксирована: `MOCK`.
+2. Таблица не хранит данные карт и ответы внешних провайдеров.
+3. Ключ идемпотентности уникален на кошелёк: `UNIQUE (wallet_id, idempotency_key)`.
+4. Условия заказа неизменяемы после создания.
+5. Автомат состояний задаёт триггер `payment_orders_transition`.
+6. Разрешены переходы: `created -> pending | cancelled | expired | failed`.
+7. Разрешены переходы: `pending -> confirmed | failed | cancelled | expired`.
+8. Состояния `confirmed`, `failed`, `cancelled`, `expired` конечные.
+9. Состояние `confirmed` требует `confirmed_at`. Триггер заполняет поле сам.
+10. Частичный уникальный индекс допускает одну запись `purchase` на заказ. Повторное подтверждение не удваивает ЧЖ.
+
+### 3.4. Платные услуги
+
+1. Цены, сроки и эффекты остаются в паке. Статус значений — `PROPOSED`.
+2. `service_defs` хранит код услуги, группу исключительности и идентификатор пака.
+3. `service_instances` хранит уровень, начало, окончание, оплаченную цену и статус.
+4. Составной внешний ключ `(service_code, service_group)` не допускает расхождения группы.
+5. Частичный уникальный индекс `(player_id, service_group) WHERE status = 'active'` оставляет одну активную услугу на группу.
+6. Правило «слабый уровень не заменяет сильный» выполняет код (ML-M15). База гарантирует отсутствие двух активных услуг.
+7. Закрытая услуга неизменяема. Статусы: `expired`, `cancelled`, `replaced`.
+8. Расход ЧЖ ссылается на услугу через `premium_ledger.service_instance_id`.
+9. Верхняя граница уровня проверяется кодом по паку. База проверяет только `level >= 1`.
+
+### 3.5. Диаграмма
+
+```mermaid
+erDiagram
+    accounts ||--o{ players : "has"
+    worlds ||--o{ players : "hosts"
+    server_profiles ||--o{ worlds : "configures"
+    server_profiles ||--o{ server_profile_params : "has"
+    server_param_defs ||--o{ server_profile_params : "types"
+    accounts ||--o{ premium_wallets : "owns"
+    worlds ||--o{ premium_wallets : "scopes"
+    premium_wallets ||--o{ premium_ledger : "journals"
+    premium_wallets ||--o{ payment_orders : "pays"
+    payment_orders ||--o| premium_ledger : "credits once"
+    players ||--o{ service_instances : "uses"
+    service_defs ||--o{ service_instances : "defines"
+    service_instances ||--o| premium_ledger : "spends"
+    server_profiles {
+        bigint id PK
+        text code UK
+        text status
+    }
+    server_param_defs {
+        text code PK
+        text kind
+        numeric min_value
+        numeric max_value
+    }
+    server_profile_params {
+        bigint profile_id PK
+        text param_code PK
+        numeric value
+    }
+    premium_wallets {
+        bigint id PK
+        bigint account_id UK
+        bigint world_id UK
+        bigint balance
+    }
+    premium_ledger {
+        bigint id PK
+        bigint wallet_id FK
+        bigint delta
+        bigint balance_after
+        text reason
+        text ref
+    }
+    payment_orders {
+        bigint id PK
+        bigint wallet_id FK
+        text idempotency_key UK
+        text status
+    }
+    service_defs {
+        text code PK
+        text service_group
+    }
+    service_instances {
+        bigint id PK
+        bigint player_id FK
+        text service_code FK
+        int level
+        text status
+        timestamptz expires_at
+    }
+```
+
+## 4. Критерии приёмки
+
+1. Миграция применяется на пустой базе. Проверка: `TestMigrationAppliesOnEmptyDatabase`.
+2. Миграция применяется поверх 0001 с данными. Проверка: `TestMigrationAppliesOnTopOf0001WithData`.
+3. Отрицательный баланс отклонён. Проверка: `TestWalletRejectsNegativeBalanceAndDirectEdits`.
+4. Повторный ключ идемпотентности отклонён. Проверка: `TestPaymentOrderIdempotencyAndStateMachine`.
+5. Недопустимый переход статуса отклонён. Проверка: тот же тест.
+6. Две активные услуги в одной группе отклонены. Проверка: `TestOneActiveServicePerGroup`.
+7. Сумма журнала равна балансу. Проверка: `TestLedgerSumEqualsBalanceAndIsAppendOnly`.
+8. Диапазон параметра профиля проверяется. Проверка: `TestServerProfileParamsAreTypedAndRanged`.
+
+## 5. Ограничения и непроверенное
+
+1. Ограничения `NOT VALID` не проверяют старые строки до `VALIDATE CONSTRAINT`.
+2. Параллельная гонка двух подтверждений платежа не проверена тестом с несколькими соединениями.
+3. Код игры (`server/internal/game`) пока не использует новые таблицы. Это задачи ML-M15 и ML-M16.
+4. Реальные платежи вне области. Нужен обзор по `AGENT.md`.
+5. Файл `server/api/openapi.yaml` не менялся. Новых команд нет.

@@ -40,6 +40,7 @@ Last updated: 2026-11-01. Legend: ✅ implemented & tested · 🟡 partial · �
 | Android (Capacitor) | 🟡 config ✅; native project/AAB ⛔ (no SDK) | client/capacitor.config.ts | — |
 | Backup/restore | ✅ (logical) | scripts/*.sh | verify-backup executed |
 | Docker | 🟡 files written, not executed | Dockerfile, docker-compose.yml | — |
+| Balance simulation: bot player on pure rules, first-day curves, PvE difficulty, wage pressure | ✅ baseline; research, heroes, market, PvP not simulated (T-022) | server/internal/sim, server/cmd/sim, `make sim` | 10 unit tests; determinism by `cmp` |
 | Load testing | 🟡 baseline: 200 players, 648 req/s, 0 errors (docs/reports/LOAD_TEST_2026-10-31.md) | server/cmd/loadtest | manual run |
 
 ## Verification: agent harness, 2026-11-01

@@ -4,7 +4,7 @@ HARNESS_ROOT := $(shell git rev-parse --show-toplevel)
 DB_URL ?= postgres://postgres@127.0.0.1:5432/realmforge?sslmode=disable
 WORLDS ?= ember-1:ashen-crowns:Ember Vale (x50):50,void-1:void-frontier:Void Frontier Demo:10
 
-.PHONY: verify-backup db dev server client build test test-go test-client e2e packs lint backup restore docker
+.PHONY: verify-backup db dev server client build test test-go test-client e2e packs lint backup restore docker sim
 .PHONY: harness-context harness-doctor harness-test harness-check check-spec
 
 harness-context: ## show shared agent context
@@ -42,6 +42,9 @@ build:         ## production builds
 
 packs:         ## validate all game packs
 	cd server && go run ./cmd/packtool summary ../packs/*/
+
+sim:           ## balance simulation of the first day (no database needed)
+	cd server && go run ./cmd/sim -pack ../packs/ashen-crowns,../packs/void-frontier -out ../docs/reports/BALANCE_SIM_TABLES.md
 
 lint:
 	cd server && go vet ./... && test -z "$$(gofmt -l .)"

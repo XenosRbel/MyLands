@@ -25,3 +25,4 @@
 - Client UI strings exist in English and Russian only; Void Frontier is a demo, not a complete game.
 - Art: UI frames, neutral-site and emblem art and 10 unit portraits are missing; terrain tiles are not seamless; the world map is still a flat square grid (see docs/art/ASSET_GAP_REPORT.md). City buildings are one sprite per type regardless of level.
 - No monetisation, ads or payments (intentional).
+- Balance simulation (T-022): the bot is greedy and ignores research, heroes, market and PvP. Rewards without `exchangeRates` count as 1. Findings are bot-relative.

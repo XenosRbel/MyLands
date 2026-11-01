@@ -12,5 +12,6 @@
 - **Обязательные тесты**:
   - Юнит-тест rules.
   - Тест леджера.
-- **Результат**: Открыта
+- **Результат**: В работе
+  Чистые правила: `rules/economy_tables.go` (`TableEffect`, `SumTables`), добыча, ёмкость склада (с расами) и жильё из `buildingTables`, переопределения профиля, множители `production_multiplier` и `upkeep_multiplier`; вшито в `ComputeRates`. Дезертирство 0,5% в час покрыто тестом `TickStep`. Тесты: `rules/economy_tables_test.go`. Не сделано: профиль сервера не передаётся движком (`EconInput.Profile` всегда пуст), рост населения из `populationGrowth` (единица UNKNOWN), `growthPerOtherHouse`, плательщик жалования в паке `mylands`, работники таблиц
 - **Ограничения**: Значения со статусом `UNKNOWN` не заменяются собственными.

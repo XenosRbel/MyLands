@@ -274,7 +274,7 @@ func (c *pctx) refreshAway(ci *City) error {
 
 func (c *pctx) econInput(ci *City) rules.EconInput {
 	return rules.EconInput{Pack: c.p, Buildings: ci.Buildings, Mods: c.cityMods(ci), Population: ci.Pop,
-		Garrison: ci.Units, AwayUpkeep: ci.away}
+		Garrison: ci.Units, AwayUpkeep: ci.away, Race: c.pl.Race}
 }
 
 func (c *pctx) advance(ci *City, to time.Time) rules.Rates {

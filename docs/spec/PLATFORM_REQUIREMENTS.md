@@ -343,9 +343,9 @@ Server-side counterparts (design notes, no code):
 - [ ] Decide cloud-save mirroring (YG-09 / 1.13.3). Get written confirmation from Yandex support.
 - [ ] Mobile CSS hardening: no scroll, no swipe-to-refresh, no long-press selection or context menu.
 - [ ] Automatic locale from `i18n.lang`, with fallbacks. Complete translations for each declared language, including store texts, screenshots and video.
-- [ ] Remove all external links from the Yandex build. CI check that greps for URLs.
+- [x] Remove all external links from the Yandex build. `client/scripts/check-package.mjs` fails on any external host except the declared API host. The Google Fonts request was removed from the Yandex build on 2026-11-01. The check is not yet wired into CI.
 - [ ] Connection-error screen with Retry.
-- [ ] CI: ZIP with root `index.html`, at most 100 MB uncompressed, ASCII filenames without spaces.
+- [x] ZIP with root `index.html`, at most 100 MB uncompressed, ASCII filenames without spaces: enforced by `npm run yandex:zip` (the limit is not re-verified against the live page, see T-020). CI wiring is open.
 - [ ] CSP tab: declare the API and WS hosts with justification. Test in **draft** mode.
 - [ ] Stable moderation server environment and monitoring.
 - [ ] Ad placements only at safe breaks. Run the pause/resume test matrix on the browser and OS list.

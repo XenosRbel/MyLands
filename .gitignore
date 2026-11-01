@@ -14,3 +14,6 @@ client/yandex-build.zip
 /client/public/ui/painted/
 .harness/
 __pycache__/
+
+# Temporary debug sprites from the wiki (customer-authorised, local only).
+/art-reference/wiki-temp/

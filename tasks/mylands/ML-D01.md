@@ -12,9 +12,13 @@
 - **Обязательные тесты**:
   - Юнит-тесты pack.Validate.
   - make packs.
-- **Результат**: Частично выполнена (2026-11-01). Выполнена часть «схема базы данных». Часть «схема Game Pack» не начата.
-  - Проект: `docs/modernization/DB_DESIGN.md`. Миграция: `server/migrations/0002_mylands_foundations.sql`.
-  - Тесты: `server/migrations/migrations_test.go`. Запущены `make test-go` и `make lint` на PostgreSQL 16, результат зелёный.
-  - Не выполнено: `pack.Validate`, отклонение неизвестных полей пака, `make packs`.
-  - Не проверено: гонка параллельных подтверждений платежа, `VALIDATE CONSTRAINT` на реальных данных, `make e2e`.
+- **Результат**: Выполнена (2026-11-01), с оговорками ниже. Схема базы и схема Game Pack готовы.
+  - База: `docs/modernization/DB_DESIGN.md`, `server/migrations/0002_mylands_foundations.sql`, `server/migrations/migrations_test.go`.
+  - Пак: `server/internal/pack/types_mylands.go`, `validate_mylands.go`, `mylands_test.go`. Описание: `docs/modernization/PACK_SCHEMA.md`.
+  - Пример: `packs/mylands-sample/pack.json` (Fortification и Temple 1–9, переопределение по расе, профиль, услуга, геометрия).
+  - Добавлены поля: `crystals`, `buildingTables`, `paramDefs`, `serverProfiles`, `unitDefs`, `services`, `geometry`, тип `Num`.
+  - Версия формата не менялась. Старые паки проходят проверку: `ashen-crowns`, `void-frontier`.
+  - Проверки: `make test-go` (PostgreSQL 16, `-race`), `make lint`, `make packs` дали зелёный результат.
+  - Не проверено: `make e2e`; хэши старых паков не сравнивались с версией до изменения; движок пока не читает новые поля.
+  - Допущения: количества кристаллов, цены услуг и геометрия карты в примере — `PROPOSED`.
 - **Ограничения**: Значения со статусом `UNKNOWN` не заменяются собственными.

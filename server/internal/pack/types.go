@@ -49,6 +49,14 @@ type Pack struct {
 	// Migrations describe how worlds pinned to older versions of this pack
 	// can be moved to this version (ID renames, removed IDs replacement).
 	Migrations []Migration `json:"migrations,omitempty"`
+	// My Lands extensions. All optional; see docs/modernization/PACK_SCHEMA.md.
+	Crystals       []CrystalType   `json:"crystals,omitempty"`
+	BuildingTables []BuildingTable `json:"buildingTables,omitempty"`
+	ParamDefs      []ParamDef      `json:"paramDefs,omitempty"`
+	ServerProfiles []ServerProfile `json:"serverProfiles,omitempty"`
+	UnitDefs       []UnitDef       `json:"unitDefs,omitempty"`
+	Services       []Service       `json:"services,omitempty"`
+	Geometry       *MapGeometry    `json:"geometry,omitempty"`
 	// Strings holds free UI texts per locale (tutorial lines, flavour text).
 	Strings map[string]LocText `json:"strings,omitempty"`
 }

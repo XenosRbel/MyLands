@@ -87,6 +87,7 @@ func Validate(p *Pack) Errors {
 	v.params()
 	v.theme()
 	v.ui()
+	v.myLands()
 	v.migrations()
 	v.requirementCycles()
 	if len(v.errs) == 0 {
@@ -209,6 +210,7 @@ func (v *validator) collectIDs() {
 	for _, x := range p.Quests {
 		v.addID("quest", x.ID)
 	}
+	v.collectMyLandsIDs()
 }
 
 func (v *validator) is(kind, id string) bool { return v.ids[id] == kind }

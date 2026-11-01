@@ -4,7 +4,7 @@ Last updated: 2026-11-01. Legend: ✅ implemented & tested · 🟡 partial · �
 
 | Subsystem | Status | Where | Tests |
 |---|---|---|---|
-| Shared Codex / Claude Code harness | 🟡 implementation verified; baseline lint and live activation pending (T-032) | scripts/harness/, .codex/, .claude/settings.json | 30 harness tests; real hook commands and red Stop |
+| Shared Codex / Claude Code harness | ✅ `make harness-check` passes; live client activation and Codex hook trust unverified (T-032) | scripts/harness/, .codex/, .claude/settings.json | 30 harness tests; real hook commands and red Stop |
 | Principal Architect role | 🟡 shared instructions and Codex / Claude / GitHub Copilot profiles added; activation pending (T-033) | .agents/roles/, .codex/agents/, .claude/agents/, .github/agents/ | TOML/YAML parsing, local links, harness tests |
 | Accounts: register/login (argon2id), guest, upgrade guest, logout, sessions TTL/revocation, ban, delete (anonymise) | ✅ | game/accounts.go | TestAccountsAuth, TestGuestAndDevPlatform, TestEndToEnd |
 | Platform identity sign-in | 🟡 `dev` only; Yandex/Google verification ⛔ | accounts.go, platform/adapter.ts | TestGuestAndDevPlatform |
@@ -47,7 +47,7 @@ Last updated: 2026-11-01. Legend: ✅ implemented & tested · 🟡 partial · �
 
 `make harness-test` passed (30 tests). `make test` passed with PostgreSQL 16, required DB tests and Go race detector.
 Client typecheck, 10 client tests, Go vet and both Game Pack validations passed.
-`make harness-check` remains blocked by existing Go formatting in three files; see T-032.
+`make harness-check` passed on 2026-11-01 (exit 0); see T-032.
 Live client activation and Codex hook trust remain unverified. No gameplay or API behavior changed.
 
 ## Previous verification run (2026-10-31)

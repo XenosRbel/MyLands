@@ -3,6 +3,7 @@ package game
 import (
 	"context"
 	"errors"
+	"math"
 	"regexp"
 	"strings"
 	"time"
@@ -172,26 +173,88 @@ func (s *Service) Join(ctx context.Context, accountID, worldID int64, name, race
 	return playerID, err
 }
 
+// spawnLockClass namespaces the per-world advisory lock taken by findSpawn.
+const spawnLockClass = 7001
+
 // findSpawn picks a free passable tile without a neutral, at least 3 tiles
-// (Chebyshev) from any city, closest to the centre with jitter (PROPOSED).
+// (Chebyshev) from any city, close to the centre with jitter (GAME_RULES R-CITY-3, PROPOSED).
+//
+// Joins of one world are serialised by a transaction-level advisory lock.
+// Without it two concurrent joins cannot see each other's uncommitted city
+// and may pick neighbouring tiles. The lock is released at commit.
+//
+// The search walks square rings outward from the centre and takes a random
+// free tile of the first ring that has one. A ring costs about 8r primary-key
+// lookups, so the cost does not grow with the map area. The first ring is
+// estimated from the number of cities, because every ring inside that radius
+// is almost full.
 func (s *Service) findSpawn(ctx context.Context, tx pgx.Tx, worldID int64, p *pack.Loaded) (int, int, error) {
+	if _, err := tx.Exec(ctx, `SELECT pg_advisory_xact_lock($1, $2)`, int32(spawnLockClass), int32(worldID)); err != nil {
+		return 0, 0, err
+	}
 	var passable []string
 	for _, t := range p.Terrains {
 		if t.Passable {
 			passable = append(passable, t.ID)
 		}
 	}
-	cx, cy := float64(p.Params.MapWidth-1)/2, float64(p.Params.MapHeight-1)/2
-	var x, y int
-	err := tx.QueryRow(ctx, `SELECT x, y FROM tiles t
-		WHERE world_id=$1 AND city_id IS NULL AND neutral_id IS NULL AND owner_player_id IS NULL AND terrain = ANY($2)
-		  AND NOT EXISTS (SELECT 1 FROM cities c WHERE c.world_id=t.world_id AND c.x BETWEEN t.x-2 AND t.x+2 AND c.y BETWEEN t.y-2 AND t.y+2)
-		ORDER BY (x-$3)*(x-$3) + (y-$4)*(y-$4) + random()*20 LIMIT 1 FOR UPDATE SKIP LOCKED`,
-		worldID, passable, cx, cy).Scan(&x, &y)
-	if errors.Is(err, pgx.ErrNoRows) {
-		return 0, 0, rule("world_full", "no free location left in this world")
+	var cities int64
+	if err := tx.QueryRow(ctx, `SELECT count(*) FROM cities WHERE world_id=$1`, worldID).Scan(&cities); err != nil {
+		return 0, 0, err
 	}
-	return x, y, err
+	cx, cy := (p.Params.MapWidth-1)/2, (p.Params.MapHeight-1)/2
+	maxR := max(p.Params.MapWidth, p.Params.MapHeight)
+	start := spawnStartRing(cities, maxR)
+	if v, ok := s.spawnRing.Load(worldID); ok {
+		start = max(start, min(v.(int), maxR))
+	}
+	// Rings start..maxR first, then the holes left inside the start ring.
+	for i := 0; i <= maxR; i++ {
+		r := start + i
+		if r > maxR {
+			r = i - (maxR - start) - 1
+		}
+		x, y, ok, err := s.spawnOnRing(ctx, tx, worldID, passable, cx, cy, r)
+		if err != nil {
+			return 0, 0, err
+		}
+		if ok {
+			if r >= start { // a hole inside the start ring must not lower the hint
+				s.spawnRing.Store(worldID, r)
+			}
+			return x, y, nil
+		}
+	}
+	return 0, 0, rule("world_full", "no free location left in this world")
+}
+
+// spawnStartRing estimates the radius inside which rings are full: cities sit
+// at least 3 apart, so n cities fill about a disc of area 9n.
+func spawnStartRing(cities int64, maxR int) int {
+	r := int(0.8 * math.Sqrt(9*float64(cities)/math.Pi))
+	return max(0, min(r, maxR))
+}
+
+// spawnOnRing locks and returns a random legal tile at Chebyshev distance r
+// from the centre.
+func (s *Service) spawnOnRing(ctx context.Context, tx pgx.Tx, worldID int64, passable []string, cx, cy, r int) (int, int, bool, error) {
+	var x, y int
+	err := tx.QueryRow(ctx, `
+		WITH ring(x, y) AS (
+			SELECT g, $4::int - $5::int FROM generate_series($3::int - $5::int, $3::int + $5::int) g
+			UNION SELECT g, $4::int + $5::int FROM generate_series($3::int - $5::int, $3::int + $5::int) g
+			UNION SELECT $3::int - $5::int, g FROM generate_series($4::int - $5::int, $4::int + $5::int) g
+			UNION SELECT $3::int + $5::int, g FROM generate_series($4::int - $5::int, $4::int + $5::int) g
+		)
+		SELECT t.x, t.y FROM ring JOIN tiles t ON t.world_id=$1 AND t.x=ring.x AND t.y=ring.y
+		WHERE t.city_id IS NULL AND t.neutral_id IS NULL AND t.owner_player_id IS NULL AND t.terrain = ANY($2)
+		  AND NOT EXISTS (SELECT 1 FROM cities c WHERE c.world_id=t.world_id AND c.x BETWEEN t.x-2 AND t.x+2 AND c.y BETWEEN t.y-2 AND t.y+2)
+		ORDER BY random() LIMIT 1 FOR UPDATE OF t`,
+		worldID, passable, cx, cy, r).Scan(&x, &y)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return 0, 0, false, nil
+	}
+	return x, y, err == nil, err
 }
 
 // playerFor returns the player id of an account in a world.

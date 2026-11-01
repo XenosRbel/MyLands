@@ -1,0 +1,1119 @@
+{
+ "formatVersion": 1,
+ "id": "mylands-sample",
+ "version": "1.0.0",
+ "meta": {
+  "title": {
+   "en": "My Lands sample"
+  },
+  "description": {
+   "en": "Fixture exercising the My Lands pack schema. Not a playable product."
+  }
+ },
+ "locales": [
+  "en"
+ ],
+ "defaultLocale": "en",
+ "theme": {
+  "palette": {
+   "bg": "#101010",
+   "surface": "#202020",
+   "text": "#ffffff",
+   "muted": "#999999",
+   "accent": "#ffaa00",
+   "danger": "#ff0000",
+   "ok": "#00ff00"
+  },
+  "assetsLicense": "none: fixture without art"
+ },
+ "params": {
+  "foodResource": "grain",
+  "economyTickSeconds": 600,
+  "mapWidth": 16,
+  "mapHeight": 16,
+  "heroBuilding": "hall",
+  "heroHireCost": {
+   "gold": 10
+  },
+  "settlerUnit": "settler",
+  "cityCapBuilding": "hall",
+  "territoryCapBuilding": "hall",
+  "premiumResource": "gem",
+  "exchangeRates": {
+   "gold": 4,
+   "wood": 1,
+   "stone": 1,
+   "iron": 2,
+   "grain": 1,
+   "pearl": 8
+  }
+ },
+ "resources": [
+  {
+   "id": "gold",
+   "name": {
+    "en": "Gold"
+   },
+   "kind": "basic",
+   "capped": true,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 1000
+  },
+  {
+   "id": "wood",
+   "name": {
+    "en": "Wood"
+   },
+   "kind": "basic",
+   "capped": true,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 1000
+  },
+  {
+   "id": "stone",
+   "name": {
+    "en": "Stone"
+   },
+   "kind": "basic",
+   "capped": true,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 1000
+  },
+  {
+   "id": "iron",
+   "name": {
+    "en": "Iron"
+   },
+   "kind": "basic",
+   "capped": true,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 1000
+  },
+  {
+   "id": "grain",
+   "name": {
+    "en": "Grain"
+   },
+   "kind": "food",
+   "capped": true,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 1000
+  },
+  {
+   "id": "pearl",
+   "name": {
+    "en": "Pearl"
+   },
+   "kind": "rare",
+   "capped": false,
+   "tradable": true,
+   "lootable": true,
+   "baseStorage": 1000
+  },
+  {
+   "id": "gem",
+   "name": {
+    "en": "Gem"
+   },
+   "kind": "premium",
+   "capped": false,
+   "tradable": false,
+   "lootable": false
+  }
+ ],
+ "races": [
+  {
+   "id": "human",
+   "name": {
+    "en": "Human"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "modifiers": []
+  },
+  {
+   "id": "knights",
+   "name": {
+    "en": "Knights"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "modifiers": []
+  }
+ ],
+ "buildings": [
+  {
+   "id": "hall",
+   "name": {
+    "en": "Hall"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "category": "core",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "wood": 100
+    },
+    "growth": 1.5
+   },
+   "time": {
+    "baseSeconds": 60,
+    "growth": 1.5
+   },
+   "effects": [
+    {
+     "type": "housing",
+     "perLevel": 100
+    }
+   ],
+   "score": 10
+  },
+  {
+   "id": "lumber",
+   "name": {
+    "en": "Lumber"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "category": "economy",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "wood": 50
+    },
+    "growth": 1.4
+   },
+   "time": {
+    "baseSeconds": 30,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "produce",
+     "resource": "wood",
+     "perLevel": 100,
+     "workers": 10
+    }
+   ],
+   "score": 5
+  },
+  {
+   "id": "farm",
+   "name": {
+    "en": "Farm"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "category": "economy",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "wood": 50
+    },
+    "growth": 1.4
+   },
+   "time": {
+    "baseSeconds": 30,
+    "growth": 1.4
+   },
+   "effects": [
+    {
+     "type": "produce",
+     "resource": "grain",
+     "perLevel": 100,
+     "workers": 10
+    }
+   ],
+   "score": 5
+  },
+  {
+   "id": "barracks",
+   "name": {
+    "en": "Barracks"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "category": "military",
+   "maxLevel": 10,
+   "cost": {
+    "base": {
+     "wood": 80
+    },
+    "growth": 1.5
+   },
+   "time": {
+    "baseSeconds": 60,
+    "growth": 1.5
+   },
+   "requires": [
+    {
+     "type": "building",
+     "id": "hall",
+     "level": 2
+    }
+   ],
+   "effects": [
+    {
+     "type": "protect",
+     "resource": "*",
+     "perLevel": 50
+    }
+   ],
+   "score": 5
+  },
+  {
+   "id": "fortification",
+   "name": {
+    "en": "Fortification"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "category": "military",
+   "maxLevel": 9,
+   "cost": {
+    "base": {
+     "wood": 5000
+    },
+    "growth": 1.5
+   },
+   "time": {
+    "baseSeconds": 60,
+    "growth": 1.5
+   },
+   "score": 5
+  },
+  {
+   "id": "temple",
+   "name": {
+    "en": "Temple"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "category": "special",
+   "maxLevel": 9,
+   "cost": {
+    "base": {
+     "stone": 1000
+    },
+    "growth": 1.5
+   },
+   "time": {
+    "baseSeconds": 60,
+    "growth": 1.5
+   },
+   "score": 5
+  }
+ ],
+ "techs": [
+  {
+   "id": "axes",
+   "name": {
+    "en": "Axes"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "branch": "economy",
+   "maxLevel": 5,
+   "cost": {
+    "base": {
+     "wood": 100
+    },
+    "growth": 2
+   },
+   "time": {
+    "baseSeconds": 60,
+    "growth": 2
+   },
+   "requires": [
+    {
+     "type": "building",
+     "id": "hall",
+     "level": 1
+    }
+   ],
+   "effects": [
+    {
+     "type": "modifier",
+     "modifier": {
+      "target": "production.wood",
+      "op": "pct",
+      "value": 5
+     }
+    }
+   ],
+   "score": 3
+  }
+ ],
+ "units": [
+  {
+   "id": "spear",
+   "name": {
+    "en": "Spear"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "class": "infantry",
+   "attack": 10,
+   "defense": 10,
+   "hp": 50,
+   "speed": 6,
+   "carry": 20,
+   "upkeep": 1,
+   "cost": {
+    "wood": 20,
+    "grain": 10
+   },
+   "trainSeconds": 30,
+   "trainedIn": "barracks",
+   "score": 1
+  },
+  {
+   "id": "rider",
+   "name": {
+    "en": "Rider"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "class": "cavalry",
+   "attack": 20,
+   "defense": 5,
+   "hp": 80,
+   "speed": 12,
+   "carry": 40,
+   "upkeep": 2,
+   "cost": {
+    "wood": 50,
+    "grain": 20
+   },
+   "trainSeconds": 60,
+   "trainedIn": "barracks",
+   "bonuses": [
+    {
+     "vsClass": "ranged",
+     "pct": 50
+    }
+   ],
+   "score": 3
+  },
+  {
+   "id": "spy",
+   "name": {
+    "en": "Spy"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "class": "scout",
+   "attack": 0,
+   "defense": 1,
+   "hp": 10,
+   "speed": 20,
+   "carry": 0,
+   "upkeep": 0.5,
+   "scout": 1,
+   "cost": {
+    "wood": 10
+   },
+   "trainSeconds": 20,
+   "trainedIn": "barracks",
+   "score": 1
+  },
+  {
+   "id": "settler",
+   "name": {
+    "en": "Settler"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "class": "settler",
+   "attack": 0,
+   "defense": 1,
+   "hp": 20,
+   "speed": 4,
+   "carry": 0,
+   "upkeep": 1,
+   "cost": {
+    "wood": 300,
+    "grain": 300
+   },
+   "trainSeconds": 300,
+   "trainedIn": "hall",
+   "score": 5
+  },
+  {
+   "id": "wolf",
+   "name": {
+    "en": "Wolf"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "class": "beast",
+   "attack": 8,
+   "defense": 4,
+   "hp": 40,
+   "speed": 10,
+   "carry": 0,
+   "upkeep": 0,
+   "score": 1
+  }
+ ],
+ "heroes": {
+  "classes": [
+   {
+    "id": "warlord",
+    "name": {
+     "en": "Warlord"
+    },
+    "desc": {
+     "en": "x"
+    },
+    "modifiers": [
+     {
+      "target": "attack.*",
+      "op": "pct",
+      "value": 5
+     }
+    ],
+    "perLevel": [
+     {
+      "target": "attack.*",
+      "op": "pct",
+      "value": 1
+     }
+    ]
+   }
+  ],
+  "skills": [
+   {
+    "id": "fury",
+    "name": {
+     "en": "Fury"
+    },
+    "desc": {
+     "en": "x"
+    },
+    "maxLevel": 5,
+    "modifiers": [
+     {
+      "target": "attack.infantry",
+      "op": "pct",
+      "value": 3
+     }
+    ]
+   }
+  ],
+  "items": [
+   {
+    "id": "blade",
+    "name": {
+     "en": "Blade"
+    },
+    "desc": {
+     "en": "x"
+    },
+    "slot": "weapon",
+    "rarity": "rare",
+    "modifiers": [
+     {
+      "target": "attack.*",
+      "op": "pct",
+      "value": 4
+     }
+    ]
+   }
+  ],
+  "slots": [
+   "weapon",
+   "armor"
+  ],
+  "maxLevel": 30,
+  "xpBase": 100,
+  "xpGrowth": 1.5,
+  "skillPointsPerLevel": 1,
+  "xpPerScore": 1
+ },
+ "terrains": [
+  {
+   "id": "plains",
+   "name": {
+    "en": "Plains"
+   },
+   "weight": 5,
+   "resource": "grain",
+   "passable": true,
+   "color": "#88aa55"
+  },
+  {
+   "id": "forest",
+   "name": {
+    "en": "Forest"
+   },
+   "weight": 3,
+   "resource": "wood",
+   "passable": true,
+   "color": "#336633"
+  },
+  {
+   "id": "lake",
+   "name": {
+    "en": "Lake"
+   },
+   "weight": 1,
+   "passable": false,
+   "color": "#335599"
+  }
+ ],
+ "neutrals": [
+  {
+   "id": "den",
+   "name": {
+    "en": "Den"
+   },
+   "desc": {
+    "en": "x"
+   },
+   "kind": "lair",
+   "respawnSeconds": 3600,
+   "capturable": true,
+   "levels": [
+    {
+     "level": 1,
+     "guards": {
+      "wolf": 5
+     },
+     "rewards": {
+      "gold": 50
+     },
+     "xp": 10,
+     "drops": [
+      {
+       "item": "blade",
+       "chance": 50
+      }
+     ]
+    },
+    {
+     "level": 2,
+     "guards": {
+      "wolf": 20
+     },
+     "rewards": {
+      "gold": 150
+     },
+     "xp": 30
+    }
+   ]
+  }
+ ],
+ "quests": [
+  {
+   "id": "q_lumber",
+   "name": {
+    "en": "Lumber"
+   },
+   "desc": {
+    "en": "Build lumber 2"
+   },
+   "tutorial": true,
+   "goal": {
+    "type": "building_level",
+    "id": "lumber",
+    "amount": 2
+   },
+   "rewards": {
+    "wood": 100
+   },
+   "screen": "city"
+  },
+  {
+   "id": "q_army",
+   "name": {
+    "en": "Army"
+   },
+   "desc": {
+    "en": "Train 5"
+   },
+   "requires": [
+    "q_lumber"
+   ],
+   "goal": {
+    "type": "units_trained",
+    "amount": 5
+   },
+   "rewards": {
+    "gold": 20
+   },
+   "screen": "army"
+  }
+ ],
+ "start": {
+  "resources": {
+   "gold": 100,
+   "wood": 500,
+   "grain": 500,
+   "gem": 5
+  },
+  "buildings": {
+   "hall": 1,
+   "lumber": 1,
+   "farm": 1
+  },
+  "population": 30
+ },
+ "modes": [
+  "standard"
+ ],
+ "ui": {
+  "screens": [
+   "city",
+   "economy",
+   "research",
+   "army",
+   "heroes",
+   "map",
+   "missions",
+   "reports",
+   "market",
+   "alliance",
+   "quests",
+   "mail",
+   "profile",
+   "settings"
+  ]
+ },
+ "crystals": [
+  {
+   "id": "red",
+   "tier": 1
+  },
+  {
+   "id": "green",
+   "tier": 1
+  },
+  {
+   "id": "yellow",
+   "tier": 2
+  },
+  {
+   "id": "violet",
+   "tier": 2
+  },
+  {
+   "id": "orange",
+   "tier": 3
+  },
+  {
+   "id": "white",
+   "tier": 3
+  },
+  {
+   "id": "red_heart",
+   "tier": 4
+  },
+  {
+   "id": "amethyst",
+   "tier": 4
+  },
+  {
+   "id": "emerald",
+   "tier": 5
+  }
+ ],
+ "buildingTables": [
+  {
+   "building": "fortification",
+   "levels": [
+    {
+     "level": 1,
+     "cost": {
+      "gold": 500,
+      "wood": 5000,
+      "stone": 1000
+     },
+     "effects": {
+      "kills": 30,
+      "garrisonDefenseBonus": 2
+     }
+    },
+    {
+     "level": 2,
+     "cost": {
+      "gold": 1000,
+      "wood": 10000,
+      "stone": 3000,
+      "iron": 150
+     },
+     "effects": {
+      "kills": 60,
+      "garrisonDefenseBonus": 3
+     }
+    },
+    {
+     "level": 3,
+     "cost": {
+      "gold": 5000,
+      "wood": 20000,
+      "stone": 9000,
+      "iron": 500
+     },
+     "effects": {
+      "kills": 90,
+      "garrisonDefenseBonus": 4
+     }
+    },
+    {
+     "level": 4,
+     "cost": {
+      "gold": 10000,
+      "wood": 40000,
+      "stone": 27000,
+      "iron": 3000
+     },
+     "effects": {
+      "kills": 120,
+      "garrisonDefenseBonus": 5
+     }
+    },
+    {
+     "level": 5,
+     "cost": {
+      "gold": 20000,
+      "wood": 60000,
+      "stone": 60000,
+      "iron": 6000
+     },
+     "effects": {
+      "kills": 150,
+      "garrisonDefenseBonus": 6
+     }
+    },
+    {
+     "level": 6,
+     "cost": {
+      "gold": 40000,
+      "wood": 80000,
+      "stone": 80000,
+      "iron": 9000,
+      "pearl": 25
+     },
+     "effects": {
+      "kills": 180,
+      "garrisonDefenseBonus": 7
+     }
+    },
+    {
+     "level": 7,
+     "cost": {
+      "gold": 60000,
+      "wood": 100000,
+      "stone": 100000,
+      "iron": 12000,
+      "pearl": 50
+     },
+     "effects": {
+      "kills": 210,
+      "garrisonDefenseBonus": 8
+     }
+    },
+    {
+     "level": 8,
+     "cost": {
+      "gold": 600000,
+      "wood": 1000000,
+      "stone": 1000000,
+      "iron": 240000,
+      "pearl": 100
+     },
+     "crystals": {
+      "green": 2,
+      "yellow": 2
+     },
+     "effects": {
+      "kills": 300,
+      "garrisonDefenseBonus": 10
+     }
+    },
+    {
+     "level": 9,
+     "cost": {
+      "gold": 5000000,
+      "wood": 5000000,
+      "stone": 5000000,
+      "iron": 2500000,
+      "pearl": 200
+     },
+     "crystals": {
+      "emerald": 1,
+      "white": 1,
+      "amethyst": 2
+     },
+     "effects": {
+      "kills": 1000,
+      "garrisonDefenseBonus": 15
+     }
+    }
+   ]
+  },
+  {
+   "building": "temple",
+   "levels": [
+    {
+     "level": 1,
+     "cost": {
+      "stone": 1000
+     },
+     "effects": {
+      "favorLimit": 100,
+      "favorPerHour": 3
+     }
+    },
+    {
+     "level": 2,
+     "cost": {
+      "wood": 5000,
+      "stone": 5000,
+      "iron": 500
+     },
+     "effects": {
+      "favorLimit": 150,
+      "favorPerHour": 4
+     }
+    },
+    {
+     "level": 3,
+     "cost": {
+      "wood": 10000,
+      "stone": 10000,
+      "iron": 1000
+     },
+     "effects": {
+      "favorLimit": 200,
+      "favorPerHour": 5
+     }
+    },
+    {
+     "level": 4,
+     "cost": {
+      "wood": 20000,
+      "stone": 20000,
+      "iron": 2000
+     },
+     "effects": {
+      "favorLimit": 250,
+      "favorPerHour": 6
+     }
+    },
+    {
+     "level": 5,
+     "cost": {
+      "wood": 40000,
+      "stone": 40000,
+      "iron": 3000
+     },
+     "effects": {
+      "favorLimit": 300,
+      "favorPerHour": 7
+     }
+    },
+    {
+     "level": 6,
+     "cost": {
+      "wood": 60000,
+      "stone": 60000,
+      "iron": 4000,
+      "pearl": 25
+     },
+     "effects": {
+      "favorLimit": 350,
+      "favorPerHour": 8
+     }
+    },
+    {
+     "level": 7,
+     "cost": {
+      "wood": 80000,
+      "stone": 80000,
+      "iron": 5000,
+      "pearl": 50
+     },
+     "effects": {
+      "favorLimit": 400,
+      "favorPerHour": 9
+     }
+    },
+    {
+     "level": 8,
+     "cost": {
+      "gold": 400000,
+      "wood": 800000,
+      "stone": 800000,
+      "iron": 100000,
+      "pearl": 250
+     },
+     "crystals": {
+      "red": 2,
+      "green": 2
+     },
+     "effects": {
+      "favorLimit": 500,
+      "favorPerHour": 10
+     }
+    },
+    {
+     "level": 9,
+     "cost": {
+      "gold": 4000000,
+      "wood": 8000000,
+      "stone": 8000000,
+      "iron": 1000000,
+      "pearl": 1000
+     },
+     "crystals": {
+      "amethyst": 1,
+      "emerald": 1,
+      "orange": 1,
+      "red_heart": 1,
+      "white": 1
+     },
+     "effects": {
+      "favorLimit": 750,
+      "favorPerHour": 12
+     }
+    }
+   ]
+  },
+  {
+   "building": "hall",
+   "levels": [
+    {
+     "level": 1,
+     "cost": {
+      "wood": 100
+     },
+     "timeSeconds": 60,
+     "effects": {
+      "carrierCapacity": {
+       "base": 50,
+       "races": {
+        "knights": 100
+       }
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "paramDefs": [
+  {
+   "id": "production",
+   "min": 0.1,
+   "max": 10,
+   "default": 1
+  },
+  {
+   "id": "upkeep",
+   "min": 0.1,
+   "max": 10,
+   "default": 1
+  },
+  {
+   "id": "speed",
+   "min": 0.1,
+   "max": 100,
+   "default": 1
+  }
+ ],
+ "serverProfiles": [
+  {
+   "id": "economic",
+   "multipliers": {
+    "production": 2,
+    "upkeep": 0.5,
+    "speed": 1
+   }
+  }
+ ],
+ "unitDefs": [
+  {
+   "id": "carrier1",
+   "category": "carriers",
+   "level": 1,
+   "params": {
+    "health": 10,
+    "upkeep": 1,
+    "population": 1,
+    "rating": 1
+   },
+   "cost": {
+    "gold": 5
+   },
+   "overrides": {
+    "economic": {
+     "params": {
+      "upkeep": 0.5
+     }
+    }
+   }
+  },
+  {
+   "id": "warrior1",
+   "category": "warriors",
+   "level": 1,
+   "params": {
+    "attackMin": 3,
+    "attackMax": 5,
+    "health": 30,
+    "upkeep": 2,
+    "population": 1,
+    "rating": 4
+   },
+   "cost": {
+    "gold": 20,
+    "iron": 5
+   }
+  }
+ ],
+ "services": [
+  {
+   "id": "builders",
+   "group": "speed",
+   "proposed": true,
+   "levels": [
+    {
+     "price": 10,
+     "durationSeconds": 86400
+    },
+    {
+     "price": 25,
+     "durationSeconds": 259200
+    }
+   ]
+  }
+ ],
+ "geometry": {
+  "empireWidth": 90,
+  "empireHeight": 30,
+  "kingdomWidth": 9,
+  "kingdomHeight": 9,
+  "proposed": true
+ }
+}

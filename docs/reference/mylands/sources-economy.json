@@ -1,0 +1,394 @@
+[
+  {
+    "id": "E-01",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Race",
+    "title": "Расы",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 40,
+    "page_changed_at": "2026-09-29 22:30",
+    "scope": "Восемь рас и качественные особенности",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Нет универсальных процентов расовых бонусов; нужны таблицы зданий и юнитов"
+    ]
+  },
+  {
+    "id": "E-02",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Fraction",
+    "title": "Фракции",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 80,
+    "page_changed_at": "2026-10-11 17:08",
+    "scope": "Состав фракций, штрафы атаки, отступники, лояльность",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Правила суммирования с другими модификаторами и точные границы7суток требуют сценариев"
+    ]
+  },
+  {
+    "id": "E-03",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Resources",
+    "title": "Ресурсы",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 61,
+    "page_changed_at": "2023-05-31 21:37",
+    "scope": "Источники ресурсов, остановка добычи, переполнение, предел",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Округление/периодичность потерь; порядок применения модификаторов"
+    ]
+  },
+  {
+    "id": "E-04",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=People",
+    "title": "Население",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 33,
+    "page_changed_at": "2021-04-23 17:38",
+    "scope": "Размножение, жильё, переполнение, рабочие/строители",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Дискретизация и округление формулы; случайность гибели занятых"
+    ]
+  },
+  {
+    "id": "E-05",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Buildings",
+    "title": "Здания",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 151,
+    "page_changed_at": "2026-03-31 10:41",
+    "scope": "Категории,40логических типов, общие операции",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Индекс перечисляет7рас, новые страницы8; имена/ассеты восьмой расы неполны"
+    ]
+  },
+  {
+    "id": "E-06",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Science",
+    "title": "Наука",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 19,
+    "page_changed_at": "2021-04-23 17:41",
+    "scope": "Общие очки, помощь учёным, улучшение войск",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Стоимость всех уровней, полный граф требований, округление улучшений"
+    ]
+  },
+  {
+    "id": "E-07",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=ScienceDescription",
+    "title": "Описание наук",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 153,
+    "page_changed_at": "2022-08-12 16:34",
+    "scope": "48названий наук и основные возможности",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Все уровни/цены/радиусы/лимиты; список может отставать отновыхсерверов"
+    ]
+  },
+  {
+    "id": "E-08",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Spec",
+    "title": "Специализации",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 4,
+    "page_changed_at": "2021-04-23 17:41",
+    "scope": "Шесть специализаций, три уровня, табличные эффекты",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Стоимость изучения; некоторые единицы и семантика налогового уменьшения"
+    ]
+  },
+  {
+    "id": "E-09",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=City_hall",
+    "title": "Центральное здание",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 31,
+    "page_changed_at": "2025-10-28 19:50",
+    "scope": "Уровни1–5: жильё/прирост/склад/дерево; семь имён",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены, строки расы/режима и архитектура Elementals требуют отдельного набора"
+    ]
+  },
+  {
+    "id": "E-10",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Gate",
+    "title": "Ворота",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 37,
+    "page_changed_at": "2026-09-29 23:54",
+    "scope": "Восемь рас; открытие/закрытие; поселки",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Полная state-machine и взаимодействие с миссиями/мятежом"
+    ]
+  },
+  {
+    "id": "E-11",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Samwill",
+    "title": "Хижина дровосека",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 47,
+    "page_changed_at": "2026-09-29 23:20",
+    "scope": "Добыча1–9 по расам и колонкам режимов",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены/кристаллы/рабочие/время не перенесены; привязка Elementals к режимам"
+    ]
+  },
+  {
+    "id": "E-12",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mine_stone",
+    "title": "Каменоломня",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 30,
+    "page_changed_at": "2026-09-29 23:20",
+    "scope": "Добыча1–9 по расам/режимам; эффекты8–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены/кристаллы/рабочие/время не перенесены"
+    ]
+  },
+  {
+    "id": "E-13",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Shop",
+    "title": "Торговая лавка",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 32,
+    "page_changed_at": "2026-09-29 23:20",
+    "scope": "Добыча/коэффициент1–9; режим складского лимита",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Полная формула сбора и её округление; стоимость/строители"
+    ]
+  },
+  {
+    "id": "E-14",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Windmill",
+    "title": "Мельница",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 30,
+    "page_changed_at": "2026-09-29 23:21",
+    "scope": "Добыча1–9 по расам/режимам; эффекты8–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены/кристаллы/рабочие/время не перенесены"
+    ]
+  },
+  {
+    "id": "E-15",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mine_iron",
+    "title": "Рудник",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 24,
+    "page_changed_at": "2026-09-29 23:21",
+    "scope": "Добыча1–9 по расам/режимам; эффекты8–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены/кристаллы/рабочие/время не перенесены"
+    ]
+  },
+  {
+    "id": "E-16",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mine_gold",
+    "title": "Прииск",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 24,
+    "page_changed_at": "2026-09-29 23:21",
+    "scope": "Добыча1–9 по режимам/Химерам; эффекты8–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Колонка Химер отдельно не разделена по режимам; цены не перенесены"
+    ]
+  },
+  {
+    "id": "E-17",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Alchemist",
+    "title": "Лаборатория алхимиков",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 25,
+    "page_changed_at": "2026-09-29 23:19",
+    "scope": "Наука1–9, отдельная колонка Elementals",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены/кристаллы/рабочие/время не перенесены"
+    ]
+  },
+  {
+    "id": "E-18",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Houses",
+    "title": "Жилища",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 34,
+    "page_changed_at": "2026-03-31 11:57",
+    "scope": "Жильё/рост1–9; эффекты8–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены/кристаллы/время; порядок применения эффектов множества домов"
+    ]
+  },
+  {
+    "id": "E-19",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Warehouse",
+    "title": "Склады",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 21,
+    "page_changed_at": "2026-09-29 23:10",
+    "scope": "Вместимость1–9, отдельная колонка Рыцарей",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены/кристаллы/время; комбинирование снижения расхищения"
+    ]
+  },
+  {
+    "id": "E-20",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Scavenger_build",
+    "title": "Здание носильщиков",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 29,
+    "page_changed_at": "2026-03-26 18:19",
+    "scope": "Семь вариантов названия; очередь/минуты1–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены, кристаллы и Elementalsвариант не перенесены"
+    ]
+  },
+  {
+    "id": "E-21",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Melee_build",
+    "title": "Здание воинов",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 20,
+    "page_changed_at": "2026-03-26 20:10",
+    "scope": "Семь вариантов названия; очередь/минуты1–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены, кристаллы и Elementalsвариант не перенесены"
+    ]
+  },
+  {
+    "id": "E-22",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Cavalry_build",
+    "title": "Здание всадников",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 23,
+    "page_changed_at": "2026-03-26 18:20",
+    "scope": "Семь вариантов названия; очередь/минуты1–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены, кристаллы и Elementalsвариант не перенесены"
+    ]
+  },
+  {
+    "id": "E-23",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Flyer_build",
+    "title": "Здание летающих",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 17,
+    "page_changed_at": "2026-03-26 18:20",
+    "scope": "Семь вариантов названия; очередь/минуты1–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены, кристаллы и Elementalsвариант не перенесены"
+    ]
+  },
+  {
+    "id": "E-24",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Range_build",
+    "title": "Здание стрелков",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 18,
+    "page_changed_at": "2026-03-26 20:05",
+    "scope": "Семь вариантов названия; очередь/минуты1–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Не связывать имя Алтарь элементалей с новой расой без подтверждения"
+    ]
+  },
+  {
+    "id": "E-25",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Healer_build",
+    "title": "Здание лекарей",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 17,
+    "page_changed_at": "2026-03-26 20:06",
+    "scope": "Семь вариантов названия; очередь/минуты1–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Цены, кристаллы и Elementalsвариант не перенесены"
+    ]
+  },
+  {
+    "id": "E-26",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Miner_build",
+    "title": "Здание наёмников",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 28,
+    "page_changed_at": "2026-03-26 20:07",
+    "scope": "Семь вариантов названия; очередь/время1–9",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Другие зеркала дают8имён: не смешивать; точная картаимёнпо расам"
+    ]
+  },
+  {
+    "id": "E-27",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mage_build",
+    "title": "Здание магов",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 22,
+    "page_changed_at": "2026-03-26 20:30",
+    "scope": "Очереди1–9, отдельные времена Тёмных эльфов",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Строка4:390/185мин, не исправлять на195безподтверждения"
+    ]
+  },
+  {
+    "id": "E-28",
+    "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Diplomat",
+    "title": "Дипломатический корпус",
+    "access_date": "2026-11-01",
+    "method": "PAGE_READ",
+    "revision": 14,
+    "page_changed_at": "2025-10-28 20:06",
+    "scope": "Один в Столице; интерфейсы союза/клана/заместителя",
+    "profile_scope": "ru_wiki_latest; server_variant_not_unified",
+    "unresolved": [
+      "Интеграция соответствующих социальных правил"
+    ]
+  }
+]

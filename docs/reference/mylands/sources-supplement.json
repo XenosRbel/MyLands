@@ -1,0 +1,542 @@
+[
+ {
+  "id": "S-01",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Alliance",
+  "title": "Alliance",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 16,
+  "page_changed_at": "2021-04-23",
+  "scope": "Союзы: условия, лимит 7, разрыв за сутки",
+  "unresolved": [
+   "Лимиты по уровням Дипломатии",
+   "Права союзника в деталях"
+  ]
+ },
+ {
+  "id": "S-02",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Deputy",
+  "title": "Deputy",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 29,
+  "page_changed_at": "2021-04-23",
+  "scope": "Заместитель: права и запреты",
+  "unresolved": [
+   "Срок назначения",
+   "Условия смены"
+  ]
+ },
+ {
+  "id": "S-03",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mes",
+  "title": "Mes",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 14,
+  "page_changed_at": "2021-04-23",
+  "scope": "Интерфейс почты",
+  "unresolved": [
+   "Лимиты и срок хранения сообщений"
+  ]
+ },
+ {
+  "id": "S-04",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Rating",
+  "title": "Rating",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 16,
+  "page_changed_at": "2021-04-23",
+  "scope": "Рейтинги игроков/кланов, золотой эквивалент",
+  "unresolved": [
+   "Состав оценки построек",
+   "Формула турнирного рейтинга"
+  ]
+ },
+ {
+  "id": "S-05",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Referal",
+  "title": "Referal",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 65,
+  "page_changed_at": "2026-10-21",
+  "scope": "Реферальная программа 10%",
+  "unresolved": [
+   "Порядок выплат",
+   "Срок привязки"
+  ]
+ },
+ {
+  "id": "S-06",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Start",
+  "title": "Start",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 12,
+  "page_changed_at": "2026-09-29",
+  "scope": "Начальное состояние игрока",
+  "unresolved": [
+   "Стартовые ресурсы и уровни"
+  ]
+ },
+ {
+  "id": "S-07",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=FAQ",
+  "title": "FAQ",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 149,
+  "page_changed_at": "2026-10-21",
+  "scope": "Индекс вопросов; ответов нет",
+  "unresolved": [
+   "Ответы на связанных страницах"
+  ]
+ },
+ {
+  "id": "S-08",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Rules",
+  "title": "Rules",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 37,
+  "page_changed_at": "2026-10-21",
+  "scope": "Правила поведения и санкции",
+  "unresolved": [
+   "Числовые пороги жалоб",
+   "Текст соглашения /eula"
+  ]
+ },
+ {
+  "id": "S-09",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Mistakes",
+  "title": "Mistakes",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 79,
+  "page_changed_at": "2026-10-21",
+  "scope": "Оплата ЧЖ: способы и типовые ошибки",
+  "unresolved": [
+   "Курсы, пакеты, сроки зачисления"
+  ]
+ },
+ {
+  "id": "S-10",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=MyLands",
+  "title": "MyLands",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 99,
+  "page_changed_at": "2026-10-21",
+  "scope": "Общее описание игры и ЧЖ",
+  "unresolved": []
+ },
+ {
+  "id": "S-11",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Antispy_guild",
+  "title": "Antispy_guild",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 27,
+  "page_changed_at": "2026-09-29",
+  "scope": "Антишпионы",
+  "unresolved": [
+   "Формула противодействия"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-12",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Spy_guild",
+  "title": "Spy_guild",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 39,
+  "page_changed_at": "2026-09-29",
+  "scope": "Шпионы",
+  "unresolved": [
+   "Успех шпионажа"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-13",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Antiwatch_tower",
+  "title": "Antiwatch_tower",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 26,
+  "page_changed_at": "2026-09-29",
+  "scope": "Башня зеркал (только Копи)",
+  "unresolved": [
+   "Формула противодействия"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-14",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Watch_tower",
+  "title": "Watch_tower",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 25,
+  "page_changed_at": "2026-09-29",
+  "scope": "Башня провидцев (только Копи)",
+  "unresolved": [
+   "Соответствие колонок таблицы"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-15",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Magic_Tower",
+  "title": "Magic_Tower",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 24,
+  "page_changed_at": "2026-09-29",
+  "scope": "Башни: простая и магическая",
+  "unresolved": [
+   "Формула снижения атаки магами"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-16",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Merch_guild",
+  "title": "Merch_guild",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 24,
+  "page_changed_at": "2026-09-29",
+  "scope": "Купцы",
+  "unresolved": [
+   "Объём перевозки"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-17",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Artefact_store",
+  "title": "Artefact_store",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 43,
+  "page_changed_at": "2026-09-29",
+  "scope": "Сокровищница, торговец, кредит",
+  "unresolved": [
+   "Вместимость L2-L5"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-18",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Clan_warehouse",
+  "title": "Clan_warehouse",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 26,
+  "page_changed_at": "2026-09-29",
+  "scope": "Склад и Резервация клана",
+  "unresolved": [
+   "Доля сгоревшего"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-19",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Temple",
+  "title": "Temple",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 35,
+  "page_changed_at": "2026-09-29",
+  "scope": "Храм: милость и защита",
+  "unresolved": [
+   "Цена 300 милости в ЧЖ"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-20",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Tavern",
+  "title": "Tavern",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 23,
+  "page_changed_at": "2026-09-29",
+  "scope": "Таверна: найм героев",
+  "unresolved": [
+   "Цены найма"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-21",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Terraformer",
+  "title": "Terraformer",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 14,
+  "page_changed_at": "2026-09-29",
+  "scope": "Терраформер",
+  "unresolved": [
+   "Уровни выше 2"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-22",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Resurrector",
+  "title": "Resurrector",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 41,
+  "page_changed_at": "2026-09-29",
+  "scope": "Воскреситель",
+  "unresolved": [
+   "Формула стоимости"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-23",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Ancients",
+  "title": "Ancients",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 10,
+  "page_changed_at": "2021-04-23",
+  "scope": "Защита древних",
+  "unresolved": [
+   "Состав армии"
+  ]
+ },
+ {
+  "id": "S-24",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Apocalypse",
+  "title": "Apocalypse",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 5,
+  "page_changed_at": "2021-04-23",
+  "scope": "Апокалипсис",
+  "unresolved": [
+   "Условие наступления"
+  ]
+ },
+ {
+  "id": "S-25",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Calculator",
+  "title": "Calculator",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 15,
+  "page_changed_at": "2021-04-23",
+  "scope": "Калькулятор боя",
+  "unresolved": [
+   "Цены пакетов"
+  ]
+ },
+ {
+  "id": "S-26",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Casts",
+  "title": "Casts",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 6,
+  "page_changed_at": "2021-04-23",
+  "scope": "Иконки заклинаний",
+  "unresolved": [
+   "Длительности"
+  ]
+ },
+ {
+  "id": "S-27",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Catapult",
+  "title": "Catapult",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 19,
+  "page_changed_at": "2021-04-23",
+  "scope": "Катапульта",
+  "unresolved": [
+   "Стоимость"
+  ]
+ },
+ {
+  "id": "S-28",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Colony",
+  "title": "Colony",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 24,
+  "page_changed_at": "2026-09-29",
+  "scope": "Центр колонизации",
+  "unresolved": [
+   "Уровни выше 1"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-29",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Cooldown",
+  "title": "Cooldown",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 2,
+  "page_changed_at": "2021-04-23",
+  "scope": "Подготовка заклинаний",
+  "unresolved": [
+   "Длительности"
+  ]
+ },
+ {
+  "id": "S-30",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Exped",
+  "title": "Exped",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 22,
+  "page_changed_at": "2026-09-29",
+  "scope": "Экспедиционный корпус",
+  "unresolved": [
+   "Колонки стоимости"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-31",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Fortification",
+  "title": "Fortification",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 25,
+  "page_changed_at": "2026-09-29",
+  "scope": "Укрепление",
+  "unresolved": [
+   "Колонки стоимости"
+  ],
+  "table_columns": "CONFIRMED_DOM",
+  "table_source": "tables-dom.txt"
+ },
+ {
+  "id": "S-32",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=HeroMis",
+  "title": "HeroMis",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 3,
+  "page_changed_at": "2021-04-23",
+  "scope": "Миссии героя",
+  "unresolved": [
+   "Время отдыха"
+  ]
+ },
+ {
+  "id": "S-33",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=ManaBottles",
+  "title": "ManaBottles",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 14,
+  "page_changed_at": "2021-04-23",
+  "scope": "Эликсиры",
+  "unresolved": [
+   "Цены"
+  ]
+ },
+ {
+  "id": "S-34",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=NonAttack",
+  "title": "NonAttack",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 22,
+  "page_changed_at": "2021-04-23",
+  "scope": "Небоевые миссии",
+  "unresolved": [
+   "Какие мгновенные"
+  ]
+ },
+ {
+  "id": "S-35",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Attack_Resourses",
+  "title": "Attack_Resourses",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 5,
+  "page_changed_at": "2021-04-23",
+  "scope": "Грабёж ресурсов: 50% доступно, 10% сжигается",
+  "unresolved": [
+   "Вместимость"
+  ]
+ },
+ {
+  "id": "S-36",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Attack_People",
+  "title": "Attack_People",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 3,
+  "page_changed_at": "2021-04-23",
+  "scope": "Захват населения: 50%",
+  "unresolved": [
+   "Судьба пленных"
+  ]
+ },
+ {
+  "id": "S-37",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=DestrMis",
+  "title": "DestrMis",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 2,
+  "page_changed_at": "2021-04-23",
+  "scope": "Разрушение лагеря",
+  "unresolved": [
+   "Условия успеха"
+  ]
+ },
+ {
+  "id": "S-38",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=Attack_Capture",
+  "title": "Attack_Capture",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 6,
+  "page_changed_at": "2021-04-23",
+  "scope": "Захват внешних владений",
+  "unresolved": [
+   "Таймеры туннеля"
+  ]
+ },
+ {
+  "id": "S-39",
+  "url": "https://ru.mlgame.org/wiki-ru/Wiki.jsp?page=RelMis",
+  "title": "RelMis",
+  "access_date": "2026-11-01",
+  "method": "PAGE_READ",
+  "revision": 3,
+  "page_changed_at": "2021-04-23",
+  "scope": "Освобождение героя",
+  "unresolved": [
+   "Условия успеха"
+  ]
+ }
+]

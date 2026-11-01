@@ -87,6 +87,7 @@ func Validate(p *Pack) Errors {
 	v.params()
 	v.theme()
 	v.ui()
+	v.myLands()
 	v.migrations()
 	v.requirementCycles()
 	if len(v.errs) == 0 {
@@ -209,6 +210,7 @@ func (v *validator) collectIDs() {
 	for _, x := range p.Quests {
 		v.addID("quest", x.ID)
 	}
+	v.collectMyLandsIDs()
 }
 
 func (v *validator) is(kind, id string) bool { return v.ids[id] == kind }
@@ -394,6 +396,10 @@ func (v *validator) races() {
 }
 
 func (v *validator) buildings() {
+	tabled := map[string]bool{}
+	for _, t := range v.p.BuildingTables {
+		tabled[t.Building] = true
+	}
 	for i, b := range v.p.Buildings {
 		w := fmt.Sprintf("buildings[%d](%s)", i, b.ID)
 		v.text(w+".name", b.Name, true)
@@ -403,7 +409,9 @@ func (v *validator) buildings() {
 		if b.MaxLevel < 1 || b.MaxLevel > 100 {
 			v.errf("%s: maxLevel %d out of range [1, 100]", w, b.MaxLevel)
 		}
-		v.costTime(w, b.Cost, b.Time)
+		if !tabled[b.ID] { // an explicit level table replaces the geometric legacy cost
+			v.costTime(w, b.Cost, b.Time)
+		}
 		v.requirements(w, b.Requires)
 		v.effects(w, b.Effects)
 		v.races_(w, b.Races)

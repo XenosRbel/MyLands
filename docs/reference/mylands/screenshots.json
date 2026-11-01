@@ -1,0 +1,50 @@
+{
+ "access_date": "2026-11-01",
+ "method": "IMAGE_OBSERVED",
+ "page": "https://ru.mlgame.org/screenshots",
+ "items": [
+  {
+   "id": "SS-01",
+   "caption": "Город демонов",
+   "screen": "city",
+   "url": "https://ru.mlgame.org/images/ru_RU/screenshots/demon.jpg",
+   "stored_in_repo": false
+  },
+  {
+   "id": "SS-02",
+   "caption": "Город эльфов",
+   "screen": "city",
+   "url": "https://ru.mlgame.org/images/ru_RU/screenshots/elf.jpg",
+   "stored_in_repo": false
+  },
+  {
+   "id": "SS-03",
+   "caption": "Город людей",
+   "screen": "city",
+   "url": "https://ru.mlgame.org/images/ru_RU/screenshots/human.jpg",
+   "stored_in_repo": false
+  },
+  {
+   "id": "SS-04",
+   "caption": "Город тёмных эльфов",
+   "screen": "city",
+   "url": "https://ru.mlgame.org/images/ru_RU/screenshots/drow.jpg",
+   "stored_in_repo": false
+  },
+  {
+   "id": "SS-05",
+   "caption": "Карта королевства",
+   "screen": "kingdom_map",
+   "url": "https://ru.mlgame.org/images/ru_RU/screenshots/kingdom.jpg",
+   "stored_in_repo": false
+  },
+  {
+   "id": "SS-06",
+   "caption": "Руина",
+   "screen": "ruin",
+   "url": "https://ru.mlgame.org/images/ru_RU/screenshots/ruin.jpg",
+   "stored_in_repo": false
+  }
+ ],
+ "note": "Порядок просмотра локальных файлов сопоставлен с подписями по содержимому: руины, город тёмных эльфов, люди, карта, демоны, эльфы"
+}

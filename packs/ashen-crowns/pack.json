@@ -1,4381 +1,4515 @@
 {
- "formatVersion": 1,
- "id": "ashen-crowns",
- "version": "1.2.0",
- "meta": {
-  "title": {
-   "en": "Ashen Crowns",
-   "ru": "Пепельные Короны"
-  },
-  "subtitle": {
-   "en": "Realms of the Sundered Sky",
-   "ru": "Королевства расколотого неба"
-  },
-  "description": {
-   "en": "Rebuild a fallen realm beneath a shattered sky: grow your cities, train armies, clear the wilds of monsters, hunt starglass in fallen craters and forge alliances against rival crowns.",
-   "ru": "Восстановите павшее королевство под расколотым небом: развивайте города, обучайте армии, очищайте земли от чудовищ, ищите звёздное стекло в кратерах и заключайте союзы против соперников."
-  },
-  "studio": "Realmforge",
-  "license": "All texts and data original to this project (CC BY 4.0)."
- },
- "locales": [
-  "en",
-  "ru"
- ],
- "defaultLocale": "en",
- "theme": {
-  "palette": {
-   "bg": "#14110f",
-   "surface": "#221c18",
-   "surface2": "#2d2520",
-   "text": "#f1e6d6",
-   "muted": "#a8998a",
-   "accent": "#e0a44a",
-   "accent2": "#7fb2a2",
-   "danger": "#d9534f",
-   "ok": "#6fbf73",
-   "border": "#3e342c"
-  },
-  "fonts": {
-   "display": "Cinzel",
-   "body": "Inter"
-  },
-  "icons": {
-   "timber": "resources/timber.webp",
-   "grain": "resources/grain.webp",
-   "stone": "resources/stone.webp",
-   "iron": "resources/iron.webp",
-   "gold": "resources/gold.webp",
-   "lore": "resources/lore.webp",
-   "starglass": "resources/starglass.webp",
-   "ember_sword": "items/ember_sword.webp",
-   "horned_helm": "items/horned_helm.webp",
-   "iron_blade": "items/iron_blade.webp",
-   "leather_jerkin": "items/leather_jerkin.webp",
-   "lucky_coin": "items/lucky_coin.webp",
-   "sage_tome": "items/sage_tome.webp",
-   "scout_hood": "items/scout_hood.webp",
-   "skyfall_lance": "items/skyfall_lance.webp",
-   "starglass_mail": "items/starglass_mail.webp",
-   "warden_plate": "items/warden_plate.webp",
-   "wind_charm": "items/wind_charm.webp"
-  },
-  "assetsLicense": "Raster art (resources, items, buildings, units, heroes, terrain) generated for this project with OpenAI image generation (ChatGPT) on 2026-10-31 by the project owner from docs/art/ART_PROMPTS.md; original designs, no third-party game assets; provenance recorded in docs/art/ASSET_PROVENANCE.md (not a legal opinion — confirm tool terms before commercial release). Fallback glyph icons drawn in code (SVG) by the project. Fonts from Google Fonts under the SIL Open Font License.",
-  "art": {
-   "academy": "buildings/academy.webp",
-   "aerie": "buildings/aerie.webp",
-   "barracks": "buildings/barracks.webp",
-   "cottages": "buildings/cottages.webp",
-   "farmstead": "buildings/farmstead.webp",
-   "ironworks": "buildings/ironworks.webp",
-   "keep": "buildings/keep.webp",
-   "lumberyard": "buildings/lumberyard.webp",
-   "market": "buildings/market.webp",
-   "mint": "buildings/mint.webp",
-   "quarry": "buildings/quarry.webp",
-   "range": "buildings/range.webp",
-   "sanctum": "buildings/sanctum.webp",
-   "scriptorium": "buildings/scriptorium.webp",
-   "stables": "buildings/stables.webp",
-   "tradepost": "buildings/tradepost.webp",
-   "vault": "buildings/vault.webp",
-   "walls": "buildings/walls.webp",
-   "warehouse": "buildings/warehouse.webp",
-   "warhall": "buildings/warhall.webp",
-   "watchtower": "buildings/watchtower.webp",
-   "workshop": "buildings/workshop.webp",
-   "bannerguard": "units/bannerguard.webp",
-   "battlemage": "units/battlemage.webp",
-   "bonelord": "units/bonelord.webp",
-   "bowman": "units/bowman.webp",
-   "cinderhound": "units/cinderhound.webp",
-   "crossbow": "units/crossbow.webp",
-   "knight": "units/knight.webp",
-   "militia": "units/militia.webp",
-   "outrider": "units/outrider.webp",
-   "pikeman": "units/pikeman.webp",
-   "scout": "units/scout.webp",
-   "thornweaver": "units/thornweaver.webp",
-   "marshal": "heroes/marshal.webp",
-   "pathfinder": "heroes/pathfinder.webp",
-   "sage": "heroes/sage.webp",
-   "warden": "heroes/warden.webp",
-   "ashland": "terrain/ashland.webp",
-   "forest": "terrain/forest.webp",
-   "hills": "terrain/hills.webp",
-   "ironridge": "terrain/ironridge.webp",
-   "lake": "terrain/lake.webp",
-   "marsh": "terrain/marsh.webp",
-   "mountains": "terrain/mountains.webp",
-   "plains": "terrain/plains.webp"
-  }
- },
- "params": {
-  "worldSpeed": 1,
-  "economyTickSeconds": 600,
-  "buildQueueMax": 3,
-  "trainQueueMax": 5,
-  "researchQueueMax": 2,
-  "cancelRefundPct": 80,
-  "mapWidth": 48,
-  "mapHeight": 48,
-  "neutralDensityPct": 12,
-  "newbieProtectionHours": 72,
-  "minTravelSeconds": 900,
-  "combatRounds": 20,
-  "lootPct": 50,
-  "scoutDetectBasePct": 30,
-  "popGrowthPctPerHour": 12,
-  "foodPerPopPerHour": 0.12,
-  "starvationPctPerTick": 1,
-  "foodResource": "grain",
-  "premiumResource": "starglass",
-  "marketFeePct": 5,
-  "marketMaxOpenOrders": 10,
-  "exchangeRates": {
-   "timber": 1,
-   "grain": 1,
-   "stone": 1.2,
-   "iron": 1.6,
-   "gold": 3
-  },
-  "exchangeFeePct": 30,
-  "allianceCreateCost": {
-   "gold": 500
-  },
-  "allianceMaxMembers": 100,
-  "cityCapBuilding": "keep",
-  "citiesPerCapLevels": 3,
-  "settlerUnit": "settler",
-  "territoryCapBuilding": "keep",
-  "territoriesPerLevel": 1,
-  "territoryBonusPct": 0,
-  "heroHireCost": {
-   "gold": 300,
-   "grain": 300,
-   "starglass": 5
-  },
-  "heroBuilding": "warhall",
-  "heroesPerBuildingLevel": 1,
-  "heroWoundHours": 6,
-  "attackScoreFloorPct": 0,
-  "upkeepResource": "gold",
-  "desertionPctPerHour": 0.5,
-  "missionUpkeepMult": 2,
-  "popGrowthMode": "free_housing",
-  "overflowDecayPctPerHour": 1,
-  "defenseCapPct": 80,
-  "defenderRetreatPct": 100,
-  "sameRaceAttackPct": -50,
-  "sameFactionAttackPct": -25,
-  "maxAttacksPerTargetPerDay": 2,
-  "maxReinforcingPlayers": 3,
-  "maxHeroes": 7,
-  "maxCities": 9,
-  "territoryYieldPerHour": 25,
-  "territoryYieldCapHours": 24
- },
- "resources": [
-  {
-   "id": "timber",
-   "name": {
-    "en": "Timber",
-    "ru": "Древесина"
-   },
-   "desc": {
-    "en": "Cut from forests; used in nearly every structure.",
-    "ru": "Добывается в лесах; нужна почти для всех построек."
-   },
-   "kind": "basic",
-   "capped": true,
-   "tradable": true,
-   "lootable": true,
-   "baseStorage": 1500
-  },
-  {
-   "id": "grain",
-   "name": {
-    "en": "Grain",
-    "ru": "Зерно"
-   },
-   "desc": {
-    "en": "Feeds your people. Population eats grain every hour.",
-    "ru": "Кормит население; люди потребляют зерно каждый час."
-   },
-   "kind": "food",
-   "capped": true,
-   "tradable": true,
-   "lootable": true,
-   "baseStorage": 1500
-  },
-  {
-   "id": "stone",
-   "name": {
-    "en": "Stone",
-    "ru": "Камень"
-   },
-   "desc": {
-    "en": "Quarried blocks for walls and great halls.",
-    "ru": "Каменные блоки для стен и больших залов."
-   },
-   "kind": "basic",
-   "capped": true,
-   "tradable": true,
-   "lootable": true,
-   "baseStorage": 1500
-  },
-  {
-   "id": "iron",
-   "name": {
-    "en": "Iron",
-    "ru": "Железо"
-   },
-   "desc": {
-    "en": "Smelted ore for weapons and armour.",
-    "ru": "Выплавленная руда для оружия и доспехов."
-   },
-   "kind": "basic",
-   "capped": true,
-   "tradable": true,
-   "lootable": true,
-   "baseStorage": 1000
-  },
-  {
-   "id": "gold",
-   "name": {
-    "en": "Gold",
-    "ru": "Золото"
-   },
-   "desc": {
-    "en": "Coin of the realm. Pays your soldiers' wages.",
-    "ru": "Монета королевства. Из неё платится жалованье войскам."
-   },
-   "kind": "rare",
-   "capped": true,
-   "tradable": true,
-   "lootable": true,
-   "baseStorage": 3000
-  },
-  {
-   "id": "lore",
-   "name": {
-    "en": "Lore",
-    "ru": "Знания"
-   },
-   "desc": {
-    "en": "Insight gathered by scholars; spent on research.",
-    "ru": "Знания учёных; тратятся на исследования."
-   },
-   "kind": "basic",
-   "capped": false,
-   "tradable": false,
-   "lootable": false
-  },
-  {
-   "id": "starglass",
-   "name": {
-    "en": "Starglass",
-    "ru": "Звёздное стекло"
-   },
-   "desc": {
-    "en": "Shards of the shattered sky, found in craters and ruins. Cannot be traded or stolen.",
-    "ru": "Осколки разбитого неба из кратеров и руин. Нельзя продать или украсть."
-   },
-   "kind": "premium",
-   "capped": false,
-   "tradable": false,
-   "lootable": false
-  }
- ],
- "races": [
-  {
-   "id": "thornkin",
-   "faction": "dawnpact",
-   "color": "#4f9d5d",
-   "name": {
-    "en": "Thornkin",
-    "ru": "Терновники"
-   },
-   "desc": {
-    "en": "Forest-dwellers bound to old groves. Masters of timber and the bow.",
-    "ru": "Лесной народ древних рощ. Мастера древесины и лука."
-   },
-   "modifiers": [
-    {
-     "target": "production.timber",
-     "op": "pct",
-     "value": 15
-    },
-    {
-     "target": "attack.ranged",
-     "op": "pct",
-     "value": 10
-    },
-    {
-     "target": "speed",
-     "op": "pct",
-     "value": 5
-    }
-   ]
-  },
-  {
-   "id": "ironvow",
-   "faction": "dawnpact",
-   "color": "#4a78c2",
-   "name": {
-    "en": "Ironvow Houses",
-    "ru": "Дома Железной Клятвы"
-   },
-   "desc": {
-    "en": "Sworn knightly houses. Stubborn defenders and fine riders.",
-    "ru": "Рыцарские дома, связанные клятвой. Стойкие защитники и всадники."
-   },
-   "modifiers": [
-    {
-     "target": "defense.*",
-     "op": "pct",
-     "value": 8
-    },
-    {
-     "target": "attack.cavalry",
-     "op": "pct",
-     "value": 10
-    },
-    {
-     "target": "production.stone",
-     "op": "pct",
-     "value": 10
-    }
-   ]
-  },
-  {
-   "id": "ashborn",
-   "faction": "duskbound",
-   "color": "#c8553d",
-   "name": {
-    "en": "Ashborn",
-    "ru": "Пеплорождённые"
-   },
-   "desc": {
-    "en": "Fire-touched clans of the burnt lands. Fierce raiders and smiths.",
-    "ru": "Опалённые кланы выжженных земель. Яростные налётчики и кузнецы."
-   },
-   "modifiers": [
-    {
-     "target": "attack.*",
-     "op": "pct",
-     "value": 8
-    },
-    {
-     "target": "production.iron",
-     "op": "pct",
-     "value": 15
-    },
-    {
-     "target": "loot",
-     "op": "pct",
-     "value": 10
-    }
-   ]
-  },
-  {
-   "id": "gravewarden",
-   "faction": "duskbound",
-   "color": "#8a6bb8",
-   "name": {
-    "en": "Gravewardens",
-    "ru": "Стражи Могил"
-   },
-   "desc": {
-    "en": "Keepers of barrow and crypt. Their soldiers ask little pay.",
-    "ru": "Хранители курганов и склепов. Их воины почти не требуют жалованья."
-   },
-   "modifiers": [
-    {
-     "target": "upkeep",
-     "op": "pct",
-     "value": -20
-    },
-    {
-     "target": "hp.*",
-     "op": "pct",
-     "value": 8
-    },
-    {
-     "target": "production.lore",
-     "op": "pct",
-     "value": 15
-    }
-   ]
-  }
- ],
- "buildings": [
-  {
-   "id": "keep",
-   "name": {
-    "en": "Keep",
-    "ru": "Цитадель"
-   },
-   "desc": {
-    "en": "Seat of your rule. Unlocks buildings, more cities and territories; houses people.",
-    "ru": "Центр власти. Открывает постройки, новые города и территории; даёт жильё."
-   },
-   "category": "core",
-   "maxLevel": 25,
-   "cost": {
-    "base": {
-     "timber": 120,
-     "stone": 120,
-     "gold": 40
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 120,
-    "growth": 1.42
-   },
-   "effects": [
-    {
-     "type": "housing",
-     "perLevel": 60,
-     "growth": 1.04
-    },
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "build_time",
-      "op": "pct",
-      "value": -2
-     }
-    }
-   ],
-   "score": 20
-  },
-  {
-   "id": "cottages",
-   "name": {
-    "en": "Cottages",
-    "ru": "Дома"
-   },
-   "desc": {
-    "en": "Homes for your people. More housing means more workers and taxpayers.",
-    "ru": "Жилища. Больше жилья — больше рабочих и налогоплательщиков."
-   },
-   "category": "economy",
-   "maxLevel": 25,
-   "cost": {
-    "base": {
-     "timber": 60,
-     "stone": 20
-    },
-    "growth": 1.42
-   },
-   "time": {
-    "baseSeconds": 60,
-    "growth": 1.38
-   },
-   "effects": [
-    {
-     "type": "housing",
-     "perLevel": 90,
-     "growth": 1.06
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "lumberyard",
-   "name": {
-    "en": "Lumberyard",
-    "ru": "Лесопилка"
-   },
-   "desc": {
-    "en": "Fells timber. Needs workers.",
-    "ru": "Добывает древесину. Нужны рабочие."
-   },
-   "category": "economy",
-   "maxLevel": 25,
-   "cost": {
-    "base": {
-     "timber": 40,
-     "stone": 30
-    },
-    "growth": 1.38
-   },
-   "time": {
-    "baseSeconds": 50,
-    "growth": 1.36
-   },
-   "effects": [
-    {
-     "type": "produce",
-     "resource": "timber",
-     "perLevel": 32,
-     "workers": 6,
-     "growth": 1.06
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "farmstead",
-   "name": {
-    "en": "Farmstead",
-    "ru": "Ферма"
-   },
-   "desc": {
-    "en": "Grows grain to feed the population.",
-    "ru": "Выращивает зерно для населения."
-   },
-   "category": "economy",
-   "maxLevel": 25,
-   "cost": {
-    "base": {
-     "timber": 45,
-     "stone": 20
-    },
-    "growth": 1.38
-   },
-   "time": {
-    "baseSeconds": 50,
-    "growth": 1.36
-   },
-   "effects": [
-    {
-     "type": "produce",
-     "resource": "grain",
-     "perLevel": 36,
-     "workers": 6,
-     "growth": 1.06
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "quarry",
-   "name": {
-    "en": "Quarry",
-    "ru": "Каменоломня"
-   },
-   "desc": {
-    "en": "Cuts stone blocks.",
-    "ru": "Добывает камень."
-   },
-   "category": "economy",
-   "maxLevel": 25,
-   "cost": {
-    "base": {
-     "timber": 50,
-     "grain": 20
-    },
-    "growth": 1.38
-   },
-   "time": {
-    "baseSeconds": 60,
-    "growth": 1.36
-   },
-   "effects": [
-    {
-     "type": "produce",
-     "resource": "stone",
-     "perLevel": 26,
-     "workers": 6,
-     "growth": 1.06
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "ironworks",
-   "name": {
-    "en": "Ironworks",
-    "ru": "Железоделательня"
-   },
-   "desc": {
-    "en": "Smelts iron.",
-    "ru": "Выплавляет железо."
-   },
-   "category": "economy",
-   "maxLevel": 25,
-   "cost": {
-    "base": {
-     "timber": 70,
-     "stone": 50
-    },
-    "growth": 1.4
-   },
-   "time": {
-    "baseSeconds": 80,
-    "growth": 1.37
-   },
-   "effects": [
-    {
-     "type": "produce",
-     "resource": "iron",
-     "perLevel": 20,
-     "workers": 8,
-     "growth": 1.06
-    }
-   ],
-   "score": 5,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 2
-    }
-   ]
-  },
-  {
-   "id": "tradepost",
-   "name": {
-    "en": "Trading Post",
-    "ru": "Торговая лавка"
-   },
-   "desc": {
-    "en": "Idle (unemployed) people pay taxes in gold here.",
-    "ru": "Незанятые жители платят здесь налог золотом."
-   },
-   "category": "economy",
-   "maxLevel": 20,
-   "cost": {
-    "base": {
-     "timber": 80,
-     "stone": 60
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 90,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "idle_tax",
-     "resource": "gold",
-     "perLevel": 0.06
-    }
-   ],
-   "score": 5,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 2
-    }
-   ]
-  },
-  {
-   "id": "mint",
-   "name": {
-    "en": "Mint",
-    "ru": "Монетный двор"
-   },
-   "desc": {
-    "en": "Workers strike coin from ore.",
-    "ru": "Рабочие чеканят монету."
-   },
-   "category": "economy",
-   "maxLevel": 20,
-   "cost": {
-    "base": {
-     "timber": 120,
-     "stone": 120,
-     "iron": 60
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 150,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "produce",
-     "resource": "gold",
-     "perLevel": 14,
-     "workers": 10,
-     "growth": 1.06
-    }
-   ],
-   "score": 6,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 4
-    },
-    {
-     "type": "building",
-     "id": "ironworks",
-     "level": 2
-    }
-   ]
-  },
-  {
-   "id": "scriptorium",
-   "name": {
-    "en": "Scriptorium",
-    "ru": "Скрипторий"
-   },
-   "desc": {
-    "en": "Scholars produce lore for research.",
-    "ru": "Учёные создают знания для исследований."
-   },
-   "category": "science",
-   "maxLevel": 20,
-   "cost": {
-    "base": {
-     "timber": 90,
-     "stone": 70,
-     "gold": 30
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 120,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "produce",
-     "resource": "lore",
-     "perLevel": 10,
-     "workers": 5,
-     "growth": 1.08
-    }
-   ],
-   "score": 6,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 2
-    }
-   ]
-  },
-  {
-   "id": "academy",
-   "name": {
-    "en": "Academy",
-    "ru": "Академия"
-   },
-   "desc": {
-    "en": "Speeds up research in this realm.",
-    "ru": "Ускоряет исследования."
-   },
-   "category": "science",
-   "maxLevel": 15,
-   "cost": {
-    "base": {
-     "timber": 200,
-     "stone": 200,
-     "gold": 100
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 300,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "research_time",
-      "op": "pct",
-      "value": -3
-     }
-    }
-   ],
-   "score": 8,
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 3
-    }
-   ]
-  },
-  {
-   "id": "warehouse",
-   "name": {
-    "en": "Warehouse",
-    "ru": "Склад"
-   },
-   "desc": {
-    "en": "Stores timber, grain, stone, iron and gold. Excess above capacity slowly rots or is pilfered.",
-    "ru": "Хранит ресурсы. Излишки сверх вместимости постепенно портятся."
-   },
-   "category": "storage",
-   "maxLevel": 25,
-   "cost": {
-    "base": {
-     "timber": 60,
-     "stone": 40
-    },
-    "growth": 1.4
-   },
-   "time": {
-    "baseSeconds": 60,
-    "growth": 1.37
-   },
-   "effects": [
-    {
-     "type": "storage",
-     "perLevel": 1200,
-     "resource": "*",
-     "growth": 1.12
-    }
-   ],
-   "score": 3
-  },
-  {
-   "id": "vault",
-   "name": {
-    "en": "Hidden Vault",
-    "ru": "Тайник"
-   },
-   "desc": {
-    "en": "Hides part of every resource from raiders.",
-    "ru": "Прячет часть ресурсов от грабителей."
-   },
-   "category": "storage",
-   "maxLevel": 15,
-   "cost": {
-    "base": {
-     "timber": 80,
-     "stone": 120
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 120,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "protect",
-     "perLevel": 150,
-     "resource": "*",
-     "growth": 1.1
-    }
-   ],
-   "score": 3,
-   "requires": [
-    {
-     "type": "building",
-     "id": "warehouse",
-     "level": 3
-    }
-   ]
-  },
-  {
-   "id": "walls",
-   "name": {
-    "en": "Walls",
-    "ru": "Стены"
-   },
-   "desc": {
-    "en": "Fortifications add defense percentage points to every defender of the city.",
-    "ru": "Укрепления добавляют процентные пункты защиты всем защитникам города."
-   },
-   "category": "military",
-   "maxLevel": 20,
-   "cost": {
-    "base": {
-     "stone": 150,
-     "timber": 50
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 180,
-    "growth": 1.42
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "wall",
-      "op": "flat",
-      "value": 2
-     }
-    }
-   ],
-   "score": 6,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 3
-    }
-   ]
-  },
-  {
-   "id": "watchtower",
-   "name": {
-    "en": "Watchtower",
-    "ru": "Сторожевая башня"
-   },
-   "desc": {
-    "en": "Improves your spies and counter-espionage.",
-    "ru": "Усиливает разведку и контрразведку."
-   },
-   "category": "military",
-   "maxLevel": 15,
-   "cost": {
-    "base": {
-     "timber": 90,
-     "stone": 90
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 120,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "scout",
-      "op": "pct",
-      "value": 8
-     }
-    }
-   ],
-   "score": 3,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 2
-    }
-   ]
-  },
-  {
-   "id": "barracks",
-   "name": {
-    "en": "Barracks",
-    "ru": "Казармы"
-   },
-   "desc": {
-    "en": "Trains infantry, scouts and wagons; faster with levels.",
-    "ru": "Обучает пехоту, разведчиков и обозы; ускоряется с уровнем."
-   },
-   "category": "military",
-   "maxLevel": 20,
-   "cost": {
-    "base": {
-     "timber": 100,
-     "stone": 60,
-     "iron": 20
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 120,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "train_time",
-      "op": "pct",
-      "value": -2
-     }
-    }
-   ],
-   "score": 6,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 2
-    }
-   ]
-  },
-  {
-   "id": "range",
-   "name": {
-    "en": "Archery Range",
-    "ru": "Стрельбище"
-   },
-   "desc": {
-    "en": "Trains ranged troops.",
-    "ru": "Обучает стрелков."
-   },
-   "category": "military",
-   "maxLevel": 20,
-   "cost": {
-    "base": {
-     "timber": 140,
-     "stone": 60,
-     "iron": 40
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 150,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "train_time",
-      "op": "pct",
-      "value": -1
-     }
-    }
-   ],
-   "score": 6,
-   "requires": [
-    {
-     "type": "building",
-     "id": "barracks",
-     "level": 2
-    }
-   ]
-  },
-  {
-   "id": "stables",
-   "name": {
-    "en": "Stables",
-    "ru": "Конюшни"
-   },
-   "desc": {
-    "en": "Trains cavalry.",
-    "ru": "Обучает кавалерию."
-   },
-   "category": "military",
-   "maxLevel": 20,
-   "cost": {
-    "base": {
-     "timber": 160,
-     "stone": 100,
-     "iron": 80,
-     "grain": 80
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 180,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "train_time",
-      "op": "pct",
-      "value": -1
-     }
-    }
-   ],
-   "score": 7,
-   "requires": [
-    {
-     "type": "building",
-     "id": "barracks",
-     "level": 3
-    },
-    {
-     "type": "building",
-     "id": "farmstead",
-     "level": 4
-    }
-   ]
-  },
-  {
-   "id": "aerie",
-   "name": {
-    "en": "Aerie",
-    "ru": "Гнездовье"
-   },
-   "desc": {
-    "en": "Raises winged beasts and their riders.",
-    "ru": "Выращивает крылатых зверей и их всадников."
-   },
-   "category": "military",
-   "maxLevel": 15,
-   "cost": {
-    "base": {
-     "timber": 200,
-     "stone": 200,
-     "iron": 120,
-     "gold": 80
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 300,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "train_time",
-      "op": "pct",
-      "value": -1
-     }
-    }
-   ],
-   "score": 8,
-   "requires": [
-    {
-     "type": "building",
-     "id": "stables",
-     "level": 3
-    },
-    {
-     "type": "tech",
-     "id": "beastlore",
-     "level": 1
-    }
-   ]
-  },
-  {
-   "id": "workshop",
-   "name": {
-    "en": "Siege Workshop",
-    "ru": "Осадная мастерская"
-   },
-   "desc": {
-    "en": "Builds siege engines.",
-    "ru": "Строит осадные машины."
-   },
-   "category": "military",
-   "maxLevel": 15,
-   "cost": {
-    "base": {
-     "timber": 250,
-     "stone": 150,
-     "iron": 150
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 300,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "train_time",
-      "op": "pct",
-      "value": -1
-     }
-    }
-   ],
-   "score": 8,
-   "requires": [
-    {
-     "type": "building",
-     "id": "barracks",
-     "level": 5
-    },
-    {
-     "type": "tech",
-     "id": "engineering",
-     "level": 1
-    }
-   ]
-  },
-  {
-   "id": "sanctum",
-   "name": {
-    "en": "Sanctum",
-    "ru": "Святилище"
-   },
-   "desc": {
-    "en": "Trains battle mages.",
-    "ru": "Обучает боевых магов."
-   },
-   "category": "military",
-   "maxLevel": 15,
-   "cost": {
-    "base": {
-     "stone": 250,
-     "gold": 150,
-     "iron": 60
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 360,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "train_time",
-      "op": "pct",
-      "value": -1
-     }
-    }
-   ],
-   "score": 8,
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 5
-    },
-    {
-     "type": "tech",
-     "id": "arcana",
-     "level": 1
-    }
-   ]
-  },
-  {
-   "id": "market",
-   "name": {
-    "en": "Market Hall",
-    "ru": "Рыночная площадь"
-   },
-   "desc": {
-    "en": "Lowers market fees and trains trade wagons.",
-    "ru": "Снижает рыночные сборы."
-   },
-   "category": "economy",
-   "maxLevel": 15,
-   "cost": {
-    "base": {
-     "timber": 150,
-     "stone": 100,
-     "gold": 50
-    },
-    "growth": 1.45
-   },
-   "time": {
-    "baseSeconds": 180,
-    "growth": 1.4
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "market_fee",
-      "op": "pct",
-      "value": -4
-     }
-    },
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "carry",
-      "op": "pct",
-      "value": 3
-     }
-    }
-   ],
-   "score": 4,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 3
-    }
-   ]
-  },
-  {
-   "id": "warhall",
-   "name": {
-    "en": "War Hall",
-    "ru": "Зал героев"
-   },
-   "desc": {
-    "en": "Hire and quarter heroes: one hero per level (max 7).",
-    "ru": "Наём героев: по одному на уровень (максимум 7)."
-   },
-   "category": "military",
-   "maxLevel": 7,
-   "cost": {
-    "base": {
-     "timber": 200,
-     "stone": 200,
-     "gold": 150
-    },
-    "growth": 1.6
-   },
-   "time": {
-    "baseSeconds": 300,
-    "growth": 1.5
-   },
-   "effects": [],
-   "score": 8,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 3
-    }
-   ]
-  }
- ],
- "techs": [
-  {
-   "id": "forestry",
-   "name": {
-    "en": "Forestry",
-    "ru": "Лесоводство"
-   },
-   "desc": {
-    "en": "+5% timber per level.",
-    "ru": "+5% древесины за уровень."
-   },
-   "branch": "economy",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 60,
-     "timber": 60
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 180,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "production.timber",
-      "op": "pct",
-      "value": 5
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 1
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "agriculture",
-   "name": {
-    "en": "Crop Rotation",
-    "ru": "Севооборот"
-   },
-   "desc": {
-    "en": "+5% grain per level.",
-    "ru": "+5% зерна за уровень."
-   },
-   "branch": "economy",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 60,
-     "grain": 60
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 180,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "production.grain",
-      "op": "pct",
-      "value": 5
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 1
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "masonry",
-   "name": {
-    "en": "Masonry",
-    "ru": "Каменное дело"
-   },
-   "desc": {
-    "en": "+5% stone and +3% storage per level.",
-    "ru": "+5% камня и +3% вместимости за уровень."
-   },
-   "branch": "economy",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 70,
-     "stone": 70
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 200,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "production.stone",
-      "op": "pct",
-      "value": 5
-     }
-    },
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "storage.*",
-      "op": "pct",
-      "value": 3
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 1
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "metallurgy",
-   "name": {
-    "en": "Metallurgy",
-    "ru": "Металлургия"
-   },
-   "desc": {
-    "en": "+5% iron per level.",
-    "ru": "+5% железа за уровень."
-   },
-   "branch": "economy",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 90,
-     "iron": 60
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 240,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "production.iron",
-      "op": "pct",
-      "value": 5
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 2
-    },
-    {
-     "type": "building",
-     "id": "ironworks",
-     "level": 1
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "exchequer",
-   "name": {
-    "en": "Exchequer",
-    "ru": "Казначейство"
-   },
-   "desc": {
-    "en": "-4% army wages and +3% gold per level.",
-    "ru": "-4% жалованья и +3% золота за уровень."
-   },
-   "branch": "civic",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 120,
-     "gold": 80
-    },
-    "growth": 1.55
-   },
-   "time": {
-    "baseSeconds": 300,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "upkeep",
-      "op": "pct",
-      "value": -4
-     }
-    },
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "production.gold",
-      "op": "pct",
-      "value": 3
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 3
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "husbandry",
-   "name": {
-    "en": "Civic Husbandry",
-    "ru": "Благоустройство"
-   },
-   "desc": {
-    "en": "+10% population growth and +3% housing per level.",
-    "ru": "+10% прироста и +3% жилья за уровень."
-   },
-   "branch": "civic",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 80,
-     "grain": 80
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 200,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "pop_growth",
-      "op": "pct",
-      "value": 10
-     }
-    },
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "housing",
-      "op": "pct",
-      "value": 3
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 2
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "tactics",
-   "name": {
-    "en": "Drill Tactics",
-    "ru": "Строевая выучка"
-   },
-   "desc": {
-    "en": "+3% attack for all troops per level.",
-    "ru": "+3% атаки всех войск за уровень."
-   },
-   "branch": "military",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 100,
-     "iron": 60
-    },
-    "growth": 1.55
-   },
-   "time": {
-    "baseSeconds": 300,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "attack.*",
-      "op": "pct",
-      "value": 3
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "barracks",
-     "level": 2
-    },
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 2
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "armour",
-   "name": {
-    "en": "Armoursmithing",
-    "ru": "Бронное дело"
-   },
-   "desc": {
-    "en": "+2 defense% and +2% hit points per level.",
-    "ru": "+2% защиты и +2% здоровья за уровень."
-   },
-   "branch": "military",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 100,
-     "iron": 80
-    },
-    "growth": 1.55
-   },
-   "time": {
-    "baseSeconds": 300,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "defense.*",
-      "op": "pct",
-      "value": 2
-     }
-    },
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "hp.*",
-      "op": "pct",
-      "value": 2
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "ironworks",
-     "level": 2
-    },
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 2
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "logistics",
-   "name": {
-    "en": "Logistics",
-    "ru": "Логистика"
-   },
-   "desc": {
-    "en": "+4% march speed and +5% carrying capacity per level.",
-    "ru": "+4% скорости и +5% грузоподъёмности за уровень."
-   },
-   "branch": "military",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 90,
-     "grain": 90
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 240,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "speed",
-      "op": "pct",
-      "value": 4
-     }
-    },
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "carry",
-      "op": "pct",
-      "value": 5
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 2
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "espionage",
-   "name": {
-    "en": "Espionage",
-    "ru": "Шпионаж"
-   },
-   "desc": {
-    "en": "+10% spy strength per level.",
-    "ru": "+10% силы разведки за уровень."
-   },
-   "branch": "military",
-   "maxLevel": 10,
-   "cost": {
-    "base": {
-     "lore": 80,
-     "gold": 40
-    },
-    "growth": 1.5
-   },
-   "time": {
-    "baseSeconds": 200,
-    "growth": 1.45
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "scout",
-      "op": "pct",
-      "value": 10
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "watchtower",
-     "level": 1
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "beastlore",
-   "name": {
-    "en": "Beast Lore",
-    "ru": "Звероведение"
-   },
-   "desc": {
-    "en": "Unlocks the Aerie; +4% beast hit points per level.",
-    "ru": "Открывает Гнездовье; +4% здоровья зверей за уровень."
-   },
-   "branch": "military",
-   "maxLevel": 5,
-   "cost": {
-    "base": {
-     "lore": 200,
-     "grain": 200
-    },
-    "growth": 1.6
-   },
-   "time": {
-    "baseSeconds": 600,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "hp.beast",
-      "op": "pct",
-      "value": 4
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "stables",
-     "level": 2
-    },
-    {
-     "type": "tech",
-     "id": "logistics",
-     "level": 2
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "engineering",
-   "name": {
-    "en": "Engineering",
-    "ru": "Инженерия"
-   },
-   "desc": {
-    "en": "Unlocks the Siege Workshop; +5% siege attack.",
-    "ru": "Открывает осадную мастерскую; +5% атаки осадных машин."
-   },
-   "branch": "military",
-   "maxLevel": 5,
-   "cost": {
-    "base": {
-     "lore": 250,
-     "timber": 250,
-     "iron": 100
-    },
-    "growth": 1.6
-   },
-   "time": {
-    "baseSeconds": 600,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "attack.siege",
-      "op": "pct",
-      "value": 5
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "tech",
-     "id": "masonry",
-     "level": 3
-    },
-    {
-     "type": "tech",
-     "id": "tactics",
-     "level": 2
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "arcana",
-   "name": {
-    "en": "Arcana",
-    "ru": "Тайное знание"
-   },
-   "desc": {
-    "en": "Unlocks the Sanctum; +5% mage attack.",
-    "ru": "Открывает Святилище; +5% атаки магов."
-   },
-   "branch": "arcane",
-   "maxLevel": 5,
-   "cost": {
-    "base": {
-     "lore": 300,
-     "gold": 150
-    },
-    "growth": 1.6
-   },
-   "time": {
-    "baseSeconds": 720,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "attack.magic",
-      "op": "pct",
-      "value": 5
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 4
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "plunder",
-   "name": {
-    "en": "Plunder Doctrine",
-    "ru": "Доктрина грабежа"
-   },
-   "desc": {
-    "en": "+4% loot share per level.",
-    "ru": "+4% к доле добычи за уровень."
-   },
-   "branch": "military",
-   "maxLevel": 5,
-   "cost": {
-    "base": {
-     "lore": 150,
-     "gold": 100
-    },
-    "growth": 1.6
-   },
-   "time": {
-    "baseSeconds": 400,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "loot",
-      "op": "pct",
-      "value": 4
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "tech",
-     "id": "tactics",
-     "level": 3
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "heroics",
-   "name": {
-    "en": "Heroic Sagas",
-    "ru": "Героические саги"
-   },
-   "desc": {
-    "en": "+10% hero experience per level.",
-    "ru": "+10% опыта героев за уровень."
-   },
-   "branch": "arcane",
-   "maxLevel": 5,
-   "cost": {
-    "base": {
-     "lore": 180,
-     "gold": 120
-    },
-    "growth": 1.6
-   },
-   "time": {
-    "baseSeconds": 500,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "hero_xp",
-      "op": "pct",
-      "value": 10
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "warhall",
-     "level": 1
-    }
-   ],
-   "score": 4
-  },
-  {
-   "id": "path_architect",
-   "name": {
-    "en": "Path of the Architect",
-    "ru": "Путь Зодчего"
-   },
-   "desc": {
-    "en": "Specialisation: -15% construction time per level. Excludes other Paths.",
-    "ru": "Специализация: -15% времени строительства за уровень. Исключает другие Пути."
-   },
-   "branch": "calling",
-   "maxLevel": 3,
-   "cost": {
-    "base": {
-     "lore": 400,
-     "stone": 400,
-     "gold": 200,
-     "starglass": 15
-    },
-    "growth": 1.8
-   },
-   "time": {
-    "baseSeconds": 1800,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "build_time",
-      "op": "pct",
-      "value": -15
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 5
-    }
-   ],
-   "score": 4,
-   "exclusiveGroup": "calling"
-  },
-  {
-   "id": "path_steward",
-   "name": {
-    "en": "Path of the Steward",
-    "ru": "Путь Управителя"
-   },
-   "desc": {
-    "en": "Specialisation: +6% all production per level. Excludes other Paths.",
-    "ru": "Специализация: +6% всего производства за уровень. Исключает другие Пути."
-   },
-   "branch": "calling",
-   "maxLevel": 3,
-   "cost": {
-    "base": {
-     "lore": 400,
-     "grain": 400,
-     "gold": 200,
-     "starglass": 15
-    },
-    "growth": 1.8
-   },
-   "time": {
-    "baseSeconds": 1800,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "production.*",
-      "op": "pct",
-      "value": 6
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 5
-    }
-   ],
-   "score": 4,
-   "exclusiveGroup": "calling"
-  },
-  {
-   "id": "path_warlord",
-   "name": {
-    "en": "Path of the Warlord",
-    "ru": "Путь Полководца"
-   },
-   "desc": {
-    "en": "Specialisation: +6% attack, -8% training time per level. Excludes other Paths.",
-    "ru": "Специализация: +6% атаки, -8% времени обучения за уровень. Исключает другие Пути."
-   },
-   "branch": "calling",
-   "maxLevel": 3,
-   "cost": {
-    "base": {
-     "lore": 400,
-     "iron": 400,
-     "gold": 200,
-     "starglass": 15
-    },
-    "growth": 1.8
-   },
-   "time": {
-    "baseSeconds": 1800,
-    "growth": 1.5
-   },
-   "effects": [
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "attack.*",
-      "op": "pct",
-      "value": 6
-     }
-    },
-    {
-     "type": "modifier",
-     "modifier": {
-      "target": "train_time",
-      "op": "pct",
-      "value": -8
-     }
-    }
-   ],
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 5
-    }
-   ],
-   "score": 4,
-   "exclusiveGroup": "calling"
-  }
- ],
- "units": [
-  {
-   "id": "militia",
-   "name": {
-    "en": "Militia",
-    "ru": "Ополченец"
-   },
-   "desc": {
-    "en": "Cheap levy spearmen.",
-    "ru": "Дешёвое ополчение с копьями."
-   },
-   "class": "infantry",
-   "attack": 8,
-   "defense": 10,
-   "hp": 40,
-   "speed": 5,
-   "carry": 15,
-   "upkeep": 0.3,
-   "cost": {
-    "grain": 30,
-    "timber": 20,
-    "iron": 5
-   },
-   "trainSeconds": 45,
-   "trainedIn": "barracks",
-   "score": 1,
-   "bonuses": [
-    {
-     "vsClass": "ranged",
-     "pct": 40
-    }
-   ]
-  },
-  {
-   "id": "pikeman",
-   "name": {
-    "en": "Pikeman",
-    "ru": "Пикинёр"
-   },
-   "desc": {
-    "en": "Disciplined infantry that breaks charges.",
-    "ru": "Дисциплинированная пехота."
-   },
-   "class": "infantry",
-   "attack": 14,
-   "defense": 18,
-   "hp": 60,
-   "speed": 4.5,
-   "carry": 20,
-   "upkeep": 0.6,
-   "cost": {
-    "grain": 50,
-    "timber": 30,
-    "iron": 30
-   },
-   "trainSeconds": 90,
-   "trainedIn": "barracks",
-   "score": 2,
-   "requires": [
-    {
-     "type": "building",
-     "id": "barracks",
-     "level": 3
-    },
-    {
-     "type": "tech",
-     "id": "armour",
-     "level": 1
-    }
-   ],
-   "bonuses": [
-    {
-     "vsClass": "ranged",
-     "pct": 40
-    },
-    {
-     "vsClass": "cavalry",
-     "pct": 15
-    }
-   ]
-  },
-  {
-   "id": "bowman",
-   "name": {
-    "en": "Bowman",
-    "ru": "Лучник"
-   },
-   "desc": {
-    "en": "Longbow archers.",
-    "ru": "Лучники с длинными луками."
-   },
-   "class": "ranged",
-   "attack": 14,
-   "defense": 5,
-   "hp": 35,
-   "speed": 5,
-   "carry": 10,
-   "upkeep": 0.4,
-   "cost": {
-    "grain": 30,
-    "timber": 45,
-    "iron": 5
-   },
-   "trainSeconds": 60,
-   "trainedIn": "range",
-   "score": 1,
-   "bonuses": [
-    {
-     "vsClass": "beast",
-     "pct": 40
-    }
-   ]
-  },
-  {
-   "id": "crossbow",
-   "name": {
-    "en": "Crossbowman",
-    "ru": "Арбалетчик"
-   },
-   "desc": {
-    "en": "Armour-piercing bolts.",
-    "ru": "Бронебойные болты."
-   },
-   "class": "ranged",
-   "attack": 22,
-   "defense": 8,
-   "hp": 45,
-   "speed": 4.5,
-   "carry": 10,
-   "upkeep": 0.7,
-   "cost": {
-    "grain": 40,
-    "timber": 50,
-    "iron": 35
-   },
-   "trainSeconds": 100,
-   "trainedIn": "range",
-   "score": 2,
-   "requires": [
-    {
-     "type": "building",
-     "id": "range",
-     "level": 3
-    },
-    {
-     "type": "tech",
-     "id": "metallurgy",
-     "level": 2
-    }
-   ],
-   "bonuses": [
-    {
-     "vsClass": "beast",
-     "pct": 40
-    }
-   ]
-  },
-  {
-   "id": "outrider",
-   "name": {
-    "en": "Outrider",
-    "ru": "Разъездной"
-   },
-   "desc": {
-    "en": "Fast light cavalry, good raiders.",
-    "ru": "Быстрая лёгкая кавалерия."
-   },
-   "class": "cavalry",
-   "attack": 18,
-   "defense": 8,
-   "hp": 70,
-   "speed": 10,
-   "carry": 40,
-   "upkeep": 1.0,
-   "cost": {
-    "grain": 70,
-    "timber": 30,
-    "iron": 40
-   },
-   "trainSeconds": 120,
-   "trainedIn": "stables",
-   "score": 3,
-   "bonuses": [
-    {
-     "vsClass": "infantry",
-     "pct": 40
-    }
-   ]
-  },
-  {
-   "id": "knight",
-   "name": {
-    "en": "Knight",
-    "ru": "Рыцарь"
-   },
-   "desc": {
-    "en": "Heavy lancers.",
-    "ru": "Тяжёлые копейщики."
-   },
-   "class": "cavalry",
-   "attack": 30,
-   "defense": 20,
-   "hp": 110,
-   "speed": 8,
-   "carry": 30,
-   "upkeep": 1.8,
-   "cost": {
-    "grain": 100,
-    "timber": 40,
-    "iron": 90,
-    "gold": 20
-   },
-   "trainSeconds": 200,
-   "trainedIn": "stables",
-   "score": 5,
-   "requires": [
-    {
-     "type": "building",
-     "id": "stables",
-     "level": 4
-    },
-    {
-     "type": "tech",
-     "id": "armour",
-     "level": 3
-    }
-   ],
-   "bonuses": [
-    {
-     "vsClass": "infantry",
-     "pct": 40
-    }
-   ]
-  },
-  {
-   "id": "griffin",
-   "name": {
-    "en": "Griffin Rider",
-    "ru": "Всадник на грифоне"
-   },
-   "desc": {
-    "en": "Winged riders that strike cavalry from above.",
-    "ru": "Крылатые всадники, бьющие кавалерию сверху."
-   },
-   "class": "beast",
-   "attack": 34,
-   "defense": 12,
-   "hp": 120,
-   "speed": 14,
-   "carry": 25,
-   "upkeep": 2.5,
-   "cost": {
-    "grain": 160,
-    "iron": 60,
-    "gold": 60
-   },
-   "trainSeconds": 300,
-   "trainedIn": "aerie",
-   "score": 7,
-   "bonuses": [
-    {
-     "vsClass": "cavalry",
-     "pct": 40
-    }
-   ]
-  },
-  {
-   "id": "ballista",
-   "name": {
-    "en": "Ballista",
-    "ru": "Баллиста"
-   },
-   "desc": {
-    "en": "Siege engine; deadly against fortified defenders.",
-    "ru": "Осадное орудие против укреплённых защитников."
-   },
-   "class": "siege",
-   "attack": 45,
-   "defense": 4,
-   "hp": 90,
-   "speed": 2.5,
-   "carry": 0,
-   "upkeep": 2.0,
-   "cost": {
-    "timber": 200,
-    "iron": 100,
-    "gold": 40
-   },
-   "trainSeconds": 360,
-   "trainedIn": "workshop",
-   "score": 8,
-   "bonuses": [
-    {
-     "vsClass": "infantry",
-     "pct": 20
-    }
-   ]
-  },
-  {
-   "id": "battlemage",
-   "name": {
-    "en": "Battle Mage",
-    "ru": "Боевой маг"
-   },
-   "desc": {
-    "en": "Casters who scorch any formation.",
-    "ru": "Маги, жгущие любой строй."
-   },
-   "class": "magic",
-   "attack": 40,
-   "defense": 6,
-   "hp": 60,
-   "speed": 5,
-   "carry": 5,
-   "upkeep": 3.0,
-   "cost": {
-    "grain": 80,
-    "gold": 120,
-    "lore": 40
-   },
-   "trainSeconds": 360,
-   "trainedIn": "sanctum",
-   "score": 9
-  },
-  {
-   "id": "scout",
-   "name": {
-    "en": "Scout",
-    "ru": "Разведчик"
-   },
-   "desc": {
-    "en": "Spies on cities and lands.",
-    "ru": "Разведывает города и земли."
-   },
-   "class": "scout",
-   "attack": 0,
-   "defense": 2,
-   "hp": 15,
-   "speed": 16,
-   "carry": 0,
-   "upkeep": 0.2,
-   "cost": {
-    "grain": 20,
-    "gold": 10
-   },
-   "trainSeconds": 40,
-   "trainedIn": "barracks",
-   "score": 1,
-   "scout": 1
-  },
-  {
-   "id": "wagon",
-   "name": {
-    "en": "Supply Wagon",
-    "ru": "Обоз"
-   },
-   "desc": {
-    "en": "Carries goods for transport missions.",
-    "ru": "Перевозит грузы."
-   },
-   "class": "transport",
-   "attack": 0,
-   "defense": 4,
-   "hp": 60,
-   "speed": 6,
-   "carry": 300,
-   "upkeep": 0.4,
-   "cost": {
-    "timber": 80,
-    "grain": 20
-   },
-   "trainSeconds": 80,
-   "trainedIn": "barracks",
-   "score": 1
-  },
-  {
-   "id": "settler",
-   "name": {
-    "en": "Settlers",
-    "ru": "Поселенцы"
-   },
-   "desc": {
-    "en": "Found a new city on a free land.",
-    "ru": "Основывают новый город на свободной земле."
-   },
-   "class": "settler",
-   "attack": 0,
-   "defense": 2,
-   "hp": 50,
-   "speed": 3,
-   "carry": 500,
-   "upkeep": 1.0,
-   "cost": {
-    "timber": 800,
-    "grain": 800,
-    "stone": 600,
-    "gold": 400,
-    "starglass": 10
-   },
-   "trainSeconds": 1800,
-   "trainedIn": "keep",
-   "score": 10,
-   "requires": [
-    {
-     "type": "building",
-     "id": "keep",
-     "level": 5
-    }
-   ]
-  },
-  {
-   "id": "thornweaver",
-   "name": {
-    "en": "Thornweaver",
-    "ru": "Терноплёт"
-   },
-   "desc": {
-    "en": "Thornkin archers whose arrows root the enemy.",
-    "ru": "Лучники терновников."
-   },
-   "class": "ranged",
-   "attack": 20,
-   "defense": 10,
-   "hp": 50,
-   "speed": 6,
-   "carry": 10,
-   "upkeep": 0.8,
-   "cost": {
-    "grain": 40,
-    "timber": 70,
-    "lore": 5
-   },
-   "trainSeconds": 110,
-   "trainedIn": "range",
-   "score": 3,
-   "requires": [
-    {
-     "type": "building",
-     "id": "range",
-     "level": 2
-    }
-   ],
-   "bonuses": [
-    {
-     "vsClass": "beast",
-     "pct": 50
-    }
-   ],
-   "races": [
-    "thornkin"
-   ]
-  },
-  {
-   "id": "bannerguard",
-   "name": {
-    "en": "Bannerguard",
-    "ru": "Знаменосец"
-   },
-   "desc": {
-    "en": "Ironvow shield-wall infantry.",
-    "ru": "Пехота стены щитов."
-   },
-   "class": "infantry",
-   "attack": 14,
-   "defense": 28,
-   "hp": 80,
-   "speed": 4,
-   "carry": 20,
-   "upkeep": 0.9,
-   "cost": {
-    "grain": 60,
-    "stone": 30,
-    "iron": 50
-   },
-   "trainSeconds": 120,
-   "trainedIn": "barracks",
-   "score": 3,
-   "requires": [
-    {
-     "type": "building",
-     "id": "barracks",
-     "level": 2
-    }
-   ],
-   "bonuses": [
-    {
-     "vsClass": "ranged",
-     "pct": 40
-    }
-   ],
-   "races": [
-    "ironvow"
-   ]
-  },
-  {
-   "id": "cinderhound",
-   "name": {
-    "en": "Cinderhound",
-    "ru": "Пепельный пёс"
-   },
-   "desc": {
-    "en": "Ashborn fire-beasts that hunt riders.",
-    "ru": "Огненные звери пеплорождённых."
-   },
-   "class": "beast",
-   "attack": 26,
-   "defense": 8,
-   "hp": 90,
-   "speed": 12,
-   "carry": 20,
-   "upkeep": 1.4,
-   "cost": {
-    "grain": 120,
-    "iron": 40
-   },
-   "trainSeconds": 180,
-   "trainedIn": "stables",
-   "score": 4,
-   "requires": [
-    {
-     "type": "building",
-     "id": "stables",
-     "level": 2
-    }
-   ],
-   "bonuses": [
-    {
-     "vsClass": "cavalry",
-     "pct": 50
-    }
-   ],
-   "races": [
-    "ashborn"
-   ]
-  },
-  {
-   "id": "bonelord",
-   "name": {
-    "en": "Bone Lord",
-    "ru": "Костяной владыка"
-   },
-   "desc": {
-    "en": "Gravewarden necromancer-knights; tireless and unpaid.",
-    "ru": "Некроманты-рыцари; почти не требуют жалованья."
-   },
-   "class": "magic",
-   "attack": 30,
-   "defense": 15,
-   "hp": 90,
-   "speed": 5,
-   "carry": 10,
-   "upkeep": 0.4,
-   "cost": {
-    "grain": 40,
-    "iron": 60,
-    "lore": 40
-   },
-   "trainSeconds": 240,
-   "trainedIn": "barracks",
-   "score": 6,
-   "requires": [
-    {
-     "type": "building",
-     "id": "barracks",
-     "level": 4
-    },
-    {
-     "type": "building",
-     "id": "scriptorium",
-     "level": 3
-    }
-   ],
-   "races": [
-    "gravewarden"
-   ]
-  },
-  {
-   "id": "wolf",
-   "name": {
-    "en": "Grey Wolf",
-    "ru": "Серый волк"
-   },
-   "desc": {
-    "en": "Hungry pack hunters.",
-    "ru": "Голодные стайные хищники."
-   },
-   "class": "beast",
-   "attack": 7,
-   "defense": 4,
-   "hp": 35,
-   "speed": 9,
-   "carry": 0,
-   "upkeep": 0,
-   "trainSeconds": 0,
-   "score": 1
-  },
-  {
-   "id": "brigand",
-   "name": {
-    "en": "Brigand",
-    "ru": "Разбойник"
-   },
-   "desc": {
-    "en": "Outlaws holding forest camps.",
-    "ru": "Разбойники лесных лагерей."
-   },
-   "class": "infantry",
-   "attack": 10,
-   "defense": 8,
-   "hp": 45,
-   "speed": 5,
-   "carry": 0,
-   "upkeep": 0,
-   "trainSeconds": 0,
-   "score": 1
-  },
-  {
-   "id": "troll",
-   "name": {
-    "en": "Hill Troll",
-    "ru": "Горный тролль"
-   },
-   "desc": {
-    "en": "Huge, slow and hard to kill.",
-    "ru": "Огромный, медленный и живучий."
-   },
-   "class": "infantry",
-   "attack": 30,
-   "defense": 20,
-   "hp": 220,
-   "speed": 3,
-   "carry": 0,
-   "upkeep": 0,
-   "trainSeconds": 0,
-   "score": 5
-  },
-  {
-   "id": "wraith",
-   "name": {
-    "en": "Barrow Wraith",
-    "ru": "Курганный призрак"
-   },
-   "desc": {
-    "en": "Restless dead guarding ruins.",
-    "ru": "Неупокоенные стражи руин."
-   },
-   "class": "magic",
-   "attack": 26,
-   "defense": 30,
-   "hp": 90,
-   "speed": 6,
-   "carry": 0,
-   "upkeep": 0,
-   "trainSeconds": 0,
-   "score": 4
-  },
-  {
-   "id": "golem",
-   "name": {
-    "en": "Stone Golem",
-    "ru": "Каменный голем"
-   },
-   "desc": {
-    "en": "Animated guardian of sky-wreckage.",
-    "ru": "Оживший страж небесных обломков."
-   },
-   "class": "siege",
-   "attack": 40,
-   "defense": 40,
-   "hp": 300,
-   "speed": 2,
-   "carry": 0,
-   "upkeep": 0,
-   "trainSeconds": 0,
-   "score": 8
-  },
-  {
-   "id": "drake",
-   "name": {
-    "en": "Ash Drake",
-    "ru": "Пепельный дракон"
-   },
-   "desc": {
-    "en": "Young dragon nesting in the ashlands.",
-    "ru": "Молодой дракон пепельных пустошей."
-   },
-   "class": "beast",
-   "attack": 80,
-   "defense": 35,
-   "hp": 600,
-   "speed": 10,
-   "carry": 0,
-   "upkeep": 0,
-   "trainSeconds": 0,
-   "score": 20
-  }
- ],
- "heroes": {
-  "classes": [
-   {
-    "id": "marshal",
-    "name": {
-     "en": "Marshal",
-     "ru": "Маршал"
-    },
-    "desc": {
-     "en": "Leads assaults: bonus attack for the whole army.",
-     "ru": "Ведёт штурмы: бонус атаки всей армии."
-    },
-    "modifiers": [
-     {
-      "target": "attack.*",
-      "op": "pct",
-      "value": 5
-     }
-    ],
-    "perLevel": [
-     {
-      "target": "attack.*",
-      "op": "pct",
-      "value": 1
-     }
-    ]
-   },
-   {
-    "id": "warden",
-    "name": {
-     "en": "Warden",
-     "ru": "Страж"
-    },
-    "desc": {
-     "en": "Holds the line: defense and hit points.",
-     "ru": "Держит строй: защита и здоровье."
-    },
-    "modifiers": [
-     {
-      "target": "defense.*",
-      "op": "pct",
-      "value": 3
-     },
-     {
-      "target": "hp.*",
-      "op": "pct",
-      "value": 3
-     }
-    ],
-    "perLevel": [
-     {
-      "target": "hp.*",
-      "op": "pct",
-      "value": 1
-     }
-    ]
-   },
-   {
-    "id": "pathfinder",
-    "name": {
-     "en": "Pathfinder",
-     "ru": "Следопыт"
-    },
-    "desc": {
-     "en": "Faster marches, more plunder, sharper eyes.",
-     "ru": "Быстрее марш, больше добычи, острее взгляд."
-    },
-    "modifiers": [
-     {
-      "target": "speed",
-      "op": "pct",
-      "value": 8
-     },
-     {
-      "target": "loot",
-      "op": "pct",
-      "value": 5
-     },
-     {
-      "target": "scout",
-      "op": "pct",
-      "value": 10
-     }
-    ],
-    "perLevel": [
-     {
-      "target": "speed",
-      "op": "pct",
-      "value": 1
-     }
-    ]
-   },
-   {
-    "id": "sage",
-    "name": {
-     "en": "Sage",
-     "ru": "Мудрец"
-    },
-    "desc": {
-     "en": "Learns quickly and empowers mages.",
-     "ru": "Быстро учится и усиливает магов."
-    },
-    "modifiers": [
-     {
-      "target": "hero_xp",
-      "op": "pct",
-      "value": 15
-     },
-     {
-      "target": "attack.magic",
-      "op": "pct",
-      "value": 8
-     }
-    ],
-    "perLevel": [
-     {
-      "target": "attack.magic",
-      "op": "pct",
-      "value": 1
-     }
-    ]
-   }
+  "formatVersion": 1,
+  "id": "ashen-crowns",
+  "version": "1.2.0",
+  "meta": {
+    "title": {
+      "en": "Ashen Crowns",
+      "ru": "Пепельные Короны"
+    },
+    "subtitle": {
+      "en": "Realms of the Sundered Sky",
+      "ru": "Королевства расколотого неба"
+    },
+    "description": {
+      "en": "Rebuild a fallen realm beneath a shattered sky: grow your cities, train armies, clear the wilds of monsters, hunt starglass in fallen craters and forge alliances against rival crowns.",
+      "ru": "Восстановите павшее королевство под расколотым небом: развивайте города, обучайте армии, очищайте земли от чудовищ, ищите звёздное стекло в кратерах и заключайте союзы против соперников."
+    },
+    "studio": "Realmforge",
+    "license": "All texts and data original to this project (CC BY 4.0)."
+  },
+  "locales": [
+    "en",
+    "ru"
   ],
-  "skills": [
-   {
-    "id": "spearwall",
-    "name": {
-     "en": "Spear Wall",
-     "ru": "Стена копий"
+  "defaultLocale": "en",
+  "theme": {
+    "palette": {
+      "bg": "#14110f",
+      "surface": "#221c18",
+      "surface2": "#2d2520",
+      "text": "#f1e6d6",
+      "muted": "#a8998a",
+      "accent": "#e0a44a",
+      "accent2": "#7fb2a2",
+      "danger": "#d9534f",
+      "ok": "#6fbf73",
+      "border": "#3e342c"
     },
-    "desc": {
-     "en": "+3% infantry defense per level.",
-     "ru": "+3% защиты пехоты за уровень."
+    "fonts": {
+      "display": "Cinzel",
+      "body": "Inter"
     },
-    "maxLevel": 5,
-    "modifiers": [
-     {
-      "target": "defense.infantry",
-      "op": "pct",
-      "value": 3
-     }
-    ]
-   },
-   {
-    "id": "volley",
-    "name": {
-     "en": "Volley",
-     "ru": "Залп"
+    "icons": {
+      "timber": "resources/timber.webp",
+      "grain": "resources/grain.webp",
+      "stone": "resources/stone.webp",
+      "iron": "resources/iron.webp",
+      "gold": "resources/gold.webp",
+      "lore": "resources/lore.webp",
+      "starglass": "resources/starglass.webp",
+      "ember_sword": "items/ember_sword.webp",
+      "horned_helm": "items/horned_helm.webp",
+      "iron_blade": "items/iron_blade.webp",
+      "leather_jerkin": "items/leather_jerkin.webp",
+      "lucky_coin": "items/lucky_coin.webp",
+      "sage_tome": "items/sage_tome.webp",
+      "scout_hood": "items/scout_hood.webp",
+      "skyfall_lance": "items/skyfall_lance.webp",
+      "starglass_mail": "items/starglass_mail.webp",
+      "warden_plate": "items/warden_plate.webp",
+      "wind_charm": "items/wind_charm.webp",
+      "thornkin": "emblems/thornkin.svg",
+      "ironvow": "emblems/ironvow.svg",
+      "ashborn": "emblems/ashborn.svg",
+      "gravewarden": "emblems/gravewarden.svg",
+      "militia": "units/militia.webp",
+      "pikeman": "units/pikeman.webp",
+      "bowman": "units/bowman.webp",
+      "crossbow": "units/crossbow.webp",
+      "outrider": "units/outrider.webp",
+      "knight": "units/knight.webp",
+      "griffin": "units/griffin.svg",
+      "ballista": "units/ballista.svg",
+      "battlemage": "units/battlemage.webp",
+      "scout": "units/scout.webp",
+      "wagon": "units/wagon.svg",
+      "settler": "units/settler.svg",
+      "thornweaver": "units/thornweaver.webp",
+      "bannerguard": "units/bannerguard.webp",
+      "cinderhound": "units/cinderhound.webp",
+      "bonelord": "units/bonelord.webp",
+      "wolf": "units/wolf.svg",
+      "brigand": "units/brigand.svg",
+      "troll": "units/troll.svg",
+      "wraith": "units/wraith.svg",
+      "golem": "units/golem.svg",
+      "drake": "units/drake.svg"
     },
-    "desc": {
-     "en": "+4% ranged attack per level.",
-     "ru": "+4% атаки стрелков за уровень."
-    },
-    "maxLevel": 5,
-    "modifiers": [
-     {
-      "target": "attack.ranged",
-      "op": "pct",
-      "value": 4
-     }
-    ]
-   },
-   {
-    "id": "charge",
-    "name": {
-     "en": "Charge",
-     "ru": "Натиск"
-    },
-    "desc": {
-     "en": "+4% cavalry attack per level.",
-     "ru": "+4% атаки кавалерии за уровень."
-    },
-    "maxLevel": 5,
-    "modifiers": [
-     {
-      "target": "attack.cavalry",
-      "op": "pct",
-      "value": 4
-     }
-    ]
-   },
-   {
-    "id": "beastmaster",
-    "name": {
-     "en": "Beastmaster",
-     "ru": "Повелитель зверей"
-    },
-    "desc": {
-     "en": "+4% beast attack per level.",
-     "ru": "+4% атаки зверей за уровень."
-    },
-    "maxLevel": 5,
-    "modifiers": [
-     {
-      "target": "attack.beast",
-      "op": "pct",
-      "value": 4
-     }
-    ]
-   },
-   {
-    "id": "forced_march",
-    "name": {
-     "en": "Forced March",
-     "ru": "Форсированный марш"
-    },
-    "desc": {
-     "en": "+3% speed per level.",
-     "ru": "+3% скорости за уровень."
-    },
-    "maxLevel": 5,
-    "modifiers": [
-     {
-      "target": "speed",
-      "op": "pct",
-      "value": 3
-     }
-    ]
-   },
-   {
-    "id": "quartermaster",
-    "name": {
-     "en": "Quartermaster",
-     "ru": "Интендант"
-    },
-    "desc": {
-     "en": "+5% carrying capacity per level.",
-     "ru": "+5% грузоподъёмности за уровень."
-    },
-    "maxLevel": 5,
-    "modifiers": [
-     {
-      "target": "carry",
-      "op": "pct",
-      "value": 5
-     }
-    ]
-   },
-   {
-    "id": "fieldmedic",
-    "name": {
-     "en": "Field Medic",
-     "ru": "Полевой лекарь"
-    },
-    "desc": {
-     "en": "+3% hit points per level.",
-     "ru": "+3% здоровья за уровень."
-    },
-    "maxLevel": 5,
-    "modifiers": [
-     {
-      "target": "hp.*",
-      "op": "pct",
-      "value": 3
-     }
-    ],
-    "classes": [
-     "warden",
-     "sage"
-    ]
-   },
-   {
-    "id": "pyromancy",
-    "name": {
-     "en": "Pyromancy",
-     "ru": "Пиромантия"
-    },
-    "desc": {
-     "en": "+5% mage attack per level.",
-     "ru": "+5% атаки магов за уровень."
-    },
-    "maxLevel": 5,
-    "modifiers": [
-     {
-      "target": "attack.magic",
-      "op": "pct",
-      "value": 5
-     }
-    ],
-    "classes": [
-     "sage"
-    ]
-   }
-  ],
-  "items": [
-   {
-    "id": "iron_blade",
-    "name": {
-     "en": "Iron Blade",
-     "ru": "Железный клинок"
-    },
-    "desc": {
-     "en": "+3% attack.",
-     "ru": "+3% атаки."
-    },
-    "slot": "weapon",
-    "rarity": "common",
-    "modifiers": [
-     {
-      "target": "attack.*",
-      "op": "pct",
-      "value": 3
-     }
-    ]
-   },
-   {
-    "id": "ember_sword",
-    "name": {
-     "en": "Ember Sword",
-     "ru": "Тлеющий меч"
-    },
-    "desc": {
-     "en": "+7% attack.",
-     "ru": "+7% атаки."
-    },
-    "slot": "weapon",
-    "rarity": "rare",
-    "modifiers": [
-     {
-      "target": "attack.*",
-      "op": "pct",
-      "value": 7
-     }
-    ]
-   },
-   {
-    "id": "skyfall_lance",
-    "name": {
-     "en": "Skyfall Lance",
-     "ru": "Копьё Звездопада"
-    },
-    "desc": {
-     "en": "+12% cavalry attack, +4% attack.",
-     "ru": "+12% атаки кавалерии, +4% атаки."
-    },
-    "slot": "weapon",
-    "rarity": "epic",
-    "modifiers": [
-     {
-      "target": "attack.cavalry",
-      "op": "pct",
-      "value": 12
-     },
-     {
-      "target": "attack.*",
-      "op": "pct",
-      "value": 4
-     }
-    ]
-   },
-   {
-    "id": "leather_jerkin",
-    "name": {
-     "en": "Leather Jerkin",
-     "ru": "Кожаная куртка"
-    },
-    "desc": {
-     "en": "+2 defense%.",
-     "ru": "+2% защиты."
-    },
-    "slot": "armor",
-    "rarity": "common",
-    "modifiers": [
-     {
-      "target": "defense.*",
-      "op": "flat",
-      "value": 2
-     }
-    ]
-   },
-   {
-    "id": "warden_plate",
-    "name": {
-     "en": "Warden's Plate",
-     "ru": "Латы стража"
-    },
-    "desc": {
-     "en": "+5% hit points.",
-     "ru": "+5% здоровья."
-    },
-    "slot": "armor",
-    "rarity": "rare",
-    "modifiers": [
-     {
-      "target": "hp.*",
-      "op": "pct",
-      "value": 5
-     }
-    ]
-   },
-   {
-    "id": "starglass_mail",
-    "name": {
-     "en": "Starglass Mail",
-     "ru": "Кольчуга из звёздного стекла"
-    },
-    "desc": {
-     "en": "+4 defense%, +6% hit points.",
-     "ru": "+4% защиты, +6% здоровья."
-    },
-    "slot": "armor",
-    "rarity": "legendary",
-    "modifiers": [
-     {
-      "target": "defense.*",
-      "op": "flat",
-      "value": 4
-     },
-     {
-      "target": "hp.*",
-      "op": "pct",
-      "value": 6
-     }
-    ]
-   },
-   {
-    "id": "scout_hood",
-    "name": {
-     "en": "Scout's Hood",
-     "ru": "Капюшон разведчика"
-    },
-    "desc": {
-     "en": "+15% spy strength.",
-     "ru": "+15% силы разведки."
-    },
-    "slot": "helm",
-    "rarity": "common",
-    "modifiers": [
-     {
-      "target": "scout",
-      "op": "pct",
-      "value": 15
-     }
-    ]
-   },
-   {
-    "id": "horned_helm",
-    "name": {
-     "en": "Horned Helm",
-     "ru": "Рогатый шлем"
-    },
-    "desc": {
-     "en": "+4% attack, +2% hit points.",
-     "ru": "+4% атаки, +2% здоровья."
-    },
-    "slot": "helm",
-    "rarity": "rare",
-    "modifiers": [
-     {
-      "target": "attack.*",
-      "op": "pct",
-      "value": 4
-     },
-     {
-      "target": "hp.*",
-      "op": "pct",
-      "value": 2
-     }
-    ]
-   },
-   {
-    "id": "lucky_coin",
-    "name": {
-     "en": "Lucky Coin",
-     "ru": "Счастливая монета"
-    },
-    "desc": {
-     "en": "+8% loot.",
-     "ru": "+8% добычи."
-    },
-    "slot": "trinket",
-    "rarity": "common",
-    "modifiers": [
-     {
-      "target": "loot",
-      "op": "pct",
-      "value": 8
-     }
-    ]
-   },
-   {
-    "id": "wind_charm",
-    "name": {
-     "en": "Wind Charm",
-     "ru": "Оберег ветра"
-    },
-    "desc": {
-     "en": "+8% speed.",
-     "ru": "+8% скорости."
-    },
-    "slot": "trinket",
-    "rarity": "rare",
-    "modifiers": [
-     {
-      "target": "speed",
-      "op": "pct",
-      "value": 8
-     }
-    ]
-   },
-   {
-    "id": "sage_tome",
-    "name": {
-     "en": "Sage's Tome",
-     "ru": "Фолиант мудреца"
-    },
-    "desc": {
-     "en": "+20% hero experience.",
-     "ru": "+20% опыта героя."
-    },
-    "slot": "trinket",
-    "rarity": "epic",
-    "modifiers": [
-     {
-      "target": "hero_xp",
-      "op": "pct",
-      "value": 20
-     }
-    ]
-   }
-  ],
-  "slots": [
-   "weapon",
-   "armor",
-   "helm",
-   "trinket"
-  ],
-  "maxLevel": 30,
-  "xpBase": 200,
-  "xpGrowth": 1.35,
-  "skillPointsPerLevel": 2,
-  "xpPerScore": 0.5
- },
- "terrains": [
-  {
-   "id": "plains",
-   "name": {
-    "en": "Plains",
-    "ru": "Равнины"
-   },
-   "weight": 30,
-   "resource": "grain",
-   "passable": true,
-   "color": "#a8b860"
-  },
-  {
-   "id": "forest",
-   "name": {
-    "en": "Forest",
-    "ru": "Лес"
-   },
-   "weight": 24,
-   "resource": "timber",
-   "passable": true,
-   "color": "#3f7a45"
-  },
-  {
-   "id": "hills",
-   "name": {
-    "en": "Hills",
-    "ru": "Холмы"
-   },
-   "weight": 14,
-   "resource": "stone",
-   "passable": true,
-   "color": "#9c8a6a"
-  },
-  {
-   "id": "ironridge",
-   "name": {
-    "en": "Iron Ridge",
-    "ru": "Железный кряж"
-   },
-   "weight": 7,
-   "resource": "iron",
-   "passable": true,
-   "color": "#6f6a74"
-  },
-  {
-   "id": "ashland",
-   "name": {
-    "en": "Ashland",
-    "ru": "Пепельные земли"
-   },
-   "weight": 6,
-   "resource": "gold",
-   "passable": true,
-   "color": "#8b5a4a"
-  },
-  {
-   "id": "marsh",
-   "name": {
-    "en": "Marsh",
-    "ru": "Болото"
-   },
-   "weight": 6,
-   "passable": true,
-   "color": "#5d7466"
-  },
-  {
-   "id": "mountains",
-   "name": {
-    "en": "Mountains",
-    "ru": "Горы"
-   },
-   "weight": 7,
-   "passable": false,
-   "color": "#55525c"
-  },
-  {
-   "id": "lake",
-   "name": {
-    "en": "Lake",
-    "ru": "Озеро"
-   },
-   "weight": 6,
-   "passable": false,
-   "color": "#3d6ea8"
-  }
- ],
- "neutrals": [
-  {
-   "id": "wolf_den",
-   "name": {
-    "en": "Wolf Den",
-    "ru": "Волчье логово"
-   },
-   "desc": {
-    "en": "A pack of wolves preys on travellers.",
-    "ru": "Стая волков нападает на путников."
-   },
-   "kind": "lair",
-   "respawnSeconds": 14400,
-   "capturable": true,
-   "levels": [
-    {
-     "level": 1,
-     "guards": {
-      "wolf": 8
-     },
-     "rewards": {
-      "grain": 150,
-      "timber": 100
-     },
-     "xp": 20,
-     "drops": [
-      {
-       "item": "leather_jerkin",
-       "chance": 15
-      }
-     ]
-    },
-    {
-     "level": 2,
-     "guards": {
-      "wolf": 20
-     },
-     "rewards": {
-      "grain": 350,
-      "timber": 250
-     },
-     "xp": 45,
-     "drops": [
-      {
-       "item": "leather_jerkin",
-       "chance": 20
-      },
-      {
-       "item": "lucky_coin",
-       "chance": 8
-      }
-     ]
-    },
-    {
-     "level": 3,
-     "guards": {
-      "wolf": 45
-     },
-     "rewards": {
-      "grain": 800,
-      "timber": 500,
-      "gold": 80
-     },
-     "xp": 90,
-     "drops": [
-      {
-       "item": "scout_hood",
-       "chance": 15
-      }
-     ]
-    },
-    {
-     "level": 4,
-     "guards": {
-      "wolf": 90
-     },
-     "rewards": {
-      "grain": 1600,
-      "timber": 1000,
-      "gold": 160
-     },
-     "xp": 160,
-     "drops": [
-      {
-       "item": "wind_charm",
-       "chance": 8
-      }
-     ]
-    },
-    {
-     "level": 5,
-     "guards": {
-      "wolf": 180
-     },
-     "rewards": {
-      "grain": 3000,
-      "timber": 2000,
-      "gold": 300
-     },
-     "xp": 260,
-     "drops": [
-      {
-       "item": "wind_charm",
-       "chance": 15
-      }
-     ]
+    "assetsLicense": "Raster art (resources, items, buildings, units, heroes, terrain) generated for this project with OpenAI image generation (ChatGPT) on 2026-10-31 by the project owner from docs/art/ART_PROMPTS.md; original designs, no third-party game assets; provenance recorded in docs/art/ASSET_PROVENANCE.md (not a legal opinion — confirm tool terms before commercial release). Fallback glyph icons drawn in code (SVG) by the project. Fonts from Google Fonts under the SIL Open Font License.",
+    "art": {
+      "academy": "buildings/academy.webp",
+      "aerie": "buildings/aerie.webp",
+      "barracks": "buildings/barracks.webp",
+      "cottages": "buildings/cottages.webp",
+      "farmstead": "buildings/farmstead.webp",
+      "ironworks": "buildings/ironworks.webp",
+      "keep": "buildings/keep.webp",
+      "lumberyard": "buildings/lumberyard.webp",
+      "market": "buildings/market.webp",
+      "mint": "buildings/mint.webp",
+      "quarry": "buildings/quarry.webp",
+      "range": "buildings/range.webp",
+      "sanctum": "buildings/sanctum.webp",
+      "scriptorium": "buildings/scriptorium.webp",
+      "stables": "buildings/stables.webp",
+      "tradepost": "buildings/tradepost.webp",
+      "vault": "buildings/vault.webp",
+      "walls": "buildings/walls.webp",
+      "warehouse": "buildings/warehouse.webp",
+      "warhall": "buildings/warhall.webp",
+      "watchtower": "buildings/watchtower.webp",
+      "workshop": "buildings/workshop.webp",
+      "bannerguard": "units/bannerguard.webp",
+      "battlemage": "units/battlemage.webp",
+      "bonelord": "units/bonelord.webp",
+      "bowman": "units/bowman.webp",
+      "cinderhound": "units/cinderhound.webp",
+      "crossbow": "units/crossbow.webp",
+      "knight": "units/knight.webp",
+      "militia": "units/militia.webp",
+      "outrider": "units/outrider.webp",
+      "pikeman": "units/pikeman.webp",
+      "scout": "units/scout.webp",
+      "thornweaver": "units/thornweaver.webp",
+      "marshal": "heroes/marshal.webp",
+      "pathfinder": "heroes/pathfinder.webp",
+      "sage": "heroes/sage.webp",
+      "warden": "heroes/warden.webp",
+      "ashland": "terrain/ashland.webp",
+      "forest": "terrain/forest.webp",
+      "hills": "terrain/hills.webp",
+      "ironridge": "terrain/ironridge.webp",
+      "lake": "terrain/lake.webp",
+      "marsh": "terrain/marsh.webp",
+      "mountains": "terrain/mountains.webp",
+      "plains": "terrain/plains.webp",
+      "griffin": "units/griffin.svg",
+      "ballista": "units/ballista.svg",
+      "wagon": "units/wagon.svg",
+      "settler": "units/settler.svg",
+      "wolf": "units/wolf.svg",
+      "brigand": "units/brigand.svg",
+      "troll": "units/troll.svg",
+      "wraith": "units/wraith.svg",
+      "golem": "units/golem.svg",
+      "drake": "units/drake.svg",
+      "wolf_den": "neutrals/wolf_den.svg",
+      "brigand_camp": "neutrals/brigand_camp.svg",
+      "barrow": "neutrals/barrow.svg",
+      "crater": "neutrals/crater.svg",
+      "thornkin": "emblems/thornkin.svg",
+      "ironvow": "emblems/ironvow.svg",
+      "ashborn": "emblems/ashborn.svg",
+      "gravewarden": "emblems/gravewarden.svg"
     }
-   ]
   },
-  {
-   "id": "brigand_camp",
-   "name": {
-    "en": "Brigand Camp",
-    "ru": "Лагерь разбойников"
-   },
-   "desc": {
-    "en": "Outlaws hoarding stolen goods.",
-    "ru": "Разбойники, стерегущие награбленное."
-   },
-   "kind": "lair",
-   "respawnSeconds": 21600,
-   "capturable": true,
-   "levels": [
-    {
-     "level": 1,
-     "guards": {
-      "brigand": 10
-     },
-     "rewards": {
-      "gold": 120,
-      "iron": 80
-     },
-     "xp": 25,
-     "drops": [
-      {
-       "item": "iron_blade",
-       "chance": 15
-      }
-     ]
+  "params": {
+    "worldSpeed": 1,
+    "economyTickSeconds": 600,
+    "buildQueueMax": 3,
+    "trainQueueMax": 5,
+    "researchQueueMax": 2,
+    "cancelRefundPct": 80,
+    "mapWidth": 48,
+    "mapHeight": 48,
+    "neutralDensityPct": 12,
+    "newbieProtectionHours": 72,
+    "minTravelSeconds": 900,
+    "combatRounds": 20,
+    "lootPct": 50,
+    "scoutDetectBasePct": 30,
+    "popGrowthPctPerHour": 12,
+    "foodPerPopPerHour": 0.12,
+    "starvationPctPerTick": 1,
+    "foodResource": "grain",
+    "premiumResource": "starglass",
+    "marketFeePct": 5,
+    "marketMaxOpenOrders": 10,
+    "exchangeRates": {
+      "timber": 1,
+      "grain": 1,
+      "stone": 1.2,
+      "iron": 1.6,
+      "gold": 3
     },
-    {
-     "level": 2,
-     "guards": {
-      "brigand": 25
-     },
-     "rewards": {
+    "exchangeFeePct": 30,
+    "allianceCreateCost": {
+      "gold": 500
+    },
+    "allianceMaxMembers": 100,
+    "cityCapBuilding": "keep",
+    "citiesPerCapLevels": 3,
+    "settlerUnit": "settler",
+    "territoryCapBuilding": "keep",
+    "territoriesPerLevel": 1,
+    "territoryBonusPct": 0,
+    "heroHireCost": {
       "gold": 300,
-      "iron": 200
-     },
-     "xp": 55,
-     "drops": [
+      "grain": 300,
+      "starglass": 5
+    },
+    "heroBuilding": "warhall",
+    "heroesPerBuildingLevel": 1,
+    "heroWoundHours": 6,
+    "attackScoreFloorPct": 0,
+    "upkeepResource": "gold",
+    "desertionPctPerHour": 0.5,
+    "missionUpkeepMult": 2,
+    "popGrowthMode": "free_housing",
+    "overflowDecayPctPerHour": 1,
+    "defenseCapPct": 80,
+    "defenderRetreatPct": 100,
+    "sameRaceAttackPct": -50,
+    "sameFactionAttackPct": -25,
+    "maxAttacksPerTargetPerDay": 2,
+    "maxReinforcingPlayers": 3,
+    "maxHeroes": 7,
+    "maxCities": 9,
+    "territoryYieldPerHour": 25,
+    "territoryYieldCapHours": 24
+  },
+  "resources": [
+    {
+      "id": "timber",
+      "name": {
+        "en": "Timber",
+        "ru": "Древесина"
+      },
+      "desc": {
+        "en": "Cut from forests; used in nearly every structure.",
+        "ru": "Добывается в лесах; нужна почти для всех построек."
+      },
+      "kind": "basic",
+      "capped": true,
+      "tradable": true,
+      "lootable": true,
+      "baseStorage": 1500
+    },
+    {
+      "id": "grain",
+      "name": {
+        "en": "Grain",
+        "ru": "Зерно"
+      },
+      "desc": {
+        "en": "Feeds your people. Population eats grain every hour.",
+        "ru": "Кормит население; люди потребляют зерно каждый час."
+      },
+      "kind": "food",
+      "capped": true,
+      "tradable": true,
+      "lootable": true,
+      "baseStorage": 1500
+    },
+    {
+      "id": "stone",
+      "name": {
+        "en": "Stone",
+        "ru": "Камень"
+      },
+      "desc": {
+        "en": "Quarried blocks for walls and great halls.",
+        "ru": "Каменные блоки для стен и больших залов."
+      },
+      "kind": "basic",
+      "capped": true,
+      "tradable": true,
+      "lootable": true,
+      "baseStorage": 1500
+    },
+    {
+      "id": "iron",
+      "name": {
+        "en": "Iron",
+        "ru": "Железо"
+      },
+      "desc": {
+        "en": "Smelted ore for weapons and armour.",
+        "ru": "Выплавленная руда для оружия и доспехов."
+      },
+      "kind": "basic",
+      "capped": true,
+      "tradable": true,
+      "lootable": true,
+      "baseStorage": 1000
+    },
+    {
+      "id": "gold",
+      "name": {
+        "en": "Gold",
+        "ru": "Золото"
+      },
+      "desc": {
+        "en": "Coin of the realm. Pays your soldiers' wages.",
+        "ru": "Монета королевства. Из неё платится жалованье войскам."
+      },
+      "kind": "rare",
+      "capped": true,
+      "tradable": true,
+      "lootable": true,
+      "baseStorage": 3000
+    },
+    {
+      "id": "lore",
+      "name": {
+        "en": "Lore",
+        "ru": "Знания"
+      },
+      "desc": {
+        "en": "Insight gathered by scholars; spent on research.",
+        "ru": "Знания учёных; тратятся на исследования."
+      },
+      "kind": "basic",
+      "capped": false,
+      "tradable": false,
+      "lootable": false
+    },
+    {
+      "id": "starglass",
+      "name": {
+        "en": "Starglass",
+        "ru": "Звёздное стекло"
+      },
+      "desc": {
+        "en": "Shards of the shattered sky, found in craters and ruins. Cannot be traded or stolen.",
+        "ru": "Осколки разбитого неба из кратеров и руин. Нельзя продать или украсть."
+      },
+      "kind": "premium",
+      "capped": false,
+      "tradable": false,
+      "lootable": false
+    }
+  ],
+  "races": [
+    {
+      "id": "thornkin",
+      "faction": "dawnpact",
+      "color": "#4f9d5d",
+      "name": {
+        "en": "Thornkin",
+        "ru": "Терновники"
+      },
+      "desc": {
+        "en": "Forest-dwellers bound to old groves. Masters of timber and the bow.",
+        "ru": "Лесной народ древних рощ. Мастера древесины и лука."
+      },
+      "modifiers": [
+        {
+          "target": "production.timber",
+          "op": "pct",
+          "value": 15
+        },
+        {
+          "target": "attack.ranged",
+          "op": "pct",
+          "value": 10
+        },
+        {
+          "target": "speed",
+          "op": "pct",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "id": "ironvow",
+      "faction": "dawnpact",
+      "color": "#4a78c2",
+      "name": {
+        "en": "Ironvow Houses",
+        "ru": "Дома Железной Клятвы"
+      },
+      "desc": {
+        "en": "Sworn knightly houses. Stubborn defenders and fine riders.",
+        "ru": "Рыцарские дома, связанные клятвой. Стойкие защитники и всадники."
+      },
+      "modifiers": [
+        {
+          "target": "defense.*",
+          "op": "pct",
+          "value": 8
+        },
+        {
+          "target": "attack.cavalry",
+          "op": "pct",
+          "value": 10
+        },
+        {
+          "target": "production.stone",
+          "op": "pct",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": "ashborn",
+      "faction": "duskbound",
+      "color": "#c8553d",
+      "name": {
+        "en": "Ashborn",
+        "ru": "Пеплорождённые"
+      },
+      "desc": {
+        "en": "Fire-touched clans of the burnt lands. Fierce raiders and smiths.",
+        "ru": "Опалённые кланы выжженных земель. Яростные налётчики и кузнецы."
+      },
+      "modifiers": [
+        {
+          "target": "attack.*",
+          "op": "pct",
+          "value": 8
+        },
+        {
+          "target": "production.iron",
+          "op": "pct",
+          "value": 15
+        },
+        {
+          "target": "loot",
+          "op": "pct",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": "gravewarden",
+      "faction": "duskbound",
+      "color": "#8a6bb8",
+      "name": {
+        "en": "Gravewardens",
+        "ru": "Стражи Могил"
+      },
+      "desc": {
+        "en": "Keepers of barrow and crypt. Their soldiers ask little pay.",
+        "ru": "Хранители курганов и склепов. Их воины почти не требуют жалованья."
+      },
+      "modifiers": [
+        {
+          "target": "upkeep",
+          "op": "pct",
+          "value": -20
+        },
+        {
+          "target": "hp.*",
+          "op": "pct",
+          "value": 8
+        },
+        {
+          "target": "production.lore",
+          "op": "pct",
+          "value": 15
+        }
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "id": "keep",
+      "name": {
+        "en": "Keep",
+        "ru": "Цитадель"
+      },
+      "desc": {
+        "en": "Seat of your rule. Unlocks buildings, more cities and territories; houses people.",
+        "ru": "Центр власти. Открывает постройки, новые города и территории; даёт жильё."
+      },
+      "category": "core",
+      "maxLevel": 25,
+      "cost": {
+        "base": {
+          "timber": 120,
+          "stone": 120,
+          "gold": 40
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 120,
+        "growth": 1.42
+      },
+      "effects": [
+        {
+          "type": "housing",
+          "perLevel": 60,
+          "growth": 1.04
+        },
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "build_time",
+            "op": "pct",
+            "value": -2
+          }
+        }
+      ],
+      "score": 20
+    },
+    {
+      "id": "cottages",
+      "name": {
+        "en": "Cottages",
+        "ru": "Дома"
+      },
+      "desc": {
+        "en": "Homes for your people. More housing means more workers and taxpayers.",
+        "ru": "Жилища. Больше жилья — больше рабочих и налогоплательщиков."
+      },
+      "category": "economy",
+      "maxLevel": 25,
+      "cost": {
+        "base": {
+          "timber": 60,
+          "stone": 20
+        },
+        "growth": 1.42
+      },
+      "time": {
+        "baseSeconds": 60,
+        "growth": 1.38
+      },
+      "effects": [
+        {
+          "type": "housing",
+          "perLevel": 90,
+          "growth": 1.06
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "lumberyard",
+      "name": {
+        "en": "Lumberyard",
+        "ru": "Лесопилка"
+      },
+      "desc": {
+        "en": "Fells timber. Needs workers.",
+        "ru": "Добывает древесину. Нужны рабочие."
+      },
+      "category": "economy",
+      "maxLevel": 25,
+      "cost": {
+        "base": {
+          "timber": 40,
+          "stone": 30
+        },
+        "growth": 1.38
+      },
+      "time": {
+        "baseSeconds": 50,
+        "growth": 1.36
+      },
+      "effects": [
+        {
+          "type": "produce",
+          "resource": "timber",
+          "perLevel": 32,
+          "workers": 6,
+          "growth": 1.06
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "farmstead",
+      "name": {
+        "en": "Farmstead",
+        "ru": "Ферма"
+      },
+      "desc": {
+        "en": "Grows grain to feed the population.",
+        "ru": "Выращивает зерно для населения."
+      },
+      "category": "economy",
+      "maxLevel": 25,
+      "cost": {
+        "base": {
+          "timber": 45,
+          "stone": 20
+        },
+        "growth": 1.38
+      },
+      "time": {
+        "baseSeconds": 50,
+        "growth": 1.36
+      },
+      "effects": [
+        {
+          "type": "produce",
+          "resource": "grain",
+          "perLevel": 36,
+          "workers": 6,
+          "growth": 1.06
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "quarry",
+      "name": {
+        "en": "Quarry",
+        "ru": "Каменоломня"
+      },
+      "desc": {
+        "en": "Cuts stone blocks.",
+        "ru": "Добывает камень."
+      },
+      "category": "economy",
+      "maxLevel": 25,
+      "cost": {
+        "base": {
+          "timber": 50,
+          "grain": 20
+        },
+        "growth": 1.38
+      },
+      "time": {
+        "baseSeconds": 60,
+        "growth": 1.36
+      },
+      "effects": [
+        {
+          "type": "produce",
+          "resource": "stone",
+          "perLevel": 26,
+          "workers": 6,
+          "growth": 1.06
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "ironworks",
+      "name": {
+        "en": "Ironworks",
+        "ru": "Железоделательня"
+      },
+      "desc": {
+        "en": "Smelts iron.",
+        "ru": "Выплавляет железо."
+      },
+      "category": "economy",
+      "maxLevel": 25,
+      "cost": {
+        "base": {
+          "timber": 70,
+          "stone": 50
+        },
+        "growth": 1.4
+      },
+      "time": {
+        "baseSeconds": 80,
+        "growth": 1.37
+      },
+      "effects": [
+        {
+          "type": "produce",
+          "resource": "iron",
+          "perLevel": 20,
+          "workers": 8,
+          "growth": 1.06
+        }
+      ],
+      "score": 5,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "tradepost",
+      "name": {
+        "en": "Trading Post",
+        "ru": "Торговая лавка"
+      },
+      "desc": {
+        "en": "Idle (unemployed) people pay taxes in gold here.",
+        "ru": "Незанятые жители платят здесь налог золотом."
+      },
+      "category": "economy",
+      "maxLevel": 20,
+      "cost": {
+        "base": {
+          "timber": 80,
+          "stone": 60
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 90,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "idle_tax",
+          "resource": "gold",
+          "perLevel": 0.06
+        }
+      ],
+      "score": 5,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "mint",
+      "name": {
+        "en": "Mint",
+        "ru": "Монетный двор"
+      },
+      "desc": {
+        "en": "Workers strike coin from ore.",
+        "ru": "Рабочие чеканят монету."
+      },
+      "category": "economy",
+      "maxLevel": 20,
+      "cost": {
+        "base": {
+          "timber": 120,
+          "stone": 120,
+          "iron": 60
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 150,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "produce",
+          "resource": "gold",
+          "perLevel": 14,
+          "workers": 10,
+          "growth": 1.06
+        }
+      ],
+      "score": 6,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 4
+        },
+        {
+          "type": "building",
+          "id": "ironworks",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "scriptorium",
+      "name": {
+        "en": "Scriptorium",
+        "ru": "Скрипторий"
+      },
+      "desc": {
+        "en": "Scholars produce lore for research.",
+        "ru": "Учёные создают знания для исследований."
+      },
+      "category": "science",
+      "maxLevel": 20,
+      "cost": {
+        "base": {
+          "timber": 90,
+          "stone": 70,
+          "gold": 30
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 120,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "produce",
+          "resource": "lore",
+          "perLevel": 10,
+          "workers": 5,
+          "growth": 1.08
+        }
+      ],
+      "score": 6,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "academy",
+      "name": {
+        "en": "Academy",
+        "ru": "Академия"
+      },
+      "desc": {
+        "en": "Speeds up research in this realm.",
+        "ru": "Ускоряет исследования."
+      },
+      "category": "science",
+      "maxLevel": 15,
+      "cost": {
+        "base": {
+          "timber": 200,
+          "stone": 200,
+          "gold": 100
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 300,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "research_time",
+            "op": "pct",
+            "value": -3
+          }
+        }
+      ],
+      "score": 8,
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "warehouse",
+      "name": {
+        "en": "Warehouse",
+        "ru": "Склад"
+      },
+      "desc": {
+        "en": "Stores timber, grain, stone, iron and gold. Excess above capacity slowly rots or is pilfered.",
+        "ru": "Хранит ресурсы. Излишки сверх вместимости постепенно портятся."
+      },
+      "category": "storage",
+      "maxLevel": 25,
+      "cost": {
+        "base": {
+          "timber": 60,
+          "stone": 40
+        },
+        "growth": 1.4
+      },
+      "time": {
+        "baseSeconds": 60,
+        "growth": 1.37
+      },
+      "effects": [
+        {
+          "type": "storage",
+          "perLevel": 1200,
+          "resource": "*",
+          "growth": 1.12
+        }
+      ],
+      "score": 3
+    },
+    {
+      "id": "vault",
+      "name": {
+        "en": "Hidden Vault",
+        "ru": "Тайник"
+      },
+      "desc": {
+        "en": "Hides part of every resource from raiders.",
+        "ru": "Прячет часть ресурсов от грабителей."
+      },
+      "category": "storage",
+      "maxLevel": 15,
+      "cost": {
+        "base": {
+          "timber": 80,
+          "stone": 120
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 120,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "protect",
+          "perLevel": 150,
+          "resource": "*",
+          "growth": 1.1
+        }
+      ],
+      "score": 3,
+      "requires": [
+        {
+          "type": "building",
+          "id": "warehouse",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "walls",
+      "name": {
+        "en": "Walls",
+        "ru": "Стены"
+      },
+      "desc": {
+        "en": "Fortifications add defense percentage points to every defender of the city.",
+        "ru": "Укрепления добавляют процентные пункты защиты всем защитникам города."
+      },
+      "category": "military",
+      "maxLevel": 20,
+      "cost": {
+        "base": {
+          "stone": 150,
+          "timber": 50
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 180,
+        "growth": 1.42
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "wall",
+            "op": "flat",
+            "value": 2
+          }
+        }
+      ],
+      "score": 6,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "watchtower",
+      "name": {
+        "en": "Watchtower",
+        "ru": "Сторожевая башня"
+      },
+      "desc": {
+        "en": "Improves your spies and counter-espionage.",
+        "ru": "Усиливает разведку и контрразведку."
+      },
+      "category": "military",
+      "maxLevel": 15,
+      "cost": {
+        "base": {
+          "timber": 90,
+          "stone": 90
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 120,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "scout",
+            "op": "pct",
+            "value": 8
+          }
+        }
+      ],
+      "score": 3,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "barracks",
+      "name": {
+        "en": "Barracks",
+        "ru": "Казармы"
+      },
+      "desc": {
+        "en": "Trains infantry, scouts and wagons; faster with levels.",
+        "ru": "Обучает пехоту, разведчиков и обозы; ускоряется с уровнем."
+      },
+      "category": "military",
+      "maxLevel": 20,
+      "cost": {
+        "base": {
+          "timber": 100,
+          "stone": 60,
+          "iron": 20
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 120,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "train_time",
+            "op": "pct",
+            "value": -2
+          }
+        }
+      ],
+      "score": 6,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "range",
+      "name": {
+        "en": "Archery Range",
+        "ru": "Стрельбище"
+      },
+      "desc": {
+        "en": "Trains ranged troops.",
+        "ru": "Обучает стрелков."
+      },
+      "category": "military",
+      "maxLevel": 20,
+      "cost": {
+        "base": {
+          "timber": 140,
+          "stone": 60,
+          "iron": 40
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 150,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "train_time",
+            "op": "pct",
+            "value": -1
+          }
+        }
+      ],
+      "score": 6,
+      "requires": [
+        {
+          "type": "building",
+          "id": "barracks",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "stables",
+      "name": {
+        "en": "Stables",
+        "ru": "Конюшни"
+      },
+      "desc": {
+        "en": "Trains cavalry.",
+        "ru": "Обучает кавалерию."
+      },
+      "category": "military",
+      "maxLevel": 20,
+      "cost": {
+        "base": {
+          "timber": 160,
+          "stone": 100,
+          "iron": 80,
+          "grain": 80
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 180,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "train_time",
+            "op": "pct",
+            "value": -1
+          }
+        }
+      ],
+      "score": 7,
+      "requires": [
+        {
+          "type": "building",
+          "id": "barracks",
+          "level": 3
+        },
+        {
+          "type": "building",
+          "id": "farmstead",
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "aerie",
+      "name": {
+        "en": "Aerie",
+        "ru": "Гнездовье"
+      },
+      "desc": {
+        "en": "Raises winged beasts and their riders.",
+        "ru": "Выращивает крылатых зверей и их всадников."
+      },
+      "category": "military",
+      "maxLevel": 15,
+      "cost": {
+        "base": {
+          "timber": 200,
+          "stone": 200,
+          "iron": 120,
+          "gold": 80
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 300,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "train_time",
+            "op": "pct",
+            "value": -1
+          }
+        }
+      ],
+      "score": 8,
+      "requires": [
+        {
+          "type": "building",
+          "id": "stables",
+          "level": 3
+        },
+        {
+          "type": "tech",
+          "id": "beastlore",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "workshop",
+      "name": {
+        "en": "Siege Workshop",
+        "ru": "Осадная мастерская"
+      },
+      "desc": {
+        "en": "Builds siege engines.",
+        "ru": "Строит осадные машины."
+      },
+      "category": "military",
+      "maxLevel": 15,
+      "cost": {
+        "base": {
+          "timber": 250,
+          "stone": 150,
+          "iron": 150
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 300,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "train_time",
+            "op": "pct",
+            "value": -1
+          }
+        }
+      ],
+      "score": 8,
+      "requires": [
+        {
+          "type": "building",
+          "id": "barracks",
+          "level": 5
+        },
+        {
+          "type": "tech",
+          "id": "engineering",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "sanctum",
+      "name": {
+        "en": "Sanctum",
+        "ru": "Святилище"
+      },
+      "desc": {
+        "en": "Trains battle mages.",
+        "ru": "Обучает боевых магов."
+      },
+      "category": "military",
+      "maxLevel": 15,
+      "cost": {
+        "base": {
+          "stone": 250,
+          "gold": 150,
+          "iron": 60
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 360,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "train_time",
+            "op": "pct",
+            "value": -1
+          }
+        }
+      ],
+      "score": 8,
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 5
+        },
+        {
+          "type": "tech",
+          "id": "arcana",
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "market",
+      "name": {
+        "en": "Market Hall",
+        "ru": "Рыночная площадь"
+      },
+      "desc": {
+        "en": "Lowers market fees and trains trade wagons.",
+        "ru": "Снижает рыночные сборы."
+      },
+      "category": "economy",
+      "maxLevel": 15,
+      "cost": {
+        "base": {
+          "timber": 150,
+          "stone": 100,
+          "gold": 50
+        },
+        "growth": 1.45
+      },
+      "time": {
+        "baseSeconds": 180,
+        "growth": 1.4
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "market_fee",
+            "op": "pct",
+            "value": -4
+          }
+        },
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "carry",
+            "op": "pct",
+            "value": 3
+          }
+        }
+      ],
+      "score": 4,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "warhall",
+      "name": {
+        "en": "War Hall",
+        "ru": "Зал героев"
+      },
+      "desc": {
+        "en": "Hire and quarter heroes: one hero per level (max 7).",
+        "ru": "Наём героев: по одному на уровень (максимум 7)."
+      },
+      "category": "military",
+      "maxLevel": 7,
+      "cost": {
+        "base": {
+          "timber": 200,
+          "stone": 200,
+          "gold": 150
+        },
+        "growth": 1.6
+      },
+      "time": {
+        "baseSeconds": 300,
+        "growth": 1.5
+      },
+      "effects": [],
+      "score": 8,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 3
+        }
+      ]
+    }
+  ],
+  "techs": [
+    {
+      "id": "forestry",
+      "name": {
+        "en": "Forestry",
+        "ru": "Лесоводство"
+      },
+      "desc": {
+        "en": "+5% timber per level.",
+        "ru": "+5% древесины за уровень."
+      },
+      "branch": "economy",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 60,
+          "timber": 60
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 180,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "production.timber",
+            "op": "pct",
+            "value": 5
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 1
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "agriculture",
+      "name": {
+        "en": "Crop Rotation",
+        "ru": "Севооборот"
+      },
+      "desc": {
+        "en": "+5% grain per level.",
+        "ru": "+5% зерна за уровень."
+      },
+      "branch": "economy",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 60,
+          "grain": 60
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 180,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "production.grain",
+            "op": "pct",
+            "value": 5
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 1
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "masonry",
+      "name": {
+        "en": "Masonry",
+        "ru": "Каменное дело"
+      },
+      "desc": {
+        "en": "+5% stone and +3% storage per level.",
+        "ru": "+5% камня и +3% вместимости за уровень."
+      },
+      "branch": "economy",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 70,
+          "stone": 70
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 200,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "production.stone",
+            "op": "pct",
+            "value": 5
+          }
+        },
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "storage.*",
+            "op": "pct",
+            "value": 3
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 1
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "metallurgy",
+      "name": {
+        "en": "Metallurgy",
+        "ru": "Металлургия"
+      },
+      "desc": {
+        "en": "+5% iron per level.",
+        "ru": "+5% железа за уровень."
+      },
+      "branch": "economy",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 90,
+          "iron": 60
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 240,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "production.iron",
+            "op": "pct",
+            "value": 5
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 2
+        },
+        {
+          "type": "building",
+          "id": "ironworks",
+          "level": 1
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "exchequer",
+      "name": {
+        "en": "Exchequer",
+        "ru": "Казначейство"
+      },
+      "desc": {
+        "en": "-4% army wages and +3% gold per level.",
+        "ru": "-4% жалованья и +3% золота за уровень."
+      },
+      "branch": "civic",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 120,
+          "gold": 80
+        },
+        "growth": 1.55
+      },
+      "time": {
+        "baseSeconds": 300,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "upkeep",
+            "op": "pct",
+            "value": -4
+          }
+        },
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "production.gold",
+            "op": "pct",
+            "value": 3
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 3
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "husbandry",
+      "name": {
+        "en": "Civic Husbandry",
+        "ru": "Благоустройство"
+      },
+      "desc": {
+        "en": "+10% population growth and +3% housing per level.",
+        "ru": "+10% прироста и +3% жилья за уровень."
+      },
+      "branch": "civic",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 80,
+          "grain": 80
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 200,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "pop_growth",
+            "op": "pct",
+            "value": 10
+          }
+        },
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "housing",
+            "op": "pct",
+            "value": 3
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 2
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "tactics",
+      "name": {
+        "en": "Drill Tactics",
+        "ru": "Строевая выучка"
+      },
+      "desc": {
+        "en": "+3% attack for all troops per level.",
+        "ru": "+3% атаки всех войск за уровень."
+      },
+      "branch": "military",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 100,
+          "iron": 60
+        },
+        "growth": 1.55
+      },
+      "time": {
+        "baseSeconds": 300,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "attack.*",
+            "op": "pct",
+            "value": 3
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "barracks",
+          "level": 2
+        },
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 2
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "armour",
+      "name": {
+        "en": "Armoursmithing",
+        "ru": "Бронное дело"
+      },
+      "desc": {
+        "en": "+2 defense% and +2% hit points per level.",
+        "ru": "+2% защиты и +2% здоровья за уровень."
+      },
+      "branch": "military",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 100,
+          "iron": 80
+        },
+        "growth": 1.55
+      },
+      "time": {
+        "baseSeconds": 300,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "defense.*",
+            "op": "pct",
+            "value": 2
+          }
+        },
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "hp.*",
+            "op": "pct",
+            "value": 2
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "ironworks",
+          "level": 2
+        },
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 2
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "logistics",
+      "name": {
+        "en": "Logistics",
+        "ru": "Логистика"
+      },
+      "desc": {
+        "en": "+4% march speed and +5% carrying capacity per level.",
+        "ru": "+4% скорости и +5% грузоподъёмности за уровень."
+      },
+      "branch": "military",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 90,
+          "grain": 90
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 240,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "speed",
+            "op": "pct",
+            "value": 4
+          }
+        },
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "carry",
+            "op": "pct",
+            "value": 5
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 2
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "espionage",
+      "name": {
+        "en": "Espionage",
+        "ru": "Шпионаж"
+      },
+      "desc": {
+        "en": "+10% spy strength per level.",
+        "ru": "+10% силы разведки за уровень."
+      },
+      "branch": "military",
+      "maxLevel": 10,
+      "cost": {
+        "base": {
+          "lore": 80,
+          "gold": 40
+        },
+        "growth": 1.5
+      },
+      "time": {
+        "baseSeconds": 200,
+        "growth": 1.45
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "scout",
+            "op": "pct",
+            "value": 10
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "watchtower",
+          "level": 1
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "beastlore",
+      "name": {
+        "en": "Beast Lore",
+        "ru": "Звероведение"
+      },
+      "desc": {
+        "en": "Unlocks the Aerie; +4% beast hit points per level.",
+        "ru": "Открывает Гнездовье; +4% здоровья зверей за уровень."
+      },
+      "branch": "military",
+      "maxLevel": 5,
+      "cost": {
+        "base": {
+          "lore": 200,
+          "grain": 200
+        },
+        "growth": 1.6
+      },
+      "time": {
+        "baseSeconds": 600,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "hp.beast",
+            "op": "pct",
+            "value": 4
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "stables",
+          "level": 2
+        },
+        {
+          "type": "tech",
+          "id": "logistics",
+          "level": 2
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "engineering",
+      "name": {
+        "en": "Engineering",
+        "ru": "Инженерия"
+      },
+      "desc": {
+        "en": "Unlocks the Siege Workshop; +5% siege attack.",
+        "ru": "Открывает осадную мастерскую; +5% атаки осадных машин."
+      },
+      "branch": "military",
+      "maxLevel": 5,
+      "cost": {
+        "base": {
+          "lore": 250,
+          "timber": 250,
+          "iron": 100
+        },
+        "growth": 1.6
+      },
+      "time": {
+        "baseSeconds": 600,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "attack.siege",
+            "op": "pct",
+            "value": 5
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "tech",
+          "id": "masonry",
+          "level": 3
+        },
+        {
+          "type": "tech",
+          "id": "tactics",
+          "level": 2
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "arcana",
+      "name": {
+        "en": "Arcana",
+        "ru": "Тайное знание"
+      },
+      "desc": {
+        "en": "Unlocks the Sanctum; +5% mage attack.",
+        "ru": "Открывает Святилище; +5% атаки магов."
+      },
+      "branch": "arcane",
+      "maxLevel": 5,
+      "cost": {
+        "base": {
+          "lore": 300,
+          "gold": 150
+        },
+        "growth": 1.6
+      },
+      "time": {
+        "baseSeconds": 720,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "attack.magic",
+            "op": "pct",
+            "value": 5
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 4
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "plunder",
+      "name": {
+        "en": "Plunder Doctrine",
+        "ru": "Доктрина грабежа"
+      },
+      "desc": {
+        "en": "+4% loot share per level.",
+        "ru": "+4% к доле добычи за уровень."
+      },
+      "branch": "military",
+      "maxLevel": 5,
+      "cost": {
+        "base": {
+          "lore": 150,
+          "gold": 100
+        },
+        "growth": 1.6
+      },
+      "time": {
+        "baseSeconds": 400,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "loot",
+            "op": "pct",
+            "value": 4
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "tech",
+          "id": "tactics",
+          "level": 3
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "heroics",
+      "name": {
+        "en": "Heroic Sagas",
+        "ru": "Героические саги"
+      },
+      "desc": {
+        "en": "+10% hero experience per level.",
+        "ru": "+10% опыта героев за уровень."
+      },
+      "branch": "arcane",
+      "maxLevel": 5,
+      "cost": {
+        "base": {
+          "lore": 180,
+          "gold": 120
+        },
+        "growth": 1.6
+      },
+      "time": {
+        "baseSeconds": 500,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "hero_xp",
+            "op": "pct",
+            "value": 10
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "warhall",
+          "level": 1
+        }
+      ],
+      "score": 4
+    },
+    {
+      "id": "path_architect",
+      "name": {
+        "en": "Path of the Architect",
+        "ru": "Путь Зодчего"
+      },
+      "desc": {
+        "en": "Specialisation: -15% construction time per level. Excludes other Paths.",
+        "ru": "Специализация: -15% времени строительства за уровень. Исключает другие Пути."
+      },
+      "branch": "calling",
+      "maxLevel": 3,
+      "cost": {
+        "base": {
+          "lore": 400,
+          "stone": 400,
+          "gold": 200,
+          "starglass": 15
+        },
+        "growth": 1.8
+      },
+      "time": {
+        "baseSeconds": 1800,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "build_time",
+            "op": "pct",
+            "value": -15
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 5
+        }
+      ],
+      "score": 4,
+      "exclusiveGroup": "calling"
+    },
+    {
+      "id": "path_steward",
+      "name": {
+        "en": "Path of the Steward",
+        "ru": "Путь Управителя"
+      },
+      "desc": {
+        "en": "Specialisation: +6% all production per level. Excludes other Paths.",
+        "ru": "Специализация: +6% всего производства за уровень. Исключает другие Пути."
+      },
+      "branch": "calling",
+      "maxLevel": 3,
+      "cost": {
+        "base": {
+          "lore": 400,
+          "grain": 400,
+          "gold": 200,
+          "starglass": 15
+        },
+        "growth": 1.8
+      },
+      "time": {
+        "baseSeconds": 1800,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "production.*",
+            "op": "pct",
+            "value": 6
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 5
+        }
+      ],
+      "score": 4,
+      "exclusiveGroup": "calling"
+    },
+    {
+      "id": "path_warlord",
+      "name": {
+        "en": "Path of the Warlord",
+        "ru": "Путь Полководца"
+      },
+      "desc": {
+        "en": "Specialisation: +6% attack, -8% training time per level. Excludes other Paths.",
+        "ru": "Специализация: +6% атаки, -8% времени обучения за уровень. Исключает другие Пути."
+      },
+      "branch": "calling",
+      "maxLevel": 3,
+      "cost": {
+        "base": {
+          "lore": 400,
+          "iron": 400,
+          "gold": 200,
+          "starglass": 15
+        },
+        "growth": 1.8
+      },
+      "time": {
+        "baseSeconds": 1800,
+        "growth": 1.5
+      },
+      "effects": [
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "attack.*",
+            "op": "pct",
+            "value": 6
+          }
+        },
+        {
+          "type": "modifier",
+          "modifier": {
+            "target": "train_time",
+            "op": "pct",
+            "value": -8
+          }
+        }
+      ],
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 5
+        }
+      ],
+      "score": 4,
+      "exclusiveGroup": "calling"
+    }
+  ],
+  "units": [
+    {
+      "id": "militia",
+      "name": {
+        "en": "Militia",
+        "ru": "Ополченец"
+      },
+      "desc": {
+        "en": "Cheap levy spearmen.",
+        "ru": "Дешёвое ополчение с копьями."
+      },
+      "class": "infantry",
+      "attack": 8,
+      "defense": 10,
+      "hp": 40,
+      "speed": 5,
+      "carry": 15,
+      "upkeep": 0.3,
+      "cost": {
+        "grain": 30,
+        "timber": 20,
+        "iron": 5
+      },
+      "trainSeconds": 45,
+      "trainedIn": "barracks",
+      "score": 1,
+      "bonuses": [
+        {
+          "vsClass": "ranged",
+          "pct": 40
+        }
+      ]
+    },
+    {
+      "id": "pikeman",
+      "name": {
+        "en": "Pikeman",
+        "ru": "Пикинёр"
+      },
+      "desc": {
+        "en": "Disciplined infantry that breaks charges.",
+        "ru": "Дисциплинированная пехота."
+      },
+      "class": "infantry",
+      "attack": 14,
+      "defense": 18,
+      "hp": 60,
+      "speed": 4.5,
+      "carry": 20,
+      "upkeep": 0.6,
+      "cost": {
+        "grain": 50,
+        "timber": 30,
+        "iron": 30
+      },
+      "trainSeconds": 90,
+      "trainedIn": "barracks",
+      "score": 2,
+      "requires": [
+        {
+          "type": "building",
+          "id": "barracks",
+          "level": 3
+        },
+        {
+          "type": "tech",
+          "id": "armour",
+          "level": 1
+        }
+      ],
+      "bonuses": [
+        {
+          "vsClass": "ranged",
+          "pct": 40
+        },
+        {
+          "vsClass": "cavalry",
+          "pct": 15
+        }
+      ]
+    },
+    {
+      "id": "bowman",
+      "name": {
+        "en": "Bowman",
+        "ru": "Лучник"
+      },
+      "desc": {
+        "en": "Longbow archers.",
+        "ru": "Лучники с длинными луками."
+      },
+      "class": "ranged",
+      "attack": 14,
+      "defense": 5,
+      "hp": 35,
+      "speed": 5,
+      "carry": 10,
+      "upkeep": 0.4,
+      "cost": {
+        "grain": 30,
+        "timber": 45,
+        "iron": 5
+      },
+      "trainSeconds": 60,
+      "trainedIn": "range",
+      "score": 1,
+      "bonuses": [
+        {
+          "vsClass": "beast",
+          "pct": 40
+        }
+      ]
+    },
+    {
+      "id": "crossbow",
+      "name": {
+        "en": "Crossbowman",
+        "ru": "Арбалетчик"
+      },
+      "desc": {
+        "en": "Armour-piercing bolts.",
+        "ru": "Бронебойные болты."
+      },
+      "class": "ranged",
+      "attack": 22,
+      "defense": 8,
+      "hp": 45,
+      "speed": 4.5,
+      "carry": 10,
+      "upkeep": 0.7,
+      "cost": {
+        "grain": 40,
+        "timber": 50,
+        "iron": 35
+      },
+      "trainSeconds": 100,
+      "trainedIn": "range",
+      "score": 2,
+      "requires": [
+        {
+          "type": "building",
+          "id": "range",
+          "level": 3
+        },
+        {
+          "type": "tech",
+          "id": "metallurgy",
+          "level": 2
+        }
+      ],
+      "bonuses": [
+        {
+          "vsClass": "beast",
+          "pct": 40
+        }
+      ]
+    },
+    {
+      "id": "outrider",
+      "name": {
+        "en": "Outrider",
+        "ru": "Разъездной"
+      },
+      "desc": {
+        "en": "Fast light cavalry, good raiders.",
+        "ru": "Быстрая лёгкая кавалерия."
+      },
+      "class": "cavalry",
+      "attack": 18,
+      "defense": 8,
+      "hp": 70,
+      "speed": 10,
+      "carry": 40,
+      "upkeep": 1,
+      "cost": {
+        "grain": 70,
+        "timber": 30,
+        "iron": 40
+      },
+      "trainSeconds": 120,
+      "trainedIn": "stables",
+      "score": 3,
+      "bonuses": [
+        {
+          "vsClass": "infantry",
+          "pct": 40
+        }
+      ]
+    },
+    {
+      "id": "knight",
+      "name": {
+        "en": "Knight",
+        "ru": "Рыцарь"
+      },
+      "desc": {
+        "en": "Heavy lancers.",
+        "ru": "Тяжёлые копейщики."
+      },
+      "class": "cavalry",
+      "attack": 30,
+      "defense": 20,
+      "hp": 110,
+      "speed": 8,
+      "carry": 30,
+      "upkeep": 1.8,
+      "cost": {
+        "grain": 100,
+        "timber": 40,
+        "iron": 90,
+        "gold": 20
+      },
+      "trainSeconds": 200,
+      "trainedIn": "stables",
+      "score": 5,
+      "requires": [
+        {
+          "type": "building",
+          "id": "stables",
+          "level": 4
+        },
+        {
+          "type": "tech",
+          "id": "armour",
+          "level": 3
+        }
+      ],
+      "bonuses": [
+        {
+          "vsClass": "infantry",
+          "pct": 40
+        }
+      ]
+    },
+    {
+      "id": "griffin",
+      "name": {
+        "en": "Griffin Rider",
+        "ru": "Всадник на грифоне"
+      },
+      "desc": {
+        "en": "Winged riders that strike cavalry from above.",
+        "ru": "Крылатые всадники, бьющие кавалерию сверху."
+      },
+      "class": "beast",
+      "attack": 34,
+      "defense": 12,
+      "hp": 120,
+      "speed": 14,
+      "carry": 25,
+      "upkeep": 2.5,
+      "cost": {
+        "grain": 160,
+        "iron": 60,
+        "gold": 60
+      },
+      "trainSeconds": 300,
+      "trainedIn": "aerie",
+      "score": 7,
+      "bonuses": [
+        {
+          "vsClass": "cavalry",
+          "pct": 40
+        }
+      ]
+    },
+    {
+      "id": "ballista",
+      "name": {
+        "en": "Ballista",
+        "ru": "Баллиста"
+      },
+      "desc": {
+        "en": "Siege engine; deadly against fortified defenders.",
+        "ru": "Осадное орудие против укреплённых защитников."
+      },
+      "class": "siege",
+      "attack": 45,
+      "defense": 4,
+      "hp": 90,
+      "speed": 2.5,
+      "carry": 0,
+      "upkeep": 2,
+      "cost": {
+        "timber": 200,
+        "iron": 100,
+        "gold": 40
+      },
+      "trainSeconds": 360,
+      "trainedIn": "workshop",
+      "score": 8,
+      "bonuses": [
+        {
+          "vsClass": "infantry",
+          "pct": 20
+        }
+      ]
+    },
+    {
+      "id": "battlemage",
+      "name": {
+        "en": "Battle Mage",
+        "ru": "Боевой маг"
+      },
+      "desc": {
+        "en": "Casters who scorch any formation.",
+        "ru": "Маги, жгущие любой строй."
+      },
+      "class": "magic",
+      "attack": 40,
+      "defense": 6,
+      "hp": 60,
+      "speed": 5,
+      "carry": 5,
+      "upkeep": 3,
+      "cost": {
+        "grain": 80,
+        "gold": 120,
+        "lore": 40
+      },
+      "trainSeconds": 360,
+      "trainedIn": "sanctum",
+      "score": 9
+    },
+    {
+      "id": "scout",
+      "name": {
+        "en": "Scout",
+        "ru": "Разведчик"
+      },
+      "desc": {
+        "en": "Spies on cities and lands.",
+        "ru": "Разведывает города и земли."
+      },
+      "class": "scout",
+      "attack": 0,
+      "defense": 2,
+      "hp": 15,
+      "speed": 16,
+      "carry": 0,
+      "upkeep": 0.2,
+      "cost": {
+        "grain": 20,
+        "gold": 10
+      },
+      "trainSeconds": 40,
+      "trainedIn": "barracks",
+      "score": 1,
+      "scout": 1
+    },
+    {
+      "id": "wagon",
+      "name": {
+        "en": "Supply Wagon",
+        "ru": "Обоз"
+      },
+      "desc": {
+        "en": "Carries goods for transport missions.",
+        "ru": "Перевозит грузы."
+      },
+      "class": "transport",
+      "attack": 0,
+      "defense": 4,
+      "hp": 60,
+      "speed": 6,
+      "carry": 300,
+      "upkeep": 0.4,
+      "cost": {
+        "timber": 80,
+        "grain": 20
+      },
+      "trainSeconds": 80,
+      "trainedIn": "barracks",
+      "score": 1
+    },
+    {
+      "id": "settler",
+      "name": {
+        "en": "Settlers",
+        "ru": "Поселенцы"
+      },
+      "desc": {
+        "en": "Found a new city on a free land.",
+        "ru": "Основывают новый город на свободной земле."
+      },
+      "class": "settler",
+      "attack": 0,
+      "defense": 2,
+      "hp": 50,
+      "speed": 3,
+      "carry": 500,
+      "upkeep": 1,
+      "cost": {
+        "timber": 800,
+        "grain": 800,
+        "stone": 600,
+        "gold": 400,
+        "starglass": 10
+      },
+      "trainSeconds": 1800,
+      "trainedIn": "keep",
+      "score": 10,
+      "requires": [
+        {
+          "type": "building",
+          "id": "keep",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "thornweaver",
+      "name": {
+        "en": "Thornweaver",
+        "ru": "Терноплёт"
+      },
+      "desc": {
+        "en": "Thornkin archers whose arrows root the enemy.",
+        "ru": "Лучники терновников."
+      },
+      "class": "ranged",
+      "attack": 20,
+      "defense": 10,
+      "hp": 50,
+      "speed": 6,
+      "carry": 10,
+      "upkeep": 0.8,
+      "cost": {
+        "grain": 40,
+        "timber": 70,
+        "lore": 5
+      },
+      "trainSeconds": 110,
+      "trainedIn": "range",
+      "score": 3,
+      "requires": [
+        {
+          "type": "building",
+          "id": "range",
+          "level": 2
+        }
+      ],
+      "bonuses": [
+        {
+          "vsClass": "beast",
+          "pct": 50
+        }
+      ],
+      "races": [
+        "thornkin"
+      ]
+    },
+    {
+      "id": "bannerguard",
+      "name": {
+        "en": "Bannerguard",
+        "ru": "Знаменосец"
+      },
+      "desc": {
+        "en": "Ironvow shield-wall infantry.",
+        "ru": "Пехота стены щитов."
+      },
+      "class": "infantry",
+      "attack": 14,
+      "defense": 28,
+      "hp": 80,
+      "speed": 4,
+      "carry": 20,
+      "upkeep": 0.9,
+      "cost": {
+        "grain": 60,
+        "stone": 30,
+        "iron": 50
+      },
+      "trainSeconds": 120,
+      "trainedIn": "barracks",
+      "score": 3,
+      "requires": [
+        {
+          "type": "building",
+          "id": "barracks",
+          "level": 2
+        }
+      ],
+      "bonuses": [
+        {
+          "vsClass": "ranged",
+          "pct": 40
+        }
+      ],
+      "races": [
+        "ironvow"
+      ]
+    },
+    {
+      "id": "cinderhound",
+      "name": {
+        "en": "Cinderhound",
+        "ru": "Пепельный пёс"
+      },
+      "desc": {
+        "en": "Ashborn fire-beasts that hunt riders.",
+        "ru": "Огненные звери пеплорождённых."
+      },
+      "class": "beast",
+      "attack": 26,
+      "defense": 8,
+      "hp": 90,
+      "speed": 12,
+      "carry": 20,
+      "upkeep": 1.4,
+      "cost": {
+        "grain": 120,
+        "iron": 40
+      },
+      "trainSeconds": 180,
+      "trainedIn": "stables",
+      "score": 4,
+      "requires": [
+        {
+          "type": "building",
+          "id": "stables",
+          "level": 2
+        }
+      ],
+      "bonuses": [
+        {
+          "vsClass": "cavalry",
+          "pct": 50
+        }
+      ],
+      "races": [
+        "ashborn"
+      ]
+    },
+    {
+      "id": "bonelord",
+      "name": {
+        "en": "Bone Lord",
+        "ru": "Костяной владыка"
+      },
+      "desc": {
+        "en": "Gravewarden necromancer-knights; tireless and unpaid.",
+        "ru": "Некроманты-рыцари; почти не требуют жалованья."
+      },
+      "class": "magic",
+      "attack": 30,
+      "defense": 15,
+      "hp": 90,
+      "speed": 5,
+      "carry": 10,
+      "upkeep": 0.4,
+      "cost": {
+        "grain": 40,
+        "iron": 60,
+        "lore": 40
+      },
+      "trainSeconds": 240,
+      "trainedIn": "barracks",
+      "score": 6,
+      "requires": [
+        {
+          "type": "building",
+          "id": "barracks",
+          "level": 4
+        },
+        {
+          "type": "building",
+          "id": "scriptorium",
+          "level": 3
+        }
+      ],
+      "races": [
+        "gravewarden"
+      ]
+    },
+    {
+      "id": "wolf",
+      "name": {
+        "en": "Grey Wolf",
+        "ru": "Серый волк"
+      },
+      "desc": {
+        "en": "Hungry pack hunters.",
+        "ru": "Голодные стайные хищники."
+      },
+      "class": "beast",
+      "attack": 7,
+      "defense": 4,
+      "hp": 35,
+      "speed": 9,
+      "carry": 0,
+      "upkeep": 0,
+      "trainSeconds": 0,
+      "score": 1
+    },
+    {
+      "id": "brigand",
+      "name": {
+        "en": "Brigand",
+        "ru": "Разбойник"
+      },
+      "desc": {
+        "en": "Outlaws holding forest camps.",
+        "ru": "Разбойники лесных лагерей."
+      },
+      "class": "infantry",
+      "attack": 10,
+      "defense": 8,
+      "hp": 45,
+      "speed": 5,
+      "carry": 0,
+      "upkeep": 0,
+      "trainSeconds": 0,
+      "score": 1
+    },
+    {
+      "id": "troll",
+      "name": {
+        "en": "Hill Troll",
+        "ru": "Горный тролль"
+      },
+      "desc": {
+        "en": "Huge, slow and hard to kill.",
+        "ru": "Огромный, медленный и живучий."
+      },
+      "class": "infantry",
+      "attack": 30,
+      "defense": 20,
+      "hp": 220,
+      "speed": 3,
+      "carry": 0,
+      "upkeep": 0,
+      "trainSeconds": 0,
+      "score": 5
+    },
+    {
+      "id": "wraith",
+      "name": {
+        "en": "Barrow Wraith",
+        "ru": "Курганный призрак"
+      },
+      "desc": {
+        "en": "Restless dead guarding ruins.",
+        "ru": "Неупокоенные стражи руин."
+      },
+      "class": "magic",
+      "attack": 26,
+      "defense": 30,
+      "hp": 90,
+      "speed": 6,
+      "carry": 0,
+      "upkeep": 0,
+      "trainSeconds": 0,
+      "score": 4
+    },
+    {
+      "id": "golem",
+      "name": {
+        "en": "Stone Golem",
+        "ru": "Каменный голем"
+      },
+      "desc": {
+        "en": "Animated guardian of sky-wreckage.",
+        "ru": "Оживший страж небесных обломков."
+      },
+      "class": "siege",
+      "attack": 40,
+      "defense": 40,
+      "hp": 300,
+      "speed": 2,
+      "carry": 0,
+      "upkeep": 0,
+      "trainSeconds": 0,
+      "score": 8
+    },
+    {
+      "id": "drake",
+      "name": {
+        "en": "Ash Drake",
+        "ru": "Пепельный дракон"
+      },
+      "desc": {
+        "en": "Young dragon nesting in the ashlands.",
+        "ru": "Молодой дракон пепельных пустошей."
+      },
+      "class": "beast",
+      "attack": 80,
+      "defense": 35,
+      "hp": 600,
+      "speed": 10,
+      "carry": 0,
+      "upkeep": 0,
+      "trainSeconds": 0,
+      "score": 20
+    }
+  ],
+  "heroes": {
+    "classes": [
       {
-       "item": "iron_blade",
-       "chance": 25
+        "id": "marshal",
+        "name": {
+          "en": "Marshal",
+          "ru": "Маршал"
+        },
+        "desc": {
+          "en": "Leads assaults: bonus attack for the whole army.",
+          "ru": "Ведёт штурмы: бонус атаки всей армии."
+        },
+        "modifiers": [
+          {
+            "target": "attack.*",
+            "op": "pct",
+            "value": 5
+          }
+        ],
+        "perLevel": [
+          {
+            "target": "attack.*",
+            "op": "pct",
+            "value": 1
+          }
+        ]
       },
       {
-       "item": "lucky_coin",
-       "chance": 10
-      }
-     ]
-    },
-    {
-     "level": 3,
-     "guards": {
-      "brigand": 55,
-      "wolf": 15
-     },
-     "rewards": {
-      "gold": 700,
-      "iron": 450,
-      "stone": 300
-     },
-     "xp": 110,
-     "drops": [
-      {
-       "item": "horned_helm",
-       "chance": 10
-      }
-     ]
-    },
-    {
-     "level": 4,
-     "guards": {
-      "brigand": 110,
-      "troll": 4
-     },
-     "rewards": {
-      "gold": 1400,
-      "iron": 900,
-      "stone": 600
-     },
-     "xp": 190,
-     "drops": [
-      {
-       "item": "ember_sword",
-       "chance": 6
-      }
-     ]
-    },
-    {
-     "level": 5,
-     "guards": {
-      "brigand": 200,
-      "troll": 10
-     },
-     "rewards": {
-      "gold": 2600,
-      "iron": 1700,
-      "stone": 1200
-     },
-     "xp": 300,
-     "drops": [
-      {
-       "item": "ember_sword",
-       "chance": 12
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "barrow",
-   "name": {
-    "en": "Ancient Barrow",
-    "ru": "Древний курган"
-   },
-   "desc": {
-    "en": "Wraiths guard grave-goods and forgotten lore.",
-    "ru": "Призраки стерегут погребальные дары и знания."
-   },
-   "kind": "ruin",
-   "respawnSeconds": 43200,
-   "capturable": false,
-   "levels": [
-    {
-     "level": 1,
-     "guards": {
-      "wraith": 6
-     },
-     "rewards": {
-      "lore": 120,
-      "gold": 100,
-      "starglass": 2
-     },
-     "xp": 40,
-     "drops": [
-      {
-       "item": "sage_tome",
-       "chance": 4
-      }
-     ]
-    },
-    {
-     "level": 2,
-     "guards": {
-      "wraith": 16
-     },
-     "rewards": {
-      "lore": 300,
-      "gold": 250,
-      "starglass": 4
-     },
-     "xp": 90,
-     "drops": [
-      {
-       "item": "warden_plate",
-       "chance": 10
-      }
-     ]
-    },
-    {
-     "level": 3,
-     "guards": {
-      "wraith": 35,
-      "troll": 5
-     },
-     "rewards": {
-      "lore": 700,
-      "gold": 600,
-      "starglass": 8
-     },
-     "xp": 170,
-     "drops": [
-      {
-       "item": "warden_plate",
-       "chance": 15
+        "id": "warden",
+        "name": {
+          "en": "Warden",
+          "ru": "Страж"
+        },
+        "desc": {
+          "en": "Holds the line: defense and hit points.",
+          "ru": "Держит строй: защита и здоровье."
+        },
+        "modifiers": [
+          {
+            "target": "defense.*",
+            "op": "pct",
+            "value": 3
+          },
+          {
+            "target": "hp.*",
+            "op": "pct",
+            "value": 3
+          }
+        ],
+        "perLevel": [
+          {
+            "target": "hp.*",
+            "op": "pct",
+            "value": 1
+          }
+        ]
       },
       {
-       "item": "sage_tome",
-       "chance": 6
-      }
-     ]
-    },
-    {
-     "level": 4,
-     "guards": {
-      "wraith": 70,
-      "troll": 12
-     },
-     "rewards": {
-      "lore": 1400,
-      "gold": 1200,
-      "starglass": 14
-     },
-     "xp": 280,
-     "drops": [
-      {
-       "item": "skyfall_lance",
-       "chance": 5
-      }
-     ]
-    },
-    {
-     "level": 5,
-     "guards": {
-      "wraith": 140,
-      "golem": 10
-     },
-     "rewards": {
-      "lore": 2800,
-      "gold": 2400,
-      "starglass": 25
-     },
-     "xp": 420,
-     "drops": [
-      {
-       "item": "skyfall_lance",
-       "chance": 10
+        "id": "pathfinder",
+        "name": {
+          "en": "Pathfinder",
+          "ru": "Следопыт"
+        },
+        "desc": {
+          "en": "Faster marches, more plunder, sharper eyes.",
+          "ru": "Быстрее марш, больше добычи, острее взгляд."
+        },
+        "modifiers": [
+          {
+            "target": "speed",
+            "op": "pct",
+            "value": 8
+          },
+          {
+            "target": "loot",
+            "op": "pct",
+            "value": 5
+          },
+          {
+            "target": "scout",
+            "op": "pct",
+            "value": 10
+          }
+        ],
+        "perLevel": [
+          {
+            "target": "speed",
+            "op": "pct",
+            "value": 1
+          }
+        ]
       },
       {
-       "item": "starglass_mail",
-       "chance": 3
+        "id": "sage",
+        "name": {
+          "en": "Sage",
+          "ru": "Мудрец"
+        },
+        "desc": {
+          "en": "Learns quickly and empowers mages.",
+          "ru": "Быстро учится и усиливает магов."
+        },
+        "modifiers": [
+          {
+            "target": "hero_xp",
+            "op": "pct",
+            "value": 15
+          },
+          {
+            "target": "attack.magic",
+            "op": "pct",
+            "value": 8
+          }
+        ],
+        "perLevel": [
+          {
+            "target": "attack.magic",
+            "op": "pct",
+            "value": 1
+          }
+        ]
       }
-     ]
+    ],
+    "skills": [
+      {
+        "id": "spearwall",
+        "name": {
+          "en": "Spear Wall",
+          "ru": "Стена копий"
+        },
+        "desc": {
+          "en": "+3% infantry defense per level.",
+          "ru": "+3% защиты пехоты за уровень."
+        },
+        "maxLevel": 5,
+        "modifiers": [
+          {
+            "target": "defense.infantry",
+            "op": "pct",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": "volley",
+        "name": {
+          "en": "Volley",
+          "ru": "Залп"
+        },
+        "desc": {
+          "en": "+4% ranged attack per level.",
+          "ru": "+4% атаки стрелков за уровень."
+        },
+        "maxLevel": 5,
+        "modifiers": [
+          {
+            "target": "attack.ranged",
+            "op": "pct",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "id": "charge",
+        "name": {
+          "en": "Charge",
+          "ru": "Натиск"
+        },
+        "desc": {
+          "en": "+4% cavalry attack per level.",
+          "ru": "+4% атаки кавалерии за уровень."
+        },
+        "maxLevel": 5,
+        "modifiers": [
+          {
+            "target": "attack.cavalry",
+            "op": "pct",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "id": "beastmaster",
+        "name": {
+          "en": "Beastmaster",
+          "ru": "Повелитель зверей"
+        },
+        "desc": {
+          "en": "+4% beast attack per level.",
+          "ru": "+4% атаки зверей за уровень."
+        },
+        "maxLevel": 5,
+        "modifiers": [
+          {
+            "target": "attack.beast",
+            "op": "pct",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "id": "forced_march",
+        "name": {
+          "en": "Forced March",
+          "ru": "Форсированный марш"
+        },
+        "desc": {
+          "en": "+3% speed per level.",
+          "ru": "+3% скорости за уровень."
+        },
+        "maxLevel": 5,
+        "modifiers": [
+          {
+            "target": "speed",
+            "op": "pct",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": "quartermaster",
+        "name": {
+          "en": "Quartermaster",
+          "ru": "Интендант"
+        },
+        "desc": {
+          "en": "+5% carrying capacity per level.",
+          "ru": "+5% грузоподъёмности за уровень."
+        },
+        "maxLevel": 5,
+        "modifiers": [
+          {
+            "target": "carry",
+            "op": "pct",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "id": "fieldmedic",
+        "name": {
+          "en": "Field Medic",
+          "ru": "Полевой лекарь"
+        },
+        "desc": {
+          "en": "+3% hit points per level.",
+          "ru": "+3% здоровья за уровень."
+        },
+        "maxLevel": 5,
+        "modifiers": [
+          {
+            "target": "hp.*",
+            "op": "pct",
+            "value": 3
+          }
+        ],
+        "classes": [
+          "warden",
+          "sage"
+        ]
+      },
+      {
+        "id": "pyromancy",
+        "name": {
+          "en": "Pyromancy",
+          "ru": "Пиромантия"
+        },
+        "desc": {
+          "en": "+5% mage attack per level.",
+          "ru": "+5% атаки магов за уровень."
+        },
+        "maxLevel": 5,
+        "modifiers": [
+          {
+            "target": "attack.magic",
+            "op": "pct",
+            "value": 5
+          }
+        ],
+        "classes": [
+          "sage"
+        ]
+      }
+    ],
+    "items": [
+      {
+        "id": "iron_blade",
+        "name": {
+          "en": "Iron Blade",
+          "ru": "Железный клинок"
+        },
+        "desc": {
+          "en": "+3% attack.",
+          "ru": "+3% атаки."
+        },
+        "slot": "weapon",
+        "rarity": "common",
+        "modifiers": [
+          {
+            "target": "attack.*",
+            "op": "pct",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": "ember_sword",
+        "name": {
+          "en": "Ember Sword",
+          "ru": "Тлеющий меч"
+        },
+        "desc": {
+          "en": "+7% attack.",
+          "ru": "+7% атаки."
+        },
+        "slot": "weapon",
+        "rarity": "rare",
+        "modifiers": [
+          {
+            "target": "attack.*",
+            "op": "pct",
+            "value": 7
+          }
+        ]
+      },
+      {
+        "id": "skyfall_lance",
+        "name": {
+          "en": "Skyfall Lance",
+          "ru": "Копьё Звездопада"
+        },
+        "desc": {
+          "en": "+12% cavalry attack, +4% attack.",
+          "ru": "+12% атаки кавалерии, +4% атаки."
+        },
+        "slot": "weapon",
+        "rarity": "epic",
+        "modifiers": [
+          {
+            "target": "attack.cavalry",
+            "op": "pct",
+            "value": 12
+          },
+          {
+            "target": "attack.*",
+            "op": "pct",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "id": "leather_jerkin",
+        "name": {
+          "en": "Leather Jerkin",
+          "ru": "Кожаная куртка"
+        },
+        "desc": {
+          "en": "+2 defense%.",
+          "ru": "+2% защиты."
+        },
+        "slot": "armor",
+        "rarity": "common",
+        "modifiers": [
+          {
+            "target": "defense.*",
+            "op": "flat",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "id": "warden_plate",
+        "name": {
+          "en": "Warden's Plate",
+          "ru": "Латы стража"
+        },
+        "desc": {
+          "en": "+5% hit points.",
+          "ru": "+5% здоровья."
+        },
+        "slot": "armor",
+        "rarity": "rare",
+        "modifiers": [
+          {
+            "target": "hp.*",
+            "op": "pct",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "id": "starglass_mail",
+        "name": {
+          "en": "Starglass Mail",
+          "ru": "Кольчуга из звёздного стекла"
+        },
+        "desc": {
+          "en": "+4 defense%, +6% hit points.",
+          "ru": "+4% защиты, +6% здоровья."
+        },
+        "slot": "armor",
+        "rarity": "legendary",
+        "modifiers": [
+          {
+            "target": "defense.*",
+            "op": "flat",
+            "value": 4
+          },
+          {
+            "target": "hp.*",
+            "op": "pct",
+            "value": 6
+          }
+        ]
+      },
+      {
+        "id": "scout_hood",
+        "name": {
+          "en": "Scout's Hood",
+          "ru": "Капюшон разведчика"
+        },
+        "desc": {
+          "en": "+15% spy strength.",
+          "ru": "+15% силы разведки."
+        },
+        "slot": "helm",
+        "rarity": "common",
+        "modifiers": [
+          {
+            "target": "scout",
+            "op": "pct",
+            "value": 15
+          }
+        ]
+      },
+      {
+        "id": "horned_helm",
+        "name": {
+          "en": "Horned Helm",
+          "ru": "Рогатый шлем"
+        },
+        "desc": {
+          "en": "+4% attack, +2% hit points.",
+          "ru": "+4% атаки, +2% здоровья."
+        },
+        "slot": "helm",
+        "rarity": "rare",
+        "modifiers": [
+          {
+            "target": "attack.*",
+            "op": "pct",
+            "value": 4
+          },
+          {
+            "target": "hp.*",
+            "op": "pct",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "id": "lucky_coin",
+        "name": {
+          "en": "Lucky Coin",
+          "ru": "Счастливая монета"
+        },
+        "desc": {
+          "en": "+8% loot.",
+          "ru": "+8% добычи."
+        },
+        "slot": "trinket",
+        "rarity": "common",
+        "modifiers": [
+          {
+            "target": "loot",
+            "op": "pct",
+            "value": 8
+          }
+        ]
+      },
+      {
+        "id": "wind_charm",
+        "name": {
+          "en": "Wind Charm",
+          "ru": "Оберег ветра"
+        },
+        "desc": {
+          "en": "+8% speed.",
+          "ru": "+8% скорости."
+        },
+        "slot": "trinket",
+        "rarity": "rare",
+        "modifiers": [
+          {
+            "target": "speed",
+            "op": "pct",
+            "value": 8
+          }
+        ]
+      },
+      {
+        "id": "sage_tome",
+        "name": {
+          "en": "Sage's Tome",
+          "ru": "Фолиант мудреца"
+        },
+        "desc": {
+          "en": "+20% hero experience.",
+          "ru": "+20% опыта героя."
+        },
+        "slot": "trinket",
+        "rarity": "epic",
+        "modifiers": [
+          {
+            "target": "hero_xp",
+            "op": "pct",
+            "value": 20
+          }
+        ]
+      }
+    ],
+    "slots": [
+      "weapon",
+      "armor",
+      "helm",
+      "trinket"
+    ],
+    "maxLevel": 30,
+    "xpBase": 200,
+    "xpGrowth": 1.35,
+    "skillPointsPerLevel": 2,
+    "xpPerScore": 0.5
+  },
+  "terrains": [
+    {
+      "id": "plains",
+      "name": {
+        "en": "Plains",
+        "ru": "Равнины"
+      },
+      "weight": 30,
+      "resource": "grain",
+      "passable": true,
+      "color": "#a8b860"
+    },
+    {
+      "id": "forest",
+      "name": {
+        "en": "Forest",
+        "ru": "Лес"
+      },
+      "weight": 24,
+      "resource": "timber",
+      "passable": true,
+      "color": "#3f7a45"
+    },
+    {
+      "id": "hills",
+      "name": {
+        "en": "Hills",
+        "ru": "Холмы"
+      },
+      "weight": 14,
+      "resource": "stone",
+      "passable": true,
+      "color": "#9c8a6a"
+    },
+    {
+      "id": "ironridge",
+      "name": {
+        "en": "Iron Ridge",
+        "ru": "Железный кряж"
+      },
+      "weight": 7,
+      "resource": "iron",
+      "passable": true,
+      "color": "#6f6a74"
+    },
+    {
+      "id": "ashland",
+      "name": {
+        "en": "Ashland",
+        "ru": "Пепельные земли"
+      },
+      "weight": 6,
+      "resource": "gold",
+      "passable": true,
+      "color": "#8b5a4a"
+    },
+    {
+      "id": "marsh",
+      "name": {
+        "en": "Marsh",
+        "ru": "Болото"
+      },
+      "weight": 6,
+      "passable": true,
+      "color": "#5d7466"
+    },
+    {
+      "id": "mountains",
+      "name": {
+        "en": "Mountains",
+        "ru": "Горы"
+      },
+      "weight": 7,
+      "passable": false,
+      "color": "#55525c"
+    },
+    {
+      "id": "lake",
+      "name": {
+        "en": "Lake",
+        "ru": "Озеро"
+      },
+      "weight": 6,
+      "passable": false,
+      "color": "#3d6ea8"
     }
-   ]
-  },
-  {
-   "id": "crater",
-   "name": {
-    "en": "Starfall Crater",
-    "ru": "Кратер звездопада"
-   },
-   "desc": {
-    "en": "Where sky-shards fell. Golems guard the starglass.",
-    "ru": "Место падения осколков неба. Големы стерегут звёздное стекло."
-   },
-   "kind": "node",
-   "respawnSeconds": 86400,
-   "capturable": true,
-   "levels": [
+  ],
+  "neutrals": [
     {
-     "level": 1,
-     "guards": {
-      "golem": 2
-     },
-     "rewards": {
-      "starglass": 5,
-      "stone": 300
-     },
-     "xp": 50
+      "id": "wolf_den",
+      "name": {
+        "en": "Wolf Den",
+        "ru": "Волчье логово"
+      },
+      "desc": {
+        "en": "A pack of wolves preys on travellers.",
+        "ru": "Стая волков нападает на путников."
+      },
+      "kind": "lair",
+      "respawnSeconds": 14400,
+      "capturable": true,
+      "levels": [
+        {
+          "level": 1,
+          "guards": {
+            "wolf": 8
+          },
+          "rewards": {
+            "grain": 150,
+            "timber": 100
+          },
+          "xp": 20,
+          "drops": [
+            {
+              "item": "leather_jerkin",
+              "chance": 15
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "guards": {
+            "wolf": 20
+          },
+          "rewards": {
+            "grain": 350,
+            "timber": 250
+          },
+          "xp": 45,
+          "drops": [
+            {
+              "item": "leather_jerkin",
+              "chance": 20
+            },
+            {
+              "item": "lucky_coin",
+              "chance": 8
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "guards": {
+            "wolf": 45
+          },
+          "rewards": {
+            "grain": 800,
+            "timber": 500,
+            "gold": 80
+          },
+          "xp": 90,
+          "drops": [
+            {
+              "item": "scout_hood",
+              "chance": 15
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "guards": {
+            "wolf": 90
+          },
+          "rewards": {
+            "grain": 1600,
+            "timber": 1000,
+            "gold": 160
+          },
+          "xp": 160,
+          "drops": [
+            {
+              "item": "wind_charm",
+              "chance": 8
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "guards": {
+            "wolf": 180
+          },
+          "rewards": {
+            "grain": 3000,
+            "timber": 2000,
+            "gold": 300
+          },
+          "xp": 260,
+          "drops": [
+            {
+              "item": "wind_charm",
+              "chance": 15
+            }
+          ]
+        }
+      ]
     },
     {
-     "level": 2,
-     "guards": {
-      "golem": 5
-     },
-     "rewards": {
-      "starglass": 10,
-      "stone": 600
-     },
-     "xp": 110
+      "id": "brigand_camp",
+      "name": {
+        "en": "Brigand Camp",
+        "ru": "Лагерь разбойников"
+      },
+      "desc": {
+        "en": "Outlaws hoarding stolen goods.",
+        "ru": "Разбойники, стерегущие награбленное."
+      },
+      "kind": "lair",
+      "respawnSeconds": 21600,
+      "capturable": true,
+      "levels": [
+        {
+          "level": 1,
+          "guards": {
+            "brigand": 10
+          },
+          "rewards": {
+            "gold": 120,
+            "iron": 80
+          },
+          "xp": 25,
+          "drops": [
+            {
+              "item": "iron_blade",
+              "chance": 15
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "guards": {
+            "brigand": 25
+          },
+          "rewards": {
+            "gold": 300,
+            "iron": 200
+          },
+          "xp": 55,
+          "drops": [
+            {
+              "item": "iron_blade",
+              "chance": 25
+            },
+            {
+              "item": "lucky_coin",
+              "chance": 10
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "guards": {
+            "brigand": 55,
+            "wolf": 15
+          },
+          "rewards": {
+            "gold": 700,
+            "iron": 450,
+            "stone": 300
+          },
+          "xp": 110,
+          "drops": [
+            {
+              "item": "horned_helm",
+              "chance": 10
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "guards": {
+            "brigand": 110,
+            "troll": 4
+          },
+          "rewards": {
+            "gold": 1400,
+            "iron": 900,
+            "stone": 600
+          },
+          "xp": 190,
+          "drops": [
+            {
+              "item": "ember_sword",
+              "chance": 6
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "guards": {
+            "brigand": 200,
+            "troll": 10
+          },
+          "rewards": {
+            "gold": 2600,
+            "iron": 1700,
+            "stone": 1200
+          },
+          "xp": 300,
+          "drops": [
+            {
+              "item": "ember_sword",
+              "chance": 12
+            }
+          ]
+        }
+      ]
     },
     {
-     "level": 3,
-     "guards": {
-      "golem": 11
-     },
-     "rewards": {
-      "starglass": 18,
-      "stone": 1200
-     },
-     "xp": 200,
-     "drops": [
-      {
-       "item": "starglass_mail",
-       "chance": 2
-      }
-     ]
+      "id": "barrow",
+      "name": {
+        "en": "Ancient Barrow",
+        "ru": "Древний курган"
+      },
+      "desc": {
+        "en": "Wraiths guard grave-goods and forgotten lore.",
+        "ru": "Призраки стерегут погребальные дары и знания."
+      },
+      "kind": "ruin",
+      "respawnSeconds": 43200,
+      "capturable": false,
+      "levels": [
+        {
+          "level": 1,
+          "guards": {
+            "wraith": 6
+          },
+          "rewards": {
+            "lore": 120,
+            "gold": 100,
+            "starglass": 2
+          },
+          "xp": 40,
+          "drops": [
+            {
+              "item": "sage_tome",
+              "chance": 4
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "guards": {
+            "wraith": 16
+          },
+          "rewards": {
+            "lore": 300,
+            "gold": 250,
+            "starglass": 4
+          },
+          "xp": 90,
+          "drops": [
+            {
+              "item": "warden_plate",
+              "chance": 10
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "guards": {
+            "wraith": 35,
+            "troll": 5
+          },
+          "rewards": {
+            "lore": 700,
+            "gold": 600,
+            "starglass": 8
+          },
+          "xp": 170,
+          "drops": [
+            {
+              "item": "warden_plate",
+              "chance": 15
+            },
+            {
+              "item": "sage_tome",
+              "chance": 6
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "guards": {
+            "wraith": 70,
+            "troll": 12
+          },
+          "rewards": {
+            "lore": 1400,
+            "gold": 1200,
+            "starglass": 14
+          },
+          "xp": 280,
+          "drops": [
+            {
+              "item": "skyfall_lance",
+              "chance": 5
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "guards": {
+            "wraith": 140,
+            "golem": 10
+          },
+          "rewards": {
+            "lore": 2800,
+            "gold": 2400,
+            "starglass": 25
+          },
+          "xp": 420,
+          "drops": [
+            {
+              "item": "skyfall_lance",
+              "chance": 10
+            },
+            {
+              "item": "starglass_mail",
+              "chance": 3
+            }
+          ]
+        }
+      ]
     },
     {
-     "level": 4,
-     "guards": {
-      "golem": 22,
-      "drake": 1
-     },
-     "rewards": {
-      "starglass": 30,
-      "stone": 2000
-     },
-     "xp": 340,
-     "drops": [
-      {
-       "item": "starglass_mail",
-       "chance": 4
-      }
-     ]
-    },
-    {
-     "level": 5,
-     "guards": {
-      "golem": 40,
-      "drake": 3
-     },
-     "rewards": {
-      "starglass": 50,
-      "stone": 3500
-     },
-     "xp": 520,
-     "drops": [
-      {
-       "item": "starglass_mail",
-       "chance": 8
-      }
-     ]
+      "id": "crater",
+      "name": {
+        "en": "Starfall Crater",
+        "ru": "Кратер звездопада"
+      },
+      "desc": {
+        "en": "Where sky-shards fell. Golems guard the starglass.",
+        "ru": "Место падения осколков неба. Големы стерегут звёздное стекло."
+      },
+      "kind": "node",
+      "respawnSeconds": 86400,
+      "capturable": true,
+      "levels": [
+        {
+          "level": 1,
+          "guards": {
+            "golem": 2
+          },
+          "rewards": {
+            "starglass": 5,
+            "stone": 300
+          },
+          "xp": 50
+        },
+        {
+          "level": 2,
+          "guards": {
+            "golem": 5
+          },
+          "rewards": {
+            "starglass": 10,
+            "stone": 600
+          },
+          "xp": 110
+        },
+        {
+          "level": 3,
+          "guards": {
+            "golem": 11
+          },
+          "rewards": {
+            "starglass": 18,
+            "stone": 1200
+          },
+          "xp": 200,
+          "drops": [
+            {
+              "item": "starglass_mail",
+              "chance": 2
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "guards": {
+            "golem": 22,
+            "drake": 1
+          },
+          "rewards": {
+            "starglass": 30,
+            "stone": 2000
+          },
+          "xp": 340,
+          "drops": [
+            {
+              "item": "starglass_mail",
+              "chance": 4
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "guards": {
+            "golem": 40,
+            "drake": 3
+          },
+          "rewards": {
+            "starglass": 50,
+            "stone": 3500
+          },
+          "xp": 520,
+          "drops": [
+            {
+              "item": "starglass_mail",
+              "chance": 8
+            }
+          ]
+        }
+      ]
     }
-   ]
+  ],
+  "quests": [
+    {
+      "id": "t01_lumber",
+      "name": {
+        "en": "First Timber",
+        "ru": "Первая древесина"
+      },
+      "desc": {
+        "en": "Upgrade the Lumberyard to level 2.",
+        "ru": "Улучшите лесопилку до 2 уровня."
+      },
+      "goal": {
+        "type": "building_level",
+        "amount": 2,
+        "id": "lumberyard"
+      },
+      "rewards": {
+        "timber": 150,
+        "stone": 100
+      },
+      "tutorial": true,
+      "screen": "city",
+      "hint": {
+        "en": "Open the city, choose the Lumberyard and press Upgrade.",
+        "ru": "Откройте город, выберите лесопилку и нажмите «Улучшить»."
+      }
+    },
+    {
+      "id": "t02_farm",
+      "name": {
+        "en": "Bread for All",
+        "ru": "Хлеб для всех"
+      },
+      "desc": {
+        "en": "Upgrade the Farmstead to level 2.",
+        "ru": "Улучшите ферму до 2 уровня."
+      },
+      "goal": {
+        "type": "building_level",
+        "amount": 2,
+        "id": "farmstead"
+      },
+      "rewards": {
+        "grain": 200
+      },
+      "requires": [
+        "t01_lumber"
+      ],
+      "tutorial": true,
+      "screen": "city"
+    },
+    {
+      "id": "t03_homes",
+      "name": {
+        "en": "Room to Grow",
+        "ru": "Место для роста"
+      },
+      "desc": {
+        "en": "Upgrade Cottages to level 2 — workers need homes.",
+        "ru": "Улучшите дома до 2 уровня — рабочим нужно жильё."
+      },
+      "goal": {
+        "type": "building_level",
+        "amount": 2,
+        "id": "cottages"
+      },
+      "rewards": {
+        "timber": 150,
+        "grain": 150
+      },
+      "requires": [
+        "t02_farm"
+      ],
+      "tutorial": true,
+      "screen": "economy"
+    },
+    {
+      "id": "t04_keep",
+      "name": {
+        "en": "Raise the Keep",
+        "ru": "Возведите цитадель"
+      },
+      "desc": {
+        "en": "Upgrade the Keep to level 2.",
+        "ru": "Улучшите цитадель до 2 уровня."
+      },
+      "goal": {
+        "type": "building_level",
+        "amount": 2,
+        "id": "keep"
+      },
+      "rewards": {
+        "stone": 250,
+        "gold": 100
+      },
+      "requires": [
+        "t03_homes"
+      ],
+      "tutorial": true,
+      "screen": "city"
+    },
+    {
+      "id": "t05_scholars",
+      "name": {
+        "en": "House of Scholars",
+        "ru": "Дом учёных"
+      },
+      "desc": {
+        "en": "Build a Scriptorium.",
+        "ru": "Постройте скрипторий."
+      },
+      "goal": {
+        "type": "building_level",
+        "amount": 1,
+        "id": "scriptorium"
+      },
+      "rewards": {
+        "lore": 100
+      },
+      "requires": [
+        "t04_keep"
+      ],
+      "tutorial": true,
+      "screen": "city"
+    },
+    {
+      "id": "t06_research",
+      "name": {
+        "en": "First Insight",
+        "ru": "Первое озарение"
+      },
+      "desc": {
+        "en": "Research Forestry.",
+        "ru": "Изучите лесоводство."
+      },
+      "goal": {
+        "type": "tech_level",
+        "amount": 1,
+        "id": "forestry"
+      },
+      "rewards": {
+        "lore": 150,
+        "timber": 200
+      },
+      "requires": [
+        "t05_scholars"
+      ],
+      "tutorial": true,
+      "screen": "research"
+    },
+    {
+      "id": "t07_barracks",
+      "name": {
+        "en": "Call to Arms",
+        "ru": "К оружию"
+      },
+      "desc": {
+        "en": "Build Barracks.",
+        "ru": "Постройте казармы."
+      },
+      "goal": {
+        "type": "building_level",
+        "amount": 1,
+        "id": "barracks"
+      },
+      "rewards": {
+        "iron": 150,
+        "grain": 200
+      },
+      "requires": [
+        "t04_keep"
+      ],
+      "tutorial": true,
+      "screen": "city"
+    },
+    {
+      "id": "t08_train",
+      "name": {
+        "en": "Muster the Levy",
+        "ru": "Соберите ополчение"
+      },
+      "desc": {
+        "en": "Train 10 units.",
+        "ru": "Обучите 10 воинов."
+      },
+      "goal": {
+        "type": "units_trained",
+        "amount": 10
+      },
+      "rewards": {
+        "grain": 300,
+        "gold": 150
+      },
+      "requires": [
+        "t07_barracks"
+      ],
+      "tutorial": true,
+      "screen": "army"
+    },
+    {
+      "id": "t09_scout",
+      "name": {
+        "en": "Eyes in the Wild",
+        "ru": "Глаза в глуши"
+      },
+      "desc": {
+        "en": "Send a scouting mission.",
+        "ru": "Отправьте разведку."
+      },
+      "goal": {
+        "type": "scouts_sent",
+        "amount": 1
+      },
+      "rewards": {
+        "gold": 100
+      },
+      "requires": [
+        "t08_train"
+      ],
+      "tutorial": true,
+      "screen": "map"
+    },
+    {
+      "id": "t10_hunt",
+      "name": {
+        "en": "Clear the Wilds",
+        "ru": "Очистите земли"
+      },
+      "desc": {
+        "en": "Defeat a neutral lair.",
+        "ru": "Победите нейтральное логово."
+      },
+      "goal": {
+        "type": "neutrals_cleared",
+        "amount": 1
+      },
+      "rewards": {
+        "gold": 250,
+        "starglass": 5
+      },
+      "requires": [
+        "t09_scout"
+      ],
+      "tutorial": true,
+      "screen": "map"
+    },
+    {
+      "id": "t11_trade",
+      "name": {
+        "en": "Open for Trade",
+        "ru": "Открыто для торговли"
+      },
+      "desc": {
+        "en": "Complete a market trade (accept an order).",
+        "ru": "Совершите сделку на рынке."
+      },
+      "goal": {
+        "type": "market_trade",
+        "amount": 1
+      },
+      "rewards": {
+        "gold": 200
+      },
+      "requires": [
+        "t08_train"
+      ],
+      "screen": "market"
+    },
+    {
+      "id": "t12_alliance",
+      "name": {
+        "en": "Banners Together",
+        "ru": "Под общими знамёнами"
+      },
+      "desc": {
+        "en": "Join or found an alliance.",
+        "ru": "Вступите в альянс или создайте его."
+      },
+      "goal": {
+        "type": "join_alliance",
+        "amount": 1
+      },
+      "rewards": {
+        "gold": 300,
+        "starglass": 5
+      },
+      "requires": [
+        "t08_train"
+      ],
+      "screen": "alliance"
+    },
+    {
+      "id": "t13_hero",
+      "name": {
+        "en": "A Champion Rises",
+        "ru": "Рождение героя"
+      },
+      "desc": {
+        "en": "Hire a hero in the War Hall.",
+        "ru": "Наймите героя в Зале героев."
+      },
+      "goal": {
+        "type": "hero_hired",
+        "amount": 1
+      },
+      "rewards": {
+        "gold": 300
+      },
+      "requires": [
+        "t10_hunt"
+      ],
+      "screen": "heroes"
+    },
+    {
+      "id": "t14_land",
+      "name": {
+        "en": "Stake a Claim",
+        "ru": "Застолбите землю"
+      },
+      "desc": {
+        "en": "Hold one territory.",
+        "ru": "Владейте одной территорией."
+      },
+      "goal": {
+        "type": "territories",
+        "amount": 1
+      },
+      "rewards": {
+        "stone": 500,
+        "timber": 500
+      },
+      "requires": [
+        "t10_hunt"
+      ],
+      "screen": "map"
+    },
+    {
+      "id": "m01_keep5",
+      "name": {
+        "en": "Lord of the Keep",
+        "ru": "Владыка цитадели"
+      },
+      "desc": {
+        "en": "Upgrade the Keep to level 5.",
+        "ru": "Улучшите цитадель до 5 уровня."
+      },
+      "goal": {
+        "type": "building_level",
+        "amount": 5,
+        "id": "keep"
+      },
+      "rewards": {
+        "stone": 1000,
+        "gold": 500,
+        "starglass": 10
+      },
+      "requires": [
+        "t04_keep"
+      ]
+    },
+    {
+      "id": "m02_victor",
+      "name": {
+        "en": "Seasoned Commander",
+        "ru": "Опытный командир"
+      },
+      "desc": {
+        "en": "Win 10 battles.",
+        "ru": "Победите в 10 сражениях."
+      },
+      "goal": {
+        "type": "missions_won",
+        "amount": 10
+      },
+      "rewards": {
+        "gold": 1000,
+        "starglass": 10
+      },
+      "requires": [
+        "t10_hunt"
+      ]
+    },
+    {
+      "id": "m03_city2",
+      "name": {
+        "en": "A Second Seat",
+        "ru": "Второй город"
+      },
+      "desc": {
+        "en": "Rule two cities.",
+        "ru": "Владейте двумя городами."
+      },
+      "goal": {
+        "type": "cities",
+        "amount": 2
+      },
+      "rewards": {
+        "timber": 2000,
+        "stone": 2000,
+        "grain": 2000,
+        "starglass": 20
+      },
+      "requires": [
+        "m01_keep5"
+      ]
+    }
+  ],
+  "start": {
+    "resources": {
+      "timber": 600,
+      "grain": 600,
+      "stone": 500,
+      "iron": 250,
+      "gold": 400,
+      "lore": 0,
+      "starglass": 20
+    },
+    "buildings": {
+      "keep": 1,
+      "cottages": 1,
+      "lumberyard": 1,
+      "farmstead": 1,
+      "quarry": 1,
+      "warehouse": 1
+    },
+    "units": {
+      "militia": 10,
+      "scout": 2
+    },
+    "population": 40
+  },
+  "modes": [
+    "standard",
+    "speed"
+  ],
+  "migrations": [
+    {
+      "fromVersion": "1.0.0"
+    },
+    {
+      "fromVersion": "1.1.0"
+    }
+  ],
+  "ui": {
+    "screens": [
+      "city",
+      "economy",
+      "research",
+      "army",
+      "heroes",
+      "map",
+      "missions",
+      "reports",
+      "market",
+      "alliance",
+      "quests",
+      "mail",
+      "profile",
+      "settings"
+    ],
+    "cityLayout": {
+      "keep": [
+        51,
+        43
+      ],
+      "cottages": [
+        37,
+        65
+      ],
+      "lumberyard": [
+        24,
+        49
+      ],
+      "farmstead": [
+        33,
+        38
+      ],
+      "quarry": [
+        69,
+        70
+      ],
+      "ironworks": [
+        76,
+        49
+      ],
+      "tradepost": [
+        52,
+        74
+      ],
+      "mint": [
+        62,
+        58
+      ],
+      "scriptorium": [
+        42,
+        23
+      ],
+      "academy": [
+        62,
+        28
+      ],
+      "warehouse": [
+        83,
+        60
+      ],
+      "vault": [
+        58,
+        19
+      ],
+      "walls": [
+        79,
+        76
+      ],
+      "watchtower": [
+        82,
+        30
+      ],
+      "barracks": [
+        71,
+        41
+      ],
+      "range": [
+        29,
+        26
+      ],
+      "stables": [
+        25,
+        66
+      ],
+      "aerie": [
+        72,
+        20
+      ],
+      "workshop": [
+        40,
+        79
+      ],
+      "sanctum": [
+        49,
+        15
+      ],
+      "market": [
+        46,
+        56
+      ],
+      "warhall": [
+        64,
+        82
+      ]
+    }
+  },
+  "strings": {
+    "tutorial.welcome": {
+      "en": "Welcome, ruler. Your keep stands among ashes — rebuild it.",
+      "ru": "Добро пожаловать, правитель. Ваша цитадель стоит среди пепла — отстройте её."
+    },
+    "lore.intro": {
+      "en": "When the sky shattered, the old crowns fell. From the ash rise new houses, hungry for starglass.",
+      "ru": "Когда небо раскололось, старые короны пали. Из пепла поднимаются новые дома, жаждущие звёздного стекла."
+    }
   }
- ],
- "quests": [
-  {
-   "id": "t01_lumber",
-   "name": {
-    "en": "First Timber",
-    "ru": "Первая древесина"
-   },
-   "desc": {
-    "en": "Upgrade the Lumberyard to level 2.",
-    "ru": "Улучшите лесопилку до 2 уровня."
-   },
-   "goal": {
-    "type": "building_level",
-    "amount": 2,
-    "id": "lumberyard"
-   },
-   "rewards": {
-    "timber": 150,
-    "stone": 100
-   },
-   "tutorial": true,
-   "screen": "city",
-   "hint": {
-    "en": "Open the city, choose the Lumberyard and press Upgrade.",
-    "ru": "Откройте город, выберите лесопилку и нажмите «Улучшить»."
-   }
-  },
-  {
-   "id": "t02_farm",
-   "name": {
-    "en": "Bread for All",
-    "ru": "Хлеб для всех"
-   },
-   "desc": {
-    "en": "Upgrade the Farmstead to level 2.",
-    "ru": "Улучшите ферму до 2 уровня."
-   },
-   "goal": {
-    "type": "building_level",
-    "amount": 2,
-    "id": "farmstead"
-   },
-   "rewards": {
-    "grain": 200
-   },
-   "requires": [
-    "t01_lumber"
-   ],
-   "tutorial": true,
-   "screen": "city"
-  },
-  {
-   "id": "t03_homes",
-   "name": {
-    "en": "Room to Grow",
-    "ru": "Место для роста"
-   },
-   "desc": {
-    "en": "Upgrade Cottages to level 2 — workers need homes.",
-    "ru": "Улучшите дома до 2 уровня — рабочим нужно жильё."
-   },
-   "goal": {
-    "type": "building_level",
-    "amount": 2,
-    "id": "cottages"
-   },
-   "rewards": {
-    "timber": 150,
-    "grain": 150
-   },
-   "requires": [
-    "t02_farm"
-   ],
-   "tutorial": true,
-   "screen": "economy"
-  },
-  {
-   "id": "t04_keep",
-   "name": {
-    "en": "Raise the Keep",
-    "ru": "Возведите цитадель"
-   },
-   "desc": {
-    "en": "Upgrade the Keep to level 2.",
-    "ru": "Улучшите цитадель до 2 уровня."
-   },
-   "goal": {
-    "type": "building_level",
-    "amount": 2,
-    "id": "keep"
-   },
-   "rewards": {
-    "stone": 250,
-    "gold": 100
-   },
-   "requires": [
-    "t03_homes"
-   ],
-   "tutorial": true,
-   "screen": "city"
-  },
-  {
-   "id": "t05_scholars",
-   "name": {
-    "en": "House of Scholars",
-    "ru": "Дом учёных"
-   },
-   "desc": {
-    "en": "Build a Scriptorium.",
-    "ru": "Постройте скрипторий."
-   },
-   "goal": {
-    "type": "building_level",
-    "amount": 1,
-    "id": "scriptorium"
-   },
-   "rewards": {
-    "lore": 100
-   },
-   "requires": [
-    "t04_keep"
-   ],
-   "tutorial": true,
-   "screen": "city"
-  },
-  {
-   "id": "t06_research",
-   "name": {
-    "en": "First Insight",
-    "ru": "Первое озарение"
-   },
-   "desc": {
-    "en": "Research Forestry.",
-    "ru": "Изучите лесоводство."
-   },
-   "goal": {
-    "type": "tech_level",
-    "amount": 1,
-    "id": "forestry"
-   },
-   "rewards": {
-    "lore": 150,
-    "timber": 200
-   },
-   "requires": [
-    "t05_scholars"
-   ],
-   "tutorial": true,
-   "screen": "research"
-  },
-  {
-   "id": "t07_barracks",
-   "name": {
-    "en": "Call to Arms",
-    "ru": "К оружию"
-   },
-   "desc": {
-    "en": "Build Barracks.",
-    "ru": "Постройте казармы."
-   },
-   "goal": {
-    "type": "building_level",
-    "amount": 1,
-    "id": "barracks"
-   },
-   "rewards": {
-    "iron": 150,
-    "grain": 200
-   },
-   "requires": [
-    "t04_keep"
-   ],
-   "tutorial": true,
-   "screen": "city"
-  },
-  {
-   "id": "t08_train",
-   "name": {
-    "en": "Muster the Levy",
-    "ru": "Соберите ополчение"
-   },
-   "desc": {
-    "en": "Train 10 units.",
-    "ru": "Обучите 10 воинов."
-   },
-   "goal": {
-    "type": "units_trained",
-    "amount": 10
-   },
-   "rewards": {
-    "grain": 300,
-    "gold": 150
-   },
-   "requires": [
-    "t07_barracks"
-   ],
-   "tutorial": true,
-   "screen": "army"
-  },
-  {
-   "id": "t09_scout",
-   "name": {
-    "en": "Eyes in the Wild",
-    "ru": "Глаза в глуши"
-   },
-   "desc": {
-    "en": "Send a scouting mission.",
-    "ru": "Отправьте разведку."
-   },
-   "goal": {
-    "type": "scouts_sent",
-    "amount": 1
-   },
-   "rewards": {
-    "gold": 100
-   },
-   "requires": [
-    "t08_train"
-   ],
-   "tutorial": true,
-   "screen": "map"
-  },
-  {
-   "id": "t10_hunt",
-   "name": {
-    "en": "Clear the Wilds",
-    "ru": "Очистите земли"
-   },
-   "desc": {
-    "en": "Defeat a neutral lair.",
-    "ru": "Победите нейтральное логово."
-   },
-   "goal": {
-    "type": "neutrals_cleared",
-    "amount": 1
-   },
-   "rewards": {
-    "gold": 250,
-    "starglass": 5
-   },
-   "requires": [
-    "t09_scout"
-   ],
-   "tutorial": true,
-   "screen": "map"
-  },
-  {
-   "id": "t11_trade",
-   "name": {
-    "en": "Open for Trade",
-    "ru": "Открыто для торговли"
-   },
-   "desc": {
-    "en": "Complete a market trade (accept an order).",
-    "ru": "Совершите сделку на рынке."
-   },
-   "goal": {
-    "type": "market_trade",
-    "amount": 1
-   },
-   "rewards": {
-    "gold": 200
-   },
-   "requires": [
-    "t08_train"
-   ],
-   "screen": "market"
-  },
-  {
-   "id": "t12_alliance",
-   "name": {
-    "en": "Banners Together",
-    "ru": "Под общими знамёнами"
-   },
-   "desc": {
-    "en": "Join or found an alliance.",
-    "ru": "Вступите в альянс или создайте его."
-   },
-   "goal": {
-    "type": "join_alliance",
-    "amount": 1
-   },
-   "rewards": {
-    "gold": 300,
-    "starglass": 5
-   },
-   "requires": [
-    "t08_train"
-   ],
-   "screen": "alliance"
-  },
-  {
-   "id": "t13_hero",
-   "name": {
-    "en": "A Champion Rises",
-    "ru": "Рождение героя"
-   },
-   "desc": {
-    "en": "Hire a hero in the War Hall.",
-    "ru": "Наймите героя в Зале героев."
-   },
-   "goal": {
-    "type": "hero_hired",
-    "amount": 1
-   },
-   "rewards": {
-    "gold": 300
-   },
-   "requires": [
-    "t10_hunt"
-   ],
-   "screen": "heroes"
-  },
-  {
-   "id": "t14_land",
-   "name": {
-    "en": "Stake a Claim",
-    "ru": "Застолбите землю"
-   },
-   "desc": {
-    "en": "Hold one territory.",
-    "ru": "Владейте одной территорией."
-   },
-   "goal": {
-    "type": "territories",
-    "amount": 1
-   },
-   "rewards": {
-    "stone": 500,
-    "timber": 500
-   },
-   "requires": [
-    "t10_hunt"
-   ],
-   "screen": "map"
-  },
-  {
-   "id": "m01_keep5",
-   "name": {
-    "en": "Lord of the Keep",
-    "ru": "Владыка цитадели"
-   },
-   "desc": {
-    "en": "Upgrade the Keep to level 5.",
-    "ru": "Улучшите цитадель до 5 уровня."
-   },
-   "goal": {
-    "type": "building_level",
-    "amount": 5,
-    "id": "keep"
-   },
-   "rewards": {
-    "stone": 1000,
-    "gold": 500,
-    "starglass": 10
-   },
-   "requires": [
-    "t04_keep"
-   ]
-  },
-  {
-   "id": "m02_victor",
-   "name": {
-    "en": "Seasoned Commander",
-    "ru": "Опытный командир"
-   },
-   "desc": {
-    "en": "Win 10 battles.",
-    "ru": "Победите в 10 сражениях."
-   },
-   "goal": {
-    "type": "missions_won",
-    "amount": 10
-   },
-   "rewards": {
-    "gold": 1000,
-    "starglass": 10
-   },
-   "requires": [
-    "t10_hunt"
-   ]
-  },
-  {
-   "id": "m03_city2",
-   "name": {
-    "en": "A Second Seat",
-    "ru": "Второй город"
-   },
-   "desc": {
-    "en": "Rule two cities.",
-    "ru": "Владейте двумя городами."
-   },
-   "goal": {
-    "type": "cities",
-    "amount": 2
-   },
-   "rewards": {
-    "timber": 2000,
-    "stone": 2000,
-    "grain": 2000,
-    "starglass": 20
-   },
-   "requires": [
-    "m01_keep5"
-   ]
-  }
- ],
- "start": {
-  "resources": {
-   "timber": 600,
-   "grain": 600,
-   "stone": 500,
-   "iron": 250,
-   "gold": 400,
-   "lore": 0,
-   "starglass": 20
-  },
-  "buildings": {
-   "keep": 1,
-   "cottages": 1,
-   "lumberyard": 1,
-   "farmstead": 1,
-   "quarry": 1,
-   "warehouse": 1
-  },
-  "units": {
-   "militia": 10,
-   "scout": 2
-  },
-  "population": 40
- },
- "modes": [
-  "standard",
-  "speed"
- ],
- "migrations": [
-  {
-   "fromVersion": "1.0.0"
-  },
-  {
-   "fromVersion": "1.1.0"
-  }
- ],
- "ui": {
-  "screens": [
-   "city",
-   "economy",
-   "research",
-   "army",
-   "heroes",
-   "map",
-   "missions",
-   "reports",
-   "market",
-   "alliance",
-   "quests",
-   "mail",
-   "profile",
-   "settings"
-  ]
- },
- "strings": {
-  "tutorial.welcome": {
-   "en": "Welcome, ruler. Your keep stands among ashes — rebuild it.",
-   "ru": "Добро пожаловать, правитель. Ваша цитадель стоит среди пепла — отстройте её."
-  },
-  "lore.intro": {
-   "en": "When the sky shattered, the old crowns fell. From the ash rise new houses, hungry for starglass.",
-   "ru": "Когда небо раскололось, старые короны пали. Из пепла поднимаются новые дома, жаждущие звёздного стекла."
-  }
- }
 }

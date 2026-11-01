@@ -191,6 +191,25 @@ func (c *pctx) techStep(ci *City, t *pack.Tech, jobs []Job) *NextStep {
 	return n
 }
 
+// clearOtherExclusive removes earlier completed paths from the same group.
+// This preserves one active specialisation per player.
+func (c *pctx) clearOtherExclusive(t *pack.Tech) bool {
+	if t == nil || t.ExclusiveGroup == "" {
+		return false
+	}
+	changed := false
+	for _, other := range c.p.Techs {
+		if other.ID != t.ID && other.ExclusiveGroup == t.ExclusiveGroup && c.pl.Techs[other.ID] > 0 {
+			delete(c.pl.Techs, other.ID)
+			changed = true
+		}
+	}
+	if changed {
+		c.recomputeMods()
+	}
+	return changed
+}
+
 // exclusiveTaken returns the tech of the same exclusive group already
 // researched or queued (specialisations are mutually exclusive), or "".
 func (c *pctx) exclusiveTaken(t *pack.Tech, jobs []Job) string {
@@ -201,9 +220,8 @@ func (c *pctx) exclusiveTaken(t *pack.Tech, jobs []Job) string {
 		if o.ID == t.ID || o.ExclusiveGroup != t.ExclusiveGroup {
 			continue
 		}
-		if c.pl.Techs[o.ID] > 0 {
-			return o.ID
-		}
+		// A completed calling can be replaced by studying a new calling.
+		// Prevent concurrent paths in the research queue.
 		for _, j := range jobs {
 			if j.Item == o.ID {
 				return o.ID
@@ -343,6 +361,9 @@ func (c *pctx) Build(ci *City, buildingID string) (*Job, error) {
 	if n == nil {
 		return nil, rule("max_level", "building is at maximum level")
 	}
+	if err := c.checkFreeCell(ci, b.ID, jobs); err != nil {
+		return nil, err
+	}
 	if err := blockedErr(n); err != nil {
 		if e, ok := AsError(err); ok && e.Code == "insufficient_resources" {
 			e.Details = map[string]any{"missing": rules.Missing(ci.Res, n.Cost)}
@@ -378,6 +399,9 @@ func (c *pctx) Research(ci *City, techID string) (*Job, error) {
 	if err := c.spend(ci, n.Cost, "research", fmt.Sprintf("%s:%d", t.ID, n.Level)); err != nil {
 		return nil, err
 	}
+	// Changing a specialisation cancels the previous one when research begins.
+	// This is atomic with the new research order and resource spend.
+	c.clearOtherExclusive(t)
 	return c.insertJob(ci, "research", t.ID, n.Level, 1, n.Cost, queueEnd(c.now, jobs), n.Seconds)
 }
 
@@ -484,6 +508,9 @@ func (c *pctx) completeJob(jobID int64) error {
 			ci.Buildings[j.Item] = j.Level
 		}
 	case "research":
+		if t := c.p.Tech(j.Item); t != nil {
+			c.clearOtherExclusive(t)
+		}
 		if c.pl.Techs[j.Item] < j.Level {
 			c.pl.Techs[j.Item] = j.Level
 		}

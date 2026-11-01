@@ -59,11 +59,13 @@ func EffectValue(e pack.Effect, level int) float64 {
 // EconInput is everything that determines a city's economic rates.
 type EconInput struct {
 	Pack       *pack.Loaded
-	Buildings  map[string]int   // building -> level
-	Mods       *Mods            // race + techs (+ hero/territory) modifiers
-	Population int64            // current population
-	Garrison   map[string]int64 // units at home (pay upkeep, may desert)
-	AwayUpkeep float64          // upkeep/hour of units away, already × MissionUpkeepMult, before modifiers
+	Buildings  map[string]int        // building -> level
+	Mods       *Mods                 // race + techs (+ hero/territory) modifiers
+	Population int64                 // current population
+	Garrison   map[string]int64      // units at home (pay upkeep, may desert)
+	AwayUpkeep float64               // upkeep/hour of units away, already × MissionUpkeepMult, before modifiers
+	Race       string                // player race, selects pack.Num race values of level tables
+	Profile    *pack.ResolvedProfile // server profile (nil = none): table overrides and multipliers
 }
 
 // Rates are derived (never stored) economy figures for a city.
@@ -142,6 +144,9 @@ func ComputeRates(in EconInput) Rates {
 			}
 		}
 	}
+	tbl := SumTables(p, in.Buildings, in.Race, in.Profile)
+	housing += tbl.Housing
+	storageAll += tbl.Capacity
 	r.Housing = int64(math.Floor(mods.Apply(housing, "housing")))
 	employed := min(in.Population, r.WorkersNeeded)
 	r.Idle = max(0, in.Population-employed)
@@ -150,7 +155,7 @@ func ComputeRates(in EconInput) Rates {
 		r.Employment = float64(employed) / float64(r.WorkersNeeded)
 	}
 	for _, res := range p.Resources {
-		g := rawProd[res.ID]*r.Employment + idleTax[res.ID]*float64(r.Idle)
+		g := rawProd[res.ID]*r.Employment + idleTax[res.ID]*float64(r.Idle) + tbl.Production[res.ID]
 		// Order per R-MOD-1: (base + Σflat) × (1 + Σpct/100).
 		g = (g + mods.Flat("production."+res.ID, "production.*")) * math.Max(0, 1+mods.Pct("production."+res.ID, "production.*")/100)
 		r.Gross[res.ID] = math.Max(0, g)
@@ -170,6 +175,11 @@ func ComputeRates(in EconInput) Rates {
 		}
 	}
 	r.Upkeep = mods.Apply(upkeep, "upkeep")
+	if in.Profile != nil {
+		if m, ok := in.Profile.Params[ParamUpkeep]; ok {
+			r.Upkeep *= m
+		}
+	}
 	r.Consumption[p.Params.FoodResource] += float64(in.Population) * p.Params.FoodPerPopPerHour
 	r.Consumption[UpkeepResource(p.Params)] += r.Upkeep
 	// World speed scales all flows (per real hour) but not stocks or capacities.

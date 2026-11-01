@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="gravewarden">
+<defs><radialGradient id="bg"><stop stop-color="#5d3962"/><stop offset="1" stop-color="#211b20"/></radialGradient></defs>
+<rect width="320" height="320" rx="25" fill="url(#bg)"/>
+<circle cx="160" cy="155" r="119" fill="none" stroke="#d9ac61" stroke-opacity=".4" stroke-width="3"/>
+<g fill="#9c8d75" stroke="#322f37" stroke-width="3" stroke-linejoin="round"><path d="M90 213V127Q90 66 160 66Q230 66 230 127V213Z"/><circle cx="132" cy="142" r="20" fill="#221b2e"/><circle cx="188" cy="142" r="20" fill="#221b2e"/><path d="M141 192H180" stroke="#271c34" stroke-width="12"/></g>
+<path d="M38 272H282" stroke="#cfab67" stroke-opacity=".7" stroke-width="5"/>
+</svg>

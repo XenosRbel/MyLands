@@ -1,0 +1,25 @@
+# ML-D01 — Схема Game Pack для My Lands
+
+- **Спринт**: S1 Перенос данных
+- **Трек**: backend-data
+- **Цель**: Расширить схему пака: уровни 1–9, кристаллы, профили серверов, услуги.
+- **Зависимости**: ML-R02
+- **Модули**: `server/internal/pack/, packs/`
+- **Источник**: AGENT.md Packs
+- **Критерии приёмки**:
+  - Старые паки проходят проверку.
+  - Новая схема отклоняет неизвестные поля.
+  - Pack ID переименования требуют migrations.
+- **Обязательные тесты**:
+  - Юнит-тесты pack.Validate.
+  - make packs.
+- **Результат**: Выполнена (2026-11-01), с оговорками ниже. Схема базы и схема Game Pack готовы.
+  - База: `docs/modernization/DB_DESIGN.md`, `server/migrations/0002_mylands_foundations.sql`, `server/migrations/migrations_test.go`.
+  - Пак: `server/internal/pack/types_mylands.go`, `validate_mylands.go`, `mylands_test.go`. Описание: `docs/modernization/PACK_SCHEMA.md`.
+  - Пример: `packs/mylands-sample/pack.json` (Fortification и Temple 1–9, переопределение по расе, профиль, услуга, геометрия).
+  - Добавлены поля: `crystals`, `buildingTables`, `paramDefs`, `serverProfiles`, `unitDefs`, `services`, `geometry`, тип `Num`.
+  - Версия формата не менялась. Старые паки проходят проверку: `ashen-crowns`, `void-frontier`.
+  - Проверки: `make test-go` (PostgreSQL 16, `-race`), `make lint`, `make packs` дали зелёный результат.
+  - Не проверено: `make e2e`; хэши старых паков не сравнивались с версией до изменения; движок пока не читает новые поля.
+  - Допущения: количества кристаллов, цены услуг и геометрия карты в примере — `PROPOSED`.
+- **Ограничения**: Значения со статусом `UNKNOWN` не заменяются собственными.

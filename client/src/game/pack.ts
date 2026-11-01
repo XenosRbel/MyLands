@@ -183,13 +183,27 @@ export function applyTheme(pack: Pack) {
   if (fonts.display) root.style.setProperty("--font-display", `"${fonts.display}", Georgia, serif`);
   if (fonts.body) root.style.setProperty("--font-body", `"${fonts.body}", system-ui, sans-serif`);
   const families = [fonts.display, fonts.body].filter(Boolean) as string[];
-  if (families.length && !document.getElementById("pack-fonts")) {
+  // The mode test sits here, not only inside webFontsUrl, so the bundler removes
+  // the whole external URL from the Yandex build.
+  const href = import.meta.env.MODE === "yandex" ? null : webFontsUrl(families, import.meta.env.MODE);
+  if (href && !document.getElementById("pack-fonts")) {
     const link = document.createElement("link");
     link.id = "pack-fonts";
     link.rel = "stylesheet";
-    link.href = `https://fonts.googleapis.com/css2?${families.map((f) => `family=${encodeURIComponent(f)}:wght@400;600;700`).join("&")}&display=swap`;
+    link.href = href;
     document.head.appendChild(link);
   }
+}
+
+/**
+ * Stylesheet URL for the pack's web fonts, or null when none must be loaded.
+ * The Yandex build never requests an external stylesheet: platform rules
+ * forbid external resources, and the fallback font stack in applyTheme applies.
+ */
+export function webFontsUrl(families: string[], mode: string): string | null {
+  if (mode === "yandex" || families.length === 0) return null;
+  const params = families.map((f) => `family=${encodeURIComponent(f)}:wght@400;600;700`).join("&");
+  return `https://fonts.googleapis.com/css2?${params}&display=swap`;
 }
 
 /** Formats a modifier like "+10% attack (cavalry)". */

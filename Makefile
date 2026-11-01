@@ -1,9 +1,29 @@
 # One-command workflows. Requires Go ≥1.27 (auto-downloaded via toolchain), Node ≥22, PostgreSQL 16.
 SHELL := /bin/bash
+HARNESS_ROOT := $(shell git rev-parse --show-toplevel)
 DB_URL ?= postgres://postgres@127.0.0.1:5432/realmforge?sslmode=disable
 WORLDS ?= ember-1:ashen-crowns:Ember Vale (x50):50,void-1:void-frontier:Void Frontier Demo:10
 
-.PHONY: verify-backup db dev server client build test test-go test-client e2e packs lint backup restore docker
+.PHONY: verify-backup db dev server client build test test-go test-client e2e packs lint backup restore docker sim
+.PHONY: harness-context harness-doctor harness-test harness-check check-spec
+
+harness-context: ## show shared agent context
+	cd "$(HARNESS_ROOT)" && python3 scripts/harness/harness.py context
+
+harness-doctor: ## check local agent dependencies and config without installing anything
+	cd "$(HARNESS_ROOT)" && python3 scripts/harness/harness.py doctor
+
+harness-test: ## test both agent adapters without accounts or PostgreSQL
+	cd "$(HARNESS_ROOT)" && PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts/harness -p 'test_*.py'
+
+check-spec: ## validate My Lands specification, cards and coverage
+	cd "$(HARNESS_ROOT)" && python3 scripts/check_mylands_spec.py
+
+harness-check: ## shared completion gate (E2E remains required for user-facing flows)
+	$(MAKE) --no-print-directory -C "$(HARNESS_ROOT)" harness-test
+	$(MAKE) --no-print-directory -C "$(HARNESS_ROOT)" lint
+	$(MAKE) --no-print-directory -C "$(HARNESS_ROOT)" test
+	$(MAKE) --no-print-directory -C "$(HARNESS_ROOT)" packs
 
 db:            ## start native PostgreSQL (when Docker is unavailable)
 	./scripts/dev-postgres.sh start
@@ -22,6 +42,9 @@ build:         ## production builds
 
 packs:         ## validate all game packs
 	cd server && go run ./cmd/packtool summary ../packs/*/
+
+sim:           ## balance simulation of the first day (no database needed)
+	cd server && go run ./cmd/sim -pack ../packs/ashen-crowns,../packs/void-frontier -out ../docs/reports/BALANCE_SIM_TABLES.md
 
 lint:
 	cd server && go vet ./... && test -z "$$(gofmt -l .)"

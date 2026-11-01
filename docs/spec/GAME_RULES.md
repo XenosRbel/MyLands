@@ -706,7 +706,7 @@ Scouting a tile always succeeds with intel 2 and is never detected. It shows the
   - scouting detection: `(missionId, 7)`;
   - drops: `(missionId, 11)`.
 - Combat is fully deterministic.
-- Spawn-point choice (`findSpawn`) is the only non-seeded choice: database `random()` jitter.
+- Spawn-point choice (`findSpawn`) is the only non-seeded choice: a database `random()` pick among the legal tiles of one ring.
 - **Status:** PROPOSED.
 
 ---
@@ -756,7 +756,10 @@ See R-MSN-8. A territory is defended only by stationed missions. With no garriso
 See R-MSN-7. The capital is the city created at join (`is_capital`). Rewards and refunds fall back to the capital when the target city no longer exists.
 
 ### R-CITY-3 — Spawn
-- A new player's capital is placed on a free tile closest to the map centre with jitter: passable, no neutral (even a cleared one), no owner, and Chebyshev distance ≥ 3 from every city.
+- A new player's capital is placed on a free tile close to the map centre with jitter: passable, no neutral (even a cleared one), no owner, and Chebyshev distance ≥ 3 from every city.
+- The server walks square rings outward from the centre. It picks a random legal tile of the first ring that has one. Rings inside the last used ring are searched only when the outer rings are full.
+- Joins of one world run one at a time. A per-world advisory lock keeps two simultaneous joins from choosing neighbouring tiles.
+- Join throughput is limited by this lock: about 70 joins per second on the load-test host (T-021).
 - Initial state comes from `start`: resources, buildings with their levels, units, population.
 - **Status:** PROPOSED.
 
@@ -957,6 +960,24 @@ Progress is retroactive: stats from before unlocking count.
 ### R-CON-6 — Validation at dispatch versus arrival
 - Spatial and capacity conditions are re-checked at arrival: target changed, tile occupied, territory cap, city cap, settler present, reinforcement cap.
 - PvP diplomatic conditions are re-checked only for territories (see D-7).
+
+### R-CITY-3 — City cells (ML-M01, PROPOSED wiring of WORLD W-02)
+- The pack parameter `params.cityLayout` sets `startCells`, `capitalCells`, `maxByLevel` and `extraCities`. Source values: 22, 51, 22/27/33/38/43, 7.
+- A building type needs a free cell. `Build` returns `no_free_cell` when all cells are used.
+- Cell expansion adds one cell up to the last `maxByLevel` value. The science unlock is a boolean input; its level is UNKNOWN.
+- The city limit is `1 + extraCities` when `cityCapBuilding` is empty. Otherwise the smaller value applies.
+- A city cannot be captured. The capital cannot be deleted. A deleted city sends all troops on an escape mission.
+- Not wired: city level, expansion command, city deletion command and the escape mission.
+
+### R-CITY-4 — Cell mirror
+- `save()` writes `city_cells` and `city_buildings` in the same transaction as `cities.buildings`.
+- One building per cell is enforced by `UNIQUE (cell_id)`. Levels above 9 are not mirrored.
+
+### R-ECON-TBL-1 — Level-table economy (ML-M05)
+- `rules.TableEffect` reads `buildingTables`: race value by `pack.Num`, then the server profile override.
+- `ComputeRates` adds `<resource>PerHour`, `resourceCapacity` and `housingCapacity`. Profile `production_multiplier` and `upkeep_multiplier` apply.
+- `populationGrowth` is summed by `SumTables`. Its unit is UNKNOWN, so `TickStep` does not use it.
+- Desertion is `desertionPctPerHour` (default 0.5) of each unpaid unit stack, per hour, with fractions carried.
 
 ---
 

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/fs"
 	"log/slog"
+	"math"
 	"os"
 	"sort"
 	"strconv"
@@ -37,6 +38,35 @@ type Config struct {
 	// AutoMigratePacks moves existing RF_WORLDS worlds to the pack on disk at
 	// startup when it is compatible (default on outside production).
 	AutoMigratePacks bool
+	// ServerProfile is the Game Pack server profile id for this instance (RF_SERVER_PROFILE).
+	// Empty selects the pack's default profile. Bonuses (RF_PROFILE_BONUSES="id=x,id=y")
+	// are checked against the pack's paramDefs by pack.Loaded.ResolveProfile.
+	ServerProfile  string
+	ProfileBonuses map[string]float64
+}
+
+// parseBonuses parses "name=1.5,other=0.8". Range checks need the pack and happen later.
+func parseBonuses(s string) (map[string]float64, error) {
+	out := map[string]float64{}
+	for _, kv := range strings.Split(s, ",") {
+		if kv = strings.TrimSpace(kv); kv == "" {
+			continue
+		}
+		k, v, ok := strings.Cut(kv, "=")
+		k = strings.TrimSpace(k)
+		if !ok || k == "" {
+			return nil, fmt.Errorf("%q is not name=value", kv)
+		}
+		x, err := strconv.ParseFloat(strings.TrimSpace(v), 64)
+		if err != nil || math.IsNaN(x) || math.IsInf(x, 0) {
+			return nil, fmt.Errorf("%q: value is not a finite number", kv)
+		}
+		if _, dup := out[k]; dup {
+			return nil, fmt.Errorf("%q is set twice", k)
+		}
+		out[k] = x
+	}
+	return out, nil
 }
 
 func env(key, def string) string {
@@ -69,6 +99,10 @@ func LoadConfig() (Config, error) {
 		return c, fmt.Errorf("RF_SESSION_TTL: %w", err)
 	}
 	c.SessionTTL = ttl
+	c.ServerProfile = env("RF_SERVER_PROFILE", "")
+	if c.ProfileBonuses, err = parseBonuses(env("RF_PROFILE_BONUSES", "")); err != nil {
+		return c, fmt.Errorf("RF_PROFILE_BONUSES: %w", err)
+	}
 	c.RateLimitRPS, _ = strconv.ParseFloat(env("RF_RATE_RPS", "20"), 64)
 	c.RateLimitBurst, _ = strconv.Atoi(env("RF_RATE_BURST", "60"))
 	for _, o := range strings.Split(env("RF_ALLOWED_ORIGINS", "http://localhost:5173,https://localhost,capacitor://localhost"), ",") {

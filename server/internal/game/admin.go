@@ -113,7 +113,7 @@ func (s *Service) AdminInspect(ctx context.Context, adminID, playerID int64) (*A
 		if err != nil {
 			return err
 		}
-		rows, err := tx.Query(ctx, `SELECT id, city_id, reason, ref, delta, at FROM resource_ledger WHERE player_id=$1 ORDER BY id DESC LIMIT 100`, playerID)
+		rows, err := tx.Query(ctx, `SELECT l.id, l.city_id, l.reason, l.ref, COALESCE((SELECT jsonb_object_agg(e.resource_id, e.amount) FROM resource_ledger_entries e WHERE e.ledger_id=l.id), '{}'::jsonb), l.at FROM resource_ledger l WHERE l.player_id=$1 ORDER BY l.id DESC LIMIT 100`, playerID)
 		if err != nil {
 			return err
 		}

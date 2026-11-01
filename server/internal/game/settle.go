@@ -274,7 +274,7 @@ func (c *pctx) refreshAway(ci *City) error {
 
 func (c *pctx) econInput(ci *City) rules.EconInput {
 	return rules.EconInput{Pack: c.p, Buildings: ci.Buildings, Mods: c.cityMods(ci), Population: ci.Pop,
-		Garrison: ci.Units, AwayUpkeep: ci.away}
+		Garrison: ci.Units, AwayUpkeep: ci.away, Race: c.pl.Race}
 }
 
 func (c *pctx) advance(ci *City, to time.Time) rules.Rates {
@@ -334,9 +334,21 @@ func (c *pctx) ledger(ci *City, reason, ref string, delta pack.Amounts) error {
 	if len(delta) == 0 {
 		return nil
 	}
-	_, err := c.tx.Exec(c.ctx, `INSERT INTO resource_ledger(world_id, player_id, city_id, reason, ref, delta, at) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
-		c.pl.WorldID, c.pl.ID, ci.ID, reason, ref, delta, c.now)
-	return err
+	var id int64
+	err := c.tx.QueryRow(c.ctx, `INSERT INTO resource_ledger(world_id, player_id, city_id, reason, ref, at) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id`,
+		c.pl.WorldID, c.pl.ID, ci.ID, reason, ref, c.now).Scan(&id)
+	if err != nil {
+		return err
+	}
+	for r, n := range delta {
+		if n == 0 {
+			continue
+		}
+		if _, err := c.tx.Exec(c.ctx, `INSERT INTO resource_ledger_entries(ledger_id, resource_id, amount) VALUES ($1,$2,$3)`, id, r, n); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (c *pctx) stat(key string, n int64) { c.pl.Stats[key] += n }
@@ -388,6 +400,9 @@ func (c *pctx) save() error {
 		}
 		if _, err := c.tx.Exec(c.ctx, `UPDATE cities SET resources=$2, population=$3, econ_updated_at=$4, buildings=$5, units=$6, econ_carry=$7, name=$8 WHERE id=$1`,
 			ci.ID, ci.Res, ci.Pop, ci.UpdatedAt, ci.Buildings, ci.Units, ci.Carry, ci.Name); err != nil {
+			return err
+		}
+		if err := c.syncCityBuildings(ci); err != nil {
 			return err
 		}
 	}

@@ -172,6 +172,9 @@ func (c *pctx) allied(a, b *otherPlayer) (bool, error) {
 }
 
 func (c *pctx) cityCap() int {
+	if l := c.p.Params.CityLayout; l != nil && c.p.Params.CityCapBuilding == "" {
+		return rules.MaxCities(l) // GAME_RULES R-CITY-3
+	}
 	b := c.p.Params.CityCapBuilding
 	if b == "" {
 		return 1
@@ -180,7 +183,11 @@ func (c *pctx) cityCap() int {
 	for _, ci := range c.cities {
 		lvl = max(lvl, ci.Buildings[b])
 	}
-	return min(c.p.Params.MaxCities, 1+lvl/c.p.Params.CitiesPerCapLevels)
+	n := min(c.p.Params.MaxCities, 1+lvl/c.p.Params.CitiesPerCapLevels)
+	if l := c.p.Params.CityLayout; l != nil {
+		n = min(n, rules.MaxCities(l))
+	}
+	return n
 }
 
 func (c *pctx) territoryCap() int {
@@ -331,6 +338,15 @@ func (c *pctx) SendMission(ci *City, req MissionRequest) (*Mission, error) {
 	case "transport":
 		if targetCity == nil {
 			return nil, rule("no_target", "transport target must be a city")
+		}
+		// Do not allow transfers to unrelated accounts (anti-farming).
+		// Cross-account transfers require a current alliance relationship.
+		ok, err := c.allied(me, targetOwner)
+		if err != nil {
+			return nil, err
+		}
+		if !ok {
+			return nil, rule("not_allied", "resources can only be sent to your own or allied cities")
 		}
 		cap := c.carryOf(units, mods)
 		for r, n := range req.Cargo {
@@ -880,6 +896,10 @@ func (c *pctx) battleCity(m *Mission, ci *City, owner *otherPlayer, attMods *rul
 	m.Units = rules.GroupCounts(res.AttackerFinal, 0)
 	loot := pack.Amounts{}
 	if res.AttackerWon {
+		// Expose escrowed resources to the same raid as city stock.
+		if err := c.releaseRaidEscrow(ci); err != nil {
+			return err
+		}
 		capacity := c.carryOf(m.Units, attMods)
 		lootPct := attMods.Apply(float64(c.p.Params.LootPct), "loot")
 		loot = rules.Loot(rules.Whole(ci.Res), c.rates(ci).Protected, func(r string) bool {

@@ -9,3 +9,11 @@ dist/
 coverage/
 .DS_Store
 client/yandex-build.zip
+
+# Generated from the bundled original UI atlas during client builds.
+/client/public/ui/painted/
+.harness/
+__pycache__/
+
+# Temporary debug sprites from the wiki (customer-authorised, local only).
+/art-reference/wiki-temp/

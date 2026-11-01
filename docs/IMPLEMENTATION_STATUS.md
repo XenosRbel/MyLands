@@ -1,9 +1,11 @@
 # Implementation status
 
-Last updated: 2026-10-31. Legend: ✅ implemented & tested · 🟡 partial · ⛔ not implemented.
+Last updated: 2026-11-01. Legend: ✅ implemented & tested · 🟡 partial · ⛔ not implemented.
 
 | Subsystem | Status | Where | Tests |
 |---|---|---|---|
+| Shared Codex / Claude Code harness | ✅ `make harness-check` passes; live client activation and Codex hook trust unverified (T-032) | scripts/harness/, .codex/, .claude/settings.json | 30 harness tests; real hook commands and red Stop |
+| Principal Architect role | 🟡 shared instructions and Codex / Claude / GitHub Copilot profiles added; activation pending (T-033) | .agents/roles/, .codex/agents/, .claude/agents/, .github/agents/ | TOML/YAML parsing, local links, harness tests |
 | Accounts: register/login (argon2id), guest, upgrade guest, logout, sessions TTL/revocation, ban, delete (anonymise) | ✅ | game/accounts.go | TestAccountsAuth, TestGuestAndDevPlatform, TestEndToEnd |
 | Platform identity sign-in | 🟡 `dev` only; Yandex/Google verification ⛔ | accounts.go, platform/adapter.ts | TestGuestAndDevPlatform |
 | Worlds: pinned pack, deterministic map, speed multiplier, join with race, spawn search, newbie protection | ✅ | world.go, rules/world.go | TestJoinStartingState, TestMapDeterministic |
@@ -34,13 +36,21 @@ Last updated: 2026-10-31. Legend: ✅ implemented & tested · 🟡 partial · �
 | Game Pack engine: format, validator, CLI, 2 packs | ✅ | pack/, packs/ | pack_test.go (22 negative cases + shipped packs) |
 | Web client: all 14 screens, responsive, i18n EN/RU, server-time timers, idempotent commands | ✅ | client/ | vitest (7), browser E2E e2e/play.mjs |
 | Pack art: isometric city scene, building sprites, unit/hero portraits, item & resource icons, textured map (Resource Pack v0.1) | ✅ (UI frames, neutral sites, 10 unit portraits missing) | client/src/screens/City.tsx, Map.tsx; packs/ashen-crowns/assets; scripts/import_art.py | TestShippedPacks (asset files exist), browser E2E |
-| Yandex HTML5 build + adapter | 🟡 build/zip ✅; SDK identity/moderation ⛔ | client/scripts/yandex-zip.mjs | manual |
+| Yandex HTML5 build + adapter | 🟡 build/zip ✅ with package checks (no external hosts, ASCII names, size); signature verification, CSP list, moderation ⛔ | client/scripts/yandex-zip.mjs, check-package.mjs | 6 package-check tests, 3 font tests |
 | Android (Capacitor) | 🟡 config ✅; native project/AAB ⛔ (no SDK) | client/capacitor.config.ts | — |
 | Backup/restore | ✅ (logical) | scripts/*.sh | verify-backup executed |
 | Docker | 🟡 files written, not executed | Dockerfile, docker-compose.yml | — |
-| Load testing | 🟡 baseline: 200 players, 648 req/s, 0 errors (docs/reports/LOAD_TEST_2026-10-31.md) | server/cmd/loadtest | manual run |
+| Balance simulation: bot player on pure rules, first-day curves, PvE difficulty, wage pressure | ✅ baseline; research, heroes, market, PvP not simulated (T-022) | server/internal/sim, server/cmd/sim, `make sim` | 10 unit tests; determinism by `cmp` |
+| Load testing | 🟡 1 000 players at 45 cmd/s: p95 7–11 ms, lag 0 s in 3 of 4 runs on one shared host; join burst limited to ~70/s per world (docs/reports/LOAD_TEST_2026-11-01.md) | server/cmd/loadtest | manual run |
 
-## Last verification run
+## Verification: agent harness, 2026-11-01
+
+`make harness-test` passed (30 tests). `make test` passed with PostgreSQL 16, required DB tests and Go race detector.
+Client typecheck, 10 client tests, Go vet and both Game Pack validations passed.
+`make harness-check` passed on 2026-11-01 (exit 0); see T-032.
+Live client activation and Codex hook trust remain unverified. No gameplay or API behavior changed.
+
+## Previous verification run (2026-10-31)
 
 ```
 go vet ./... && RF_REQUIRE_DB=1 go test -race -count=1 ./...   → api ok, game ok (22 tests), pack ok, rules ok

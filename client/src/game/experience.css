@@ -1,0 +1,156 @@
+/* Game atmosphere. Game Pack tokens remain authoritative. */
+.shell {
+  background:
+    radial-gradient(ellipse 65% 45% at 72% 5%, color-mix(in srgb, var(--accent) 12%, transparent), transparent),
+    radial-gradient(ellipse 42% 60% at 0% 100%, rgba(41, 64, 57, .22), transparent),
+    var(--bg);
+}
+.topbar {
+  box-shadow: 0 8px 34px rgba(0,0,0,.23);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+.game-title { font-family: var(--font-display); letter-spacing: .055em; text-shadow: 0 1px 16px color-mix(in srgb, var(--accent) 24%, transparent); }
+.sidenav { background: linear-gradient(170deg, color-mix(in srgb, var(--surface) 92%, #080706), var(--bg)); box-shadow: 8px 0 35px rgba(0,0,0,.16); }
+.sidenav button { position: relative; transition: color .2s, background .2s, transform .2s; }
+.sidenav button:hover { transform: translateX(3px); }
+.sidenav button.on { background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 19%, var(--surface)), transparent); }
+.sidenav button.on::before { content:""; position:absolute; left:0; top:18%; bottom:18%; width:3px; border-radius:4px; background:var(--accent); box-shadow:0 0 14px var(--accent); }
+.content { animation: realm-enter .3s cubic-bezier(.2,.8,.2,1) both; }
+.panel { background: linear-gradient(140deg, color-mix(in srgb, var(--surface) 96%, var(--accent)), var(--surface)); box-shadow: 0 10px 32px rgba(0,0,0,.13), inset 0 1px rgba(255,255,255,.035); }
+.btn.primary { box-shadow:0 3px 16px color-mix(in srgb, var(--accent) 16%, transparent); }
+.btn.primary:hover:not(:disabled) { filter:brightness(1.09); box-shadow:0 4px 24px color-mix(in srgb, var(--accent) 30%, transparent); }
+.resbar-item { transition: background .2s, transform .2s; }
+.resbar-item:hover { transform:translateY(-2px); background:color-mix(in srgb, var(--accent) 8%, transparent); }
+.experience-controls { display:flex; align-items:center; gap:.3rem; margin-inline-start:auto; }
+.experience-sound { border:1px solid var(--border); color:var(--text); background:var(--surface2); border-radius:8px; padding:.4rem .65rem; font:inherit; cursor:pointer; min-height:36px; }
+.experience-sound:hover { border-color:var(--accent); }
+.experience-sound[aria-pressed="true"] { color:var(--accent); }
+@keyframes realm-enter { from { opacity:.45; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
+@media (prefers-reduced-motion:reduce) {
+  .content { animation:none }
+  .sidenav button,.resbar-item { transition:none }
+  .sidenav button:hover,.resbar-item:hover { transform:none }
+}
+[data-motion="reduce"] .content { animation:none; }
+[data-motion="reduce"] .sidenav button:hover,[data-motion="reduce"] .resbar-item:hover { transform:none; }
+
+/* Settlement diorama: reinforce depth without changing building positions. */
+.city-scene {
+  isolation:isolate;
+  border:2px solid color-mix(in srgb,var(--accent) 33%,var(--border));
+  box-shadow:0 24px 65px rgba(0,0,0,.35),inset 0 0 45px rgba(0,0,0,.3);
+}
+.city-scene::after {
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,217,152,.07),transparent 32%,rgba(2,8,7,.24));
+  box-shadow:inset 0 0 80px rgba(0,0,0,.25);
+}
+.city-scene .plot { z-index:2; }
+.city-scene .plot img { transition:transform .22s ease,filter .22s ease; }
+.city-scene .plot:focus-visible { outline:2px solid var(--accent);outline-offset:4px; }
+.city-scene .plot.can:not(.built) .plot-mark { animation:build-pulse 2.6s ease-in-out infinite; }
+@keyframes build-pulse {
+  0%,100% { filter:brightness(1); }
+  50% { filter:brightness(1.5); }
+}
+.bcard { background:linear-gradient(145deg,color-mix(in srgb,var(--surface2) 94%,var(--accent)),var(--surface2)); }
+.bcard:hover { box-shadow:0 8px 26px rgba(0,0,0,.2); }
+.bcard .bart { filter:drop-shadow(0 5px 8px rgba(0,0,0,.45)); }
+@media(max-width:720px) {
+ .experience-sound span { display:none; }
+ .experience-sound { min-width:38px; }
+ .city-scene { box-shadow:0 12px 30px rgba(0,0,0,.25); }
+}
+@media(prefers-reduced-motion:reduce) {
+ .city-scene .plot.can:not(.built) .plot-mark { animation:none; }
+}
+[data-motion="reduce"] .city-scene .plot.can:not(.built) .plot-mark { animation:none; }
+
+/* Muted parchment and timber research chamber. */
+.kingdom-shortcuts { display:flex; gap:6px; margin-left:auto; align-items:center; }
+.kingdom-token { cursor:pointer; position:relative; display:flex; align-items:center; justify-content:center; width:54px; height:52px; border:1px solid #78674e; border-radius:6px; background:linear-gradient(#524739,#30291f); color:#dbcdab; box-shadow:inset 0 1px #c1ac7a30; }
+.kingdom-token:hover,.kingdom-token:focus-visible { border-color:#c3a76e; background:#60523d; }
+.kingdom-token img { width:38px; height:38px; object-fit:cover; border-radius:4px; }
+.kingdom-token .token-label { position:absolute; left:50%; transform:translateX(-50%); bottom:-24px; white-space:nowrap; font-size:11px; background:#302920; border:1px solid #6d5b40; padding:2px 5px; border-radius:4px; pointer-events:none; opacity:0; transition:opacity .15s; z-index:30; }
+.kingdom-token:hover .token-label,.kingdom-token:focus-visible .token-label { opacity:1; }
+.research-screen { color:#e8dec7; }
+.research-heading { display:flex; align-items:center; gap:12px; padding:15px 19px; margin-bottom:13px; border:1px solid #6b5941; border-radius:8px; background:linear-gradient(120deg,#40382b,#2d281f); }
+.research-heading h1 { margin:0 0 4px; font-size:1.8rem; }
+.research-heading>svg { color:#bcaa7b; }
+.research-heading p { margin:0; }
+.research-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,315px); gap:14px; align-items:start; }
+.research-tree { display:grid; gap:13px; min-width:0; }
+.research-branch { border:1px solid #806948; border-radius:7px; padding:12px; background:linear-gradient(125deg,#41382b,#29251e); box-shadow:inset 0 1px #c9ad7540,0 4px 12px #100d0924; }
+.research-branch-title { font:600 18px var(--font-display); color:#ddd0ad; display:flex; align-items:center; gap:10px; padding:2px 4px 10px; border-bottom:1px solid #88715055; }
+.research-branch-title .icon { color:#bdaa84; }
+.research-paths { display:grid; gap:7px; padding-top:10px; }
+.research-path { display:grid; grid-template-columns:minmax(150px,1fr) minmax(0,1.5fr); gap:10px; align-items:center; padding:6px; border-radius:6px; }
+.research-path.selected { background:#a38c5d16; outline:1px solid #bda77b40; }
+.research-name { display:flex; gap:9px; align-items:center; text-align:left; background:transparent; border:0; color:#e7dbc4; font:inherit; cursor:pointer; min-width:0; }
+.research-name small { display:block; color:#b3a690; font-size:12px; }
+.research-name-icon { min-width:36px; height:36px; display:grid; place-items:center; color:#d6b77d; border:1px solid #8b744f; border-radius:4px; background:#342d23; }
+.research-nodes { display:flex; align-items:center; gap:0; min-width:0; }
+.research-node { flex:1 1 0; max-width:73px; min-width:35px; height:62px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; position:relative; border:1px solid #786b57; border-radius:5px; background:linear-gradient(#524738,#302b25); color:#a99c87; font:12px var(--font-display); cursor:pointer; transition:background .2s,border-color .2s; }
+.research-node:not(:first-child) { margin-left:12px; }
+.research-node:not(:first-child)::before { content:""; position:absolute; width:12px; left:-13px; top:50%; border-top:2px solid #9e896a; }
+.research-node.completed { color:#e0cba0; border-color:#b9a06e; background:linear-gradient(#776247,#43382b); }
+.research-node.completed b { position:absolute; top:0; right:2px; color:#9fb48a; }
+.research-node.available { border-color:#b4a079; color:#dfc898; }
+.research-node.pending { border-color:#8ba39a; color:#c4dcd5; }
+.research-node:hover { background:#74624b; }
+.research-extra { padding-left:8px; font-size:12px; color:#b9a88d; }
+.research-aside { display:grid; gap:12px; }
+.research-detail { border-color:#88704b; padding:16px; background:linear-gradient(#4b3e2e,#332d25); }
+.research-detail-art { height:116px; border:1px solid #8c7750; display:grid; place-items:center; color:#dfc58c; background:radial-gradient(circle,#79674844,#241f1a); margin-bottom:12px; }
+.research-detail p { line-height:1.5; }
+.research-detail h2 { margin-bottom:4px; }
+.research-level-progress { height:9px; border:1px solid #77654b; background:#211d18; border-radius:6px; overflow:hidden; }
+.research-level-progress>span { display:block; height:100%; background:#9da77a; transition:width .3s ease; }
+@media(max-width:1020px) { .research-layout { grid-template-columns:1fr; } .research-aside { grid-row:1; } }
+@media(max-width:740px) { .kingdom-token { width:37px; height:39px; } .kingdom-token img { width:28px;height:28px; } .research-path { grid-template-columns:1fr; } .research-node { height:48px; } .research-branch { padding:8px; } }
+@media(prefers-reduced-motion:reduce) { .research-node,.research-level-progress>span { transition:none; } }
+[data-motion="reduce"] .research-node,[data-motion="reduce"] .research-level-progress>span { transition:none; }
+
+/* Restrained parchment research atlas. Avoid emissive gold and neon effects. */
+.research-branch {
+  background:
+    linear-gradient(90deg,rgba(83,63,38,.045) 1px,transparent 1px),
+    linear-gradient(0deg,rgba(83,63,38,.04) 1px,transparent 1px),
+    linear-gradient(145deg,#dacbaa,#c7b393 70%,#b9a484);
+  background-size:19px 19px,19px 19px,auto;
+  color:#332a20;
+  border-color:#79664d;
+  box-shadow:0 4px 15px #100d0a35,inset 0 0 20px #7d5b2920;
+}
+.research-branch-title { color:#3d3022; border-bottom-color:#7c664950; }
+.research-branch-title .icon { color:#786044; }
+.research-path.selected { background:#89745225; outline-color:#7c644e55; }
+.research-name { color:#33291e; }
+.research-name small { color:#685844; }
+.research-name-icon { background:#beaa87; border-color:#867052; color:#453424; }
+.research-node { color:#62513d; background:linear-gradient(#ded3b7,#c3b18e); border-color:#988467; box-shadow:inset 0 1px #fff6e570; }
+.research-node:not(:first-child)::before { border-top-color:#92795e; }
+.research-node.completed { color:#354c35; background:linear-gradient(#c3c8a3,#9ba583); border-color:#6b805e; }
+.research-node.completed b { color:#315d37; }
+.research-node.available { color:#4f3b23; border-color:#98764c; background:linear-gradient(#e2d0a6,#cbb087); }
+.research-node.pending { color:#30554f; border-color:#698d83; background:linear-gradient(#c7dbd4,#a7c1b7); }
+.research-node:hover { background:#efe1bc; }
+.research-extra { color:#62503e; }
+.research-detail { color:#36291c; background:linear-gradient(135deg,#e0d0ae,#c4ae8e); border-color:#827054; box-shadow:inset 0 0 32px #76583025; }
+.research-detail h2,.research-detail h3 { color:#35281c; }
+.research-detail .muted { color:#6e5d47; }
+.research-detail-art { color:#56452f; border-color:#948263; background:radial-gradient(circle,#f0e3c7,#b9a488); }
+.research-detail .effects { color:#463829; }
+.research-detail .reqs { color:#765b3b; }
+.research-detail .btn.primary { background:#6b7750; color:#fcf4db; border-color:#4d6240; box-shadow:none; }
+.research-detail .btn.primary:hover:not(:disabled) { filter:brightness(1.05); box-shadow:0 2px 9px #3e42294d; }
+.research-level-progress { border-color:#8e7755; background:#9f9076; }
+.research-level-progress>span { background:#77815d; }
+.research-specialization { border:1px solid #9e8764; padding:10px; margin:10px 0; background:#e8dabd62; border-radius:5px; }
+.specialization-bonus { display:flex; align-items:center; gap:8px; padding:5px 0; font-size:13px; }
+.specialization-bonus .icon { color:#6a784b; }
+.research-detail .warn { color:#8d442d; }
+@media(max-width:720px) {
+  .research-branch { background-size:23px 23px,23px 23px,auto; }
+}

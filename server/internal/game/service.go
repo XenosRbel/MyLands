@@ -30,11 +30,14 @@ import (
 
 // Service is the game application layer.
 type Service struct {
-	DB      *pgxpool.Pool
-	Clock   platform.Clock
-	Log     *slog.Logger
-	packs   sync.Map // worldID -> *pack.Loaded
-	Metrics Metrics
+	DB    *pgxpool.Pool
+	Clock platform.Clock
+	Log   *slog.Logger
+	packs sync.Map // worldID -> *pack.Loaded
+	// spawnRing remembers per world the ring where the last capital was placed
+	// (worldID -> int). It is only a hint for the search order, never for correctness.
+	spawnRing sync.Map
+	Metrics   Metrics
 }
 
 // Metrics are simple counters exported in Prometheus text format.
@@ -126,10 +129,11 @@ func (s *Service) runTx(ctx context.Context, fn func(tx pgx.Tx) error) error {
 
 // Pack returns the pinned pack of a world (cached; immutable per world+hash).
 func (s *Service) Pack(ctx context.Context, q querier, worldID int64) (*pack.Loaded, error) {
-	var raw []byte
 	var hash string
 	var speed float64
-	if err := q.QueryRow(ctx, `SELECT pack_hash, pack_json, speed FROM worlds WHERE id=$1`, worldID).Scan(&hash, &raw, &speed); err != nil {
+	// Read only the hash and speed first. pack_json is tens of kilobytes and
+	// this function runs several times per request, so fetch it on a cache miss only.
+	if err := q.QueryRow(ctx, `SELECT pack_hash, speed FROM worlds WHERE id=$1`, worldID).Scan(&hash, &speed); err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, notFound("world")
 		}
@@ -139,6 +143,13 @@ func (s *Service) Pack(ctx context.Context, q querier, worldID int64) (*pack.Loa
 		if c := v.(cachedPack); c.hash == hash && c.speed == speed {
 			return c.p, nil
 		}
+	}
+	var raw []byte
+	if err := q.QueryRow(ctx, `SELECT pack_json FROM worlds WHERE id=$1 AND pack_hash=$2`, worldID, hash).Scan(&raw); err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, notFound("world") // the pack changed between the two reads; the caller retries
+		}
+		return nil, err
 	}
 	l, err := pack.Parse(raw)
 	if err != nil {

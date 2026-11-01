@@ -172,6 +172,9 @@ func (c *pctx) allied(a, b *otherPlayer) (bool, error) {
 }
 
 func (c *pctx) cityCap() int {
+	if l := c.p.Params.CityLayout; l != nil && c.p.Params.CityCapBuilding == "" {
+		return rules.MaxCities(l) // GAME_RULES R-CITY-3
+	}
 	b := c.p.Params.CityCapBuilding
 	if b == "" {
 		return 1
@@ -180,7 +183,11 @@ func (c *pctx) cityCap() int {
 	for _, ci := range c.cities {
 		lvl = max(lvl, ci.Buildings[b])
 	}
-	return min(c.p.Params.MaxCities, 1+lvl/c.p.Params.CitiesPerCapLevels)
+	n := min(c.p.Params.MaxCities, 1+lvl/c.p.Params.CitiesPerCapLevels)
+	if l := c.p.Params.CityLayout; l != nil {
+		n = min(n, rules.MaxCities(l))
+	}
+	return n
 }
 
 func (c *pctx) territoryCap() int {

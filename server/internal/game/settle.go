@@ -402,6 +402,9 @@ func (c *pctx) save() error {
 			ci.ID, ci.Res, ci.Pop, ci.UpdatedAt, ci.Buildings, ci.Units, ci.Carry, ci.Name); err != nil {
 			return err
 		}
+		if err := c.syncCityBuildings(ci); err != nil {
+			return err
+		}
 	}
 	c.pl.Score = c.score()
 	_, err := c.tx.Exec(c.ctx, `UPDATE players SET techs=$2, stats=$3, score=$4, protected_until=$5, last_seen_at=now() WHERE id=$1`,

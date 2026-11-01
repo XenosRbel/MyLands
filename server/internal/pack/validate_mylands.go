@@ -65,8 +65,25 @@ func (v *validator) nums(where string, m map[string]Num) {
 	}
 }
 
+func (v *validator) cityLayout() {
+	l := v.p.Params.CityLayout
+	if l == nil {
+		return
+	}
+	if l.StartCells < 1 || l.CapitalCells < l.StartCells || l.ExtraCities < 0 || len(l.MaxByLevel) == 0 {
+		v.errf("params.cityLayout: need startCells >= 1, capitalCells >= startCells, extraCities >= 0 and maxByLevel")
+		return
+	}
+	for i, m := range l.MaxByLevel {
+		if m < l.StartCells || (i > 0 && m < l.MaxByLevel[i-1]) {
+			v.errf("params.cityLayout.maxByLevel[%d]=%d must be ascending and >= startCells", i, m)
+		}
+	}
+}
+
 func (v *validator) myLands() {
 	p := v.p
+	v.cityLayout()
 	for i, c := range p.Crystals {
 		if c.Tier < 1 {
 			v.errf("crystals[%d](%s): tier must be >= 1", i, c.ID)

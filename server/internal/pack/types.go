@@ -138,6 +138,8 @@ type Params struct {
 	MaxCities                 int                `json:"maxCities"`
 	TerritoryYieldPerHour     float64            `json:"territoryYieldPerHour"`  // units/hour of the terrain resource accrued on an owned tile
 	TerritoryYieldCapHours    int                `json:"territoryYieldCapHours"` // uncollected yield stops accruing after this many hours
+	// CityLayout sets city cell counts and the city limit (ML-M01). nil = no cell limit, legacy city cap.
+	CityLayout *CityLayout `json:"cityLayout,omitempty"`
 }
 
 // Defaults returns engine default parameters.

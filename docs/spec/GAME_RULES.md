@@ -961,6 +961,24 @@ Progress is retroactive: stats from before unlocking count.
 - Spatial and capacity conditions are re-checked at arrival: target changed, tile occupied, territory cap, city cap, settler present, reinforcement cap.
 - PvP diplomatic conditions are re-checked only for territories (see D-7).
 
+### R-CITY-3 — City cells (ML-M01, PROPOSED wiring of WORLD W-02)
+- The pack parameter `params.cityLayout` sets `startCells`, `capitalCells`, `maxByLevel` and `extraCities`. Source values: 22, 51, 22/27/33/38/43, 7.
+- A building type needs a free cell. `Build` returns `no_free_cell` when all cells are used.
+- Cell expansion adds one cell up to the last `maxByLevel` value. The science unlock is a boolean input; its level is UNKNOWN.
+- The city limit is `1 + extraCities` when `cityCapBuilding` is empty. Otherwise the smaller value applies.
+- A city cannot be captured. The capital cannot be deleted. A deleted city sends all troops on an escape mission.
+- Not wired: city level, expansion command, city deletion command and the escape mission.
+
+### R-CITY-4 — Cell mirror
+- `save()` writes `city_cells` and `city_buildings` in the same transaction as `cities.buildings`.
+- One building per cell is enforced by `UNIQUE (cell_id)`. Levels above 9 are not mirrored.
+
+### R-ECON-TBL-1 — Level-table economy (ML-M05)
+- `rules.TableEffect` reads `buildingTables`: race value by `pack.Num`, then the server profile override.
+- `ComputeRates` adds `<resource>PerHour`, `resourceCapacity` and `housingCapacity`. Profile `production_multiplier` and `upkeep_multiplier` apply.
+- `populationGrowth` is summed by `SumTables`. Its unit is UNKNOWN, so `TickStep` does not use it.
+- Desertion is `desertionPctPerHour` (default 0.5) of each unpaid unit stack, per hour, with fractions carried.
+
 ---
 
 ## 19. Anti-exploit rules

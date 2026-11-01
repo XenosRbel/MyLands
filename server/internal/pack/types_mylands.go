@@ -151,3 +151,11 @@ type MapGeometry struct {
 }
 
 func (g MapGeometry) FieldsPerKingdom() int { return g.KingdomWidth * g.KingdomHeight }
+
+// CityLayout holds the city cell rules (WORLD W-02). The numbers come from the pack.
+type CityLayout struct {
+	StartCells   int   `json:"startCells"`   // cells of a newly founded city
+	CapitalCells int   `json:"capitalCells"` // cells of the capital
+	MaxByLevel   []int `json:"maxByLevel"`   // maximum cells for city level 1..N (ascending)
+	ExtraCities  int   `json:"extraCities"`  // cities allowed besides the capital
+}

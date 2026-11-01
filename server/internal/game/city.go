@@ -361,6 +361,9 @@ func (c *pctx) Build(ci *City, buildingID string) (*Job, error) {
 	if n == nil {
 		return nil, rule("max_level", "building is at maximum level")
 	}
+	if err := c.checkFreeCell(ci, b.ID, jobs); err != nil {
+		return nil, err
+	}
 	if err := blockedErr(n); err != nil {
 		if e, ok := AsError(err); ok && e.Code == "insufficient_resources" {
 			e.Details = map[string]any{"missing": rules.Missing(ci.Res, n.Cost)}

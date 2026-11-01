@@ -1,0 +1,49 @@
+id,category,name_ru,effect_summary,levels,costs,status
+gate,main,Ворота,Открывает возможность открыть ворота города,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+sectors,main,Исследование посёлков,Открывает ресурсные ячейки и чужие здания в посёлках; разрешает строить в посёлках,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+building,main,Строительство,"Число зданий, строящихся или улучшаемых одновременно, зависит от уровня",UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+terraforming,main,Терраформирование,Разрешает здание Терраформер,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+repairing,main,Ремонт,Число одновременно ремонтируемых зданий зависит от уровня,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+army_management,main,Управление миссиями,Разрешает отправлять несколько миссий одновременно,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+outer_estates,main,Внешние владения,Разрешает несколько внешних владений,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+underground_science,main,Подземные владения,Разрешает подземные владения,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+scavenger,combat,Носильщик,Уровень 1 открывает здание найма; следующие уровни открывают улучшенные юниты; улучшение оплачивается разницей стоимости,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+melee,combat,Воин,То же для воинов,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+cavalry,combat,Всадник,То же для всадников,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+flyer,combat,Летающий,То же для летающих,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+range,combat,Лучник,То же для стрелков,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+healer,combat,Целитель,То же для лекарей,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+miner,combat,Наёмник,То же для наёмников,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+mage,combat,Маг,То же для магов,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+hiding_place,defense,Тайник,"Объём ресурсов, который нельзя ограбить, зависит от уровня; ресурсы на рынке не защищены",UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+shelter,defense,Убежище,Позволяет прятать войска; со 2 уровня снижает жалование и стоимость перемещения в убежище столицы,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+tower,defense,Башни,Разрешает здание Башня,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+fortification,defense,Укрепления,Разрешает здание Укрепление,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+magic_tower,defense,Магические башни,Разрешает здание Магическая башня,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+diplomacy,defense,Дипломатия,Разрешает Дипломатический корпус; число союзников зависит от уровня,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+clans,defense,Кланы,Разрешает вступать в клан и создавать клан,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+temple,defense,Храм,Разрешает здание Храм,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+resurrector,defense,Воскрешение,Разрешает здание Воскреситель,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+castles,defense,Клановые замки,Разрешает кланам владеть замками,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+market,buildings,Рынок,Разрешает Рынок; радиус торговли в королевствах зависит от уровня,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+merchant,buildings,Купечество,Разрешает Гильдию купцов,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+espionage,buildings,Шпионаж,Разрешает Гильдию шпионов; радиус шпионажа зависит от уровня,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+anty_espionage,buildings,Антишпионаж,Разрешает Гильдию антишпионов,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+observation,buildings,Наблюдение,Разрешает Башню провидцев; радиус наблюдения зависит от уровня,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+anty_observation,buildings,Отражение,Разрешает Башню зеркал,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+cartography,buildings,Картография,Разрешает Экспедиционный корпус; радиус исследования зависит от уровня,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+colonization,buildings,Колонизация,Разрешает Центр колонизации и несколько городов,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+storehouse_improvement,improvement,Увеличение складов,Увеличивает вместимость складов,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+building_on_resources,improvement,Землеустройство,Разрешает любые здания на ресурсных ячейках,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+capital,improvement,Перенос столицы,Заряжается после изучения; перенос на любой город; 51 ячейка по праву столицы,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+treasury,improvement,Казначейство,Снижает базовое жалование войск,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+add_cell,improvement,Расширение города,Каждая ячейка стоит 25000 единиц науки; не более 43 ячеек в городе,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+labour_service,improvement,Технология добычи,Увеличивает добычу добывающих зданий на процент,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+military_service,improvement,Военная подготовка,Увеличивает скорость тренировки всех войск на процент,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+heroes,hero,Управление героями,Найм героев и развитие до 12 уровня; число героев растёт с уровнем,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+heroes_skill,hero,Мастерство героев,Задаёт максимальный уровень героя; без науки не выше 12,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+prison,hero,Захват героев,Разрешает здание Темница,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+camps,hero,Лагерь,Разрешает героям основывать лагеря; число лагерей растёт с уровнем,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+alchemy,hero,Алхимия,Семь уровней: кристаллы и совершенные здания; руны; рецепты; заточки; античные руны; шедевральные кристаллы; улучшение совершенных артефактов,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+accelerated_learning,hero,Ускоренное обучение,Увеличивает опыт героев в бою,UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS
+commander,hero,Герой Полководец,"Разрешает нанимать героев класса Полководец; параметр управления героями +1, не более 7",UNKNOWN,UNKNOWN,PAGE_READ_NAMES_AND_EFFECTS

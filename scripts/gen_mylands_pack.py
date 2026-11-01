@@ -49,8 +49,8 @@ RESOURCES = [  # id, ru, kind, capped, tradable, lootable
 ]
 COST_COLS = {"[gold]": "gold", "[wood]": "wood", "[stone]": "stone", "[iron]": "iron", "[pearl]": "pearl"}
 
-CRYSTAL_A = ["red", "green", "blue", "violet", "yellow"]  # tier 1, 5 per icon (PROPOSED)
-CRYSTAL_B = ["orange", "white", "emerald", "amethyst", "red_heart"]  # tier 2, 10 per icon (PROPOSED)
+CRYSTAL_A = ["red", "green", "blue", "violet", "yellow"]  # tier 1 (magic crystals), 1 per icon (INFERRED from Alchemy)
+CRYSTAL_B = ["orange", "white", "emerald", "amethyst", "red_heart"]  # tier 2 (masterpiece crystals), 1 per icon (INFERRED from Alchemy)
 CRYSTAL_RU = {"red": "Красный", "green": "Зелёный", "blue": "Синий", "violet": "Фиолетовый", "yellow": "Жёлтый",
               "orange": "Оранжевый", "white": "Белый", "emerald": "Изумрудный", "amethyst": "Аметистовый",
               "red_heart": "Красное сердце"}
@@ -120,7 +120,7 @@ ONLY_MAIN_TERRAIN = [  # id, ru, resource (docs Resources page: terrain table)
 
 UNKNOWN = [
     "Время постройки и улучшения зданий не указано в таблицах: timeSeconds отсутствует.",
-    "Источники кристаллов в энциклопедии не названы; количества кристаллов - PROPOSED (CRYSTAL_ECONOMY.md).",
+    "Количество кристаллов выведено из числа значков (INFERRED); источники — руины 5 и 6 уровня (Alchemy).",
     "Атака и здоровье монстров не указаны в таблицах монстров: параметры attackMin, attackMax, health, upkeep отсутствуют.",
     "Рейтинг и имена монстров клановых замков не указаны (в ростере только монстры 1-3 уровня).",
     "Множители профилей не заданы источником: профили содержат только переопределения таблиц (economic, tactical, heroic) и описание различий.",
@@ -215,7 +215,7 @@ def races_in(h):
     return out
 
 
-def parse_crystals(cell, mult_a=5, mult_b=10):
+def parse_crystals(cell, mult_a=1, mult_b=1):
     if not cell:
         return {}
     out = {}
@@ -536,7 +536,7 @@ def build():
         strings[f"crystal.{cid}"] = {"ru": CRYSTAL_RU[cid]}
     for i, text in enumerate(UNKNOWN, 1):
         strings[f"unknown.{i:02d}"] = {"ru": f"UNKNOWN: {text}"}
-    strings["proposed.crystals"] = {"ru": "PROPOSED: 5 единиц на значок ступени A, 10 на значок ступени B (CRYSTAL_ECONOMY.md)."}
+    strings["proposed.crystals"] = {"ru": "INFERRED: одна единица на значок; источник — страница Alchemy (CRYSTAL_ECONOMY.md)."}
     strings["proposed.geometry"] = {"ru": "PROPOSED: империя 90 x 30 королевств, королевство 9 x 9 полей."}
     strings["factions.light"] = {"ru": "Светлая фракция"}
     strings["factions.dark"] = {"ru": "Тёмная фракция"}

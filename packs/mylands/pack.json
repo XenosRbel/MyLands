@@ -1601,9 +1601,9 @@
       "pearl": 40
      },
      "crystals": {
-      "red": 5,
-      "green": 5,
-      "blue": 5
+      "red": 1,
+      "green": 1,
+      "blue": 1
      },
      "effects": {
       "growthPerOtherHouse": 1,
@@ -1621,9 +1621,9 @@
       "pearl": 100
      },
      "crystals": {
-      "emerald": 10,
-      "red_heart": 10,
-      "white": 10
+      "emerald": 1,
+      "red_heart": 1,
+      "white": 1
      },
      "effects": {
       "growthPerOtherHouse": 1,
@@ -1768,8 +1768,8 @@
       "pearl": 100
      },
      "crystals": {
-      "green": 10,
-      "blue": 5
+      "green": 2,
+      "blue": 1
      },
      "effects": {
       "overflowPlunderPct": -5,
@@ -1791,7 +1791,7 @@
       "pearl": 250
      },
      "crystals": {
-      "orange": 30
+      "orange": 3
      },
      "effects": {
       "overflowPlunderPct": -10,
@@ -1901,10 +1901,10 @@
       "pearl": 150
      },
      "crystals": {
-      "red": 5,
-      "green": 5,
-      "blue": 5,
-      "violet": 5
+      "red": 1,
+      "green": 1,
+      "blue": 1,
+      "violet": 1
      },
      "effects": {
       "marketCapacity": 300000
@@ -1920,11 +1920,11 @@
       "pearl": 300
      },
      "crystals": {
-      "amethyst": 10,
-      "emerald": 10,
-      "orange": 10,
-      "red_heart": 10,
-      "white": 10
+      "amethyst": 1,
+      "emerald": 1,
+      "orange": 1,
+      "red_heart": 1,
+      "white": 1
      },
      "effects": {
       "marketCapacity": 1000000
@@ -2059,7 +2059,7 @@
       "iron": 3000
      },
      "crystals": {
-      "yellow": 5
+      "yellow": 1
      },
      "effects": {
       "weeklyRewardMax": 500000,
@@ -2080,8 +2080,8 @@
       "iron": 30000
      },
      "crystals": {
-      "emerald": 10,
-      "orange": 10
+      "emerald": 1,
+      "orange": 1
      },
      "effects": {
       "anyTerrainBonusPct": 70,
@@ -2368,7 +2368,7 @@
       "iron": 24000
      },
      "crystals": {
-      "green": 5
+      "green": 1
      },
      "effects": {
       "noCellDeposit": 1,
@@ -2411,7 +2411,7 @@
       "iron": 240000
      },
      "crystals": {
-      "amethyst": 10
+      "amethyst": 1
      },
      "effects": {
       "anyTerrainBonusPct": 200,
@@ -2742,7 +2742,7 @@
       "iron": 2250
      },
      "crystals": {
-      "green": 5
+      "green": 1
      },
      "effects": {
       "weeklyRewardMax": 150000,
@@ -2787,7 +2787,7 @@
       "iron": 22500
      },
      "crystals": {
-      "white": 10
+      "white": 1
      },
      "effects": {
       "anyTerrainBonusPct": 100,
@@ -3005,7 +3005,7 @@
       "iron": 900
      },
      "crystals": {
-      "yellow": 5
+      "yellow": 1
      },
      "effects": {
       "noCellDeposit": 1,
@@ -3033,7 +3033,7 @@
       "iron": 9000
      },
      "crystals": {
-      "red_heart": 10
+      "red_heart": 1
      },
      "effects": {
       "anyTerrainBonusPct": 70,
@@ -3333,7 +3333,7 @@
       "stone": 40500
      },
      "crystals": {
-      "red": 5
+      "red": 1
      },
      "effects": {
       "noCellDeposit": 1,
@@ -3375,7 +3375,7 @@
       "stone": 405000
      },
      "crystals": {
-      "emerald": 10
+      "emerald": 1
      },
      "effects": {
       "anyTerrainBonusPct": 50,
@@ -3685,7 +3685,7 @@
       "stone": 40500
      },
      "crystals": {
-      "blue": 5
+      "blue": 1
      },
      "effects": {
       "noCellDeposit": 1,
@@ -3727,7 +3727,7 @@
       "stone": 405000
      },
      "crystals": {
-      "orange": 10
+      "orange": 1
      },
      "effects": {
       "anyTerrainBonusPct": 70,
@@ -3888,8 +3888,8 @@
       "pearl": 60
      },
      "crystals": {
-      "red": 5,
-      "green": 5
+      "red": 1,
+      "green": 1
      },
      "effects": {
       "sciencePerHour": {
@@ -3909,8 +3909,8 @@
       "pearl": 100
      },
      "crystals": {
-      "amethyst": 20,
-      "red_heart": 10
+      "amethyst": 2,
+      "red_heart": 1
      },
      "effects": {
       "sciencePerHour": {
@@ -4046,9 +4046,9 @@
       "pearl": 300
      },
      "crystals": {
-      "red": 10,
-      "blue": 5,
-      "violet": 5
+      "red": 2,
+      "blue": 1,
+      "violet": 1
      },
      "effects": {
       "ransomPricePct": 50,
@@ -4066,10 +4066,10 @@
       "pearl": 1000
      },
      "crystals": {
-      "emerald": 10,
-      "white": 10,
-      "amethyst": 10,
-      "red_heart": 10
+      "emerald": 1,
+      "white": 1,
+      "amethyst": 1,
+      "red_heart": 1
      },
      "effects": {
       "ransomPricePct": 100,
@@ -4104,9 +4104,9 @@
       "pearl": 200
      },
      "crystals": {
-      "red": 5,
-      "blue": 5,
-      "violet": 10
+      "red": 1,
+      "blue": 1,
+      "violet": 2
      },
      "effects": {
       "buildersRequired": 4000
@@ -4122,9 +4122,9 @@
       "pearl": 1000
      },
      "crystals": {
-      "orange": 10,
-      "white": 10,
-      "red_heart": 20
+      "orange": 1,
+      "white": 1,
+      "red_heart": 2
      }
     }
    ]
@@ -4225,8 +4225,8 @@
       "pearl": 1000
      },
      "crystals": {
-      "blue": 10,
-      "violet": 10
+      "blue": 2,
+      "violet": 2
      },
      "effects": {
       "itemCapacity": 300
@@ -4242,8 +4242,8 @@
       "pearl": 2500
      },
      "crystals": {
-      "orange": 20,
-      "red_heart": 20
+      "orange": 2,
+      "red_heart": 2
      },
      "effects": {
       "itemCapacity": 600
@@ -4348,8 +4348,8 @@
       "pearl": 250
      },
      "crystals": {
-      "red": 10,
-      "green": 10
+      "red": 2,
+      "green": 2
      },
      "effects": {
       "mercyLimit": 500,
@@ -4366,11 +4366,11 @@
       "pearl": 1000
      },
      "crystals": {
-      "amethyst": 10,
-      "emerald": 10,
-      "orange": 10,
-      "red_heart": 10,
-      "white": 10
+      "amethyst": 1,
+      "emerald": 1,
+      "orange": 1,
+      "red_heart": 1,
+      "white": 1
      },
      "effects": {
       "mercyLimit": 750,
@@ -4531,9 +4531,9 @@
       "pearl": 200
      },
      "crystals": {
-      "green": 5,
-      "yellow": 10,
-      "violet": 5
+      "green": 1,
+      "yellow": 2,
+      "violet": 1
      },
      "effects": {
       "resurrectPct": 55,
@@ -4556,8 +4556,8 @@
       "pearl": 1000
      },
      "crystals": {
-      "amethyst": 20,
-      "emerald": 20
+      "amethyst": 2,
+      "emerald": 2
      },
      "effects": {
       "resurrectPct": 60,
@@ -4685,10 +4685,10 @@
       "pearl": 200
      },
      "crystals": {
-      "red": 5,
-      "green": 5,
-      "blue": 5,
-      "violet": 5
+      "red": 1,
+      "green": 1,
+      "blue": 1,
+      "violet": 1
      },
      "effects": {
       "explorerCount": 10,
@@ -4704,10 +4704,10 @@
       "pearl": 500
      },
      "crystals": {
-      "emerald": 10,
-      "white": 10,
-      "amethyst": 10,
-      "red_heart": 10
+      "emerald": 1,
+      "white": 1,
+      "amethyst": 1,
+      "red_heart": 1
      },
      "effects": {
       "explorerCount": 15,
@@ -4821,8 +4821,8 @@
       "pearl": 100
      },
      "crystals": {
-      "green": 10,
-      "yellow": 10
+      "green": 2,
+      "yellow": 2
      },
      "effects": {
       "kills": 300,
@@ -4839,9 +4839,9 @@
       "pearl": 200
      },
      "crystals": {
-      "emerald": 10,
-      "white": 10,
-      "amethyst": 20
+      "emerald": 1,
+      "white": 1,
+      "amethyst": 2
      },
      "effects": {
       "kills": 1000,
@@ -4940,9 +4940,9 @@
       "pearl": 50
      },
      "crystals": {
-      "red": 5,
-      "green": 5,
-      "blue": 5
+      "red": 1,
+      "green": 1,
+      "blue": 1
      },
      "effects": {
       "seerCount": 25,
@@ -4959,8 +4959,8 @@
       "pearl": 100
      },
      "crystals": {
-      "emerald": 10,
-      "white": 20
+      "emerald": 1,
+      "white": 2
      },
      "effects": {
       "seerCount": 30,
@@ -5063,9 +5063,9 @@
       "pearl": 50
      },
      "crystals": {
-      "green": 5,
-      "yellow": 5,
-      "violet": 5
+      "green": 1,
+      "yellow": 1,
+      "violet": 1
      },
      "effects": {
       "mirrorCount": 25,
@@ -5082,9 +5082,9 @@
       "pearl": 150
      },
      "crystals": {
-      "orange": 10,
-      "amethyst": 10,
-      "red_heart": 10
+      "orange": 1,
+      "amethyst": 1,
+      "red_heart": 1
      },
      "effects": {
       "mirrorCount": 30,
@@ -5189,9 +5189,9 @@
       "pearl": 100
      },
      "crystals": {
-      "red": 5,
-      "green": 5,
-      "blue": 5
+      "red": 1,
+      "green": 1,
+      "blue": 1
      },
      "effects": {
       "spyCount": 60,
@@ -5208,8 +5208,8 @@
       "pearl": 200
      },
      "crystals": {
-      "orange": 10,
-      "white": 20
+      "orange": 1,
+      "white": 2
      },
      "effects": {
       "spyCount": 75,
@@ -5315,9 +5315,9 @@
       "pearl": 100
      },
      "crystals": {
-      "green": 5,
-      "yellow": 5,
-      "violet": 5
+      "green": 1,
+      "yellow": 1,
+      "violet": 1
      },
      "effects": {
       "antispyTrainSeconds": 1200,
@@ -5334,9 +5334,9 @@
       "pearl": 250
      },
      "crystals": {
-      "orange": 10,
-      "amethyst": 10,
-      "red_heart": 10
+      "orange": 1,
+      "amethyst": 1,
+      "red_heart": 1
      },
      "effects": {
       "antispyTrainSeconds": 600,
@@ -5441,9 +5441,9 @@
       "pearl": 90
      },
      "crystals": {
-      "red": 5,
-      "blue": 5,
-      "violet": 5
+      "red": 1,
+      "blue": 1,
+      "violet": 1
      },
      "effects": {
       "merchantCount": 20,
@@ -5460,9 +5460,9 @@
       "pearl": 250
      },
      "crystals": {
-      "red_heart": 10,
-      "orange": 10,
-      "amethyst": 10
+      "red_heart": 1,
+      "orange": 1,
+      "amethyst": 1
      },
      "effects": {
       "merchantCount": 40,
@@ -5571,9 +5571,9 @@
       "iron": 160000
      },
      "crystals": {
-      "red": 10,
-      "green": 5,
-      "blue": 5
+      "red": 2,
+      "green": 1,
+      "blue": 1
      },
      "effects": {
       "freeUnitsPerDay": 50,
@@ -5591,10 +5591,10 @@
       "pearl": 200
      },
      "crystals": {
-      "emerald": 10,
-      "orange": 10,
-      "white": 10,
-      "amethyst": 10
+      "emerald": 1,
+      "orange": 1,
+      "white": 1,
+      "amethyst": 1
      },
      "effects": {
       "freeUnitsPerDay": 50,
@@ -5703,10 +5703,10 @@
       "iron": 90000
      },
      "crystals": {
-      "red": 5,
-      "green": 5,
-      "blue": 5,
-      "violet": 5
+      "red": 1,
+      "green": 1,
+      "blue": 1,
+      "violet": 1
      },
      "effects": {
       "freeUnitsPerDay": 25,
@@ -5724,8 +5724,8 @@
       "pearl": 250
      },
      "crystals": {
-      "emerald": 20,
-      "white": 20
+      "emerald": 2,
+      "white": 2
      },
      "effects": {
       "freeUnitsPerDay": 25,
@@ -5836,9 +5836,9 @@
       "iron": 360000
      },
      "crystals": {
-      "red": 5,
-      "green": 10,
-      "blue": 5
+      "red": 1,
+      "green": 2,
+      "blue": 1
      },
      "effects": {
       "freeUnitsPerDay": 20,
@@ -5856,8 +5856,8 @@
       "pearl": 250
      },
      "crystals": {
-      "orange": 20,
-      "amethyst": 20
+      "orange": 2,
+      "amethyst": 2
      },
      "effects": {
       "freeUnitsPerDay": 20,
@@ -5968,10 +5968,10 @@
       "iron": 360000
      },
      "crystals": {
-      "green": 5,
-      "blue": 5,
-      "yellow": 5,
-      "violet": 5
+      "green": 1,
+      "blue": 1,
+      "yellow": 1,
+      "violet": 1
      },
      "effects": {
       "freeUnitsPerDay": 10,
@@ -5989,10 +5989,10 @@
       "pearl": 250
      },
      "crystals": {
-      "amethyst": 10,
-      "emerald": 10,
-      "red_heart": 10,
-      "white": 10
+      "amethyst": 1,
+      "emerald": 1,
+      "red_heart": 1,
+      "white": 1
      },
      "effects": {
       "freeUnitsPerDay": 10,
@@ -6103,9 +6103,9 @@
       "iron": 360000
      },
      "crystals": {
-      "green": 5,
-      "blue": 5,
-      "violet": 10
+      "green": 1,
+      "blue": 1,
+      "violet": 2
      },
      "effects": {
       "freeUnitsPerDay": 7,
@@ -6123,10 +6123,10 @@
       "pearl": 250
      },
      "crystals": {
-      "orange": 10,
-      "white": 10,
-      "amethyst": 10,
-      "red_heart": 10
+      "orange": 1,
+      "white": 1,
+      "amethyst": 1,
+      "red_heart": 1
      },
      "effects": {
       "freeUnitsPerDay": 7,
@@ -6231,9 +6231,9 @@
       "iron": 400000
      },
      "crystals": {
-      "blue": 5,
-      "yellow": 10,
-      "violet": 5
+      "blue": 1,
+      "yellow": 2,
+      "violet": 1
      },
      "effects": {
       "freeUnitsPerDay": 3,
@@ -6250,8 +6250,8 @@
       "pearl": 200
      },
      "crystals": {
-      "emerald": 20,
-      "red_heart": 20
+      "emerald": 2,
+      "red_heart": 2
      },
      "effects": {
       "freeUnitsPerDay": 3,
@@ -6348,9 +6348,9 @@
       "iron": 140000
      },
      "crystals": {
-      "red": 10,
-      "yellow": 5,
-      "violet": 5
+      "red": 2,
+      "yellow": 1,
+      "violet": 1
      },
      "effects": {
       "freeUnitsPerDay": 300,
@@ -6366,8 +6366,8 @@
       "pearl": 100
      },
      "crystals": {
-      "orange": 20,
-      "red_heart": 20
+      "orange": 2,
+      "red_heart": 2
      },
      "effects": {
       "freeUnitsPerDay": 300,
@@ -6499,9 +6499,9 @@
       "iron": 500000
      },
      "crystals": {
-      "red": 10,
-      "yellow": 5,
-      "violet": 5
+      "red": 2,
+      "yellow": 1,
+      "violet": 1
      },
      "effects": {
       "freeUnitsPerDay": 3,
@@ -6522,8 +6522,8 @@
       "pearl": 200
      },
      "crystals": {
-      "white": 20,
-      "red_heart": 20
+      "white": 2,
+      "red_heart": 2
      },
      "effects": {
       "freeUnitsPerDay": 3,
@@ -7983,9 +7983,9 @@
       "pearl": 200
      },
      "crystals": {
-      "red": 10,
-      "yellow": 5,
-      "violet": 5
+      "red": 2,
+      "yellow": 1,
+      "violet": 1
      },
      "effects": {
       "towerDamageMin": 50000,
@@ -8002,10 +8002,10 @@
       "pearl": 500
      },
      "crystals": {
-      "emerald": 10,
-      "white": 10,
-      "amethyst": 10,
-      "red_heart": 10
+      "emerald": 1,
+      "white": 1,
+      "amethyst": 1,
+      "red_heart": 1
      },
      "effects": {
       "towerDamageMin": 150000,
@@ -8112,9 +8112,9 @@
       "pearl": 400
      },
      "crystals": {
-      "green": 5,
-      "blue": 10,
-      "violet": 5
+      "green": 1,
+      "blue": 2,
+      "violet": 1
      },
      "effects": {
       "magicTowerDamageFactor": 2.2
@@ -8130,8 +8130,8 @@
       "pearl": 1000
      },
      "crystals": {
-      "emerald": 20,
-      "red_heart": 20
+      "emerald": 2,
+      "red_heart": 2
      },
      "effects": {
       "magicTowerDamageFactor": 3
@@ -8424,9 +8424,9 @@
       "iron": 500000
      },
      "crystals": {
-      "green": 5,
-      "yellow": 5,
-      "violet": 10
+      "green": 1,
+      "yellow": 1,
+      "violet": 2
      },
      "effects": {
       "resourceCapacity": 12000000,
@@ -8442,9 +8442,9 @@
       "iron": 5000000
      },
      "crystals": {
-      "amethyst": 10,
-      "emerald": 10,
-      "red_heart": 20
+      "amethyst": 1,
+      "emerald": 1,
+      "red_heart": 2
      },
      "effects": {
       "resourceCapacity": 25000000,
@@ -8542,9 +8542,9 @@
       "iron": 11000
      },
      "crystals": {
-      "green": 5,
-      "yellow": 5,
-      "violet": 10
+      "green": 1,
+      "yellow": 1,
+      "violet": 2
      },
      "effects": {
       "populationCapacity": 200000,
@@ -8560,9 +8560,9 @@
       "iron": 110000
      },
      "crystals": {
-      "orange": 10,
-      "red_heart": 10,
-      "white": 10
+      "orange": 1,
+      "red_heart": 1,
+      "white": 1
      },
      "effects": {
       "populationCapacity": 500000,
@@ -11620,7 +11620,7 @@
    "ru": "UNKNOWN: Время постройки и улучшения зданий не указано в таблицах: timeSeconds отсутствует."
   },
   "unknown.02": {
-   "ru": "UNKNOWN: Источники кристаллов в энциклопедии не названы; количества кристаллов - PROPOSED (CRYSTAL_ECONOMY.md)."
+   "ru": "UNKNOWN: Количество кристаллов выведено из числа значков (INFERRED); источники — руины 5 и 6 уровня (Alchemy)."
   },
   "unknown.03": {
    "ru": "UNKNOWN: Атака и здоровье монстров не указаны в таблицах монстров: параметры attackMin, attackMax, health, upkeep отсутствуют."
@@ -11686,7 +11686,7 @@
    "ru": "UNKNOWN: Какие мгновенные услуги запрещены под осадой, правила возврата списаний и соответствие 15/30/60 суток интервалам 1/6/12 месяцев по порядку (формулировка 'соответствующие') не уточнены."
   },
   "proposed.crystals": {
-   "ru": "PROPOSED: 5 единиц на значок ступени A, 10 на значок ступени B (CRYSTAL_ECONOMY.md)."
+   "ru": "INFERRED: одна единица на значок; источник — страница Alchemy (CRYSTAL_ECONOMY.md)."
   },
   "proposed.geometry": {
    "ru": "PROPOSED: империя 90 x 30 королевств, королевство 9 x 9 полей."

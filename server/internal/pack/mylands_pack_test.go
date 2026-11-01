@@ -119,8 +119,8 @@ func TestMyLandsPackBuildingValues(t *testing.T) {
 	if fort.Cost["gold"] != 5000000 || fort.Cost["iron"] != 2500000 {
 		t.Errorf("fortification L9 cost %v", fort.Cost)
 	}
-	// PROPOSED crystals: emerald, white, amethyst x2 at tier B = 10 each per icon.
-	if fort.Crystals["emerald"] != 10 || fort.Crystals["white"] != 10 || fort.Crystals["amethyst"] != 20 {
+	// INFERRED crystals: one unit per icon (Alchemy page): emerald, white, amethyst x2.
+	if fort.Crystals["emerald"] != 1 || fort.Crystals["white"] != 1 || fort.Crystals["amethyst"] != 2 {
 		t.Errorf("fortification L9 crystals %v", fort.Crystals)
 	}
 	if got := tableOf(t, l, "temple").Levels[8].Effects["mercyLimit"].Base; got != 750 {

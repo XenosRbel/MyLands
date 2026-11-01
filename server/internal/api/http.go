@@ -397,6 +397,9 @@ func (s *Server) metrics(w http.ResponseWriter, r *http.Request) {
 		m.EventsProcessed.Load(), m.EventsFailed.Load(), m.TxRetries.Load(), m.Commands.Load(), m.IdemReplays.Load())
 	fmt.Fprintf(w, "rf_db_conns_acquired %d\nrf_db_conns_idle %d\nrf_db_conns_total %d\n", st.AcquiredConns(), st.IdleConns(), st.TotalConns())
 	var pending, failed int64
-	_ = s.G.DB.QueryRow(r.Context(), `SELECT count(*) FILTER (WHERE status='pending' AND due_at <= now()), count(*) FILTER (WHERE status='failed') FROM game_events`).Scan(&pending, &failed)
-	fmt.Fprintf(w, "rf_events_overdue %d\nrf_events_parked %d\n", pending, failed)
+	var lag float64
+	_ = s.G.DB.QueryRow(r.Context(), `SELECT count(*) FILTER (WHERE status='pending' AND due_at <= now()), count(*) FILTER (WHERE status='failed'),
+		COALESCE(EXTRACT(EPOCH FROM now() - min(due_at) FILTER (WHERE status='pending' AND due_at <= now())), 0)::float8
+		FROM game_events`).Scan(&pending, &failed, &lag)
+	fmt.Fprintf(w, "rf_events_overdue %d\nrf_events_parked %d\nrf_events_max_lag_seconds %.3f\n", pending, failed, lag)
 }

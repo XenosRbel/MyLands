@@ -706,7 +706,7 @@ Scouting a tile always succeeds with intel 2 and is never detected. It shows the
   - scouting detection: `(missionId, 7)`;
   - drops: `(missionId, 11)`.
 - Combat is fully deterministic.
-- Spawn-point choice (`findSpawn`) is the only non-seeded choice: database `random()` jitter.
+- Spawn-point choice (`findSpawn`) is the only non-seeded choice: a database `random()` pick among the legal tiles of one ring.
 - **Status:** PROPOSED.
 
 ---
@@ -756,7 +756,10 @@ See R-MSN-8. A territory is defended only by stationed missions. With no garriso
 See R-MSN-7. The capital is the city created at join (`is_capital`). Rewards and refunds fall back to the capital when the target city no longer exists.
 
 ### R-CITY-3 — Spawn
-- A new player's capital is placed on a free tile closest to the map centre with jitter: passable, no neutral (even a cleared one), no owner, and Chebyshev distance ≥ 3 from every city.
+- A new player's capital is placed on a free tile close to the map centre with jitter: passable, no neutral (even a cleared one), no owner, and Chebyshev distance ≥ 3 from every city.
+- The server walks square rings outward from the centre. It picks a random legal tile of the first ring that has one. Rings inside the last used ring are searched only when the outer rings are full.
+- Joins of one world run one at a time. A per-world advisory lock keeps two simultaneous joins from choosing neighbouring tiles.
+- Join throughput is limited by this lock: about 70 joins per second on the load-test host (T-021).
 - Initial state comes from `start`: resources, buildings with their levels, units, population.
 - **Status:** PROPOSED.
 

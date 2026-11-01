@@ -32,7 +32,19 @@
   "foodResource": "grain",
   "premiumResource": "pearl",
   "mapWidth": 90,
-  "mapHeight": 30
+  "mapHeight": 30,
+  "cityLayout": {
+   "startCells": 22,
+   "capitalCells": 51,
+   "maxByLevel": [
+    22,
+    27,
+    33,
+    38,
+    43
+   ],
+   "extraCities": 7
+  }
  },
  "resources": [
   {

@@ -561,7 +561,8 @@ def build():
                         "accent": "#d9a441", "danger": "#c0392b", "ok": "#4f9d5d"},
             "assetsLicense": "none: пак содержит только данные, графики нет",
         },
-        "params": {"foodResource": "grain", "premiumResource": "pearl", "mapWidth": 90, "mapHeight": 30},
+        "params": {"foodResource": "grain", "premiumResource": "pearl", "mapWidth": 90, "mapHeight": 30,
+                   "cityLayout": {"startCells": 22, "capitalCells": 51, "maxByLevel": [22, 27, 33, 38, 43], "extraCities": 7}},
         "resources": [
             {"id": i, "name": {"ru": n}, "kind": k, "capped": c, "tradable": t, "lootable": l}
             for i, n, k, c, t, l in RESOURCES

@@ -115,8 +115,21 @@ func (v *validator) myLands() {
 		}
 		defs[d.ID] = d
 	}
+	defaults := 0
 	for i, s := range p.ServerProfiles {
 		w := fmt.Sprintf("serverProfiles[%d](%s)", i, s.ID)
+		if len(s.Name) > 0 {
+			v.text(w+".name", s.Name, false)
+		}
+		if len(s.Desc) > 0 {
+			v.text(w+".desc", s.Desc, false)
+		}
+		if s.Default {
+			defaults++
+			if !s.Proposed {
+				v.errf("%s: default profile must be proposed", w)
+			}
+		}
 		for _, k := range sortedKeys(s.Multipliers) {
 			d, ok := defs[k]
 			if !ok {
@@ -127,6 +140,9 @@ func (v *validator) myLands() {
 				v.errf("%s.%s=%v out of range [%v, %v]", w, k, x, d.Min, d.Max)
 			}
 		}
+	}
+	if defaults > 1 {
+		v.errf("serverProfiles: at most one default profile, got %d", defaults)
 	}
 	for i, u := range p.UnitDefs {
 		w := fmt.Sprintf("unitDefs[%d](%s)", i, u.ID)
@@ -161,12 +177,34 @@ func (v *validator) myLands() {
 		if len(s.Levels) == 0 {
 			v.errf("%s: levels must not be empty", w)
 		}
+		if len(s.Name) > 0 {
+			v.text(w+".name", s.Name, false)
+		}
+		v.nums(w+".params", s.Params)
+		if s.Renewal != "" && s.Renewal != RenewalUpgradeReplaces {
+			v.errf("%s: renewal %q invalid", w, s.Renewal)
+		}
+		var prev int64
 		for j, l := range s.Levels {
-			if l.Price < 1 {
-				v.errf("%s.levels[%d]: price must be >= 1", w, j)
+			lw := fmt.Sprintf("%s.levels[%d]", w, j)
+			if l.PriceUnknown && l.Price != 0 {
+				v.errf("%s: priceUnknown excludes price", lw)
+			} else if !l.PriceUnknown && l.Price < 1 {
+				v.errf("%s: price must be >= 1", lw)
 			}
-			if l.DurationSeconds < 1 {
-				v.errf("%s.levels[%d]: durationSeconds must be >= 1", w, j)
+			if l.DurationUnknown && l.DurationSeconds != 0 {
+				v.errf("%s: durationUnknown excludes durationSeconds", lw)
+			} else if !l.DurationUnknown && l.DurationSeconds < 1 {
+				v.errf("%s: durationSeconds must be >= 1", lw)
+			}
+			if l.CooldownMonths < 0 {
+				v.errf("%s: cooldownMonths is negative", lw)
+			}
+			if s.Renewal != "" && l.DurationSeconds > 0 {
+				if l.DurationSeconds <= prev {
+					v.errf("%s: levels must run from weaker to stronger (durationSeconds must grow)", lw)
+				}
+				prev = l.DurationSeconds
 			}
 		}
 		if !v.is("resource", p.Params.PremiumResource) {

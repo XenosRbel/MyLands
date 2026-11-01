@@ -123,7 +123,7 @@ UNKNOWN = [
     "Источники кристаллов в энциклопедии не названы; количества кристаллов - PROPOSED (CRYSTAL_ECONOMY.md).",
     "Атака и здоровье монстров не указаны в таблицах монстров: параметры attackMin, attackMax, health, upkeep отсутствуют.",
     "Рейтинг и имена монстров клановых замков не указаны (в ростере только монстры 1-3 уровня).",
-    "Множители профилей economic, tactical, heroic не заданы источником: профили содержат только переопределения.",
+    "Множители профилей не заданы источником: профили содержат только переопределения таблиц (economic, tactical, heroic) и описание различий.",
     "Центральное здание: таблица содержит уровни 1-5; уровни 6-9 отсутствуют.",
     "Центр колонизации: таблица содержит только уровень 1.",
     "Сокровищница: цены страниц за ЧЖ (20 страниц) не перенесены, схема пака не имеет для них поля.",
@@ -135,7 +135,53 @@ UNKNOWN = [
     "Бонусы рас заданы только текстом; процентные модификаторы не вводились.",
     "Население (свободное, рабочие, строители) заведено как ресурсы без лимитов в таблицах; поведение определяет движок.",
     "Мощность простой башни хранится как диапазон towerDamageMin/towerDamageMax; единица урона принята по D-15 (за раунд).",
+    "Профили: полный базовый набор чисел и наследование параметров между восемью профилями не заданы страницей Serv (ML-D08); профили miner, combat, strategic, operational, faction_war не имеют переопределений.",
+    "Границы paramDefs (0.1-10) и значение по умолчанию 1 - PROPOSED: источник не задаёт ни параметров бонусов, ни границ.",
+    "Цены всех услуг ЧЖ не заданы: поле priceUnknown, цена в паке отсутствует (BlackPearl, ML-D09).",
+    "Длительность премиума: BlackPearl называет семь дней, Premium не называет срок, часть защиты исключена для Войны фракций (CONFLICT); durationSeconds отсутствует.",
+    "Длительность и разбиение на услуги для глобальных, локальных услуг и автоматизации героев не заданы: перечислены только эффекты; каждый эффект заведён отдельной услугой с неизвестными ценой и сроком.",
+    "Группа vacation (отпуск) - PROPOSED: BlackPearl делит услуги на четыре группы, отпуск в них не назван; отдельная группа нужна, потому что премиум во время отпуска не замораживается.",
+    "Какие мгновенные услуги запрещены под осадой, правила возврата списаний и соответствие 15/30/60 суток интервалам 1/6/12 месяцев по порядку (формулировка 'соответствующие') не уточнены.",
 ]
+
+PROFILES = [  # id, ru name, differences confirmed by Serv (COMBAT_HEROES_SOCIAL section 7); no numbers
+    ("miner", "Шахтёрский", "Иная плотность внешних владений и руин, защита и шкала развития относительно боевого."),
+    ("combat", "Боевой", "База сравнения страницы Serv; ограничения званий уточняет Title."),
+    ("economic", "Экономический", "Удвоенная добыча, отдельные условия героев и генерации копей."),
+    ("tactical", "Тактический", "Нет жалования во владениях; отдельные добыча, храм, расходы миссий и лимит руин."),
+    ("heroic", "Геройский", "Ранние легендарные герои, мгновенные услуги науки, ресурсов и воскрешения, иные покупки свитков."),
+    ("strategic", "Стратегический", "Нет жалования во владениях; иные предметы и науки, ограничение храма."),
+    ("operational", "Оперативный", "Изменены некоторые задания и награды; полный перечень не дан."),
+    ("faction_war", "Война фракций", "Три участника атаки, запрет своей фракции, разрушение городов, конечная цель и завершение мира."),
+]
+DEFAULT_PROFILE = "combat"  # PROPOSED, TARGET_PROFILE A-01
+PARAM_DEFS = ["production_multiplier", "upkeep_multiplier", "build_speed_multiplier", "train_speed_multiplier"]  # PROPOSED names and bounds
+
+# Services from BlackPearl, Premium, Vacation. Prices and durations are UNKNOWN unless stated.
+SERVICE_EFFECTS = {  # group -> [(id, ru)]
+    "global": [("production_science", "Добыча и наука"), ("routes", "Маршруты"), ("experience", "Опыт"), ("loot", "Лут"),
+               ("upkeep", "Жалование"), ("calculator", "Калькулятор"), ("favor", "Милость"), ("reputation", "Репутация")],
+    "local": [("gates", "Ворота"), ("population", "Население"), ("queue_finish", "Завершение очередей"), ("protection", "Защита"),
+              ("damage", "Повреждения"), ("architecture", "Архитектура"), ("building_layout", "Расположение построек")],
+    "hero_automation": [("hero_automation", "Автоматизация героев")],
+}
+VACATION_DAYS = [(15, 1), (30, 6), (60, 12)]  # days, cooldown months (Vacation)
+VACATION_LOCKOUT_SECONDS = 6 * 3600  # not purchasable 6 hours before an attack
+
+
+def services():
+    unknown = {"priceUnknown": True, "durationUnknown": True}
+    out = [{"id": "premium", "group": "premium", "name": {"ru": "Премиум"}, "proposed": True,
+            "renewal": "upgrade_replaces", "levels": [dict(unknown)]}]
+    for group, items in SERVICE_EFFECTS.items():
+        for sid, ru in items:
+            sid = sid if group == "hero_automation" else f"{group}_{sid}"
+            out.append({"id": sid, "group": group, "name": {"ru": ru}, "proposed": True,
+                        "renewal": "upgrade_replaces", "levels": [dict(unknown)]})
+    out.append({"id": "vacation", "group": "vacation", "name": {"ru": "Отпуск"}, "proposed": True,
+                "params": {"attackLockoutSeconds": VACATION_LOCKOUT_SECONDS}, "renewal": "upgrade_replaces",
+                "levels": [{"priceUnknown": True, "durationSeconds": d * 86400, "cooldownMonths": m} for d, m in VACATION_DAYS]})
+    return out
 
 
 def num(s):
@@ -533,8 +579,13 @@ def build():
         "ui": {"screens": ["city", "army", "heroes", "map", "missions", "reports", "market", "alliance", "quests", "mail", "profile", "settings"]},
         "crystals": [{"id": c, "tier": 1} for c in CRYSTAL_A] + [{"id": c, "tier": 2} for c in CRYSTAL_B],
         "buildingTables": tables,
-        "paramDefs": [],
-        "serverProfiles": [{"id": p, "multipliers": {}} for p in ("economic", "tactical", "heroic")],
+        "paramDefs": [{"id": p, "min": 0.1, "max": 10, "default": 1, "proposed": True} for p in PARAM_DEFS],
+        "serverProfiles": [
+            {"id": i, "name": {"ru": n}, "desc": {"ru": d}, "multipliers": {},
+             **({"default": True, "proposed": True} if i == DEFAULT_PROFILE else {})}
+            for i, n, d in PROFILES
+        ],
+        "services": services(),
         "unitDefs": units,
         "geometry": {"empireWidth": 90, "empireHeight": 30, "kingdomWidth": 9, "kingdomHeight": 9, "proposed": True},
         "strings": strings,

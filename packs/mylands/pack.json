@@ -8572,19 +8572,404 @@
    ]
   }
  ],
- "paramDefs": [],
+ "paramDefs": [
+  {
+   "id": "production_multiplier",
+   "min": 0.1,
+   "max": 10,
+   "default": 1,
+   "proposed": true
+  },
+  {
+   "id": "upkeep_multiplier",
+   "min": 0.1,
+   "max": 10,
+   "default": 1,
+   "proposed": true
+  },
+  {
+   "id": "build_speed_multiplier",
+   "min": 0.1,
+   "max": 10,
+   "default": 1,
+   "proposed": true
+  },
+  {
+   "id": "train_speed_multiplier",
+   "min": 0.1,
+   "max": 10,
+   "default": 1,
+   "proposed": true
+  }
+ ],
  "serverProfiles": [
   {
+   "id": "miner",
+   "name": {
+    "ru": "Шахтёрский"
+   },
+   "desc": {
+    "ru": "Иная плотность внешних владений и руин, защита и шкала развития относительно боевого."
+   },
+   "multipliers": {}
+  },
+  {
+   "id": "combat",
+   "name": {
+    "ru": "Боевой"
+   },
+   "desc": {
+    "ru": "База сравнения страницы Serv; ограничения званий уточняет Title."
+   },
+   "multipliers": {},
+   "default": true,
+   "proposed": true
+  },
+  {
    "id": "economic",
+   "name": {
+    "ru": "Экономический"
+   },
+   "desc": {
+    "ru": "Удвоенная добыча, отдельные условия героев и генерации копей."
+   },
    "multipliers": {}
   },
   {
    "id": "tactical",
+   "name": {
+    "ru": "Тактический"
+   },
+   "desc": {
+    "ru": "Нет жалования во владениях; отдельные добыча, храм, расходы миссий и лимит руин."
+   },
    "multipliers": {}
   },
   {
    "id": "heroic",
+   "name": {
+    "ru": "Геройский"
+   },
+   "desc": {
+    "ru": "Ранние легендарные герои, мгновенные услуги науки, ресурсов и воскрешения, иные покупки свитков."
+   },
    "multipliers": {}
+  },
+  {
+   "id": "strategic",
+   "name": {
+    "ru": "Стратегический"
+   },
+   "desc": {
+    "ru": "Нет жалования во владениях; иные предметы и науки, ограничение храма."
+   },
+   "multipliers": {}
+  },
+  {
+   "id": "operational",
+   "name": {
+    "ru": "Оперативный"
+   },
+   "desc": {
+    "ru": "Изменены некоторые задания и награды; полный перечень не дан."
+   },
+   "multipliers": {}
+  },
+  {
+   "id": "faction_war",
+   "name": {
+    "ru": "Война фракций"
+   },
+   "desc": {
+    "ru": "Три участника атаки, запрет своей фракции, разрушение городов, конечная цель и завершение мира."
+   },
+   "multipliers": {}
+  }
+ ],
+ "services": [
+  {
+   "id": "premium",
+   "group": "premium",
+   "name": {
+    "ru": "Премиум"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "global_production_science",
+   "group": "global",
+   "name": {
+    "ru": "Добыча и наука"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "global_routes",
+   "group": "global",
+   "name": {
+    "ru": "Маршруты"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "global_experience",
+   "group": "global",
+   "name": {
+    "ru": "Опыт"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "global_loot",
+   "group": "global",
+   "name": {
+    "ru": "Лут"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "global_upkeep",
+   "group": "global",
+   "name": {
+    "ru": "Жалование"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "global_calculator",
+   "group": "global",
+   "name": {
+    "ru": "Калькулятор"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "global_favor",
+   "group": "global",
+   "name": {
+    "ru": "Милость"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "global_reputation",
+   "group": "global",
+   "name": {
+    "ru": "Репутация"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "local_gates",
+   "group": "local",
+   "name": {
+    "ru": "Ворота"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "local_population",
+   "group": "local",
+   "name": {
+    "ru": "Население"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "local_queue_finish",
+   "group": "local",
+   "name": {
+    "ru": "Завершение очередей"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "local_protection",
+   "group": "local",
+   "name": {
+    "ru": "Защита"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "local_damage",
+   "group": "local",
+   "name": {
+    "ru": "Повреждения"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "local_architecture",
+   "group": "local",
+   "name": {
+    "ru": "Архитектура"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "local_building_layout",
+   "group": "local",
+   "name": {
+    "ru": "Расположение построек"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "hero_automation",
+   "group": "hero_automation",
+   "name": {
+    "ru": "Автоматизация героев"
+   },
+   "proposed": true,
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationUnknown": true
+    }
+   ]
+  },
+  {
+   "id": "vacation",
+   "group": "vacation",
+   "name": {
+    "ru": "Отпуск"
+   },
+   "proposed": true,
+   "params": {
+    "attackLockoutSeconds": 21600
+   },
+   "renewal": "upgrade_replaces",
+   "levels": [
+    {
+     "priceUnknown": true,
+     "durationSeconds": 1296000,
+     "cooldownMonths": 1
+    },
+    {
+     "priceUnknown": true,
+     "durationSeconds": 2592000,
+     "cooldownMonths": 6
+    },
+    {
+     "priceUnknown": true,
+     "durationSeconds": 5184000,
+     "cooldownMonths": 12
+    }
+   ]
   }
  ],
  "unitDefs": [
@@ -11244,7 +11629,7 @@
    "ru": "UNKNOWN: Рейтинг и имена монстров клановых замков не указаны (в ростере только монстры 1-3 уровня)."
   },
   "unknown.05": {
-   "ru": "UNKNOWN: Множители профилей economic, tactical, heroic не заданы источником: профили содержат только переопределения."
+   "ru": "UNKNOWN: Множители профилей не заданы источником: профили содержат только переопределения таблиц (economic, tactical, heroic) и описание различий."
   },
   "unknown.06": {
    "ru": "UNKNOWN: Центральное здание: таблица содержит уровни 1-5; уровни 6-9 отсутствуют."
@@ -11278,6 +11663,27 @@
   },
   "unknown.16": {
    "ru": "UNKNOWN: Мощность простой башни хранится как диапазон towerDamageMin/towerDamageMax; единица урона принята по D-15 (за раунд)."
+  },
+  "unknown.17": {
+   "ru": "UNKNOWN: Профили: полный базовый набор чисел и наследование параметров между восемью профилями не заданы страницей Serv (ML-D08); профили miner, combat, strategic, operational, faction_war не имеют переопределений."
+  },
+  "unknown.18": {
+   "ru": "UNKNOWN: Границы paramDefs (0.1-10) и значение по умолчанию 1 - PROPOSED: источник не задаёт ни параметров бонусов, ни границ."
+  },
+  "unknown.19": {
+   "ru": "UNKNOWN: Цены всех услуг ЧЖ не заданы: поле priceUnknown, цена в паке отсутствует (BlackPearl, ML-D09)."
+  },
+  "unknown.20": {
+   "ru": "UNKNOWN: Длительность премиума: BlackPearl называет семь дней, Premium не называет срок, часть защиты исключена для Войны фракций (CONFLICT); durationSeconds отсутствует."
+  },
+  "unknown.21": {
+   "ru": "UNKNOWN: Длительность и разбиение на услуги для глобальных, локальных услуг и автоматизации героев не заданы: перечислены только эффекты; каждый эффект заведён отдельной услугой с неизвестными ценой и сроком."
+  },
+  "unknown.22": {
+   "ru": "UNKNOWN: Группа vacation (отпуск) - PROPOSED: BlackPearl делит услуги на четыре группы, отпуск в них не назван; отдельная группа нужна, потому что премиум во время отпуска не замораживается."
+  },
+  "unknown.23": {
+   "ru": "UNKNOWN: Какие мгновенные услуги запрещены под осадой, правила возврата списаний и соответствие 15/30/60 суток интервалам 1/6/12 месяцев по порядку (формулировка 'соответствующие') не уточнены."
   },
   "proposed.crystals": {
    "ru": "PROPOSED: 5 единиц на значок ступени A, 10 на значок ступени B (CRYSTAL_ECONOMY.md)."

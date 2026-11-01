@@ -53,6 +53,16 @@ func main() {
 			log.Error("pack invalid", "pack", parts[1], "err", err)
 			os.Exit(1)
 		}
+		// ML-D08: the instance profile and bonuses come from RF_SERVER_PROFILE / RF_PROFILE_BONUSES.
+		// Packs without server profiles ignore them. The result is validated, not yet persisted.
+		if len(p.ServerProfiles) > 0 {
+			rp, err := p.ResolveProfile(cfg.ServerProfile, cfg.ProfileBonuses)
+			if err != nil {
+				log.Error("server profile", "pack", parts[1], "err", err)
+				os.Exit(2)
+			}
+			log.Info("server profile", "pack", parts[1], "profile", rp.ID, "params", rp.Params)
+		}
 		name, speed := parts[0], 1.0
 		if len(parts) >= 3 && parts[2] != "" {
 			name = parts[2]

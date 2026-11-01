@@ -210,3 +210,113 @@ func TestMyLandsPackNotes(t *testing.T) {
 		t.Error("UNKNOWN items must be listed in strings under unknown.*")
 	}
 }
+
+// ML-D08: eight profiles; no invented multipliers; default combat is PROPOSED (TARGET_PROFILE A-01).
+func TestMyLandsPackProfiles(t *testing.T) {
+	l := loadMyLands(t)
+	want := []string{"miner", "combat", "economic", "tactical", "heroic", "strategic", "operational", "faction_war"}
+	if len(l.ServerProfiles) != len(want) {
+		t.Fatalf("profiles = %d, want %d", len(l.ServerProfiles), len(want))
+	}
+	for i, id := range want {
+		s := l.ServerProfiles[i]
+		if s.ID != id {
+			t.Errorf("profile[%d] = %s, want %s", i, s.ID, id)
+		}
+		if len(s.Multipliers) != 0 {
+			t.Errorf("profile %s has invented multipliers", id)
+		}
+		if s.Name["ru"] == "" || s.Desc["ru"] == "" {
+			t.Errorf("profile %s needs name and desc", id)
+		}
+		if s.Default != (id == "combat") {
+			t.Errorf("profile %s default = %v", id, s.Default)
+		}
+	}
+	if !l.ServerProfiles[1].Proposed {
+		t.Error("default profile combat must be PROPOSED")
+	}
+	if len(l.ParamDefs) == 0 {
+		t.Fatal("paramDefs missing")
+	}
+	for _, d := range l.ParamDefs {
+		if !d.Proposed || d.Default != 1 {
+			t.Errorf("paramDef %s must be PROPOSED with default 1", d.ID)
+		}
+	}
+	if _, err := l.ResolveProfile("", nil); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// ML-D09 / CS-T23: paid service catalog; prices UNKNOWN; vacation levels and renewal rule.
+func TestMyLandsPackServices(t *testing.T) {
+	l := loadMyLands(t)
+	groups := map[string]int{}
+	byID := map[string]Service{}
+	for _, s := range l.Services {
+		groups[s.Group]++
+		byID[s.ID] = s
+		if !s.Proposed || s.Renewal != RenewalUpgradeReplaces {
+			t.Errorf("service %s must be proposed with renewal rule", s.ID)
+		}
+		for _, lv := range s.Levels {
+			if lv.Price != 0 || !lv.PriceUnknown {
+				t.Errorf("service %s: price must stay UNKNOWN", s.ID)
+			}
+		}
+	}
+	for _, g := range []string{"premium", "global", "local", "hero_automation", "vacation"} {
+		if groups[g] == 0 {
+			t.Errorf("no services in group %s", g)
+		}
+	}
+	v := byID["vacation"]
+	days, months := []int64{15, 30, 60}, []int{1, 6, 12}
+	if len(v.Levels) != 3 {
+		t.Fatalf("vacation levels = %d", len(v.Levels))
+	}
+	for i, lv := range v.Levels {
+		if lv.DurationSeconds != days[i]*86400 || lv.CooldownMonths != months[i] {
+			t.Errorf("vacation level %d = %+v", i, lv)
+		}
+	}
+	if v.Params["attackLockoutSeconds"].Base != 21600 {
+		t.Error("vacation is forbidden 6 hours before an attack")
+	}
+	if byID["premium"].Levels[0].DurationSeconds != 0 || !byID["premium"].Levels[0].DurationUnknown {
+		t.Error("premium duration is a CONFLICT and must stay unknown")
+	}
+}
+
+func TestServiceValidation(t *testing.T) {
+	base := func() *Pack {
+		p := withMyLands(t)
+		p.Services = []Service{{ID: "vac", Group: "vacation", Renewal: RenewalUpgradeReplaces, Levels: []ServiceLevel{
+			{PriceUnknown: true, DurationSeconds: 100}, {PriceUnknown: true, DurationSeconds: 200}}}}
+		return p
+	}
+	if _, err := Build(base()); err != nil {
+		t.Fatal(err)
+	}
+	cases := []struct {
+		name   string
+		mutate func(p *Pack)
+		want   string
+	}{
+		{"unknown price with value", func(p *Pack) { p.Services[0].Levels[0].Price = 5 }, "priceUnknown"},
+		{"duration unknown with value", func(p *Pack) { p.Services[0].Levels[0].DurationUnknown = true }, "durationUnknown"},
+		{"missing price", func(p *Pack) { p.Services[0].Levels[0].PriceUnknown = false }, "price must be >= 1"},
+		{"bad renewal", func(p *Pack) { p.Services[0].Renewal = "forever" }, "renewal"},
+		{"levels not stronger", func(p *Pack) { p.Services[0].Levels[1].DurationSeconds = 100 }, "stronger"},
+		{"negative cooldown", func(p *Pack) { p.Services[0].Levels[0].CooldownMonths = -1 }, "cooldownMonths"},
+		{"bad param name", func(p *Pack) { p.Services[0].Params = map[string]Num{"Bad": {Base: 1}} }, "parameter name"},
+	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			p := base()
+			c.mutate(p)
+			expectErr(t, p, c.want)
+		})
+	}
+}

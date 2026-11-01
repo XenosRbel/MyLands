@@ -63,6 +63,10 @@ for n, r in pages.items():
     if r["status"] == "NOT_READ":
         err(f"page {n} is NOT_READ")
 
+extra = list(csv.DictReader((REF / "coverage-pages-extra.csv").open()))
+if len(extra) < 90 or any(not r["status"] for r in extra):
+    err("coverage-pages-extra.csv: expected at least 90 rows with status")
+
 # Mechanics coverage: every research ID has an existing card.
 catalog = set(re.findall(r"^\| ([A-Z]+-\d+) \|", (ROOT / "docs/research/MECHANICS_CATALOG.md").read_text(), re.M))
 mech = {r["mechanic_id"]: r["card"] for r in csv.DictReader((REF / "coverage-mechanics.csv").open())}

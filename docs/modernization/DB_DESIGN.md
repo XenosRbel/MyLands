@@ -30,7 +30,7 @@
 
 | ID | Серьёзность | Находка | Действие |
 |---|---|---|---|
-| F-01 | High | `resource_ledger.delta` — JSONB `resourceId -> число`. Это нарушение 1НФ: сумму по ресурсу нельзя проверить SQL | Не исправляется в 0002. Смена формата ломает код. Рекомендация R-1 |
+| F-01 | High | `resource_ledger.delta` — JSONB `resourceId -> число`. Это нарушение 1НФ: сумму по ресурсу нельзя проверить SQL | Исправлено в 0003 (ML-B01): таблица `resource_ledger_entries(ledger_id, resource_id, amount)`, данные перенесены. Столбец `delta` устарел и не читается. Осталось удалить `delta` отдельной миграцией. У `resource_id` нет внешнего ключа: ресурсы описаны в Game Pack, не в таблице |
 | F-02 | High | `resource_ledger.world_id`, `player_id`, `city_id` без внешних ключей. Журнал может ссылаться на несуществующие строки | Добавлены внешние ключи `NOT VALID` |
 | F-03 | Medium | `idempotency_keys.account_id` без внешнего ключа. Строки переживают удаление аккаунта | Добавлен внешний ключ `NOT VALID`, `ON DELETE CASCADE` |
 | F-04 | Medium | Нет CHECK на неотрицательность: `cities.population`, `heroes.level/xp`, `tiles.neutral_level`, `jobs.level` | Добавлены CHECK `NOT VALID` |
@@ -53,7 +53,7 @@
 
 ### 2.1. Рекомендации на будущее
 
-1. R-1. Заменить `resource_ledger.delta` на строки `resource_ledger_lines(ledger_id, resource_id, amount)`. Нужна миграция кода и данных.
+1. R-1. Выполнено в 0003 как `resource_ledger_entries`. Осталось удалить устаревший `resource_ledger.delta`.
 2. R-2. Выполнить `VALIDATE CONSTRAINT` для всех ограничений `NOT VALID` после проверки данных.
 3. R-3. Перейти на `IDENTITY` при следующей пересборке таблиц.
 4. R-4. Замерить план запросов по `cities` до любой нормализации F-08.

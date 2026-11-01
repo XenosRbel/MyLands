@@ -1022,3 +1022,51 @@ func TestRaidReleasesMarketEscrow(t *testing.T) {
 		t.Fatalf("market escrow must be released on a successful raid: %s", status)
 	}
 }
+
+// ML-B01: ledger entries are normalized rows; two racing spends keep the stock >= 0.
+func TestLedgerEntriesMatchSpendUnderRace(t *testing.T) {
+	e := newEnv(t)
+	a := e.player("ledgerrace")
+	e.give(a, pack.Amounts{"wood": 150}) // exactly one hall upgrade
+	var wg sync.WaitGroup
+	for i := 0; i < 2; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			_, _ = e.city(a, func(c game.PCtx, ci *game.City) (any, error) { return c.Build(ci, "hall") })
+		}()
+	}
+	wg.Wait()
+	var sum, rows int64
+	if err := e.s.DB.QueryRow(ctx, `SELECT COALESCE(sum(e.amount),0), count(*) FROM resource_ledger l JOIN resource_ledger_entries e ON e.ledger_id=l.id
+		WHERE l.player_id=$1 AND l.reason='build' AND e.resource_id='wood'`, a.pid).Scan(&sum, &rows); err != nil {
+		t.Fatal(err)
+	}
+	if sum != -150 || rows != 1 {
+		t.Fatalf("wood entries sum=%d rows=%d, want -150 and 1", sum, rows)
+	}
+	if v := e.view(a); v.Resources["wood"] < 0 {
+		t.Fatalf("negative stock: %v", v.Resources)
+	}
+	var neg int
+	_ = e.s.DB.QueryRow(ctx, `SELECT count(*) FROM resource_ledger l LEFT JOIN resource_ledger_entries e ON e.ledger_id=l.id WHERE l.player_id=$1 AND l.reason='build' AND e.ledger_id IS NULL`, a.pid).Scan(&neg)
+	if neg != 0 {
+		t.Fatalf("%d build ledger headers without entries", neg)
+	}
+	// Admin reader returns the same amounts from the entries table.
+	var admin int64
+	_ = e.s.DB.QueryRow(ctx, `INSERT INTO accounts(display_name, is_admin) VALUES ('root-lr', true) RETURNING id`).Scan(&admin)
+	ap, err := e.s.AdminInspect(ctx, admin, a.pid)
+	if err != nil {
+		t.Fatal(err)
+	}
+	found := false
+	for _, l := range ap.Ledger {
+		if l.Reason == "build" && fmt.Sprint(l.Delta["wood"]) == "-150" {
+			found = true
+		}
+	}
+	if !found {
+		t.Fatalf("admin ledger lacks build wood -150: %+v", ap.Ledger)
+	}
+}

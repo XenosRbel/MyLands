@@ -64,7 +64,7 @@ func newWallet(t *testing.T, db *pgxpool.Pool, s seed) int64 {
 func TestMigrationAppliesOnEmptyDatabase(t *testing.T) {
 	db := testutil.DB(t, "migrations")
 	var n int
-	if err := db.QueryRow(ctx, `SELECT count(*) FROM schema_migrations WHERE version IN ('0001_init.sql','0002_mylands_foundations.sql')`).Scan(&n); err != nil || n != 2 {
+	if err := db.QueryRow(ctx, `SELECT count(*) FROM schema_migrations WHERE version IN ('0001_init.sql','0002_mylands_foundations.sql','0003_resource_ledger_entries.sql')`).Scan(&n); err != nil || n != 3 {
 		t.Fatalf("migrations recorded: %d %v", n, err)
 	}
 	for _, tbl := range []string{"server_profiles", "server_param_defs", "server_profile_params", "premium_wallets", "premium_ledger", "payment_orders", "service_defs", "service_instances"} {
@@ -210,4 +210,41 @@ func TestOneActiveServicePerGroup(t *testing.T) {
 	w := newWallet(t, db, s)
 	mustExec(t, db, `INSERT INTO premium_ledger(wallet_id,delta,reason,ref) VALUES ($1,50,'admin_grant','g')`, w)
 	mustExec(t, db, `INSERT INTO premium_ledger(wallet_id,delta,reason,ref,service_instance_id) VALUES ($1,-10,'service_spend','svc:1',$2)`, w, a)
+}
+
+func TestLedgerEntriesBackfillAndConstraints(t *testing.T) {
+	db := testutil.DB(t, "migrations")
+	mustExec(t, db, `DROP SCHEMA public CASCADE; CREATE SCHEMA public;`)
+	partial := fstest.MapFS{}
+	for _, n := range []string{"0001_init.sql", "0002_mylands_foundations.sql"} {
+		b, err := migrations.FS.ReadFile(n)
+		if err != nil {
+			t.Fatal(err)
+		}
+		partial[n] = &fstest.MapFile{Data: b}
+	}
+	if err := platform.Migrate(ctx, db, partial, testutil.Logger()); err != nil {
+		t.Fatal(err)
+	}
+	s := seedPlayer(t, db, "ledger")
+	city := mustID(t, db, `INSERT INTO cities(world_id,player_id,name,x,y,resources,population,econ_updated_at) VALUES ($1,$2,'c',1,1,'{}',10,now()) RETURNING id`, s.world, s.player)
+	mustExec(t, db, `INSERT INTO resource_ledger(world_id,player_id,city_id,reason,ref,delta,at) VALUES
+		($1,$2,$3,'grant','a','{"wood":100,"iron":-5,"zero":0}',now()),
+		($1,$2,$3,'build','b','{"wood":-30}',now()),
+		($1,$2,$3,'grant','c','{}',now())`, s.world, s.player, city)
+	if err := platform.Migrate(ctx, db, migrations.FS, testutil.Logger()); err != nil {
+		t.Fatal(err)
+	}
+	var wood, iron, n int64
+	if err := db.QueryRow(ctx, `SELECT sum(amount) FILTER (WHERE resource_id='wood'), sum(amount) FILTER (WHERE resource_id='iron'), count(*) FROM resource_ledger_entries`).Scan(&wood, &iron, &n); err != nil {
+		t.Fatal(err)
+	}
+	if wood != 70 || iron != -5 || n != 3 {
+		t.Fatalf("backfill wood=%d iron=%d entries=%d, want 70 -5 3", wood, iron, n)
+	}
+	id := mustID(t, db, `SELECT id FROM resource_ledger WHERE ref='a'`)
+	wantCode(t, "23514", db, `INSERT INTO resource_ledger_entries VALUES ($1,'gold',0)`, id)
+	wantCode(t, "23503", db, `INSERT INTO resource_ledger_entries VALUES (999999,'gold',1)`)
+	wantCode(t, "23505", db, `INSERT INTO resource_ledger_entries VALUES ($1,'wood',1)`, id)
+	wantCode(t, "23503", db, `DELETE FROM resource_ledger WHERE id=$1`, id)
 }

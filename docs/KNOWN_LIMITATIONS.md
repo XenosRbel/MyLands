@@ -20,7 +20,7 @@
 - Android project not generated and no APK/AAB built (no Android SDK in the environment). Capacitor config and scripts exist.
 - Yandex/Google platform identity verification not implemented (`/auth/platform` returns 501 except the `dev` platform, which is disabled in production).
 - Rate limiter is in-memory per instance (not shared across instances).
-- Only a baseline load test (200 players, single host). Join under burst is slow (p95 1.2 s). No WebSocket/SSE push (polling).
+- Load tested only on one shared host (1 000 players, 3 of 4 runs passed). Simultaneous joins are serialised per world, about 70 per second. No dedicated-hardware or PvP/market load data. No WebSocket/SSE push (polling).
 - No PITR/WAL archiving configured; logical backups + verified restore script only.
 - Client UI strings exist in English and Russian only; Void Frontier is a demo, not a complete game.
 - Art: UI frames, neutral-site and emblem art and 10 unit portraits are missing; terrain tiles are not seamless; the world map is still a flat square grid (see docs/art/ASSET_GAP_REPORT.md). City buildings are one sprite per type regardless of level.

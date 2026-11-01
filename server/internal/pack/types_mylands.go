@@ -68,6 +68,8 @@ type BuildingLevel struct {
 	Crystals    Amounts        `json:"crystals,omitempty"`
 	TimeSeconds int64          `json:"timeSeconds,omitempty"`
 	Effects     map[string]Num `json:"effects,omitempty"` // building-specific named numbers
+	// Overrides replaces named effects for one server profile id (economic, tactical, ...).
+	Overrides map[string]map[string]Num `json:"overrides,omitempty"`
 }
 
 // ParamDef declares a server profile parameter and its allowed range.
@@ -84,6 +86,9 @@ type ServerProfile struct {
 	Multipliers map[string]float64 `json:"multipliers"`
 }
 
+// NeutralNames is the Names key for monsters, which belong to no race.
+const NeutralNames = "monsters"
+
 // UnitDef is a unit by category and level 1..4 with a parameter table.
 type UnitDef struct {
 	ID       string         `json:"id"`
@@ -91,6 +96,8 @@ type UnitDef struct {
 	Level    int            `json:"level"`
 	Params   map[string]Num `json:"params"` // attackMin, attackMax, health, upkeep, population, rating, ...
 	Cost     Amounts        `json:"cost,omitempty"`
+	// Names holds roster names per race id; NeutralNames is the key for monsters.
+	Names map[string]LocText `json:"names,omitempty"`
 	// Overrides replaces parameters or cost for one server profile id.
 	Overrides map[string]UnitOverride `json:"overrides,omitempty"`
 }

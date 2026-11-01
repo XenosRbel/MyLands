@@ -146,3 +146,38 @@ func TestSamplePackTables(t *testing.T) {
 		t.Fatalf("race override: %+v", c)
 	}
 }
+
+// Additive schema: per-profile building overrides, unit names, table-backed buildings.
+func TestMyLandsBuildingOverridesAndNames(t *testing.T) {
+	p := withMyLands(t)
+	p.BuildingTables[0].Levels[0].Overrides = map[string]map[string]Num{"economic": {"kills": {Base: 60}}}
+	if errs := Validate(p); errs != nil {
+		t.Fatalf("valid overrides rejected: %v", errs)
+	}
+	p.BuildingTables[0].Levels[0].Overrides = map[string]map[string]Num{"ghost": {"kills": {Base: 1}}}
+	expectErr(t, p, `unknown server profile "ghost"`)
+	p = withMyLands(t)
+	p.BuildingTables[0].Levels[0].Overrides = map[string]map[string]Num{"economic": {"Bad_Name": {Base: 1}}}
+	expectErr(t, p, "parameter name")
+	p = withMyLands(t)
+	p.UnitDefs[0].Names = map[string]LocText{"knights": {"en": "Page"}, NeutralNames: {"en": "Rat"}}
+	if errs := Validate(p); errs != nil {
+		t.Fatalf("valid names rejected: %v", errs)
+	}
+	p.UnitDefs[0].Names["orcs"] = LocText{"en": "x"}
+	expectErr(t, p, `names: unknown race "orcs"`)
+	p = withMyLands(t)
+	p.UnitDefs[0].Names = map[string]LocText{"knights": {"de": "x"}}
+	expectErr(t, p, "undeclared locale")
+}
+
+func TestTableBackedBuildingMayOmitLegacyCost(t *testing.T) {
+	p := withMyLands(t)
+	p.Buildings[0].Cost = Cost{}
+	p.Buildings[0].Time = Duration{}
+	if errs := Validate(p); errs != nil { // building "hall" has a table
+		t.Fatalf("table-backed building must not need legacy cost: %v", errs)
+	}
+	p.BuildingTables = nil
+	expectErr(t, p, "cost")
+}

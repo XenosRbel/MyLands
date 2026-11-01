@@ -96,6 +96,12 @@ func (v *validator) myLands() {
 				v.errf("%s: timeSeconds is negative", lw)
 			}
 			v.nums(lw+".effects", l.Effects)
+			for _, prof := range sortedKeys(l.Overrides) {
+				if !v.is("serverProfile", prof) {
+					v.errf("%s.overrides: unknown server profile %q", lw, prof)
+				}
+				v.nums(lw+".overrides."+prof, l.Overrides[prof])
+			}
 		}
 	}
 	defs := map[string]ParamDef{}
@@ -131,6 +137,12 @@ func (v *validator) myLands() {
 			v.errf("%s: level %d out of range [1, %d]", w, u.Level, maxUnitLevel)
 		}
 		v.nums(w+".params", u.Params)
+		for _, k := range sortedKeys(u.Names) {
+			if k != NeutralNames && !v.is("race", k) {
+				v.errf("%s.names: unknown race %q", w, k)
+			}
+			v.text(w+".names."+k, u.Names[k], false)
+		}
 		v.kindAmounts(w+".cost", u.Cost, "resource")
 		for _, prof := range sortedKeys(u.Overrides) {
 			ow := w + ".overrides." + prof

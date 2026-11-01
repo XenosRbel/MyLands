@@ -54,9 +54,12 @@
 | `crystals` | `crystalId -> целое` | Ключ должен быть кристаллом. Значение не меньше 0 |
 | `timeSeconds` | целое | Не меньше 0 |
 | `effects` | `имя -> Num` | Имя в camelCase. Например `kills`, `carrierCapacity` |
+| `overrides` | `profileId -> (имя -> Num)` | Значения для профиля сервера. Профиль должен существовать. Имя в camelCase |
 
 1. Отсутствующий ключ в `cost` означает «не требуется».
 2. На одно здание допустима одна таблица.
+3. `overrides` заменяет только указанные эффекты. Остальные берутся из `effects`.
+4. Если у здания есть таблица, поля `cost` и `time` записи в `buildings` могут быть пустыми. Таблица главнее.
 
 ## 6. Профили серверов
 
@@ -86,6 +89,7 @@
 | `level` | От 1 до 4 |
 | `params` | `имя -> Num`. Например `attackMin`, `attackMax`, `health`, `upkeep`, `population`, `rating` |
 | `cost` | `resourceId -> целое` |
+| `names` | `raceId -> LocText`. Ключ `monsters` задаёт имя монстра. Расы и локали должны существовать |
 | `overrides` | `profileId -> {params, cost}` |
 
 1. Ключ в `overrides` должен быть профилем сервера.
@@ -125,3 +129,15 @@
 2. Команда: `make packs`.
 3. Пример содержит таблицы Fortification и Temple из `tables-dom.txt`.
 4. Количества кристаллов в примере — `PROPOSED`. Источник даёт только цвета.
+
+## 11. Пак `packs/mylands` (ML-D02, ML-D03, ML-D04)
+
+1. Пак создаёт `scripts/gen_mylands_pack.py` из `tables-dom.json` и `units-roster.csv`.
+2. Проверка актуальности: `python3 scripts/gen_mylands_pack.py --check`.
+3. Здания лежат в `buildings` и `buildingTables`. Идентификаторы клановых вариантов имеют суффикс `_kz`.
+4. Таблица простой башни — `tower`. Таблица магической башни — `magic_tower`.
+5. Склад клана — `clan_warehouse`. Резервация клана — `clan_reservation`.
+6. Юниты: `{категория}_{уровень}`, `{категория}_monster_{уровень}`, `{категория}_castle_{уровень}`.
+7. Профили `economic`, `tactical`, `heroic` не имеют множителей. Источник их не задаёт.
+8. Пустая и нулевая ячейка источника не попадает в пак. Список `UNKNOWN` лежит в `strings` под ключами `unknown.NN`.
+9. Тесты: `server/internal/pack/mylands_pack_test.go`.
